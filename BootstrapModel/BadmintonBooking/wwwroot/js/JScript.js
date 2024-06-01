@@ -1,5 +1,5 @@
 ﻿/* Date chooser */
-$document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     const weekRangeElement = document.getElementById("week-range");
     const prevButton = document.getElementById("prev-week");
     const nextButton = document.getElementById("next-week");
@@ -7,7 +7,26 @@ $document.addEventListener("DOMContentLoaded", function () {
     const cancelAllButton = document.getElementById("cancel-all");
     const totalPriceElement = document.getElementById("total-price");
 
-    let currentStartDate = new Date();
+    let currentStartDate = new Date('2024-05-30');
+    let scheduleData = [];
+
+    function initializeScheduleData() {
+        scheduleData = [];
+        const startDate = new Date(currentStartDate);
+        for (let i = 0; i < 7; i++) {
+            const date = new Date(startDate);
+            date.setDate(startDate.getDate() + i);
+            const day = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+            for (let hour = 9; hour <= 20; hour++) {
+                scheduleData.push({
+                    date: day,
+                    time: `${hour}:00`,
+                    booked: false
+                });
+            }
+        }
+    }
 
     function updateWeekRange() {
         const startDate = new Date(currentStartDate);
@@ -15,6 +34,7 @@ $document.addEventListener("DOMContentLoaded", function () {
         endDate.setDate(endDate.getDate() + 6);
         weekRangeElement.textContent = `${formatDate(startDate)} - ${formatDate(endDate)}`;
         updateTableHeaders(startDate);
+        initializeScheduleData();
         addEventListenersToBookableCells();
         updateTotalPrice();
     }
@@ -69,6 +89,14 @@ $document.addEventListener("DOMContentLoaded", function () {
             cell.classList.add("booked");
             cell.classList.remove("bookable");
             cell.textContent = "Booked";
+
+            // Update schedule data
+            const [time, day] = getTimeAndDayFromCell(cell);
+            const timeslot = scheduleData.find(slot => slot.date === day && slot.time === time);
+            if (timeslot) {
+                timeslot.booked = true;
+            }
+
             updateTotalPrice();
         }
     }
@@ -79,8 +107,25 @@ $document.addEventListener("DOMContentLoaded", function () {
             cell.classList.remove("booked");
             cell.classList.add("bookable");
             cell.textContent = "Book Now";
+
+            // Update schedule data
+            const [time, day] = getTimeAndDayFromCell(cell);
+            const timeslot = scheduleData.find(slot => slot.date === day && slot.time === time);
+            if (timeslot) {
+                timeslot.booked = false;
+            }
         });
         updateTotalPrice();
+    }
+
+    function getTimeAndDayFromCell(cell) {
+        const rowIndex = cell.parentElement.rowIndex - 1; // Adjust for header row
+        const colIndex = cell.cellIndex - 1; // Adjust for time column
+
+        const time = document.querySelector(`#schedule tbody tr:nth-child(${rowIndex + 1}) td:first-child`).textContent;
+        const day = document.querySelector(`#schedule thead tr th:nth-child(${colIndex + 2})`).textContent.split('<br>')[1];
+
+        return [time, day];
     }
 
     function addEventListenersToBookableCells() {
@@ -111,3 +156,4 @@ $document.addEventListener("DOMContentLoaded", function () {
 
     updateWeekRange();
 });
+
