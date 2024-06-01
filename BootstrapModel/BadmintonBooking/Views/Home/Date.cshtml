@@ -1,0 +1,160 @@
+﻿@{
+	ViewData["Title"] = "Booking";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<body class="Date">
+    <div class="date-container">
+        <div class="headr">
+            <button class="navi-button" id="prev-week">&lt;</button>
+            <h1 id="week-range"></h1>
+            <button class="navi-button" id="next-week">&gt;</button>
+        </div>
+        <table id="schedule">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Thu<br>May 30</th>
+                    <th>Fri<br>May 31</th>
+                    <th>Sat<br>Jun 1</th>
+                    <th>Sun<br>Jun 2</th>
+                    <th>Mon<br>Jun 3</th>
+                    <th>Tue<br>Jun 4</th>
+                    <th>Wed<br>Jun 5</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>9:00 AM</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>10:00 AM</td>
+                    <td></td>
+                    <td></td>
+                    <td class="bookable">Bookable 24hrs in advance</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>11:00 AM</td>
+                    <td class="bookable">Book Now</td>
+                    <td></td>
+                    <td class="bookable">Bookable 24hrs in advance</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>12:00 PM</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>1:00 PM</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>2:00 PM</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>3:00 PM</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>4:00 PM</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>5:00 PM</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>6:00 PM</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>7:00 PM</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>8:00 PM</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="price">Total Price: $<span id="total-price">0</span></div>
+        <div class="date-container1">
+            <div>
+                <button id="cancel-all">Cancel All Bookings</button>
+            </div>
+            <div>
+                <a asp-area="" asp-controller="Home" asp-action="Payment" id="payment">Pay</a>
+            </div>
+        </div>
+    </div>
+    <script src="JScript.js"></script>
+</body>
