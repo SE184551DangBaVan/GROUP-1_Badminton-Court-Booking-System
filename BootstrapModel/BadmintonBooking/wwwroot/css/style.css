@@ -2,17 +2,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Redressed&family=Ubuntu:wght@400;700&display=swap");
 
 :root {
-  --bg-clr: #001f3f;
-  --white: #fff;
-  --primary-clr: #2f2929;
-  --secondary-clr: #5265a7;
+    --background: #005;
+    --primary: #88D5BF;
+    --secondary: #5D6BF8;
+    --third: #e27fcb;
 }
 
 
 body {
     height: 100vh;
     background: url(../images/photo-1626721105368-a69248e93b32.png) no-repeat;
-    background-color: black;
+    background-color: #24316B;
     background-position: center;
     background-size: cover;
     line-height: 1.6;
@@ -404,7 +404,7 @@ nav {
     background-color: #e9ecef;
     padding: 80px 20px;
     margin: auto -200px;
-    border-radius: 58% 26% 10% 10% / 12% 10% 0% 0%;
+    border-radius: 58% 26% 22% 42% / 12% 10% 12% 9%;
     background: #5265a7;
 }
 
@@ -433,7 +433,7 @@ nav {
     padding: 20px 0;
     margin: 20px;
     border-radius: 56% 44% 69% 31% / 38% 57% 43% 62%;
-    background-image: linear-gradient(to right bottom, #36b5e2, #00a4fb, #008cff, #3469ff, #9a1df5);
+    background-image: linear-gradient(to right top, #5ca7ff, #4797ff, #3a87ff, #3c74ff, #4a5fff);
 }
 
 .team-section .rows {
@@ -748,16 +748,16 @@ nav {
     background-color: #001f3f;
 }
 
-.pay-body .container {
-    width: 750px;
-    height: 500px;
-    border: 1px solid;
-    background-color: #ccc;
-    display: flex;
-    flex-direction: column;
-    padding: 40px;
-    justify-content: space-around;
-}
+    .pay-body .container {
+        width: 750px;
+        height: 500px;
+        border: 2px solid;
+        background-image: linear-gradient(to right bottom, #807e7ed2, #9e9d9db2, #bdbcbda8, #dedddeb2, #ffffff);
+        display: flex;
+        flex-direction: column;
+        padding: 40px;
+        justify-content: space-around;
+    }
 
 .pay-body .container h1 {
     text-align: center;
@@ -773,15 +773,29 @@ nav {
 }
 
 .input-field {
-    border: 1px solid #999;
+    border: 2px solid #999;
+    border-radius: 8px;
 }
 
-.input-field .input {
-    width: 100%;
-    border: none;
-    outline: none;
-    padding: 10px;
-}
+    .input-field input {
+        width: 100%;
+        border: none;
+        border-radius: 6px;
+        outline: none;
+        padding: 6px;
+        background-color: #F3F5FF;
+    }
+
+        .input-field input:focus-within {
+            width: 100%;
+            border: none;
+            border-radius: 6px;
+            padding: 10px;
+            outline: none;
+            background-image: linear-gradient(to right, #898c9b, #a2a5b3, #bdbfcc, #d8dae5, #f3f5ff);
+            transition: all 0.5s ease;
+            font: italic;
+        }
 
 .selection {
     display: flex;
@@ -789,12 +803,17 @@ nav {
     align-items: center;
 }
 
-    .selection .select {
-        padding: 10px 20px;
-    }
+.selection .select {
+    padding: 10px 20px;
+}
+
+.selection .date option {
+    color: white;
+    background-color: darkgray;
+}
 
 .confirm {
-    background-color: blueviolet;
+    background-color: dimgray;
     color: white;
     text-align: center;
     text-transform: uppercase;
@@ -802,10 +821,14 @@ nav {
     padding: 10px;
     font-size: 18px;
     transition: 0.5s;
+    border-radius: 15px;
 }
 
     .confirm:hover {
-        background-color: dodgerblue;
+        background-color: brown;
+        color: white;
+        border-radius: 10px;
+        transition: 0.5s ease;
     }
 
 .cards img {
@@ -814,22 +837,21 @@ nav {
 
 /*Invoice*/
 .inv-body {
-  background: var(--bg-clr);
-  font-size: 12px;
-  line-height: 20px;
-  color: var(--primary-clr);
-  padding: 80px 20px;
+    background-image: linear-gradient(to top, #ffffff, #edf5ff, #cbefff, #9aecff, #61e9f6);
+    font-size: 12px;
+    line-height: 20px;
+    padding: 80px 20px;
 }
 
-.inv-body .invoice {
-  width: 600px;
-  max-width: 100%;
-  height: auto;
-  background: var(--white);
-  padding: 50px 60px;
-  position: relative;
-  margin: 20px auto;
-}
+    .inv-body .invoice {
+        width: 600px;
+        max-width: 100%;
+        height: auto;
+        background-image: linear-gradient(to right top, #ffffff, #ddf9ff, #8afdff, #1afeee, #61f696);
+        padding: 50px 60px;
+        position: relative;
+        margin: 20px auto;
+    }
 
 .inv-body .w_15 {
   width: 15%;

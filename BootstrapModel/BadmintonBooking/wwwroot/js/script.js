@@ -16,10 +16,10 @@
     })
 
     $(window).scroll(function () {
-        if (this.scrollY > 45) {
-            $('.welc-images').addClass("fly");
+        if (this.scrollY > 220) {
+            $('.welc-images').addClass("flew");
         } else {
-            $('.welc-images').removeClass("fly");
+            $('.welc-images').removeClass("flew");
         }
     })
 
