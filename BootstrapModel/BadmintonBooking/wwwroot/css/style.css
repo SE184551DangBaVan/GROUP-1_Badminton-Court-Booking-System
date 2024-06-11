@@ -33,6 +33,7 @@ nav {
     width: 100%;
     padding: 20px;
     transition: all 0.4s ease;
+    z-index: 1;
 }
 
     nav.sticky {
@@ -176,6 +177,17 @@ nav {
     background: brown;
 }
 
+.heading .btn-text{
+    opacity: 0.01;
+    font-size: xx-small;
+    transition: all 0.3s ease; 
+}
+
+.heading .welcome-container:has(.button:hover) .btn-text:not(.button:hover){
+    opacity: 10;
+    font-size: medium;
+}
+
 .welc-images {
     display: flex;
     justify-content: space-between;
@@ -211,14 +223,6 @@ nav {
         margin-bottom: 2rem;
     }
 
-.types {
-    transition: all 0.3s ease;
-}
-
-    .types.flow {
-        padding-top: 40px;
-    }
-
 .court-list {
     display: flex;
     gap: 40px;
@@ -230,10 +234,20 @@ nav {
     background: #333;
     border-radius: 6px;
     width: 20%;
+    margin: 50px;
+    box-shadow: 1px 0 2px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.courtlist .court-card.pop {
+    background: #333;
+    border-radius: 6px;
+    width: 20%;
     margin: 20px;
     box-shadow: 1px 0 2px rgba(0,0,0,0.1);
     transition: transform 0.2s;
 }
+
 
     .court-card:hover {
         transform: scale(1.02);
@@ -369,6 +383,7 @@ nav {
 .about-section {
     padding: 200px;
     width: 100%;
+    height: 110vmax;
     background: linear-gradient(to left bottom, #36b5e2, #0097e9, #0076eb, #0050e1, #060fc6);
 }
 
@@ -668,7 +683,8 @@ nav {
 /*Date*/
 .date-container {
     width: 50%;
-    margin: 70px auto;
+    margin: 40px auto;
+    background: #ccc;
 }
 
 .headr {
@@ -690,14 +706,14 @@ nav {
 }
 
     #schedule th, #schedule td {
-        border: 1px solid #ccc;
+        border: 2px solid #333;
         padding: 10px;
         text-align: center;
     }
 
 .bookable {
     cursor: pointer;
-    background-color: #90ee90;
+    background-color: #1dffba;
 }
 
 .booked {
@@ -710,23 +726,54 @@ nav {
     display: block;
     margin: 20px auto;
     padding: 10px 20px;
+    border-radius: 5px;
+    margin: 20px 20px;
     font-size: 1em;
     cursor: pointer;
-    background-color: #f00;
+    background-image: linear-gradient(to right bottom, #e91f1f, #f40053, #e7008d, #b600cb, #0041ff);
     color: #fff;
     border: none;
+    transition: all 0.4s ease;
 }
+
+    #cancel-all:hover {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 25px;
+        border-radius: 5px;
+        margin: 20px 20px;
+        font-size: 1em;
+        cursor: pointer;
+        background-image: linear-gradient(to right bottom, #0041ff, #b600cb, #e7008d, #f40053, #e91f1f);
+        color: #fff;
+        border: none;
+    }
 
 #payment {
     display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
+    text-decoration: none;
+    margin: 20px 20px;
+    padding: 10px 40px;
+    border-radius: 5px;
     font-size: 1em;
     cursor: pointer;
-    background-color: rgb(0, 17, 255);
+    background-image: linear-gradient(to right bottom, #7700e9, #574efb, #3b71ff, #3b8eff, #59a6ff);
     color: #fff;
     border: none;
+    transition: all 0.4s ease;
 }
+
+    #payment:hover {
+        display: block;
+        margin: 20px 20px;
+        padding: 10px 45px;
+        border-radius: 5px;
+        font-size: 1em;
+        cursor: pointer;
+        background-image: linear-gradient(to right bottom, #59a6ff, #3b8eff, #3b71ff, #574efb, #7700e9);
+        color: #fff;
+        border: none;
+    }
 
 .date-container1 {
     display: flex;
