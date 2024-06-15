@@ -1,5 +1,4 @@
-﻿/* Date chooser */
-document.addEventListener("DOMContentLoaded", function () {
+﻿document.addEventListener("DOMContentLoaded", function () {
     const weekRangeElement = document.getElementById("week-range");
     const prevButton = document.getElementById("prev-week");
     const nextButton = document.getElementById("next-week");
@@ -7,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const cancelAllButton = document.getElementById("cancel-all");
     const totalPriceElement = document.getElementById("total-price");
 
-    let currentStartDate = new Date('2024-05-30');
+    let currentStartDate = new Date();
     let scheduleData = [];
 
     function initializeScheduleData() {
@@ -21,11 +20,17 @@ document.addEventListener("DOMContentLoaded", function () {
             for (let hour = 9; hour <= 20; hour++) {
                 scheduleData.push({
                     date: day,
-                    time: `${hour}:00`,
+                    time: formatTime(hour),
                     booked: false
                 });
             }
         }
+    }
+
+    function formatTime(hour) {
+        const ampm = hour >= 12 ? 'PM' : 'AM';
+        const formattedHour = hour % 12 || 12;
+        return `${formattedHour}:00 ${ampm}`;
     }
 
     function updateWeekRange() {
@@ -36,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
         updateTableHeaders(startDate);
         initializeScheduleData();
         addEventListenersToBookableCells();
-        updateTotalPrice();
+        fetchBookedTimeslots();
     }
 
     function formatDate(date) {
@@ -46,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function updateTableHeaders(startDate) {
         const today = new Date();
-        today.setHours(0, 0, 0, 0); // Reset time to the start of the day
+        today.setHours(0, 0, 0, 0);
 
         for (let i = 1; i <= 7; i++) {
             const header = scheduleTable.cells[i];
@@ -92,13 +97,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Update schedule data
             const [time, day] = getTimeAndDayFromCell(cell);
+            console.log([time, day]);
             const timeslot = scheduleData.find(slot => slot.date === day && slot.time === time);
             if (timeslot) {
                 timeslot.booked = true;
             }
-
+            sendBookingData({ time, date: day, booked: true });
             updateTotalPrice();
         }
+    }
+    function sendBookingData(slot) {
+        fetch('/Booking/UpdateBooking', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(slot),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
 
     function cancelAllBookings() {
@@ -114,16 +141,18 @@ document.addEventListener("DOMContentLoaded", function () {
             if (timeslot) {
                 timeslot.booked = false;
             }
+            sendBookingData({ time, date: day, booked: false });
         });
         updateTotalPrice();
     }
 
     function getTimeAndDayFromCell(cell) {
-        const rowIndex = cell.parentElement.rowIndex - 1; // Adjust for header row
-        const colIndex = cell.cellIndex - 1; // Adjust for time column
+        const rowIndex = cell.parentElement.rowIndex;
+        const colIndex = cell.cellIndex;
 
-        const time = document.querySelector(`#schedule tbody tr:nth-child(${rowIndex + 1}) td:first-child`).textContent;
-        const day = document.querySelector(`#schedule thead tr th:nth-child(${colIndex + 2})`).textContent.split('<br>')[1];
+        const time = document.querySelector(`#schedule tbody tr:nth-child(${rowIndex}) td:first-child`).textContent;
+        const dayHeader = document.querySelector(`#schedule thead tr th:nth-child(${colIndex + 1})`).innerHTML;
+        const day = dayHeader.split('<br>')[1].trim();
 
         return [time, day];
     }
@@ -142,6 +171,54 @@ document.addEventListener("DOMContentLoaded", function () {
         totalPriceElement.textContent = totalPrice;
     }
 
+    function fetchBookedTimeslots() {
+        fetch('/Booking/GetBookSlots')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(slot => {
+                    const time = formatTo12Hour(slot.tsStart);
+                    const date = formatToDate(slot.tsDate);
+
+                    const cell = findCellByTimeAndDate(time, date);
+                    if (cell) {
+                        cell.classList.remove("bookable", "booked");
+                        cell.textContent = "";
+                    }
+                });
+                updateTotalPrice();
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function formatTo12Hour(time24) {
+        const [hour, minute] = time24.split(':');
+        const hourInt = parseInt(hour, 10);
+        const ampm = hourInt >= 12 ? 'PM' : 'AM';
+        const hour12 = hourInt % 12 || 12;
+        return `${hour12}:${minute} ${ampm}`;
+    }
+
+    function formatToDate(date) {
+        const dateObj = new Date(date);
+        return dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    }
+
+    function findCellByTimeAndDate(time, date) {
+        const rows = document.querySelectorAll("#schedule tbody tr");
+        for (let row of rows) {
+            const timeCell = row.cells[0].textContent;
+            if (timeCell === time) {
+                for (let i = 1; i < row.cells.length; i++) {
+                    const dateCell = document.querySelector(`#schedule thead tr th:nth-child(${i + 1})`).innerHTML.split('<br>')[1];
+                    if (dateCell === date) {
+                        return row.cells[i];
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     prevButton.addEventListener("click", function () {
         currentStartDate.setDate(currentStartDate.getDate() - 7);
         updateWeekRange();
@@ -156,4 +233,3 @@ document.addEventListener("DOMContentLoaded", function () {
 
     updateWeekRange();
 });
-
