@@ -1,12 +1,28 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using BadmintonBooking.Data;
+using Microsoft.Extensions.Options;
+using demobadminton.Repository.Service;
+using demobadminton.Repository.Interface;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("BadmintonBookingIdentityContextConnection") ?? throw new InvalidOperationException("Connection string 'BadmintonBookingIdentityContextConnection' not found.");
 
 builder.Services.AddDbContext<BadmintonBookingIdentityContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<BadmintonBookingIdentityContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>(options => {options.SignIn.RequireConfirmedAccount = true;options.SignIn.RequireConfirmedEmail = true;
+}).AddRoles<IdentityRole>().AddEntityFrameworkStores<BadmintonBookingIdentityContext>().AddDefaultTokenProviders();
+builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.ConfigureApplicationCookie(options =>
+{
+
+    options.AccessDeniedPath = "/Account/Login";
+    options.LoginPath = "/Account/Login";
+    options.LogoutPath = "/Account/Logout";
+    options.Cookie.Name = "BadmintonBooking";
+    options.ExpireTimeSpan = TimeSpan.FromDays(30);
+    options.SlidingExpiration = true;
+
+});
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

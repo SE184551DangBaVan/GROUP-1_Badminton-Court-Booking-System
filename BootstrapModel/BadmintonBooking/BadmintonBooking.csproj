@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -23,7 +23,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Account\ForgetPassword.cshtml" />
+    <None Include="Views\Account\ForgetPasswordConfirmation.cshtml" />
+    <None Include="Views\Account\Login.cshtml" />
+    <None Include="Views\Account\Register.cshtml" />
+    <None Include="Views\Account\ResetPassword.cshtml" />
     <None Include="wwwroot\js\site.js" />
+    <None Include="wwwroot\Template\EmailConfirmation.cshtml" />
+    <None Include="wwwroot\Template\ResetPassword.cshtml" />
+    <None Include="wwwroot\Template\Welcome.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

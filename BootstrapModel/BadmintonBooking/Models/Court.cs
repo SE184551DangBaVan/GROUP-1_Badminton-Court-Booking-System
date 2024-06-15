@@ -24,4 +24,6 @@ public partial class Court
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
     public virtual ICollection<TimeSlot> TimeSlots { get; set; } = new List<TimeSlot>();
+
+    public virtual AspNetUser User { get; set; } = null!;
 }

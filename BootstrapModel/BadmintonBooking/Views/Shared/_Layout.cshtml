@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.js"></script>
-    <link rel="stylesheet" href="~/BadmintonBooking.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/demobadminton.styles.css" asp-append-version="true" />
 
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
@@ -27,16 +27,17 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Profile">Profile</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About Us</a></li>
                 </ul>
+                <partial name="_LoginPartial" />
             </div>
         </nav>
     </header>
-    
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    
 
-    
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+
+
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

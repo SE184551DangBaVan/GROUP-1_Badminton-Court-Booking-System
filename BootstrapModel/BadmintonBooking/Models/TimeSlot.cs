@@ -24,4 +24,6 @@ public partial class TimeSlot
     public virtual Booking BIdNavigation { get; set; } = null!;
 
     public virtual Court Co { get; set; } = null!;
+
+    public virtual AspNetUser User { get; set; } = null!;
 }

@@ -22,4 +22,6 @@ public partial class Booking
     public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
 
     public virtual ICollection<TimeSlot> TimeSlots { get; set; } = new List<TimeSlot>();
+
+    public virtual AspNetUser User { get; set; } = null!;
 }
