@@ -1,0 +1,90 @@
+﻿@model IEnumerable<BadmintonBooking.Models.Court>
+@{
+    ViewData["Title"] = "Index";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Badminton Courts</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .table img {
+            max-width: 150px;
+            max-height: 150px;
+            object-fit: cover;
+        }
+        .header-btn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="header-btn mb-3">
+                    <h1 class="text-center">Badminton Courts</h1>
+                    <a class="btn btn-primary" asp-action="AddCourt" asp-controller="Admin">Add Court</a>
+                </div>
+                <table class="table table-bordered table-hover shadow-sm">
+                    <thead>
+                        <tr class="text-center bg-success text-light">
+                            <th>Court Id</th>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Image</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach(var c in Model)
+                            {
+                                var imagePath = "/Upload/Image/" + c.CoPath;
+                                <tr>
+                                    <td>@c.CoId</td>
+                                    <td>@c.CoName</td>
+                                    <td>@c.CoAddress</td>
+                                    <td>@c.CoInfo</td>
+                                    <td>@c.CoPrice</td>
+
+                                    <td>
+                                        <img src="@imagePath" class="rounded-circle" width="100px" height="100px">
+                                    </td>
+                                        
+                                    <td>@(c.CoStatus ? "Active" : "Inactive")</td>
+                                    <td >
+                                        <a class="btn btn-primary" asp-action="EditCourt" asp-asp-controller="Admin" asp-asp-route-id="@c.CoId">Edit</a>
+                                        <a class="btn btn-warning" asp-action="DeleteCourt" asp-asp-controller="Admin" asp-asp-route-id="@c.CoId">Delete</a>
+                                        <a class="btn btn-danger" asp-action="DetailCourt" asp-asp-controller="Admin" asp-asp-route-id="@c.CoId">Detail</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="7">No courts available</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -66,7 +66,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 129,
-          "SelectedChildIndex": 64,
+          "SelectedChildIndex": 63,
           "Children": [
             {
               "$type": "Bookmark",
@@ -321,10 +321,6 @@
               "Name": "ST:27:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
-            },
-            {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "AdminCourtt.js",
@@ -347,8 +343,7 @@
               "RelativeToolTip": "BadmintonBooking\\Views\\Home\\Index.cshtml",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-15T14:21:54.514Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-15T14:21:54.514Z"
             },
             {
               "$type": "Document",
@@ -360,8 +355,7 @@
               "RelativeToolTip": "BadmintonBooking\\Views\\Admin\\AddCourt.cshtml",
               "ViewState": "AQIAACcAAAAAAAAAAAAAACwAAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-15T14:09:07.147Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-15T14:09:07.147Z"
             },
             {
               "$type": "Document",
@@ -373,8 +367,7 @@
               "RelativeToolTip": "BadmintonBooking\\Views\\Admin\\Show.cshtml",
               "ViewState": "AQIAACwAAAAAAAAAAAAUwDsAAAA3AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-15T13:28:17.558Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-15T13:28:17.558Z"
             },
             {
               "$type": "Document",
@@ -386,8 +379,7 @@
               "RelativeToolTip": "BadmintonBooking\\Controllers\\AdminController.cs",
               "ViewState": "AQIAAC4AAAAAAAAAAAAkwEAAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-15T08:06:03.552Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-15T08:06:03.552Z"
             },
             {
               "$type": "Document",
@@ -399,8 +391,7 @@
               "RelativeToolTip": "BadmintonBooking\\Models\\Court.cs",
               "ViewState": "AQIAAAgAAAAAAAAAAAAAwBQAAAAvAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-15T14:01:10.711Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-15T14:01:10.711Z"
             },
             {
               "$type": "Document",
@@ -497,6 +488,10 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
               "WhenOpened": "2024-06-15T06:15:45.012Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             }
           ]
         },

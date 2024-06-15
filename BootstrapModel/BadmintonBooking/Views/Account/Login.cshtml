@@ -1,0 +1,43 @@
+﻿@using demobadminton.ViewModels
+@model LoginVM
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_LayoutLR.cshtml";
+}
+<form method="post" asp-action="Login" asp-asp-controller="Account">
+    <h3 class="text-muted mb-1" style="font:20px">Login</h3>
+    <hr />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="mb-3">
+        <label class="mb-2" asp-for="Email"></label>
+        <input type="email" class="form-control" asp-for="Email" placeholder="Enter email" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="mb-2" asp-for="Password"></label>
+        <input type="password" class="form-control" asp-for="Password" placeholder="Enter password" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="mb-3"> 
+        <input type="checkbox" asp-for="RememberMe" />Remember me
+    </div>
+    <div class="mb-3">
+        <div class="row">
+            <div class="col-6">
+                <a asp-action="ForgetPassword" asp-controller="Account"  class="float-end btn btn-sm btn-outline-primary">Forget Password</a>
+            </div>
+            <div class="col-6">
+                <a class=" btn btn-sm btn-outline-primary">Forget UserName</a>
+            </div>
+        </div>
+    </div>
+    <div class="d-grid">
+        <button type="submit" class="btn btn-primary btn-block m-2">Login</button>
+    </div>
+
+
+
+</form>
+@section scripts{
+    <partial name="_ValidationScriptsPartial.cshtml"/>
+}
