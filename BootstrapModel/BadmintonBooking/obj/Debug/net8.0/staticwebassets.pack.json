@@ -181,6 +181,18 @@
       "PackagePath": "staticwebassets\\BadmintonBooking.bundle.scp.css"
     },
     {
+      "Id": "C:\\final swp\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\wwwroot\\Upload\\Image\\15b3c9f5-8700-4bce-b1ba-293cb183b792_court3.jpg",
+      "PackagePath": "staticwebassets\\Upload\\Image\\15b3c9f5-8700-4bce-b1ba-293cb183b792_court3.jpg"
+    },
+    {
+      "Id": "C:\\final swp\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\wwwroot\\Upload\\Image\\678a5c13-624f-41fc-b0a0-bee768df7ae7_nhanvien.jpg",
+      "PackagePath": "staticwebassets\\Upload\\Image\\678a5c13-624f-41fc-b0a0-bee768df7ae7_nhanvien.jpg"
+    },
+    {
+      "Id": "C:\\final swp\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\wwwroot\\Upload\\Image\\b304da77-bb49-4e08-baae-ad969b18489d_badmintoncourt.jpeg",
+      "PackagePath": "staticwebassets\\Upload\\Image\\b304da77-bb49-4e08-baae-ad969b18489d_badmintoncourt.jpeg"
+    },
+    {
       "Id": "C:\\final swp\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\wwwroot\\css\\style.css",
       "PackagePath": "staticwebassets\\css\\style.css"
     },
@@ -239,6 +251,10 @@
     {
       "Id": "C:\\final swp\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\wwwroot\\images\\photo-1626721105368-a69248e93b32.png",
       "PackagePath": "staticwebassets\\images\\photo-1626721105368-a69248e93b32.png"
+    },
+    {
+      "Id": "C:\\final swp\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\wwwroot\\js\\AdminCourtt.js",
+      "PackagePath": "staticwebassets\\js\\AdminCourtt.js"
     },
     {
       "Id": "C:\\final swp\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\wwwroot\\js\\JScript.js",
