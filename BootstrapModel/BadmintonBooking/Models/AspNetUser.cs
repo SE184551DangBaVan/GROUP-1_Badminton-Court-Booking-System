@@ -45,7 +45,5 @@ public partial class AspNetUser
 
     public virtual ICollection<Court> Courts { get; set; } = new List<Court>();
 
-    public virtual ICollection<TimeSlot> TimeSlots { get; set; } = new List<TimeSlot>();
-
     public virtual ICollection<AspNetRole> Roles { get; set; } = new List<AspNetRole>();
 }

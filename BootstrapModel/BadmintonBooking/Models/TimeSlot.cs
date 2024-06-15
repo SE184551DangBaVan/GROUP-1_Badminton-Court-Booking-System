@@ -17,13 +17,9 @@ public partial class TimeSlot
 
     public int CoId { get; set; }
 
-    public string UserId { get; set; } = null!;
-
     public int BId { get; set; }
 
     public virtual Booking BIdNavigation { get; set; } = null!;
 
     public virtual Court Co { get; set; } = null!;
-
-    public virtual AspNetUser User { get; set; } = null!;
 }

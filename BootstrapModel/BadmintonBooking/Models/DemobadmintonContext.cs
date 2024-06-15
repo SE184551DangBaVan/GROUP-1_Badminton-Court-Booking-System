@@ -206,7 +206,6 @@ public partial class DemobadmintonContext : DbContext
             entity.Property(e => e.TsDate).HasColumnName("TS_Date");
             entity.Property(e => e.TsEnd).HasColumnName("TS_End");
             entity.Property(e => e.TsStart).HasColumnName("TS_Start");
-            entity.Property(e => e.UserId).HasMaxLength(450);
 
             entity.HasOne(d => d.BIdNavigation).WithMany(p => p.TimeSlots)
                 .HasForeignKey(d => d.BId)
@@ -217,11 +216,6 @@ public partial class DemobadmintonContext : DbContext
                 .HasForeignKey(d => d.CoId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Time Slot.CO_ID");
-
-            entity.HasOne(d => d.User).WithMany(p => p.TimeSlots)
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_TimeSlot_AspNetUsers");
         });
 
         OnModelCreatingPartial(modelBuilder);
