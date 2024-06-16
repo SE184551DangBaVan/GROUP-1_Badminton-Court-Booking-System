@@ -4,11 +4,12 @@ using BadmintonBooking.Data;
 using Microsoft.Extensions.Options;
 using demobadminton.Repository.Service;
 using demobadminton.Repository.Interface;
+using BadmintonBooking.Models;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("BadmintonBookingIdentityContextConnection") ?? throw new InvalidOperationException("Connection string 'BadmintonBookingIdentityContextConnection' not found.");
 
 builder.Services.AddDbContext<BadmintonBookingIdentityContext>(options => options.UseSqlServer(connectionString));
-
+builder.Services.AddDbContext<DemobadmintonContext>();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => {options.SignIn.RequireConfirmedAccount = true;options.SignIn.RequireConfirmedEmail = true;
 }).AddRoles<IdentityRole>().AddEntityFrameworkStores<BadmintonBookingIdentityContext>().AddDefaultTokenProviders();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
