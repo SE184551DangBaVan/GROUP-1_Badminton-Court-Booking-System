@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "UF9HAEMI20FYmzH6BHQX7rSJdpC2IOZPA1zueLRxfeA=",
+  "Hash": "uYFXrH/JfjP29jbaCb1JrcKZlRyMj2Q7UTtnlWKKfdo=",
   "Source": "BadmintonBooking",
   "BasePath": "_content/BadmintonBooking",
   "Mode": "Default",
@@ -4423,6 +4423,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Upload\\Image\\b304da77-bb49-4e08-baae-ad969b18489d_badmintoncourt.jpeg"
+    },
+    {
+      "Identity": "C:\\final swp\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\wwwroot\\Upload\\Image\\f23497b3-19d1-4419-9e36-3cfb91387d2c_Badminton Court.jpg",
+      "SourceId": "BadmintonBooking",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\final swp\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\wwwroot\\",
+      "BasePath": "_content/BadmintonBooking",
+      "RelativePath": "Upload/Image/f23497b3-19d1-4419-9e36-3cfb91387d2c_Badminton Court.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Upload\\Image\\f23497b3-19d1-4419-9e36-3cfb91387d2c_Badminton Court.jpg"
     },
     {
       "Identity": "C:\\Users\\theji\\.nuget\\packages\\bootstrap\\5.3.3\\contentFiles\\any\\any\\wwwroot\\css\\bootstrap.css",

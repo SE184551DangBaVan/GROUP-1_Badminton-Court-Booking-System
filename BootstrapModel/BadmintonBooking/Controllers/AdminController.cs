@@ -63,6 +63,19 @@ namespace BadmintonBooking.Controllers
             }
             return View(model);
         }
+        public IActionResult DetailCourt(int id)
+        {
+            DemobadmintonContext context = new DemobadmintonContext();
+            var data = context.Courts.FirstOrDefault(c => c.CoId == id);
+            if (data==null)
+            {
+                return NotFound();
+            }
+
+            return View(data);
+
+
+        }
 
 
 
