@@ -76,6 +76,81 @@ namespace BadmintonBooking.Controllers
 
 
         }
+        public IActionResult EditCourt(int id)
+        {
+            DemobadmintonContext context = new DemobadmintonContext();
+            var data = context.Courts.FirstOrDefault(c => c.CoId == id);
+            if (data!=null)
+            {
+                return View(data);
+            }
+            else
+            {
+                return RedirectToAction("Show","Admin");
+            }
+
+            
+            
+           
+            
+        }
+        [HttpPost]
+        public IActionResult EditCourt(Court model)
+        {
+            DemobadmintonContext context = new DemobadmintonContext();
+            var data = context.Courts.FirstOrDefault(c => c.CoId == model.CoId);
+            try
+            {
+                ModelState.Remove("UserId");
+                ModelState.Remove("User");
+                if (ModelState.IsValid)
+                {
+                   
+                    string uniqueFileName = string.Empty;
+                    if (model.ImagePath != null)
+                    {
+                        if (data.CoPath != null)
+                        {
+                            string filepath = Path.Combine(environment.WebRootPath, "Upload/Image", data.CoPath);
+                            if (System.IO.File.Exists(filepath))
+                            {
+                                System.IO.File.Delete(filepath);
+
+                            }
+                        }
+                        uniqueFileName = UploadImage(model);
+                    }
+                        data.CoId = model.CoId;
+                        data.CoName = model.CoName;
+                        data.CoAddress = model.CoAddress;
+                        data.CoInfo = model.CoInfo;
+                        data.CoPrice=model.CoPrice;
+                        data.CoStatus = true;
+                        data.UserId = "1";
+                        
+                        if (model.ImagePath != null)
+                        {
+                            data.CoPath = uniqueFileName;
+                        }
+                        context.Courts.Update(data);
+                        context.SaveChanges();
+                    TempData["Success"] = "Court Updated Successfully";
+                }
+                else
+                {
+                    return View(model);
+                }
+                
+
+            }
+               
+            catch (Exception ex) 
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+            }
+            return RedirectToAction("Show", "Admin");
+            }
+        
 
 
 
