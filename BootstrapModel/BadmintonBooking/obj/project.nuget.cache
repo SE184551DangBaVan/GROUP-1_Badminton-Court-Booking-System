@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "rDCYkjC3op70KFn7Uc+TMT0UT2eRjtO4J0kLA5/U6UWXjK9LBBWP1pXhiwfUmRJsCf16ZD6zhQ3CL88sBAiNhg==",
+  "dgSpecHash": "xNBrbImGC/R+tqJvnYDN0QTxnjo5QNQRaTT81fhYLN81G6kHQ3ZyO4BBm28MCKKtQw8jlNFU5ojzkWuIOgXpbQ==",
   "success": true,
   "projectFilePath": "C:\\final swp\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\theji\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\theji\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
     "C:\\Users\\theji\\.nuget\\packages\\bootstrap\\5.3.3\\bootstrap.5.3.3.nupkg.sha512",
+    "C:\\Users\\theji\\.nuget\\packages\\fontawesome\\4.7.0\\fontawesome.4.7.0.nupkg.sha512",
     "C:\\Users\\theji\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\theji\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\theji\\.nuget\\packages\\humanizer.core.af\\2.14.1\\humanizer.core.af.2.14.1.nupkg.sha512",

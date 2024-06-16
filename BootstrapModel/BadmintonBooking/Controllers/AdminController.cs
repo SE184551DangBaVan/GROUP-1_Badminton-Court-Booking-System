@@ -12,10 +12,18 @@ namespace BadmintonBooking.Controllers
         {
             this.environment = environment;
         }
-        public IActionResult Show()
+        public IActionResult Show(int page=1)
         {
             DemobadmintonContext context = new DemobadmintonContext();
             var courtlist= context.Courts.ToList();
+            // paging
+            int NoOfRecordPerPage = 5;
+            int NoOfPages = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(courtlist.Count) / Convert.ToDouble(NoOfRecordPerPage)));
+            int NoOfRecordToSkip = (page - 1) * NoOfRecordPerPage;
+            ViewBag.Page = page;
+            ViewBag.NoOfPages=NoOfPages;
+            courtlist = courtlist.Skip(NoOfRecordToSkip).Take(NoOfRecordPerPage).ToList();
+
             return View(courtlist);
         }
         public IActionResult AddCourt()
@@ -150,7 +158,23 @@ namespace BadmintonBooking.Controllers
             }
             return RedirectToAction("Show", "Admin");
             }
-        
+        public IActionResult DeleteCourt(int id)
+        {
+            DemobadmintonContext context = new DemobadmintonContext();
+            var data = context.Courts.FirstOrDefault(c => c.CoId == id);
+            if (data==null||id==0)
+            {
+                return NotFound();
+            }
+            else
+            {
+                data.CoStatus = false;
+                context.Courts.Update(data);
+                context.SaveChanges();
+                TempData["Success"] = "Court Deleted Successfully";
+            }
+            return RedirectToAction("Show", "Admin");
+        }
 
 
 
