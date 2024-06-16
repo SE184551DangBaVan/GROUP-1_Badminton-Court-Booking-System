@@ -1,14 +1,17 @@
-﻿@{
+﻿@model IEnumerable<BadmintonBooking.Models.Court>
+@{
 	ViewData["Title"] = "Home Page";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 
-	var courts = new List<dynamic>
+	var courts = Model.Select(c => new
 	{
-		new { Name = "Court 1", Description = "Indoor court with hardwood flooring.", ImageUrl = "image1_full.png" },
-		new { Name = "Court 2", Description = "Outdoor court with synthetic surface.", ImageUrl = "image2_full.png" },
-		new { Name = "Court 3", Description = "Indoor court with rubber flooring.", ImageUrl = "image3_full.png" }
-	};
+		Name = c.CoName,
+		Description = c.CoInfo,
+		ImageUrl = "/Upload/Image/" + c.CoPath
+	}).ToList();
 }
+	
+	
 
 <body>
 	<script src="~/js/script.js"></script>
@@ -44,7 +47,7 @@
 				@foreach (var court in courts)
 				{
 					<div class="court-card">
-						<img src="~/images/@court.ImageUrl" alt="@court.Name">
+						<img src="@court.ImageUrl" alt="@court.Name">
 						<h2>@court.Name</h2>
 						<p>@court.Description</p>
 						<div class="buttons">

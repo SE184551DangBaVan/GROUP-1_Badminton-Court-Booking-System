@@ -1,5 +1,6 @@
 using BadmintonBooking.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using System.Diagnostics;
 
 namespace BadmintonBooking.Controllers
@@ -15,7 +16,11 @@ namespace BadmintonBooking.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            DemobadmintonContext context = new DemobadmintonContext();
+            var courtlist = context.Courts.Where(c=>c.CoStatus==true).ToList();
+           
+
+            return View(courtlist);
         }
 
         public IActionResult Login()
