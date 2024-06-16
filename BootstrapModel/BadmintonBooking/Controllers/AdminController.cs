@@ -1,5 +1,6 @@
 ﻿using BadmintonBooking.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using System;
 
 namespace BadmintonBooking.Controllers
@@ -12,10 +13,33 @@ namespace BadmintonBooking.Controllers
         {
             this.environment = environment;
         }
-        public IActionResult Show(int page=1)
+        public IActionResult Show(int page=1,string sortOrder="")
         {
             DemobadmintonContext context = new DemobadmintonContext();
             var courtlist= context.Courts.ToList();
+            //sort
+            ViewBag.SortOrder = sortOrder;
+
+            switch (sortOrder)
+            {
+                case "name_asc":
+                    courtlist = courtlist.OrderBy(c => c.CoName).ToList();
+                    break;
+                case "name_desc":
+                    courtlist = courtlist.OrderByDescending(c => c.CoName).ToList();
+                    break;
+                case "price_asc":
+                    courtlist = courtlist.OrderBy(c => c.CoPrice).ToList();
+                    break;
+                case "price_desc":
+                    ViewBag.SortOrder = sortOrder;
+                    courtlist = courtlist.OrderByDescending(c => c.CoPrice).ToList();
+                    break;
+                default:
+                    courtlist = courtlist.OrderBy(c => c.CoId).ToList(); 
+                    break;
+            }
+
             // paging
             int NoOfRecordPerPage = 5;
             int NoOfPages = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(courtlist.Count) / Convert.ToDouble(NoOfRecordPerPage)));
@@ -175,9 +199,10 @@ namespace BadmintonBooking.Controllers
             }
             return RedirectToAction("Show", "Admin");
         }
+        
 
 
-       
+
 
 
         private string UploadImage(Court model)
