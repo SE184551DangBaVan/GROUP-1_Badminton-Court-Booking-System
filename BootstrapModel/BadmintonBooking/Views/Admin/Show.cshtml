@@ -38,7 +38,19 @@
                     }
                     <h1 class="text-center">Badminton Courts</h1>
                     <a class="btn btn-primary" asp-action="AddCourt" asp-controller="Admin">Add Court</a>
+               
+                
                 </div>
+
+                <div class="row justify-content-center mb-3">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="input-group">
+                            <input type="text" placeholder="Search here" id="txtSearch" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+               
+               
                 <table class="table table-bordered table-hover shadow-sm">
                     <thead>
                         <tr class="text-center bg-success text-light">
@@ -139,18 +151,35 @@
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+   
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function () {
             // Check if TempData message exists and show it
             if ($('#tempDataMessage').length > 0) {
-                // Fade out the message after 5 seconds
+                
                 setTimeout(function () {
                     $('#tempDataMessage').fadeOut('slow');
-                }, 5000); // 5000 milliseconds = 5 seconds
+                }, 5000);
             }
+
+            // Search functionality
+            $('#txtSearch').keyup(function () {
+                var typeValue = $(this).val().toLowerCase();
+                $('tbody tr').each(function () {
+                    var rowText = $(this).text().toLowerCase();
+                    if (rowText.indexOf(typeValue) < 0) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
+                });
+            });
         });
     </script>
+
+    
 </body>
 </html>

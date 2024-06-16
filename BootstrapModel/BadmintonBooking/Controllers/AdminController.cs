@@ -177,7 +177,7 @@ namespace BadmintonBooking.Controllers
         }
 
 
-
+       
 
 
         private string UploadImage(Court model)
@@ -198,5 +198,6 @@ namespace BadmintonBooking.Controllers
             }
             return uniqueFileName;
         }
+
     }
 }
