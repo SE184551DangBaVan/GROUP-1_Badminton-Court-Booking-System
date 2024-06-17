@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-   
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/lib/font-awesome/css/fontawesome.min.css" rel="stylesheet" />
@@ -19,11 +19,13 @@
         .table th, .table td {
             vertical-align: middle;
         }
+
         .table img {
             max-width: 150px;
             max-height: 150px;
             object-fit: cover;
         }
+
         .header-btn {
             display: flex;
             justify-content: space-between;
@@ -44,15 +46,15 @@
                     }
                     <h1 class="text-center">Badminton Courts</h1>
                     <a class="btn btn-primary" asp-action="AddCourt" asp-controller="Admin">Add Court</a>
-               
-                
+
+
                 </div>
 
                 <div class="row justify-content-center mb-3">
                     <div class="col-md-6 col-lg-4">
                         <div class="input-group">
                             <input type="text" placeholder="Search here" id="txtSearch" class="form-control" />
-                            
+
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Sort By
@@ -65,16 +67,16 @@
                                 </div>
                             </div>
                         </div>
-                        
+
 
                     </div>
 
-                    
+
 
                 </div>
 
-               
-               
+
+
                 <table class="table table-bordered table-hover shadow-sm">
                     <thead>
                         <tr class="text-center bg-success text-light">
@@ -91,7 +93,7 @@
                     <tbody>
                         @if (Model != null)
                         {
-                            foreach(var c in Model)
+                            foreach (var c in Model)
                             {
                                 var imagePath = "/Upload/Image/" + c.CoPath;
                                 <tr>
@@ -104,9 +106,9 @@
                                     <td>
                                         <img src="@imagePath" class="rounded-circle" width="100px" height="100px">
                                     </td>
-                                        
+
                                     <td>@(c.CoStatus ? "Active" : "Inactive")</td>
-                                    <td >
+                                    <td>
                                         <a class="btn btn-primary" asp-action="EditCourt" asp-asp-controller="Admin" asp-route-id="@c.CoId">Edit</a>
                                         <a class="btn btn-warning" asp-action="DetailCourt" asp-asp-controller="Admin" asp-route-id="@c.CoId">Detail</a>
                                         <a class="btn btn-danger" asp-action="DeleteCourt" onclick="return confirm('Are you sure you want to delete this court?');" asp-asp-controller="Admin" asp-route-id="@c.CoId">Delete</a>
@@ -129,7 +131,7 @@
                                         PrevPage = 1;
                                     }
                                     int NextPage = ViewBag.Page + 1;
-                                    if (NextPage> ViewBag.NoOfPages)
+                                    if (NextPage > ViewBag.NoOfPages)
                                     {
                                         NextPage = ViewBag.NoOfPages;
                                     }
@@ -139,11 +141,11 @@
 
                                     <li class="page-item ">
                                         <a class="page-link" href="/admin/show?page=@PrevPage&sortOrder=@ViewBag.SortOrder">
-                                           Prev
+                                            Prev
                                         </a>
                                     </li>
 
-                                    @for(int i = 0; i < ViewBag.NoOfPages; i++)
+                                    @for (int i = 0; i < ViewBag.NoOfPages; i++)
                                     {
                                         if (i + 1 == ViewBag.Page)
                                         {
@@ -152,14 +154,16 @@
                                                     @(i + 1)
                                                 </a>
                                             </li>
-                                        }else{
+                                        }
+                                        else
+                                        {
                                             <li class="page-item ">
                                                 <a class="page-link" href="/admin/show?page=@(i+1)&sortOrder=@ViewBag.SortOrder">
                                                     @(i + 1)
                                                 </a>
                                             </li>
                                         }
-                                        
+
                                     }
                                     <li class="page-item active">
                                         <a class="page-link" href="/admin/show?page=@NextPage&sortOrder=@ViewBag.SortOrder">
@@ -176,15 +180,15 @@
         </div>
     </div>
 
-    
-   
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function () {
             // Check if TempData message exists and show it
             if ($('#tempDataMessage').length > 0) {
-                
+
                 setTimeout(function () {
                     $('#tempDataMessage').fadeOut('slow');
                 }, 5000);
@@ -205,6 +209,6 @@
         });
     </script>
 
-    
+
 </body>
 </html>
