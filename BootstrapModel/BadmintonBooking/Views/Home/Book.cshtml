@@ -1,24 +1,25 @@
-﻿@{
-	ViewData["Title"] = "Booking";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@model BadmintonBooking.Models.Court
+@{
+    ViewData["Title"] = "Booking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var imagePath = "/Upload/Image/" + Model.CoPath;
 }
 
 <body class="book1">
-    
+
     <script src="~/js/script.js"></script>
 
     <div class="container my-4">
         <div class="container2">
-            <img src="~/pictures/Badminton Court.jpg" class="mainimg" alt="Badminton Court">
+            <img src="@imagePath" class="mainimg" alt="Badminton Court">
         </div>
-        <div class="Badmintontitle"><h3>Sân cầu lông A</h3></div>
-        
+        <div class="Badmintontitle"><h3>@Model.CoName</h3></div>
+
         <div class="row mt-4">
             <div class="col-md-5">
                 <div class="collapsible-header"><i class="fa-solid fa-circle-info"></i><h3>Mô tả</h3></div>
                 <div class="badminton-info">
-                    <p>Sân Cầu Lông A là sân cầu lông mới nhất tại Tây Ninh. Hệ Thống đèn, trụ và thảm được thi công bởi Siêu Thị Cầu Lông. Thảm cầu lông DKT chất lượng đạt chuẩn thi đấu, thảm êm chân, nâng cao chất lượng trận đấu. Đèn đảm bảo ánh sáng, không gây chói mắt khi đánh cầu.</p>
-                    <p>Sân Cầu Lông A mang đến cho bạn trải nghiệm tuyệt vời.</p>
+                    <@Model.CoInfo
                 </div>
                 <div class="mt-3"><i class="fa-solid fa-map"></i> Bản đồ</div>
                 <div class="mt-3">
@@ -26,32 +27,30 @@
                 </div>
             </div>
             <div class="col-md-7">
-                <div class="collapsible-header"><i class="fa-solid fa-circle-info"></i><h3>Hình ảnh</h3></div>
+                <div class="collapsible-header"><i class="fa-solid fa-circle-info"></i><h3>Image</h3></div>
                 <div>
                     <section class="container3">
                         <div class="slider-wrapper">
-                            <div class="slider"> 
-                                <img id="slide-1" src="~/pictures/court1.jpg" alt="Court 1">
-                                <img id="slide-2" src="~/pictures/court3.jpg" alt="Court 2">
-                                <img id="slide-3" src="~/pictures/court4.jpg" alt="Court 3">
+                            <div class="slider">
+                                <img id="slide-1" src="@imagePath" alt="Court 1">
+                                <img id="slide-2" src="@imagePath" alt="Court 2">
+                                <img id="slide-3" src="@imagePath" alt="Court 3">
                             </div>
                             <div class="slider-nav">
                                 <a href="#slide-1"></a>
                                 <a href="#slide-2"></a>
                                 <a href="#slide-3"></a>
-                            </div>                        
+                            </div>
                         </div>
                     </section>
                 </div>
-                <a asp-area="" asp-controller="Home" asp-action="Date" class="btn btn-primary" style="width: 100px; height: 50px; margin-left: 450px;">Đặt sân</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-primary" style="width: 100px; height: 50px; margin-left: 450px;">Back</a>
                 <div class="row mt-4">
                     <div class="col-md-9 card mb-3">
                         <div>
                             <i class="fa-solid fa-circle-info"></i> <p>Thông tin chi tiết</p>
-                            <p><i class="fa-solid fa-map"></i> TPHcm Quận 1</p>
-                            <p><i class="fa-solid fa-clock"></i> 5:00</p>
-                            <p><i class="fa-solid fa-phone"></i> 12345678</p>
-                            <p><i class="fa-solid fa-money-bill"></i> 125/hrs</p>
+                            <p><i class="fa-solid fa-map"></i> @Model.CoAddress</p>
+                            <p><i class="fa-solid fa-money-bill"></i> @Model.CoPrice /hrs</p>
                         </div>
                     </div>
                     <div class="col-md-3 card">

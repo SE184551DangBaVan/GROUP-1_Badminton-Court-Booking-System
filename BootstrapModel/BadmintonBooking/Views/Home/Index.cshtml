@@ -5,13 +5,14 @@
 
 	var courts = Model.Select(c => new
 	{
+		courtId = c.CoId,
 		Name = c.CoName,
 		Description = c.CoInfo,
 		ImageUrl = "/Upload/Image/" + c.CoPath
 	}).ToList();
 }
-	
-	
+
+
 
 <body>
 	<script src="~/js/script.js"></script>
@@ -51,7 +52,7 @@
 						<h2>@court.Name</h2>
 						<p>@court.Description</p>
 						<div class="buttons">
-							<a asp-area="" asp-controller="Home" asp-action="Book" class="button">Details</a>
+							<a asp-area="" asp-controller="Home" asp-action="Book" asp-route-id="@court.courtId" class="button">Details</a>
 							<a asp-area="" asp-controller="Home" asp-action="Book2" class="button">Book</a>
 						</div>
 					</div>
