@@ -32,7 +32,6 @@ namespace BadmintonBooking.Controllers
                     courtlist = courtlist.OrderBy(c => c.CoPrice).ToList();
                     break;
                 case "price_desc":
-                    ViewBag.SortOrder = sortOrder;
                     courtlist = courtlist.OrderByDescending(c => c.CoPrice).ToList();
                     break;
                 default:
