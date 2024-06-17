@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\final swp\\update3\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj": {}
+    "C:\\final swp\\update 4\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj": {}
   },
   "projects": {
-    "C:\\final swp\\update3\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj": {
+    "C:\\final swp\\update 4\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\final swp\\update3\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj",
+        "projectUniqueName": "C:\\final swp\\update 4\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj",
         "projectName": "BadmintonBooking",
-        "projectPath": "C:\\final swp\\update3\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj",
+        "projectPath": "C:\\final swp\\update 4\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj",
         "packagesPath": "C:\\Users\\theji\\.nuget\\packages\\",
-        "outputPath": "C:\\final swp\\update3\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\obj\\",
+        "outputPath": "C:\\final swp\\update 4\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\theji\\AppData\\Roaming\\NuGet\\NuGet.Config",
