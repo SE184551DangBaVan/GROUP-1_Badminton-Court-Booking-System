@@ -20,7 +20,7 @@ namespace BadmintonBooking.Controllers
         public IActionResult Index()
         {
             DemobadmintonContext context = new DemobadmintonContext();
-            var courtlist = context.Courts.Where(c => c.CoStatus == true).ToList();
+            var courtlist = context.Courts.Where(c => c.CoStatus == true).Take(3).ToList();
 
 
             return View(courtlist);
@@ -75,6 +75,7 @@ namespace BadmintonBooking.Controllers
             var courtlist = context.Courts.Where(c => c.CoStatus == true).ToList();
             return View(courtlist);
         }
+
         /*      public IActionResult UserBookCourt(int id)
               {
                   DemobadmintonContext context = new DemobadmintonContext();
