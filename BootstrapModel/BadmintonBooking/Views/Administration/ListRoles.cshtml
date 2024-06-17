@@ -1,10 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @model IEnumerable<IdentityRole>
-@ViewData["Layout"] = null;
 @{
     ViewBag.Title = "All Roles";
 }
-
+<div class="ListRoles">
 <h1>All Roles</h1>
 
 @if (Model.Any())
@@ -64,6 +63,7 @@ else
         </div>
     </div>
 }
+</div>
 
 <script>
     function confirmDelete(uniqueId, isTrue) {

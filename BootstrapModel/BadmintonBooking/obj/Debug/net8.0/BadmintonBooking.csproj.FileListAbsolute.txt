@@ -1441,3 +1441,4 @@ D:\FU\conflictMerge\GROUP-1_Badminton-Court-Booking-System\BootstrapModel\Badmin
 D:\FU\conflictMerge\GROUP-1_Badminton-Court-Booking-System\BootstrapModel\BadmintonBooking\obj\Debug\net8.0\Badminto.96167EE3.Up2Date
 D:\FU\conflictMerge\GROUP-1_Badminton-Court-Booking-System\BootstrapModel\BadmintonBooking\obj\Debug\net8.0\BadmintonBooking.genruntimeconfig.cache
 D:\FU\conflictMerge\GROUP-1_Badminton-Court-Booking-System\BootstrapModel\BadmintonBooking\obj\Debug\net8.0\ref\BadmintonBooking.dll
+D:\FU\conflictMerge\GROUP-1_Badminton-Court-Booking-System\BootstrapModel\BadmintonBooking\bin\Debug\net8.0\bundleconfig.json

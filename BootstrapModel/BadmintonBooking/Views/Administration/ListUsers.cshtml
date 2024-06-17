@@ -1,6 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @model IEnumerable<IdentityUser>
-@ViewData["Layout"] = null;
+@{
+
+}
+<div class="ListUsers">
 <h1>All Users</h1>
 @if (Model.Any())
 {
@@ -36,6 +39,7 @@
         </div>
     }
 }
+
 else
 {
     <div class="card">
@@ -44,6 +48,7 @@ else
         </div>
     </div>
 }
+</div>
 <script>
     function confirmDelete(uniqueId, isDeleteClicked) {
         var deleteSpan = 'deleteSpan_' + uniqueId;

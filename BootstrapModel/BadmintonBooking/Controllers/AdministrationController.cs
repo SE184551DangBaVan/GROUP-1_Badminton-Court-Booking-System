@@ -6,6 +6,7 @@ using BadmintonBooking.ViewModels;
 
 namespace BadmintonBooking.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdministrationController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -19,6 +20,7 @@ namespace BadmintonBooking.Controllers
         [HttpGet]
         public IActionResult ListUsers()
         {
+            ViewData["Layout"] = null;
             var users = _userManager.Users;
             return View(users);
         }
@@ -26,6 +28,7 @@ namespace BadmintonBooking.Controllers
         [HttpGet]
         public async Task<IActionResult> EditUser(string UserId)
         {
+            ViewData["Layout"] = null;
             //First Fetch the User Details by UserId
             var user = await _userManager.FindByIdAsync(UserId);
             //Check if User Exists in the Database
@@ -54,6 +57,7 @@ namespace BadmintonBooking.Controllers
         [HttpPost]
         public async Task<IActionResult> EditUser(EditUserViewModel model)
         {
+            ViewData["Layout"] = null;
             //First Fetch the User by Id from the database
             var user = await _userManager.FindByIdAsync(model.Id);
 
@@ -95,6 +99,7 @@ namespace BadmintonBooking.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteUser(string UserId)
         {
+            ViewData["Layout"] = null;
             //First Fetch the User you want to Delete
             var user = await _userManager.FindByIdAsync(UserId);
 
@@ -130,6 +135,7 @@ namespace BadmintonBooking.Controllers
         [HttpGet]
         public async Task<IActionResult> ManageUserRoles(string UserId)
         {
+            ViewData["Layout"] = null;
             //First Fetch the User Information from the Identity database by user Id
             var user = await _userManager.FindByIdAsync(UserId);
             if (user == null)
@@ -170,6 +176,7 @@ namespace BadmintonBooking.Controllers
         [HttpPost]
         public async Task<IActionResult> ManageUserRoles(List<UserRolesViewModel> model, string UserId)
         {
+            ViewData["Layout"] = null;
             var user = await _userManager.FindByIdAsync(UserId);
 
             if (user == null)
@@ -211,12 +218,14 @@ namespace BadmintonBooking.Controllers
         [HttpGet]
         public IActionResult CreateRole()
         {
+            ViewData["Layout"] = null;
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateRole(CreateRoleViewModel model)
         {
+            ViewData["Layout"] = null;
             if (ModelState.IsValid)
             {
                 bool roleExists = await _roleManager.RoleExistsAsync(model?.RoleName);
@@ -244,6 +253,7 @@ namespace BadmintonBooking.Controllers
         [HttpGet]
         public async Task<IActionResult> ListRoles()
         {
+            ViewData["Layout"] = null;
             List<IdentityRole> roles = await _roleManager.Roles.ToListAsync();
             return View(roles);
         }
@@ -251,6 +261,7 @@ namespace BadmintonBooking.Controllers
         [HttpGet]
         public async Task<IActionResult> EditRole(string roleId)
         {
+            ViewData["Layout"] = null;
             //First Get the role information from the database
             IdentityRole? role = await _roleManager.FindByIdAsync(roleId);
             if (role == null)
@@ -282,6 +293,7 @@ namespace BadmintonBooking.Controllers
         [HttpPost]
         public async Task<IActionResult> EditRole(EditRoleViewModel model)
         {
+            ViewData["Layout"] = null;
             if (ModelState.IsValid)
             {
                 var role = await _roleManager.FindByIdAsync(model.Id);
@@ -317,6 +329,7 @@ namespace BadmintonBooking.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteRole(string roleId)
         {
+            ViewData["Layout"] = null;
             var role = await _roleManager.FindByIdAsync(roleId);
             if (role == null)
             {
@@ -344,6 +357,7 @@ namespace BadmintonBooking.Controllers
         [HttpGet]
         public async Task<IActionResult> EditUsersInRole(string roleId)
         {
+            ViewData["Layout"] = null;
             ViewBag.roleId = roleId;
 
             var role = await _roleManager.FindByIdAsync(roleId);
@@ -383,6 +397,7 @@ namespace BadmintonBooking.Controllers
         [HttpPost]
         public async Task<IActionResult> EditUsersInRole(List<UserRoleViewModel> model, string roleId)
         {
+            ViewData["Layout"] = null;
             //First check whether the Role Exists or not
             var role = await _roleManager.FindByIdAsync(roleId);
 
