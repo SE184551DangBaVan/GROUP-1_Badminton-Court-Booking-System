@@ -61,7 +61,7 @@ nav {
         }
 
     nav .nav-direct {
-        margin: 0.2rem 2rem 0 0;
+        margin: 0.2rem 45rem 0 0;
         list-style: none;
         display: flex;
         color: #fff;
@@ -258,6 +258,7 @@ nav {
         height: 18vmax;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
+        margin: 10px;
     }
 
         .court-card img:hover {
@@ -683,7 +684,7 @@ nav {
 /*Date*/
 .date-container {
     width: 50%;
-    margin: 40px auto;
+    margin: 150px auto;
     background: #ccc;
 }
 
@@ -884,7 +885,7 @@ nav {
 
 /*Invoice*/
 .inv-body {
-    background-image: linear-gradient(to top, #ffffff, #edf5ff, #cbefff, #9aecff, #61e9f6);
+    background-image: linear-gradient(to right bottom, #000000, #371f2d, #603c64, #7962aa, #6e91f8);
     font-size: 12px;
     line-height: 20px;
     padding: 80px 20px;
@@ -894,7 +895,7 @@ nav {
         width: 600px;
         max-width: 100%;
         height: auto;
-        background-image: linear-gradient(to right top, #ffffff, #ddf9ff, #8afdff, #1afeee, #61f696);
+        background-image: linear-gradient(to right bottom, #011149, #293271, #4a579b, #6d7fc7, #90a9f5);
         padding: 50px 60px;
         position: relative;
         margin: 20px auto;
