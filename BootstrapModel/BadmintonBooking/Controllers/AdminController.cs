@@ -60,6 +60,7 @@ namespace BadmintonBooking.Controllers
             {
                 ModelState.Remove("UserId");
                 ModelState.Remove("User");
+                ModelState.Remove("ImagePath");
                 if (ModelState.IsValid)
                 {
 
@@ -134,6 +135,7 @@ namespace BadmintonBooking.Controllers
             {
                 ModelState.Remove("UserId");
                 ModelState.Remove("User");
+                ModelState.Remove("ImagePath");
                 if (ModelState.IsValid)
                 {
 
