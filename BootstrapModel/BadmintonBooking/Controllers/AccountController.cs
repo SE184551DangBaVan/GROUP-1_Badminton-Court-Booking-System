@@ -54,6 +54,13 @@ namespace demobadminton.Controllers
             this.configuration = configuration;
 
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
         public IActionResult Index()
         {
             return View();
