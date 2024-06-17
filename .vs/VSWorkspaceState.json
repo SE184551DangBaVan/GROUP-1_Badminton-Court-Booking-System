@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\BootstrapModel"
   ],
-  "SelectedNode": "\\BootstrapModel.sln",
+  "SelectedNode": "\\BootstrapModel\\BootstrapModel.sln",
   "PreviewInSolutionExplorer": false
 }

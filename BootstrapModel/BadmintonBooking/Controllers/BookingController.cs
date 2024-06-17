@@ -37,20 +37,28 @@ namespace BadmintonBooking.Controllers
                 bool booked = bookingData.Booked;
 
                 Console.WriteLine($"Parsed Booking Data - Time: {time}, Date: {date}, Booked: {booked}");
+                Booking booking = new Booking()
+                {
+                    UserId = "1",
+                    BBookingType = "Casual",
+                    CoId = 3,
+                };
                 TimeSlot slot = new TimeSlot()
                 {
-                    BId = 2,
                     CoId = 3,
                     TsCheckedIn = false,
                     TsDate = date,
                     TsStart = time,
                     TsEnd = time.AddHours(1),
                 };
-                _slots.Add(slot);
+                booking.TimeSlots.Add(slot);
+                _demobadmintonContext.Add(booking);
+                _demobadmintonContext.SaveChanges();
+                //_slots.Add(slot);
                 Console.WriteLine(_slots);
                 // Here, you can implement the logic to update the database with the booking data.
                 // For now, we just print the received data to the console for debugging purposes.
-                SaveBookingsToDatabase().Wait();
+                //SaveBookingsToDatabase().Wait();
                 return Ok(new { message = "Booking data received successfully." });
             }
             catch (Exception ex)
