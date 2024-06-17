@@ -1,0 +1,94 @@
+﻿@model BadmintonBooking.Models.Court
+
+@{
+    Layout = null;
+    var imagePath = "/Upload/Image/" + Model.CoPath;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detail</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .court-image {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .court-detail {
+            margin-top: 20px;
+        }
+
+            .court-detail h5 {
+                font-weight: bold;
+            }
+
+            .court-detail p {
+                font-size: 1.1em;
+                margin-bottom: 10px;
+            }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .card-header {
+            background-color: #28a745;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h4>Court Details</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 text-center">
+                        <img src="@imagePath" class="court-image" alt="Court Image" />
+                    </div>
+                    <div class="col-md-6">
+                        <div class="court-detail">
+                            <h5>Court ID:</h5>
+                            <p>@Model.CoId</p>
+                        </div>
+                        <div class="court-detail">
+                            <h5>Name:</h5>
+                            <p>@Model.CoName</p>
+                        </div>
+                        <div class="court-detail">
+                            <h5>Address:</h5>
+                            <p>@Model.CoAddress</p>
+                        </div>
+                        <div class="court-detail">
+                            <h5>Description:</h5>
+                            <p>@Model.CoInfo</p>
+                        </div>
+                        <div class="court-detail">
+                            <h5>Price:</h5>
+                            <p>@Model.CoPrice</p>
+                        </div>
+                        <div class="court-detail">
+                            <h5>Status:</h5>
+                            <p>@(Model.CoStatus ? "Active " : "Inactive")</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-right">
+                <a class="btn btn-primary" asp-action="Show" asp-controller="Admin">Back to List</a>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
