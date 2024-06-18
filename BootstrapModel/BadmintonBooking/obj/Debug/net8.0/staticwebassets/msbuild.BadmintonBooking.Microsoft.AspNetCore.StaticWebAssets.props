@@ -4416,12 +4416,12 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\678a5c13-624f-41fc-b0a0-bee768df7ae7_nhanvien.jpg))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\b304da77-bb49-4e08-baae-ad969b18489d_badmintoncourt.jpeg))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\7863615c-e8b7-4c46-8095-835d8823741c_15b3c9f5-8700-4bce-b1ba-293cb183b792_court3.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>BadmintonBooking</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/BadmintonBooking</BasePath>
-      <RelativePath>Upload/Image/b304da77-bb49-4e08-baae-ad969b18489d_badmintoncourt.jpeg</RelativePath>
+      <RelativePath>Upload/Image/7863615c-e8b7-4c46-8095-835d8823741c_15b3c9f5-8700-4bce-b1ba-293cb183b792_court3.jpg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -4430,7 +4430,7 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\b304da77-bb49-4e08-baae-ad969b18489d_badmintoncourt.jpeg))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\7863615c-e8b7-4c46-8095-835d8823741c_15b3c9f5-8700-4bce-b1ba-293cb183b792_court3.jpg))</OriginalItemSpec>
     </StaticWebAsset>
   </ItemGroup>
 </Project>

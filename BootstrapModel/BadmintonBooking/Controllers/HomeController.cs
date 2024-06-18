@@ -36,14 +36,14 @@ namespace BadmintonBooking.Controllers
         {
             return View();
         }
-
-        public IActionResult Date(int CoId, string UserID)
+        [Authorize]
+        public IActionResult Date(int CoId, string UserId)
         {
             TempData["CoId"] = CoId;
-            TempData["UserID"] = UserID;
+            TempData["UserId"] = UserId;
             return View();
         }
-
+        
         public IActionResult Payment()
         {
             return View();

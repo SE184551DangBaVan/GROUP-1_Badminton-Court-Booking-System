@@ -61,7 +61,7 @@ namespace BadmintonBooking.Controllers
                         return View("PaymentFailed");
                     }
                     var blogIds = executedPayment.transactions[0].item_list.items[0].sku;
-                    return View("PaymentSuccess");
+                    return RedirectToAction("SaveBookingToDb", "Booking");
                 }
             }
             catch (Exception ex)
@@ -87,6 +87,7 @@ namespace BadmintonBooking.Controllers
 
         private Payment CreatePayment(APIContext apiContext, string redirectUrl, string blogId)
         {
+            var quantity = httpContextAccessor.HttpContext.Session.GetInt32("quantity");
             //create itemlist and add item objects to it
             var itemList = new ItemList()
             {
@@ -98,9 +99,10 @@ namespace BadmintonBooking.Controllers
                     name = "Book Time Slot Fixed",
                     currency = "USD",
                     price = "10.00",
-                    quantity = "1",
+                    quantity = quantity.ToString(),
                     sku = "BOOK-TS-101"
                 });
+                /*
                 itemList.items.Add(new Item()
                 {
                     name = "Book Time Slot Flexible",
@@ -109,6 +111,7 @@ namespace BadmintonBooking.Controllers
                     quantity = "1",
                     sku = "BOOK-TS-102"
                 });
+                */
                 var payer = new Payer()
                 {
                     payment_method = "paypal"
@@ -122,15 +125,15 @@ namespace BadmintonBooking.Controllers
 
                 var details = new Details()
                 {
-                    tax = "1",
-                    shipping = "1",
-                    subtotal = "18",
+                    tax = "3",
+                    shipping = "3",
+                    subtotal = ((quantity * 10.00D) - 6).ToString(),
                 };
 
                 var amount = new Amount()
                 {
                     currency = "USD",
-                    total = "20.00", // Total must be equal to sum of tax, shipping and subto //
+                    total = (quantity * 10.00D).ToString(), // Total must be equal to sum of tax, shipping and subto //
                     details = details
                 };
 
