@@ -42,9 +42,9 @@
                                         <p class="card-text"><i class="fa-solid fa-money-bill"></i> @court.CoPrice</p>
                                         <p class="card-text">@court.CoInfo</p>
                                         <p class="card-text"><strong>Status:</strong> @(court.CoStatus ? "Active" : "Inactive")</p>
-                                        <form asp-action="UpdateBooking" asp-controller="Booking">
+                                        <form asp-action="Date" asp-controller="Home">
                                             <input type="hidden" name="CoId" value="@court.CoId"/>
-                                            <button asp-action="Date" asp-controller="Home">Book</button>
+                                            <button>Book</button>
                                         </form>
                                     </div>
                                 </div>

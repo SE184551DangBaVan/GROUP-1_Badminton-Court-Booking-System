@@ -37,8 +37,9 @@ namespace BadmintonBooking.Controllers
             return View();
         }
 
-        public IActionResult Date()
+        public IActionResult Date(int CoId)
         {
+            TempData["CoId"] = CoId;
             return View();
         }
 

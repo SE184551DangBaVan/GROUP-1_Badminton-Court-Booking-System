@@ -41,11 +41,11 @@ namespace BadmintonBooking.Controllers
                 {
                     UserId = "1",
                     BBookingType = "Casual",
-                    CoId = 3,
+                    CoId = int.Parse(TempData["CoId"].ToString()),
                 };
                 TimeSlot slot = new TimeSlot()
                 {
-                    CoId = 3,
+                    CoId = int.Parse(TempData["CoId"].ToString()),
                     TsCheckedIn = false,
                     TsDate = date,
                     TsStart = time,
