@@ -1054,3 +1054,7 @@ nav {
 .ManageUserRoles {
     margin-top: 300px;
 }
+
+.password-forgot {
+    background-image: linear-gradient(to right top, #b5c3f5, #bcc9f8, #c3d0fa, #cbd6fd, #d2ddff);
+}
