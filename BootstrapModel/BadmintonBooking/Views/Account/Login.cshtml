@@ -4,7 +4,8 @@
     ViewData["Title"] = "Login";
     Layout = "~/Views/Shared/_LayoutLR.cshtml";
 }
-<form method="post" asp-action="Login" asp-asp-controller="Account">
+<form method="post" asp-action="Login" asp-controller="Account">
+    <input type="hidden" name="ReturnUrl" value="@ViewData["ReturnUrl"]" />
     <h3 class="text-muted mb-1" style="font:20px">Login</h3>
     <hr />
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>

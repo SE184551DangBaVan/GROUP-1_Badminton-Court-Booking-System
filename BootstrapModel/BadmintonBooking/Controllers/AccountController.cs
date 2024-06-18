@@ -134,12 +134,14 @@ namespace demobadminton.Controllers
             }
             return View();
         }
-        public IActionResult Login() {
+        [HttpGet]
+        public IActionResult Login(string ReturnUrl = null) {
+            ViewData["ReturnUrl"] = ReturnUrl;
             return View();
                 
                 }
         [HttpPost]
-        public async Task<IActionResult> Login(LoginVM model)
+        public async Task<IActionResult> Login(LoginVM model, string? ReturnUrl)
         {
             try
             {
@@ -167,32 +169,26 @@ namespace demobadminton.Controllers
                         var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                         if (result.Succeeded)
                         {
-                            return RedirectToAction("Index", "Home");
+                            if (!string.IsNullOrEmpty(ReturnUrl) && Url.IsLocalUrl(ReturnUrl))
+                            {
+                                return Redirect(ReturnUrl);
+                            }
+                            else
+                            {
+                                return RedirectToAction("Index", "Home");
+                            }
 
                         }
                         ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
                     }
-                    
-                  
 
                 }
             }
-
-
-
-
             catch(Exception )
             {
                 throw;
             }
-
             return View(model);
-
-
-
-
-
-
             }
         public async Task<IActionResult> Logout()
         {

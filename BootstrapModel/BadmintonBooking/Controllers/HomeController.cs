@@ -1,4 +1,5 @@
 using BadmintonBooking.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -50,7 +51,7 @@ namespace BadmintonBooking.Controllers
         {
             return View();
         }
-
+        [Authorize]
         public IActionResult About()
         {
             return View();
@@ -109,6 +110,7 @@ namespace BadmintonBooking.Controllers
 
 
               } */
+        
         public IActionResult Privacy()
         {
             return View();
