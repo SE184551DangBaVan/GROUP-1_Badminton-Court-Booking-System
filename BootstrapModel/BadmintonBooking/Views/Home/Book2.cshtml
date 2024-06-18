@@ -1,4 +1,9 @@
-﻿@model IEnumerable<BadmintonBooking.Models.Court>
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@model IEnumerable<BadmintonBooking.Models.Court>
 @{
     ViewData["Title"] = "Booking";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -44,6 +49,7 @@
                                         <p class="card-text"><strong>Status:</strong> @(court.CoStatus ? "Active" : "Inactive")</p>
                                         <form asp-action="Date" asp-controller="Home">
                                             <input type="hidden" name="CoId" value="@court.CoId"/>
+                                            <input type="hidden" name="UserID" value="@UserManager.GetUserId(User)" />
                                             <button>Book</button>
                                         </form>
                                     </div>

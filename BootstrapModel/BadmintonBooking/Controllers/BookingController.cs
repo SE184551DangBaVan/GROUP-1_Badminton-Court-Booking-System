@@ -39,7 +39,7 @@ namespace BadmintonBooking.Controllers
                 Console.WriteLine($"Parsed Booking Data - Time: {time}, Date: {date}, Booked: {booked}");
                 Booking booking = new Booking()
                 {
-                    UserId = "1",
+                    UserId = TempData["UserID"].ToString(),
                     BBookingType = "Casual",
                     CoId = int.Parse(TempData["CoId"].ToString()),
                 };
@@ -52,6 +52,12 @@ namespace BadmintonBooking.Controllers
                     TsEnd = time.AddHours(1),
                 };
                 booking.TimeSlots.Add(slot);
+                /*
+                 * booking.Payments.add(payment)
+                    _demobadmintonContext.Booking.add(booking);
+                _demobadmintonContext.SaveChanges();
+                    _demobadmintonContext.TimeSlots.add(slot);
+                 */
                 _demobadmintonContext.Add(booking);
                 _demobadmintonContext.SaveChanges();
                 //_slots.Add(slot);
