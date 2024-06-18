@@ -16,7 +16,7 @@ builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.ConfigureApplicationCookie(options =>
 {
 
-    options.AccessDeniedPath = "/Account/Login";
+    options.AccessDeniedPath = "/Account/AccessDenied";
     options.LoginPath = "/Account/Login";
     options.LogoutPath = "/Account/Logout";
     options.Cookie.Name = "BadmintonBooking";

@@ -1024,3 +1024,32 @@ nav {
     left: 0px;
     border-color: var(--white) transparent transparent var(--white);
 }
+
+
+.CreateRole {
+    margin-top: 300px;
+}
+
+.EditRole {
+    margin-top: 300px;
+}
+
+.EditUser {
+    margin-top: 300px;
+}
+
+.EditUsersInRole {
+    margin-top: 300px;
+}
+
+.ListRoles {
+    margin-top: 300px;
+}
+
+.ListUsers {
+    margin-top: 300px;
+}
+
+.ManageUserRoles {
+    margin-top: 300px;
+}

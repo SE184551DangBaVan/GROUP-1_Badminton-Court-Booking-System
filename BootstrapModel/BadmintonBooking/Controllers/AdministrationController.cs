@@ -24,7 +24,6 @@ namespace BadmintonBooking.Controllers
             var users = _userManager.Users;
             return View(users);
         }
-
         [HttpGet]
         public async Task<IActionResult> EditUser(string UserId)
         {

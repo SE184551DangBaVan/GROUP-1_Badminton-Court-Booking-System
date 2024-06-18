@@ -73,7 +73,8 @@ namespace demobadminton.Controllers
         public async Task<IActionResult> Register(RegisterVM model)
         {
             Response response = new Response();
-            try
+            bool createdByAdmin = (_signInManager.IsSignedIn(User) && User.IsInRole("Admin")) ? true: false;
+                try
             {
                 if (ModelState.IsValid)
                 {
@@ -88,11 +89,16 @@ namespace demobadminton.Controllers
                     {
                         UserName = model.Email,
                         Email = model.Email,
-
+                        EmailConfirmed = createdByAdmin
                     };
                     var result=await _userManager.CreateAsync(user,model.Password);
                     if (result.Succeeded)
                     {
+                        if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                        {
+
+                            return RedirectToAction("ListUsers", "Administration");
+                        }
 
                         var userId = await _userManager.GetUserIdAsync(user);
 
