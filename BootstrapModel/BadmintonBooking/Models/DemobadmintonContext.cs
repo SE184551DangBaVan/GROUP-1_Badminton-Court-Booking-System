@@ -115,7 +115,7 @@ public partial class DemobadmintonContext : DbContext
 
         modelBuilder.Entity<Booking>(entity =>
         {
-            entity.HasKey(e => e.BId).HasName("PK__Booking__4B26EFE64BF64B9B");
+            entity.HasKey(e => e.BId).HasName("PK__Booking__4B26EFE62285CC63");
 
             entity.ToTable("Booking");
 
@@ -143,7 +143,7 @@ public partial class DemobadmintonContext : DbContext
 
         modelBuilder.Entity<Court>(entity =>
         {
-            entity.HasKey(e => e.CoId).HasName("PK__Court__F38FB8F59E478C7F");
+            entity.HasKey(e => e.CoId).HasName("PK__Court__F38FB8F58D625F27");
 
             entity.ToTable("Court");
 
@@ -172,13 +172,11 @@ public partial class DemobadmintonContext : DbContext
 
         modelBuilder.Entity<Payment>(entity =>
         {
-            entity.HasKey(e => e.PId).HasName("PK__Payment__A3420A77AA68D8C7");
+            entity.HasKey(e => e.PId).HasName("PK__Payment__A3420A77D9D5A254");
 
             entity.ToTable("Payment");
 
-            entity.Property(e => e.PId)
-                .ValueGeneratedNever()
-                .HasColumnName("P_ID");
+            entity.Property(e => e.PId).HasColumnName("P_ID");
             entity.Property(e => e.BId).HasColumnName("B_ID");
             entity.Property(e => e.PAmount)
                 .HasColumnType("decimal(11, 2)")
@@ -195,7 +193,7 @@ public partial class DemobadmintonContext : DbContext
 
         modelBuilder.Entity<TimeSlot>(entity =>
         {
-            entity.HasKey(e => e.TsId).HasName("PK__TimeSlot__D128865A3809844E");
+            entity.HasKey(e => e.TsId).HasName("PK__TimeSlot__D128865A84B5C729");
 
             entity.ToTable("TimeSlot");
 
