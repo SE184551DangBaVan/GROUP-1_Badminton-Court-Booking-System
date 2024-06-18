@@ -254,7 +254,7 @@ nav {
     }
 
     .court-card img {
-        width: 100%;
+        width: 94%;
         height: 18vmax;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
@@ -262,7 +262,7 @@ nav {
     }
 
         .court-card img:hover {
-            width: 100%;
+            width: 94%;
             height: 18vmax;
             border-top-left-radius: 5px;
             border-top-right-radius: 5px;
@@ -889,13 +889,14 @@ nav {
     font-size: 12px;
     line-height: 20px;
     padding: 80px 20px;
+    overflow:hidden;
 }
 
     .inv-body .invoice {
         width: 600px;
         max-width: 100%;
         height: auto;
-        background-image: linear-gradient(to right bottom, #011149, #293271, #4a579b, #6d7fc7, #90a9f5);
+        background-image: linear-gradient(to right bottom, #3e69ff, #6787ff, #8aa4ff, #aec1ff, #d2ddff);
         padding: 50px 60px;
         position: relative;
         margin: 20px auto;
