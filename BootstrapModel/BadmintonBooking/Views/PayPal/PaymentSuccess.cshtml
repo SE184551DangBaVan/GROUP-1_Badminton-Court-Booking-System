@@ -49,5 +49,11 @@
         <h1>Success</h1>
         <p>We received your purchase request;<br /> Successfully Booking</p>
     </div>
+    <script>
+        // Redirect to Invoice page after 3 seconds
+        setTimeout(function() {
+            window.location.href = '@Url.Action("Invoice", "Paypal")'; // Adjust the URL as needed
+        }, 4000); // 4000 milliseconds = 4 seconds
+    </script>
 </body>
 </html>

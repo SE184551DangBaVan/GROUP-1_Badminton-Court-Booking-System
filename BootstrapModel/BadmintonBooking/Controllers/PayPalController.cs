@@ -60,7 +60,7 @@ namespace BadmintonBooking.Controllers
                     {
                         return View("PaymentFailed");
                     }
-                    var blogIds = executedPayment.transactions[0].item_list.items[0].sku;
+                    //var blogIds = executedPayment.transactions[0].item_list.items[0].sku;
                     return RedirectToAction("SaveBookingToDb", "Booking");
                 }
             }
@@ -87,7 +87,7 @@ namespace BadmintonBooking.Controllers
 
         private Payment CreatePayment(APIContext apiContext, string redirectUrl, string blogId)
         {
-            var quantity = httpContextAccessor.HttpContext.Session.GetInt32("quantity");
+            var quantity = int.Parse(httpContextAccessor.HttpContext.Session.GetString("quantity"));
             //create itemlist and add item objects to it
             var itemList = new ItemList()
             {
@@ -102,16 +102,6 @@ namespace BadmintonBooking.Controllers
                     quantity = quantity.ToString(),
                     sku = "BOOK-TS-101"
                 });
-                /*
-                itemList.items.Add(new Item()
-                {
-                    name = "Book Time Slot Flexible",
-                    currency = "USD",
-                    price = "8.00",
-                    quantity = "1",
-                    sku = "BOOK-TS-102"
-                });
-                */
                 var payer = new Payer()
                 {
                     payment_method = "paypal"
@@ -125,15 +115,15 @@ namespace BadmintonBooking.Controllers
 
                 var details = new Details()
                 {
-                    tax = "3",
-                    shipping = "3",
-                    subtotal = ((quantity * 10.00D) - 6).ToString(),
+                    tax = "1",
+                    shipping = "1",
+                    subtotal = (quantity * 10.00D).ToString()
                 };
 
                 var amount = new Amount()
                 {
                     currency = "USD",
-                    total = (quantity * 10.00D).ToString(), // Total must be equal to sum of tax, shipping and subto //
+                    total = ((quantity * 10.00D)+2.00D).ToString(), // Total must be equal to sum of tax, shipping and subto //
                     details = details
                 };
 
@@ -158,6 +148,15 @@ namespace BadmintonBooking.Controllers
                 };
                 return this.payment.Create(apiContext);
             }
+        }
+
+        public IActionResult PaymentSuccess()
+        {
+            return View();
+        }
+        public IActionResult Invoice()
+        {
+            return View();
         }
     }
 }

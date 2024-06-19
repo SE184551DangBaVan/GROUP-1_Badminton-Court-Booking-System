@@ -60,7 +60,7 @@ namespace BadmintonBooking.Controllers
 
                 booking.TimeSlots.Add(slot);
                 int quantity = booking.TimeSlots.Count;
-                _httpContextAccessor.HttpContext.Session.SetInt32("quantity", quantity);
+                _httpContextAccessor.HttpContext.Session.SetString("quantity", quantity.ToString());
                 var jsonString = JsonConvert.SerializeObject(booking);
                 _httpContextAccessor.HttpContext.Session.SetString("Booking", jsonString);
                 Console.WriteLine(_slots);
@@ -73,6 +73,7 @@ namespace BadmintonBooking.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+        [HttpGet]
         public async Task<IActionResult> SaveBookingToDb()
         {
             try
@@ -96,7 +97,7 @@ namespace BadmintonBooking.Controllers
                     return StatusCode(500, "Failed to save booking to database.");
                 }
 
-                return Ok(new { message = "Booking saved to database successfully." });
+                return RedirectToAction("PaymentSuccess","Paypal");
             }
             catch (Exception ex)
             {
