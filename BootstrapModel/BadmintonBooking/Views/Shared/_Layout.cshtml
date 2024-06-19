@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -26,6 +28,21 @@
                     <li><a href="#BookingType">Information</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Profile">Profile</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About Us</a></li>
+                    @if (SignInManager.IsSignedIn(User) &&  User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                Manage
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" asp-controller="Administration"
+                                   asp-action="ListUsers">Users</a>
+                                <a class="dropdown-item" asp-controller="Administration"
+                                   asp-action="ListRoles">Roles</a>
+                            </ul>
+                        </li>
+                    }
                 </ul>
                 <partial name="_LoginPartial" />
             </div>

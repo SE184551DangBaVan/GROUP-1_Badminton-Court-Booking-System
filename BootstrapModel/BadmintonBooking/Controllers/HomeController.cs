@@ -44,16 +44,6 @@ namespace BadmintonBooking.Controllers
             return View();
         }
         
-        public IActionResult Payment()
-        {
-            return View();
-        }
-
-        public IActionResult Invoice()
-        {
-            return View();
-        }
-        [Authorize]
         public IActionResult About()
         {
             return View();
