@@ -1,6 +1,9 @@
-﻿using BadmintonBooking.Repository.Service;
+﻿using BadmintonBooking.Models;
+using BadmintonBooking.Repository.Service;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PayPal.Api;
 
 namespace BadmintonBooking.Controllers
@@ -9,12 +12,14 @@ namespace BadmintonBooking.Controllers
     {
         private IHttpContextAccessor httpContextAccessor;
         IConfiguration _configuration;
+        private readonly UserManager<IdentityUser> _userManager;
         private Payment payment;
 
-        public PayPalController(IHttpContextAccessor httpContextAccessor, IConfiguration configuration)
+        public PayPalController(IHttpContextAccessor httpContextAccessor, IConfiguration configuration, UserManager<IdentityUser> userManager)
         {
             this.httpContextAccessor = httpContextAccessor;
             _configuration = configuration;
+            _userManager = userManager;
         }
 
         public ActionResult PaymentWithPaypal(string Cancel = null, string blogId = "", string PayerID = "", string guid = "")
@@ -156,6 +161,20 @@ namespace BadmintonBooking.Controllers
         }
         public IActionResult Invoice()
         {
+            //try
+            //{
+            //    using var context = new DemobadmintonContext();
+            //    BadmintonBooking.Models.Payment? payment = context.Payments.FirstOrDefault(p => p.BId =) ?? throw new Exception("Payment not found");
+            //    if (Payment != null)
+            //    {
+            //        string formattedDate = payment.PDateTime.ToString("MMMM dd, yyyy");
+            //        ViewData["formattedDate"] = formattedDate; 
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw new Exception(ex.Message);
+            //}
             return View();
         }
     }
