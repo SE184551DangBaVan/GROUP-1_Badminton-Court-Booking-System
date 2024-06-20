@@ -62,17 +62,38 @@ namespace BadmintonBooking.Controllers
             return View(data);
         }
         [Authorize]
-        public IActionResult Book2(int page=1,string address ="")
+        public IActionResult Book2(int page=1,string address ="", string sortOrder = "")
         {
             DemobadmintonContext context = new DemobadmintonContext();
             int NoOfRecordPerPage = 5;
 
             ViewBag.SearchAddress = address;
 
+
             // Get court list based on group
             var data = context.Courts
                                .Where(c => string.IsNullOrEmpty(address) || c.CoAddress == address)
                                .ToList();
+            // Sort data
+            ViewBag.SortOrder = sortOrder;
+            switch (sortOrder)
+            {
+                case "name_asc":
+                    data = data.OrderBy(c => c.CoName).ToList();
+                    break;
+                case "name_desc":
+                    data = data.OrderByDescending(c => c.CoName).ToList();
+                    break;
+                case "price_asc":
+                    data = data.OrderBy(c => c.CoPrice).ToList();
+                    break;
+                case "price_desc":
+                    data = data.OrderByDescending(c => c.CoPrice).ToList();
+                    break;
+                default:
+                    data = data.OrderBy(c => c.CoId).ToList();
+                    break;
+            }
             //paging
             // Calculate total pages
             int totalRecords = data.Count;

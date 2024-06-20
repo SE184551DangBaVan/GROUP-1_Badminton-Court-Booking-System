@@ -18,6 +18,17 @@
             <div class="form-group" style="width:300px">
                 <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter court name" id="txtSearch">
             </div>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Sort By
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/home/book2?page=1&address=@ViewBag.SearchAddress&sortOrder=name_asc">Name Ascending</a>
+                    <a class="dropdown-item" href="/home/book2?page=1&address=@ViewBag.SearchAddress&sortOrder=name_desc">Name Descending</a>
+                    <a class="dropdown-item" href="/home/book2?page=1&address=@ViewBag.SearchAddress&sortOrder=price_asc">Price Ascending</a>
+                    <a class="dropdown-item" href="/home/book2?page=1&address=@ViewBag.SearchAddress&sortOrder=price_desc">Price Descending </a>
+                </div>
+            </div>
                 
                 
 
@@ -71,18 +82,18 @@
                         }
 
                         <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
-                            <a class="page-link" href="/home/book2?page=@PrevPage&address=@ViewBag.SearchAddress">Prev</a>
+                            <a class="page-link" href="/home/book2?page=@PrevPage&address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder">Prev</a>
                         </li>
 
                         @for (int i = 1; i <= ViewBag.NoOfPages; i++)
                         {
                             <li class="page-item @(i == ViewBag.Page ? "active" : "")">
-                                <a class="page-link" href="/home/book2?page=@i&address=@ViewBag.SearchAddress">@i</a>
+                                <a class="page-link" href="/home/book2?page=@i&address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder">@i</a>
                             </li>
                         }
 
                         <li class="page-item @(ViewBag.Page == ViewBag.NoOfPages ? "disabled" : "")">
-                            <a class="page-link" href="/home/book2?page=@NextPage&address=@ViewBag.SearchAddress">Next</a>
+                            <a class="page-link" href="/home/book2?page=@NextPage&address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder">Next</a>
                         </li>
                     </ul>
                 }
