@@ -62,12 +62,32 @@ namespace BadmintonBooking.Controllers
             return View(data);
         }
         [Authorize]
-        public IActionResult Book2()
+        public IActionResult Book2(int page=1,string address ="")
         {
-
             DemobadmintonContext context = new DemobadmintonContext();
-            var courtlist = context.Courts.Where(c => c.CoStatus == true).ToList();
-            return View(courtlist);
+            int NoOfRecordPerPage = 5;
+
+            ViewBag.SearchAddress = address;
+
+            // Get court list based on group
+            var data = context.Courts
+                               .Where(c => string.IsNullOrEmpty(address) || c.CoAddress == address)
+                               .ToList();
+            //paging
+            // Calculate total pages
+            int totalRecords = data.Count;
+            int NoOfPages = (int)Math.Ceiling((double)totalRecords / NoOfRecordPerPage);
+            if (NoOfPages == 0) NoOfPages = 1; 
+
+            // Pagination logic
+            int NoOfRecordToSkip = (page - 1) * NoOfRecordPerPage;
+            var pagedData = data.Skip(NoOfRecordToSkip).Take(NoOfRecordPerPage).ToList();
+
+            //ViewBag properties
+            ViewBag.Page = page;
+            ViewBag.NoOfPages = NoOfPages;
+            ViewBag.TotalRecords = totalRecords;
+            return View(pagedData);
         }
 
         /*      public IActionResult UserBookCourt(int id)
@@ -103,7 +123,7 @@ namespace BadmintonBooking.Controllers
 
 
               } */
-        
+
         public IActionResult Privacy()
         {
             return View();
