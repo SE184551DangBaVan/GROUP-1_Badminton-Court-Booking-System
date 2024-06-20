@@ -8,6 +8,10 @@ using System.Globalization;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Net.NetworkInformation;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace BadmintonBooking.Controllers
 {
@@ -16,10 +20,12 @@ namespace BadmintonBooking.Controllers
         private readonly DemobadmintonContext _demobadmintonContext;
         private static List<TimeSlot> _slots = new List<TimeSlot>();
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public BookingController(DemobadmintonContext demobadmintonContext, IHttpContextAccessor httpContextAccessor)
+        private readonly UserManager<IdentityUser> _UserManager;
+        public BookingController(DemobadmintonContext demobadmintonContext, IHttpContextAccessor httpContextAccessor, UserManager<IdentityUser> userManager)
         {
             _demobadmintonContext = demobadmintonContext;
             _httpContextAccessor = httpContextAccessor;
+            _UserManager = userManager;
         }
         [HttpGet]
         public async Task<IActionResult> GetBookSlots()
@@ -48,6 +54,7 @@ namespace BadmintonBooking.Controllers
                     UserId = TempData["UserId"].ToString(),
                     BBookingType = "Casual",
                     CoId = int.Parse(TempData["CoId"].ToString()),
+                    BGuestName = _UserManager.GetUserName(User)
                 };
                 TimeSlot slot = new TimeSlot()
                 {

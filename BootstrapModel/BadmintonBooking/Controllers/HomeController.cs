@@ -36,11 +36,12 @@ namespace BadmintonBooking.Controllers
         {
             return View();
         }
-        [Authorize]
-        public IActionResult Date(int CoId, string UserId)
+
+        public IActionResult Date(int CoId, string UserId,string Types)
         {
             TempData["CoId"] = CoId;
             TempData["UserId"] = UserId;
+            TempData["TypeOfBooking"] = Types;
             return View();
         }
         
@@ -60,7 +61,7 @@ namespace BadmintonBooking.Controllers
 
             return View(data);
         }
-
+        [Authorize]
         public IActionResult Book2()
         {
 

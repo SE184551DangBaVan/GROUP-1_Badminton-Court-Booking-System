@@ -50,6 +50,11 @@
                                         <form asp-action="Date" asp-controller="Home">
                                             <input type="hidden" name="CoId" value="@court.CoId"/>
                                             <input type="hidden" name="UserId" value="@UserManager.GetUserId(User)" />
+                                            <select name="Types">
+                                                <option value="fixed">Fixed</option>
+                                                <option value="casual">Casual</option>
+                                                <option value="flexible">Flexible</option>
+                                            </select>
                                             <button>Book</button>
                                         </form>
                                     </div>
