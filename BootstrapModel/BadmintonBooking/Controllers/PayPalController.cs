@@ -13,7 +13,7 @@ namespace BadmintonBooking.Controllers
         private IHttpContextAccessor httpContextAccessor;
         IConfiguration _configuration;
         private readonly UserManager<IdentityUser> _userManager;
-        private Payment payment;
+        private PayPal.Api.Payment payment;
 
         public PayPalController(IHttpContextAccessor httpContextAccessor, IConfiguration configuration, UserManager<IdentityUser> userManager)
         {
@@ -82,7 +82,7 @@ namespace BadmintonBooking.Controllers
             {
                 payer_id = payerId
             };
-            this.payment = new Payment()
+            this.payment = new PayPal.Api.Payment()
             {
                 id = paymentId
             };
@@ -90,7 +90,7 @@ namespace BadmintonBooking.Controllers
         }
 
 
-        private Payment CreatePayment(APIContext apiContext, string redirectUrl, string blogId)
+        private PayPal.Api.Payment CreatePayment(APIContext apiContext, string redirectUrl, string blogId)
         {
             var quantity = int.Parse(httpContextAccessor.HttpContext.Session.GetString("quantity"));
             //create itemlist and add item objects to it
@@ -144,7 +144,7 @@ namespace BadmintonBooking.Controllers
 
                 });
 
-                this.payment = new Payment()
+                this.payment = new PayPal.Api.Payment()
                 {
                     intent = "sale",
                     payer = payer,

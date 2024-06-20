@@ -18,10 +18,10 @@ namespace BadmintonBooking.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string txtSearch)
         {
             DemobadmintonContext context = new DemobadmintonContext();
-            var courtlist = context.Courts.Where(c => c.CoStatus == true).Take(3).ToList();
+            var courtlist = context.Courts.Where(c => c.CoStatus == true).ToList();
 
 
             return View(courtlist);

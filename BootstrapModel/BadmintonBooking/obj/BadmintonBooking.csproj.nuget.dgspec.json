@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\FU\\swp\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj": {}
+    "C:\\final swp\\swp391 Release 2\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj": {}
   },
   "projects": {
-    "D:\\FU\\swp\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj": {
+    "C:\\final swp\\swp391 Release 2\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\FU\\swp\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj",
+        "projectUniqueName": "C:\\final swp\\swp391 Release 2\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj",
         "projectName": "BadmintonBooking",
-        "projectPath": "D:\\FU\\swp\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "D:\\FU\\swp\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\obj\\",
+        "projectPath": "C:\\final swp\\swp391 Release 2\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj",
+        "packagesPath": "C:\\Users\\theji\\.nuget\\packages\\",
+        "outputPath": "C:\\final swp\\swp391 Release 2\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\theji\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -121,7 +117,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.206/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
