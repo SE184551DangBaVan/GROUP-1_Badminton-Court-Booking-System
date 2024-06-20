@@ -15,22 +15,13 @@
             <h1 class="text-center">Badminton Court Information</h1>
             <img src="~/pictures/badmintoncourt.jpeg" class="main-image img-fluid" alt="Badminton Court Image">
 
-            <form class="form-inline mt-3">
-                <div class="form-group">
-                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter court name">
-                </div>
-                <div class="form-group">
-                    <select class="form-select">
-                        <option>Court A</option>
-                        <option>Court B</option>
-                        <option>Court C</option>
-                        <option>Court D</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary ml-2 mb-2">Search</button>
-            </form>
+            <div class="form-group" style="width:300px">
+                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter court name" id="txtSearch">
+            </div>
+                
+                
 
-            <div class="court-item mt-4">
+            <div class="court-item mt-4" id="courtList">
                 @if (Model != null && Model.Any())
                 {
                     foreach (var court in Model)
@@ -73,5 +64,22 @@
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="~/js/script.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#txtSearch').keyup(function () {
+                var searchValue = $(this).val().toLowerCase();
+                $('#courtList .card').each(function () {
+                    var cardText = $(this).text().toLowerCase();
+                    if (cardText.indexOf(searchValue) < 0) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
+                });
+            });
+        });
+    </script>
 </body>
