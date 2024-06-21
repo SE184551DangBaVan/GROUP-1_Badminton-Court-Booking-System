@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
@@ -137,7 +138,11 @@ namespace demobadminton.Controllers
         [HttpGet]
         public IActionResult Login(string ReturnUrl = null) {
             ViewData["ReturnUrl"] = ReturnUrl;
-            return View();
+            var loginVM = new LoginVM
+            {
+                Schemes = _signInManager.GetExternalAuthenticationSchemesAsync().Result // Populate Schemes here
+            };
+            return View(loginVM);
                 
                 }
         [HttpPost]
@@ -320,9 +325,69 @@ namespace demobadminton.Controllers
 
 
         }
-        
+        public IActionResult ExternalLogin(string provider, string returnUrl = "")
+        {
+            var redirectUrl = Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl });
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+            return new ChallengeResult(provider, properties);
+        }
+        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = "", string remoteError = "")
+        {
+            var loginVM = new LoginVM
+            {
+                Schemes = _signInManager.GetExternalAuthenticationSchemesAsync().Result
+            };
+            if (!string.IsNullOrEmpty(remoteError))
+            {
+                ModelState.AddModelError("", $"Error from external login provide:{remoteError}");
+                return View("Login", loginVM);
 
-        
+            }
+            //info login
+
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                ModelState.AddModelError("", $"Error from external login provide:{remoteError}");
+                return View("Login", loginVM);
+            }
+            var signInResult = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey
+                , isPersistent: false, bypassTwoFactor: false);
+            if (signInResult.Succeeded)
+            {
+                return RedirectToAction("index", "home");
+            }
+            else
+            {
+                var userEmail = info.Principal.FindFirstValue(ClaimTypes.Email);
+                if (!string.IsNullOrEmpty(userEmail))
+                {
+                    var user = await _userManager.FindByEmailAsync(userEmail);
+                    if (user == null)
+                    {
+                        user = new IdentityUser()
+                        {
+                            UserName = userEmail,
+                            Email = userEmail,
+                            EmailConfirmed = true,
+                        };
+                        await _userManager.CreateAsync(user);
+                        //add role here
+
+
+                    }
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
+            ModelState.AddModelError("", $"Something went wrong");
+            return View("Login", loginVM);
+
+        }
+
+
+
 
     }
 }

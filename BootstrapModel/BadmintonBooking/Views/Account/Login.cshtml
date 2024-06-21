@@ -39,6 +39,31 @@
 
 
 </form>
+
+<div class="row pt-2">
+    <h5>
+        External login
+        @if (Model.Schemes.Count() == 0)
+        {
+            <div>No external login providers havve configured</div>
+        }
+        else
+        {
+            <form asp-action="ExternalLogin" asp-controller="account">
+                <div>
+                    @foreach (var provider in Model.Schemes)
+                    {
+                        <button type="submit" class="btn btn-primary" name="provider"
+                                value="@provider.Name"
+                                title="Login using your @provider.Name account">
+                            @provider.DisplayName
+                        </button>
+                    }
+                </div>
+            </form>
+        }
+    </h5>
+</div>
 @section scripts{
     <partial name="_ValidationScriptsPartial.cshtml"/>
 }

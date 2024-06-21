@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Authentication;
+using System.ComponentModel.DataAnnotations;
 
 namespace demobadminton.ViewModels
 {
@@ -12,6 +13,7 @@ namespace demobadminton.ViewModels
         public string Password { get; set; } = default!;
         [Display(Name ="Remember me")]
         public bool RememberMe { get; set; }
-
+        //Google login
+        public IEnumerable<AuthenticationScheme> Schemes { get; set; } = new List<AuthenticationScheme>();
     }
 }
