@@ -24,11 +24,8 @@
     </div>
     <div class="mb-3">
         <div class="row">
-            <div class="col-6">
-                <a asp-action="ForgetPassword" asp-controller="Account"  class="float-end btn btn-sm btn-outline-primary">Forget Password</a>
-            </div>
-            <div class="col-6">
-                <a class=" btn btn-sm btn-outline-primary">Forget UserName</a>
+            <div class="col-7">
+                <a asp-action="ForgetPassword" asp-controller="Account"  class="float-end forg-btn btn-sm btn-outline-primary">Forget Password</a>
             </div>
         </div>
     </div>
@@ -53,6 +50,7 @@
                 <div>
                     @foreach (var provider in Model.Schemes)
                     {
+                        <i class="fa-brands fa-google"></i>
                         <button type="submit" class="btn btn-primary" name="provider"
                                 value="@provider.Name"
                                 title="Login using your @provider.Name account">

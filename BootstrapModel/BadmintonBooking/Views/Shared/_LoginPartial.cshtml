@@ -4,23 +4,28 @@
 @inject UserManager<IdentityUser> UserManager
 
 <ul class="navbar-nav">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item">
-            <a class="nav-link text-light">Hello @UserManager.GetUserName(User)!</a>
+        <span class="account-actions">
+        <li class="username nav-item">
+            <a class="nav-link text-light">Hello <span>@UserManager.GetUserName(User)</span>!</a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link text-light" asp-controller="Account" asp-action="Logout">LogOut</a>
+        <li class="logout nav-item">
+            <a class="nav-link text-light" asp-controller="Account" asp-action="Logout"><i class="fa-solid fa-right-from-bracket"></i>LogOut</a>
         </li>
+        </span>
     }
     else
     {
+        <span class="account-actions">
         <li class="nav-item">
             <a class="nav-link text-light" id="register" asp-controller="Account" asp-action="Register">Register</a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-light" id="login" asp-controller="Account" asp-action="Login">Login</a>
         </li>
+        </span>
     }
 </ul>

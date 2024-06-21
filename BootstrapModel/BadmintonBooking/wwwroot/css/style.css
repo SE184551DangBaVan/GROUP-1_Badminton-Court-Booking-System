@@ -1,5 +1,51 @@
 ﻿@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Redressed&family=Ubuntu:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Russo+One&display=swap");
+
+svg {
+    font-family: "Russo One", sans-serif;
+    width: 350px;
+    height: 40%;
+}
+
+    svg text {
+        animation: stroke 5s infinite alternate;
+        stroke-width: 2;
+        stroke: #D80100;
+        font-size: 2.8rem;
+    }
+
+@keyframes stroke {
+    0% {
+        fill: rgba(255,255,255,0);
+        stroke: rgba(216,1,0,1);
+        stroke-dashoffset: 25%;
+        stroke-dasharray: 0 50%;
+        stroke-width: 2;
+    }
+
+    20% {
+        fill: rgba(255,255,255,0);
+        stroke: rgba(216,1,0,1);
+    }
+
+    40% {
+        fill: rgba(255,255,255,0);
+        stroke: rgba(216,1,0,1);
+        stroke-width: 3;
+    }
+
+    100% {
+        fill: rgba(255,255,255,1);
+        stroke: rgba(216,1,0,0);
+        stroke-dashoffset: -25%;
+        stroke-dasharray: 50% 0;
+        stroke-width: 0;
+    }
+}
+.logo {
+    background-color: transparent
+}
 
 :root {
     --background: #005;
@@ -31,13 +77,14 @@ nav {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 20px;
+    padding: 5px;
     transition: all 0.4s ease;
     z-index: 1;
+    text-shadow: 3px 3px 2px rgba(0, 0, 0, 1);
 }
 
     nav.sticky {
-        padding: 5px;
+        padding: 2px;
         background: #333;
     }
 
@@ -45,30 +92,36 @@ nav {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin: 10px 40px;
+        margin: 5px 20px;
+        height: 100px;
     }
 
     nav .logo {
-        font-size: 2rem;
+        font-size: 2.5rem;
         font-weight: 600;
         color: #fff;
+        display: flex;
     }
 
         nav .logo span {
             font-size: 2.5rem;
             font-weight: 600;
             color: brown;
+            margin-top: 40px;
         }
 
     nav .nav-direct {
-        margin: 0.2rem 45rem 0 0;
+        margin: 0 500px 0 0;
         list-style: none;
         display: flex;
+        gap: 40px;
         color: #fff;
+        transition: all 0.3s ease;
     }
 
         nav .nav-direct li {
-            margin-left: 1rem;
+            margin: 10px 0 0 0;
+            height: 30px;
         }
 
         nav .nav-direct a {
@@ -82,6 +135,78 @@ nav {
                 font-size: 1.3rem;
                 color: brown;
             }
+
+/*Login /Register*/
+.navbar-nav .account-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#register, #login {
+    margin: 10px;
+    font-size: 18px;
+    width: 80px;
+    transition: all 0.4s ease;
+    outline: solid;
+    border-radius: 6px;
+    text-align: center;
+}
+
+#register:hover, #login:hover {
+    margin: 10px;
+    outline: solid;
+    border-radius: 20px;
+}
+
+.navbar-nav .username {
+    font-weight: bold;
+    margin: 10px;
+    display: fex;
+    align-content: space-between;
+}
+.account-actions .username span {
+    color: #acb7e2;
+}
+
+.navbar-nav .logout{
+    text-align: center;
+    outline: solid;
+    outline-color: white;
+    border-radius: 9px;
+    width: 80px;
+}
+
+.forg-btn{
+    outline: solid;
+    outline-color: brown;
+    font-weight: bold;
+    color: brown;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.btn:hover {
+    background: brown;
+    text-shadow: 3px 2px 2px rgba(0, 0, 0, 1);
+    box-shadow: 2px 4px 2px rgba(128, 0, 0, 1);
+}
+
+.forg-btn:hover {
+    outline: solid;
+    outline-color: brown;
+    font-weight: bold;
+    color: brown;
+    text-decoration: none;
+    background: transparent;
+    box-shadow: 2px 4px 2px rgba(128, 0, 0, 1);
+    text-shadow: 1px 1.5px 2px rgba(0, 0, 0, 1);
+}
+
+.btn {
+    background: brown;
+    transition: 0.3s ease;
+}
 
 /*Content*/
 .Quote {
