@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "93WkKA9Ga7y2u2MBkv9QhDuoSUqQJsk+ms5Jcq2Li5CC1hWTr2wf7Duw3CowKIR32TNlTjET3c5fLJxE7pyggg==",
+  "dgSpecHash": "RBUgRk9LhuMFW7A0VcL2oYFd1ndppb/8eymctb/UlwGS88jJsih720wqypE74vspjmbjTrXJwcYNrC3REDS8ag==",
   "success": true,
   "projectFilePath": "C:\\final swp\\swp391 Release 2\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj",
   "expectedPackageFiles": [
@@ -58,6 +58,7 @@
     "C:\\Users\\theji\\.nuget\\packages\\humanizer.core.zh-cn\\2.14.1\\humanizer.core.zh-cn.2.14.1.nupkg.sha512",
     "C:\\Users\\theji\\.nuget\\packages\\humanizer.core.zh-hans\\2.14.1\\humanizer.core.zh-hans.2.14.1.nupkg.sha512",
     "C:\\Users\\theji\\.nuget\\packages\\humanizer.core.zh-hant\\2.14.1\\humanizer.core.zh-hant.2.14.1.nupkg.sha512",
+    "C:\\Users\\theji\\.nuget\\packages\\microsoft.aspnetcore.authentication.google\\8.0.6\\microsoft.aspnetcore.authentication.google.8.0.6.nupkg.sha512",
     "C:\\Users\\theji\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\8.0.4\\microsoft.aspnetcore.cryptography.internal.8.0.4.nupkg.sha512",
     "C:\\Users\\theji\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\8.0.4\\microsoft.aspnetcore.cryptography.keyderivation.8.0.4.nupkg.sha512",
     "C:\\Users\\theji\\.nuget\\packages\\microsoft.aspnetcore.dataprotection\\2.2.0\\microsoft.aspnetcore.dataprotection.2.2.0.nupkg.sha512",
