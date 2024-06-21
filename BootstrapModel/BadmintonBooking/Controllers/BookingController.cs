@@ -33,6 +33,11 @@ namespace BadmintonBooking.Controllers
             var booked = await _demobadmintonContext.TimeSlots.ToListAsync();
             return Ok(booked);
         }
+        public async Task<IActionResult> Cancel()
+        {
+            _httpContextAccessor.HttpContext.Session.Remove("Booking");
+            return Ok(new { message = "Cancel successfully" });
+        }
 
         [HttpPost]
         public async Task<IActionResult> UpdateBooking([FromBody] BookingData bookingData)
@@ -51,14 +56,14 @@ namespace BadmintonBooking.Controllers
                 Console.WriteLine($"Parsed Booking Data - Time: {time}, Date: {date}, Booked: {booked}");
                 Booking booking = new Booking()
                 {
-                    UserId = TempData["UserId"].ToString(),
-                    BBookingType = "Casual",
-                    CoId = int.Parse(TempData["CoId"].ToString()),
+                    UserId = _httpContextAccessor.HttpContext.Session.GetString("UserId"),
+                    BBookingType = _httpContextAccessor.HttpContext.Session.GetString("Types"),
+                    CoId = int.Parse(_httpContextAccessor.HttpContext.Session.GetString("CoId")),
                     BGuestName = _UserManager.GetUserName(User)
                 };
                 TimeSlot slot = new TimeSlot()
                 {
-                    CoId = int.Parse(TempData["CoId"].ToString()),
+                    CoId = int.Parse(_httpContextAccessor.HttpContext.Session.GetString("CoId")),
                     TsCheckedIn = false,
                     TsDate = date,
                     TsStart = time,
@@ -66,6 +71,12 @@ namespace BadmintonBooking.Controllers
                 };
 
                 booking.TimeSlots.Add(slot);
+                Payment payment = new Payment()
+                {
+                    PDateTime = DateTime.Now,
+                    PAmount = 50000000
+                };
+                booking.Payments.Add(payment);
                 int quantity = booking.TimeSlots.Count;
                 _httpContextAccessor.HttpContext.Session.SetString("quantity", quantity.ToString());
                 var jsonString = JsonConvert.SerializeObject(booking);
@@ -73,6 +84,7 @@ namespace BadmintonBooking.Controllers
                 Console.WriteLine(_slots);
                 return Ok(new { message = "Booking data received successfully." });
             }
+
             catch (Exception ex)
             {
                 // Log the exception for debugging purposes
@@ -104,7 +116,7 @@ namespace BadmintonBooking.Controllers
                     return StatusCode(500, "Failed to save booking to database.");
                 }
 
-                return RedirectToAction("PaymentSuccess","Paypal");
+                return RedirectToAction("PaymentSuccess", "Paypal");
             }
             catch (Exception ex)
             {
@@ -120,7 +132,7 @@ namespace BadmintonBooking.Controllers
             {
                 await _demobadmintonContext.AddAsync(booking);
                 await _demobadmintonContext.SaveChangesAsync();
-                _slots.Clear(); // Clear the list after saving to avoid duplicate entries
+                _httpContextAccessor.HttpContext.Session.Remove("Booking");
 
                 return true;
             }

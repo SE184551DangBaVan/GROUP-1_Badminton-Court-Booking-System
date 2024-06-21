@@ -352,7 +352,7 @@ namespace demobadminton.Controllers
                 return View("Login", loginVM);
             }
             var signInResult = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey
-                , isPersistent: false, bypassTwoFactor: false);
+                , isPersistent: false, bypassTwoFactor: true);
             if (signInResult.Succeeded)
             {
                 return RedirectToAction("index", "home");

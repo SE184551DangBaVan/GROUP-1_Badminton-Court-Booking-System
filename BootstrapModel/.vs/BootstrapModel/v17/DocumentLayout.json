@@ -1,140 +1,26 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\",
+  "WorkspaceRootPath": "C:\\Users\\Windows\\source\\repos\\GROUP-1_Badminton-Court-Booking-System1\\BootstrapModel\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\wwwroot\\css\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\wwwroot\\css\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\views\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\views\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\views\\shared\\_layoutlr.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\views\\shared\\_layoutlr.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\views\\account\\forgetpassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\views\\account\\forgetpassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\views\\home\\book2.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\views\\home\\book2.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\controllers\\paypalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\controllers\\paypalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\models\\payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\models\\payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\controllers\\bookingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\windows\\source\\repos\\group-1_badminton-court-booking-system1\\bootstrapmodel\\badmintonbooking\\controllers\\bookingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\controllers\\bookingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\wwwroot\\js\\jscript.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\windows\\source\\repos\\group-1_badminton-court-booking-system1\\bootstrapmodel\\badmintonbooking\\wwwroot\\js\\jscript.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\wwwroot\\js\\jscript.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\models\\court.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\models\\court.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\models\\demobadmintoncontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\models\\demobadmintoncontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\models\\bookingdatacs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\models\\bookingdatacs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\views\\paypal\\paymentsuccess.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\views\\paypal\\paymentsuccess.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\controllers\\administrationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\controllers\\administrationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\views\\admin\\show.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\views\\admin\\show.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\views\\admin\\editcourt.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\views\\admin\\editcourt.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\views\\admin\\detailcourt.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\views\\admin\\detailcourt.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\views\\admin\\addcourt.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\views\\admin\\addcourt.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\views\\home\\date.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\windows\\source\\repos\\group-1_badminton-court-booking-system1\\bootstrapmodel\\badmintonbooking\\views\\home\\date.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\views\\home\\date.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\views\\home\\book.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\views\\home\\book.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\windows\\source\\repos\\group-1_badminton-court-booking-system1\\bootstrapmodel\\badmintonbooking\\views\\home\\book2.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\views\\home\\book2.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\views\\home\\about.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\views\\home\\about.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\asus\\desktop\\group-1_badminton-court-booking-system\\group-1_badminton-court-booking-system\\bootstrapmodel\\badmintonbooking\\badmintonbooking.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\badmintonbooking.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\final swp\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Admin\\DetailCourt.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Windows\\source\\repos\\GROUP-1_Badminton-Court-Booking-System1\\BootstrapModel\\BadmintonBooking\\Views\\Home\\Payment.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|c:\\users\\windows\\source\\repos\\group-1_badminton-court-booking-system1\\bootstrapmodel\\badmintonbooking\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{400A800D-5916-4623-AB05-4696C6F6CC57}|BadmintonBooking\\BadmintonBooking.csproj|solutionrelative:badmintonbooking\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -144,15 +30,15 @@
       "DocumentGroups": [
         {
           "DockedWidth": 129,
-          "SelectedChildIndex": 78,
+          "SelectedChildIndex": 72,
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Bookmark",
@@ -177,10 +63,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:1:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
             },
             {
               "$type": "Bookmark",
@@ -364,6 +246,10 @@
             },
             {
               "$type": "Bookmark",
+              "Name": "ST:1:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
               "Name": "ST:13:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
             },
             {
@@ -408,6 +294,10 @@
             },
             {
               "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
               "Name": "ST:27:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
             },
             {
@@ -416,418 +306,68 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ForgetPassword.cshtml",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Account\\ForgetPassword.cshtml",
-              "RelativeDocumentMoniker": "BadmintonBooking\\Views\\Account\\ForgetPassword.cshtml",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Account\\ForgetPassword.cshtml",
-              "RelativeToolTip": "BadmintonBooking\\Views\\Account\\ForgetPassword.cshtml",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-21T05:30:52.581Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Home\\Index.cshtml",
-              "RelativeDocumentMoniker": "BadmintonBooking\\Views\\Home\\Index.cshtml",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Home\\Index.cshtml",
-              "RelativeToolTip": "BadmintonBooking\\Views\\Home\\Index.cshtml",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAAAFcAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-16T15:24:17.99Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "style.css",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\wwwroot\\css\\style.css",
-              "RelativeDocumentMoniker": "BadmintonBooking\\wwwroot\\css\\style.css",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\wwwroot\\css\\style.css",
-              "RelativeToolTip": "BadmintonBooking\\wwwroot\\css\\style.css",
-              "ViewState": "AQIAALgAAAAAAAAAAAAAwMAAAAAEAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-06-21T05:29:23.663Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "BadmintonBooking\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "BadmintonBooking\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAABHAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-17T05:07:10.798Z",
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\Windows\\source\\repos\\GROUP-1_Badminton-Court-Booking-System1\\BootstrapModel\\BadmintonBooking\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "BadmintonBooking\\Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\Windows\\source\\repos\\GROUP-1_Badminton-Court-Booking-System1\\BootstrapModel\\BadmintonBooking\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "BadmintonBooking\\Controllers\\HomeController.cs",
+              "ViewState": "AQIAACAAAAAAAAAAAAAgwC0AAABNAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-21T09:42:58.874Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "_LoginPartial.cshtml",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Shared\\_LoginPartial.cshtml",
-              "RelativeDocumentMoniker": "BadmintonBooking\\Views\\Shared\\_LoginPartial.cshtml",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Shared\\_LoginPartial.cshtml",
-              "RelativeToolTip": "BadmintonBooking\\Views\\Shared\\_LoginPartial.cshtml",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAAABkAAAAdAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-17T05:07:47.715Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "_LayoutLR.cshtml",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Shared\\_LayoutLR.cshtml",
-              "RelativeDocumentMoniker": "BadmintonBooking\\Views\\Shared\\_LayoutLR.cshtml",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Shared\\_LayoutLR.cshtml",
-              "RelativeToolTip": "BadmintonBooking\\Views\\Shared\\_LayoutLR.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-17T05:07:38.672Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
               "Title": "Book2.cshtml",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Home\\Book2.cshtml",
+              "DocumentMoniker": "C:\\Users\\Windows\\source\\repos\\GROUP-1_Badminton-Court-Booking-System1\\BootstrapModel\\BadmintonBooking\\Views\\Home\\Book2.cshtml",
               "RelativeDocumentMoniker": "BadmintonBooking\\Views\\Home\\Book2.cshtml",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Home\\Book2.cshtml",
+              "ToolTip": "C:\\Users\\Windows\\source\\repos\\GROUP-1_Badminton-Court-Booking-System1\\BootstrapModel\\BadmintonBooking\\Views\\Home\\Book2.cshtml",
               "RelativeToolTip": "BadmintonBooking\\Views\\Home\\Book2.cshtml",
-              "ViewState": "AQIAAFQAAAAAAAAAAAAAAEsAAAAXAAAA",
+              "ViewState": "AQIAACcAAAAAAAAAAAAAADcAAABAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-17T05:05:49.278Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\appsettings.json",
-              "RelativeDocumentMoniker": "BadmintonBooking\\appsettings.json",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\appsettings.json",
-              "RelativeToolTip": "BadmintonBooking\\appsettings.json",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAUwCMAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-06-17T04:58:09.717Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "AccountController.cs",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Controllers\\AccountController.cs",
-              "RelativeDocumentMoniker": "BadmintonBooking\\Controllers\\AccountController.cs",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Controllers\\AccountController.cs",
-              "RelativeToolTip": "BadmintonBooking\\Controllers\\AccountController.cs",
-              "ViewState": "AQIAADABAAAAAAAAAAAcwE4BAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-17T05:03:12.438Z",
+              "WhenOpened": "2024-06-21T09:42:40.713Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Program.cs",
-              "RelativeDocumentMoniker": "BadmintonBooking\\Program.cs",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Program.cs",
-              "RelativeToolTip": "BadmintonBooking\\Program.cs",
-              "ViewState": "AQIAACsAAAAAAAAAAADwv1AAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-16T17:06:49.865Z"
+              "DocumentIndex": 2,
+              "Title": "Date.cshtml",
+              "DocumentMoniker": "C:\\Users\\Windows\\source\\repos\\GROUP-1_Badminton-Court-Booking-System1\\BootstrapModel\\BadmintonBooking\\Views\\Home\\Date.cshtml",
+              "RelativeDocumentMoniker": "BadmintonBooking\\Views\\Home\\Date.cshtml",
+              "ToolTip": "C:\\Users\\Windows\\source\\repos\\GROUP-1_Badminton-Court-Booking-System1\\BootstrapModel\\BadmintonBooking\\Views\\Home\\Date.cshtml",
+              "RelativeToolTip": "BadmintonBooking\\Views\\Home\\Date.cshtml",
+              "ViewState": "AQIAAIoAAAAAAAAAAAAAAJoAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-06-21T09:38:29.577Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "Court.cs",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Models\\Court.cs",
-              "RelativeDocumentMoniker": "BadmintonBooking\\Models\\Court.cs",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Models\\Court.cs",
-              "RelativeToolTip": "BadmintonBooking\\Models\\Court.cs",
-              "ViewState": "AQIAAB8AAAAAAAAAAADwvyUAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-17T05:03:26.454Z"
+              "DocumentIndex": 1,
+              "Title": "JScript.js",
+              "DocumentMoniker": "C:\\Users\\Windows\\source\\repos\\GROUP-1_Badminton-Court-Booking-System1\\BootstrapModel\\BadmintonBooking\\wwwroot\\js\\JScript.js",
+              "RelativeDocumentMoniker": "BadmintonBooking\\wwwroot\\js\\JScript.js",
+              "ToolTip": "C:\\Users\\Windows\\source\\repos\\GROUP-1_Badminton-Court-Booking-System1\\BootstrapModel\\BadmintonBooking\\wwwroot\\js\\JScript.js",
+              "RelativeToolTip": "BadmintonBooking\\wwwroot\\js\\JScript.js",
+              "ViewState": "AQIAAFgAAAAAAAAAAAAmwGwAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-06-21T09:35:47.01Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Login.cshtml",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Account\\Login.cshtml",
-              "RelativeDocumentMoniker": "BadmintonBooking\\Views\\Account\\Login.cshtml",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Account\\Login.cshtml*",
-              "RelativeToolTip": "BadmintonBooking\\Views\\Account\\Login.cshtml*",
-              "ViewState": "AQIAABYAAAAAAAAAAADwvxoAAAAdAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-21T02:04:55.803Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
               "Title": "BookingController.cs",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Controllers\\BookingController.cs",
+              "DocumentMoniker": "C:\\Users\\Windows\\source\\repos\\GROUP-1_Badminton-Court-Booking-System1\\BootstrapModel\\BadmintonBooking\\Controllers\\BookingController.cs",
               "RelativeDocumentMoniker": "BadmintonBooking\\Controllers\\BookingController.cs",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Controllers\\BookingController.cs",
+              "ToolTip": "C:\\Users\\Windows\\source\\repos\\GROUP-1_Badminton-Court-Booking-System1\\BootstrapModel\\BadmintonBooking\\Controllers\\BookingController.cs",
               "RelativeToolTip": "BadmintonBooking\\Controllers\\BookingController.cs",
-              "ViewState": "AQIAACYAAAAAAAAAAAD4vy0AAAAAAAAA",
+              "ViewState": "AQIAADsAAAAAAAAAAAAAADsAAABcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-16T17:04:29.341Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 33,
-              "Title": "Payment.cshtml",
-              "DocumentMoniker": "C:\\Users\\Windows\\source\\repos\\GROUP-1_Badminton-Court-Booking-System1\\BootstrapModel\\BadmintonBooking\\Views\\Home\\Payment.cshtml",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Windows\\source\\repos\\GROUP-1_Badminton-Court-Booking-System1\\BootstrapModel\\BadmintonBooking\\Views\\Home\\Payment.cshtml",
-              "ToolTip": "C:\\Users\\Windows\\source\\repos\\GROUP-1_Badminton-Court-Booking-System1\\BootstrapModel\\BadmintonBooking\\Views\\Home\\Payment.cshtml",
-              "RelativeToolTip": "..\\..\\..\\..\\..\\Windows\\source\\repos\\GROUP-1_Badminton-Court-Booking-System1\\BootstrapModel\\BadmintonBooking\\Views\\Home\\Payment.cshtml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-17T15:27:57.563Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "PayPalController.cs",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Controllers\\PayPalController.cs",
-              "RelativeDocumentMoniker": "BadmintonBooking\\Controllers\\PayPalController.cs",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Controllers\\PayPalController.cs",
-              "RelativeToolTip": "BadmintonBooking\\Controllers\\PayPalController.cs",
-              "ViewState": "AQIAAEoAAAAAAAAAAADwv1gAAAAMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-17T14:36:38.517Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "Payment.cs",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Models\\Payment.cs",
-              "RelativeDocumentMoniker": "BadmintonBooking\\Models\\Payment.cs",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Models\\Payment.cs",
-              "RelativeToolTip": "BadmintonBooking\\Models\\Payment.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAcAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-20T13:45:13.199Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "HomeController.cs",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "BadmintonBooking\\Controllers\\HomeController.cs",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "BadmintonBooking\\Controllers\\HomeController.cs",
-              "ViewState": "AQIAAEIAAAAAAAAAAAAgwFYAAAAhAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-16T14:44:20.977Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "DemobadmintonContext.cs",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Models\\DemobadmintonContext.cs",
-              "RelativeDocumentMoniker": "BadmintonBooking\\Models\\DemobadmintonContext.cs",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Models\\DemobadmintonContext.cs",
-              "RelativeToolTip": "BadmintonBooking\\Models\\DemobadmintonContext.cs",
-              "ViewState": "AQIAAB8AAAAAAAAAAAAwwCcAAAAnAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-17T14:50:17.305Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "JScript.js",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\wwwroot\\js\\JScript.js",
-              "RelativeDocumentMoniker": "BadmintonBooking\\wwwroot\\js\\JScript.js",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\wwwroot\\js\\JScript.js",
-              "RelativeToolTip": "BadmintonBooking\\wwwroot\\js\\JScript.js",
-              "ViewState": "AQIAAM8AAAAAAAAAAAAkwOsAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-06-18T15:29:42.935Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "BookingDatacs.cs",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Models\\BookingDatacs.cs",
-              "RelativeDocumentMoniker": "BadmintonBooking\\Models\\BookingDatacs.cs",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Models\\BookingDatacs.cs",
-              "RelativeToolTip": "BadmintonBooking\\Models\\BookingDatacs.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-18T07:30:55.766Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "Show.cshtml",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Admin\\Show.cshtml",
-              "RelativeDocumentMoniker": "BadmintonBooking\\Views\\Admin\\Show.cshtml",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Admin\\Show.cshtml",
-              "RelativeToolTip": "BadmintonBooking\\Views\\Admin\\Show.cshtml",
-              "ViewState": "AQIAAC8AAAAAAAAAAAAYwD8AAABfAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-17T05:19:54.446Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "PaymentSuccess.cshtml",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\PayPal\\PaymentSuccess.cshtml",
-              "RelativeDocumentMoniker": "BadmintonBooking\\Views\\PayPal\\PaymentSuccess.cshtml",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\PayPal\\PaymentSuccess.cshtml",
-              "RelativeToolTip": "BadmintonBooking\\Views\\PayPal\\PaymentSuccess.cshtml",
-              "ViewState": "AQIAACQAAAAAAAAAAIBJwAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-17T15:40:50.444Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "AdminController.cs",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Controllers\\AdminController.cs",
-              "RelativeDocumentMoniker": "BadmintonBooking\\Controllers\\AdminController.cs",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Controllers\\AdminController.cs",
-              "RelativeToolTip": "BadmintonBooking\\Controllers\\AdminController.cs",
-              "ViewState": "AQIAAEcAAAAAAAAAAAAgwKMAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-16T06:32:16.635Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "AdministrationController.cs",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Controllers\\AdministrationController.cs",
-              "RelativeDocumentMoniker": "BadmintonBooking\\Controllers\\AdministrationController.cs",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Controllers\\AdministrationController.cs",
-              "RelativeToolTip": "BadmintonBooking\\Controllers\\AdministrationController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-17T12:56:03.649Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
-              "Title": "Book.cshtml",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Home\\Book.cshtml",
-              "RelativeDocumentMoniker": "BadmintonBooking\\Views\\Home\\Book.cshtml",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Home\\Book.cshtml",
-              "RelativeToolTip": "BadmintonBooking\\Views\\Home\\Book.cshtml",
-              "ViewState": "AQIAAAoAAAAAAAAAAAAIwFIAAAAHAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-17T05:05:16.545Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "DetailCourt.cshtml",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Admin\\DetailCourt.cshtml",
-              "RelativeDocumentMoniker": "BadmintonBooking\\Views\\Admin\\DetailCourt.cshtml",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Admin\\DetailCourt.cshtml",
-              "RelativeToolTip": "BadmintonBooking\\Views\\Admin\\DetailCourt.cshtml",
-              "ViewState": "AQIAADUAAAAAAAAAAAAYwF4AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-17T05:19:35.378Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "EditCourt.cshtml",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Admin\\EditCourt.cshtml",
-              "RelativeDocumentMoniker": "BadmintonBooking\\Views\\Admin\\EditCourt.cshtml",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Admin\\EditCourt.cshtml",
-              "RelativeToolTip": "BadmintonBooking\\Views\\Admin\\EditCourt.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-17T05:19:49.205Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "AddCourt.cshtml",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Admin\\AddCourt.cshtml",
-              "RelativeDocumentMoniker": "BadmintonBooking\\Views\\Admin\\AddCourt.cshtml",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Admin\\AddCourt.cshtml",
-              "RelativeToolTip": "BadmintonBooking\\Views\\Admin\\AddCourt.cshtml",
-              "ViewState": "AQIAACIAAAAAAAAAAAAYwEsAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-17T05:03:07.068Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "Date.cshtml",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Home\\Date.cshtml",
-              "RelativeDocumentMoniker": "BadmintonBooking\\Views\\Home\\Date.cshtml",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Home\\Date.cshtml",
-              "RelativeToolTip": "BadmintonBooking\\Views\\Home\\Date.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-17T05:05:58.633Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "_ViewImports.cshtml",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\_ViewImports.cshtml",
-              "RelativeDocumentMoniker": "BadmintonBooking\\Views\\_ViewImports.cshtml",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\_ViewImports.cshtml",
-              "RelativeToolTip": "BadmintonBooking\\Views\\_ViewImports.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-17T05:06:48.719Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "_ViewStart.cshtml",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\_ViewStart.cshtml",
-              "RelativeDocumentMoniker": "BadmintonBooking\\Views\\_ViewStart.cshtml",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\_ViewStart.cshtml",
-              "RelativeToolTip": "BadmintonBooking\\Views\\_ViewStart.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-17T05:06:49.755Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 30,
-              "Title": "About.cshtml",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Home\\About.cshtml",
-              "RelativeDocumentMoniker": "BadmintonBooking\\Views\\Home\\About.cshtml",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Home\\About.cshtml",
-              "RelativeToolTip": "BadmintonBooking\\Views\\Home\\About.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-17T05:05:15.163Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 31,
-              "Title": "BadmintonBooking.csproj",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj",
-              "RelativeDocumentMoniker": "BadmintonBooking\\BadmintonBooking.csproj",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\GROUP-1_Badminton-Court-Booking-System\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj",
-              "RelativeToolTip": "BadmintonBooking\\BadmintonBooking.csproj",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-06-16T17:03:54.102Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 32,
-              "Title": "DetailCourt.cshtml",
-              "DocumentMoniker": "C:\\final swp\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Admin\\DetailCourt.cshtml",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\final swp\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Admin\\DetailCourt.cshtml",
-              "ToolTip": "C:\\final swp\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Admin\\DetailCourt.cshtml",
-              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\final swp\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\Views\\Admin\\DetailCourt.cshtml",
-              "ViewState": "AQIAAEMAAAAAAAAAAAAYwFMAAAAWAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-16T06:22:47.426Z"
+              "WhenOpened": "2024-06-21T09:34:56.137Z",
+              "EditorCaption": ""
             }
           ]
         },

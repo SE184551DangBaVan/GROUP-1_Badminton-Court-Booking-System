@@ -11,11 +11,13 @@ namespace BadmintonBooking.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public HomeController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager)
+        public HomeController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
             _userManager = userManager;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public IActionResult Index(string txtSearch)
@@ -37,14 +39,14 @@ namespace BadmintonBooking.Controllers
             return View();
         }
 
-        public IActionResult Date(int CoId, string UserId,string Types)
+        public IActionResult Date(int CoId, string UserId, string Types)
         {
-            TempData["CoId"] = CoId;
-            TempData["UserId"] = UserId;
-            TempData["TypeOfBooking"] = Types;
+            _httpContextAccessor.HttpContext.Session.SetString("CoId", CoId.ToString());
+            _httpContextAccessor.HttpContext.Session.SetString("UserId", UserId);
+            _httpContextAccessor.HttpContext.Session.SetString("Types", Types);
             return View();
         }
-        
+
         public IActionResult About()
         {
             return View();
@@ -62,7 +64,7 @@ namespace BadmintonBooking.Controllers
             return View(data);
         }
         [Authorize]
-        public IActionResult Book2(int page=1,string address ="", string sortOrder = "")
+        public IActionResult Book2(int page = 1, string address = "", string sortOrder = "")
         {
             DemobadmintonContext context = new DemobadmintonContext();
             int NoOfRecordPerPage = 5;
@@ -98,7 +100,7 @@ namespace BadmintonBooking.Controllers
             // Calculate total pages
             int totalRecords = data.Count;
             int NoOfPages = (int)Math.Ceiling((double)totalRecords / NoOfRecordPerPage);
-            if (NoOfPages == 0) NoOfPages = 1; 
+            if (NoOfPages == 0) NoOfPages = 1;
 
             // Pagination logic
             int NoOfRecordToSkip = (page - 1) * NoOfRecordPerPage;
