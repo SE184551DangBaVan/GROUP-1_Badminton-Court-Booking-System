@@ -111,7 +111,7 @@ nav {
         }
 
     nav .nav-direct {
-        margin: 0 500px 0 0;
+        margin: 0 200px 0 0;
         list-style: none;
         display: flex;
         gap: 40px;
@@ -162,7 +162,7 @@ nav {
 .navbar-nav .username {
     font-weight: bold;
     margin: 10px;
-    display: fex;
+    display: flex;
     align-content: space-between;
 }
 .account-actions .username span {
@@ -173,7 +173,16 @@ nav {
     text-align: center;
     outline: solid;
     outline-color: white;
-    border-radius: 9px;
+    border-radius: 6px;
+    width: 80px;
+    transition: all 0.3s ease;
+}
+.navbar-nav .logout:hover {
+    text-align: center;
+    color: brown;
+    outline: solid;
+    outline-color: brown;
+    border-radius: 12px;
     width: 80px;
 }
 
