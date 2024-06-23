@@ -33,6 +33,8 @@ namespace BadmintonBooking.Controllers
             var booked = await _demobadmintonContext.TimeSlots.ToListAsync();
             return Ok(booked);
         }
+        
+        [HttpPost]
         public async Task<IActionResult> Cancel()
         {
             _httpContextAccessor.HttpContext.Session.Remove("Booking");
@@ -42,6 +44,13 @@ namespace BadmintonBooking.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateBooking([FromBody] BookingData bookingData)
         {
+            string userId = _UserManager.GetUserId(User);
+
+            // Check if user ID is found
+            if (userId == null)
+            {
+                return Unauthorized(new { message = "User is not authenticated. Redirecting to login." });
+            }
             try
             {
                 if (bookingData == null)
@@ -56,7 +65,7 @@ namespace BadmintonBooking.Controllers
                 Console.WriteLine($"Parsed Booking Data - Time: {time}, Date: {date}, Booked: {booked}");
                 Booking booking = new Booking()
                 {
-                    UserId = _httpContextAccessor.HttpContext.Session.GetString("UserId"),
+                    UserId = userId,
                     BBookingType = _httpContextAccessor.HttpContext.Session.GetString("Types"),
                     CoId = int.Parse(_httpContextAccessor.HttpContext.Session.GetString("CoId")),
                     BGuestName = _UserManager.GetUserName(User)

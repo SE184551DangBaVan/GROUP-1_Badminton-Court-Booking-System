@@ -39,10 +39,9 @@ namespace BadmintonBooking.Controllers
             return View();
         }
 
-        public IActionResult Date(int CoId, string UserId, string Types)
+        public IActionResult Date(int CoId, string Types)
         {
-            _httpContextAccessor.HttpContext.Session.SetString("CoId", CoId.ToString());
-            _httpContextAccessor.HttpContext.Session.SetString("UserId", UserId);
+            _httpContextAccessor.HttpContext.Session.SetString("CoId", CoId.ToString());            
             _httpContextAccessor.HttpContext.Session.SetString("Types", Types);
             return View();
         }
@@ -63,7 +62,7 @@ namespace BadmintonBooking.Controllers
 
             return View(data);
         }
-        [Authorize]
+        
         public IActionResult Book2(int page = 1, string address = "", string sortOrder = "")
         {
             DemobadmintonContext context = new DemobadmintonContext();

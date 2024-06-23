@@ -102,6 +102,48 @@
             if (timeslot) {
                 timeslot.booked = true;
             }
+            sendBookingData({ time, date: day, booked: true });
+            updateTotalPrice();
+        }
+    }
+    function sendBookingData(slot) {
+        fetch('/Booking/UpdateBooking', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(slot),
+        })
+            .then(response => {
+                if (response.status === 401) {
+                    window.location.href = '/Account/Login';
+                } else if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+
+
+    function cancelAllBookings() {
+        const bookedCells = document.querySelectorAll(".booked");
+        bookedCells.forEach(cell => {
+            cell.classList.remove("booked");
+            cell.classList.add("bookable");
+            cell.textContent = "Book Now";
+
+            // Update schedule data
+            const [time, day] = getTimeAndDayFromCell(cell);
+            const timeslot = scheduleData.find(slot => slot.date === day && slot.time === time);
+            if (timeslot) {
+                timeslot.booked = false;
+            }
             fetch('/Booking/Cancel', {
                 method: 'POST',
                 headers: {
@@ -121,45 +163,7 @@
                 .catch(error => {
                     console.error('Error:', error);
                 });
-            updateTotalPrice();
-        }
-    }
-    function sendBookingData(slot) {
-        fetch('/Booking/UpdateBooking', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(slot),
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Success:', data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-    }
 
-    function cancelAllBookings() {
-        const bookedCells = document.querySelectorAll(".booked");
-        bookedCells.forEach(cell => {
-            cell.classList.remove("booked");
-            cell.classList.add("bookable");
-            cell.textContent = "Book Now";
-
-            // Update schedule data
-            const [time, day] = getTimeAndDayFromCell(cell);
-            const timeslot = scheduleData.find(slot => slot.date === day && slot.time === time);
-            if (timeslot) {
-                timeslot.booked = false;
-            }
-            sendBookingData({ time, date: day, booked: false });
         });
         updateTotalPrice();
     }

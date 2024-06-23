@@ -51,10 +51,9 @@
                                         <p class="card-text"><strong>Status:</strong> @(court.CoStatus ? "Active" : "Inactive")</p>
                                         <form asp-action="Date" asp-controller="Home">
                                             <input type="hidden" name="CoId" value="@court.CoId"/>
-                                            <input type="hidden" name="UserId" value="@UserManager.GetUserId(User)" />
-                                            <select name="Types">
-                                                <option value="Fixed">Fixed</option>
+                                            <select name="Types">                                                
                                                 <option value="Casual">Casual</option>
+                                                <option value="Fixed">Fixed</option>
                                                 <option value="Flexible">Flexible</option>
                                             </select>
                                             <button>Book</button>
