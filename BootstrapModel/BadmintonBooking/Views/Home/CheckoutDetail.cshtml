@@ -1,0 +1,128 @@
+﻿@model IEnumerable<BadmintonBooking.Models.TimeSlot>
+
+@{
+    ViewData["Title"] = "CheckoutDetail";
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .header {
+        text-align: center;
+        padding: 20px;
+        background-color: #007bff;
+        color: white;
+        margin-bottom: 20px;
+    }
+
+        .header h1 {
+            margin: 0;
+        }
+
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .card {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin: 10px;
+        width: calc(20% - 20px);
+        transition: transform 0.2s;
+    }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card img {
+            border-radius: 8px 8px 0 0;
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+    .card-content {
+        padding: 10px;
+    }
+
+        .card-content h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .card-content p {
+            margin: 5px 0;
+            color: #555;
+            font-size: 14px;
+        }
+
+    .btn {
+        display: block;
+        text-align: center;
+        background-color: #007bff;
+        color: white;
+        padding: 8px;
+        border-radius: 5px;
+        text-decoration: none;
+        margin-top: 10px;
+    }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+    .status-approved {
+        background-color: #d4edda;
+        border-left: 5px solid #28a745;
+    }
+
+    .status-pending {
+        background-color: #f8d7da;
+        border-left: 5px solid #dc3545;
+    }
+</style>
+
+<div class="container">
+    <div class="header">
+        <h1>Detail </h1>
+    </div>
+
+    <div class="card-container">
+        @foreach (var item in Model)
+        {
+            <div class="card @(item.TsCheckedIn ? "status-approved" : "status-pending")">
+                <div class="card-content">
+                    <h3>Time slot Id: @Html.DisplayFor(modelItem => item.TsId)</h3>
+                    <p>Court Name: @Html.DisplayFor(modelItem => item.Co.CoName)</p>
+                    <p>Court Id: @Html.DisplayFor(modelItem => item.Co.CoId)</p>
+                    <p>Address: @Html.DisplayFor(modelItem => item.Co.CoAddress)</p>
+                    <p>Address: @Html.DisplayFor(modelItem => item.Co.CoInfo)</p>
+                    <p>Date: @Html.DisplayFor(modelItem => item.TsDate)</p>
+                    <p>Start: @Html.DisplayFor(modelItem => item.TsStart)</p>
+                    <p>End: @Html.DisplayFor(modelItem => item.TsEnd)</p>
+                    <p>Status: @(item.TsCheckedIn ? "Approved" : "Pending")</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+}

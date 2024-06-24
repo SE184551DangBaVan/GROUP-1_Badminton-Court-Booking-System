@@ -181,6 +181,7 @@ namespace demobadminton.Controllers
                             else
                             {
                                 return RedirectToAction("Index", "Home");
+
                             }
 
                         }

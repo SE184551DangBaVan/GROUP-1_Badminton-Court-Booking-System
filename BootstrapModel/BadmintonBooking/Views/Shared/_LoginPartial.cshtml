@@ -2,6 +2,7 @@
 
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+@inject IHttpContextAccessor _httpContextAccessor
 
 <ul class="navbar-nav">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -11,6 +12,11 @@
         <li class="username nav-item">
             <a class="nav-link text-light">Hello <span>@UserManager.GetUserName(User)</span>!</a>
         </li>
+
+            @{
+                var CustomerId = UserManager.GetUserId(User);
+                _httpContextAccessor.HttpContext.Session.SetString("CusId", CustomerId);
+            }
 
         <li class="logout nav-item">
             <a class="nav-link text-light" asp-controller="Account" asp-action="Logout"><i class="fa-solid fa-right-from-bracket"></i>LogOut</a>

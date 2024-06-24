@@ -186,5 +186,25 @@ namespace BadmintonBooking.Controllers
 
 
         }
+        public IActionResult CheckOut()
+        {
+            DemobadmintonContext context = new DemobadmintonContext();
+            string userId =   _httpContextAccessor.HttpContext.Session.GetString("CusId");
+            if (userId == null)
+            {
+                return NotFound();
+                
+            }
+            var data = context.Bookings.Where(b=>b.UserId==userId).Include(b => b.TimeSlots).Include(b => b.Co).ToList();
+            return View(data);
+
+        }
+        public IActionResult CheckoutDetail(int bookingid)
+        {
+
+            DemobadmintonContext context = new DemobadmintonContext();
+            var data = context.TimeSlots.Include(ts => ts.Co).Include(ts => ts.BIdNavigation).Where(ts => ts.BId == bookingid).ToList();
+            return View(data);
+        }
     }
 }
