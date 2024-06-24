@@ -7,6 +7,7 @@
 	.Select(c => new
 	{
 		Description = c.Key,
+		ImgUrl = c.Key+".png",
 
 	}).ToList();
 }
@@ -48,7 +49,7 @@
 				{
 					<div class="court-card">
 						<p>
-
+							<img src="~/images/@court.ImgUrl" alt="@court.ImgUrl">
 							<a style="text-decoration:none" asp-controller="home" asp-action="book2" asp-route-address="@court.Description" asp-route-sortOrder="">@court.Description</a>
 
 
