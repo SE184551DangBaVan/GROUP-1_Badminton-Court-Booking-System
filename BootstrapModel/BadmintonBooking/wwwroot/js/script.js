@@ -8,6 +8,14 @@
     })
 
     $(window).scroll(function () {
+        if (this.scrollY > 150) {
+            $('.Quote').addClass("flow");
+        } else {
+            $('.Quote').removeClass("flow");
+        }
+    })
+
+    $(window).scroll(function () {
         if (this.scrollY > 200) {
             $('.heading h2').addClass("float");
         } else {
