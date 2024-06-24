@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace BadmintonBooking.Controllers
@@ -159,6 +160,31 @@ namespace BadmintonBooking.Controllers
         public IActionResult ErrorBooking()
         {
             return View();
+        }
+        public IActionResult CheckIn()
+        {
+            DemobadmintonContext context = new DemobadmintonContext();
+            // var guestid = _httpContextAccessor.HttpContext.Session.GetString("GuestId");
+            var data = context.Bookings.Include(b => b.TimeSlots).Include(b => b.Co).ToList();
+            return View(data);
+        }
+        public IActionResult Detail(int bookingId)
+        {
+            DemobadmintonContext context = new DemobadmintonContext();
+            var data = context.TimeSlots.Include(ts => ts.Co).Include(ts => ts.BIdNavigation).Where(ts => ts.BId == bookingId).ToList();
+            return View(data);
+
+        }
+        public IActionResult Approve(int tsid, int bookingId)
+        {
+            DemobadmintonContext context = new DemobadmintonContext();
+            var updated = context.TimeSlots.FirstOrDefault(ts => ts.TsId == tsid);
+            updated.TsCheckedIn = true;
+            context.TimeSlots.Update(updated);
+            context.SaveChanges();
+            return RedirectToAction("Detail", new { bookingId = bookingId });
+
+
         }
     }
 }
