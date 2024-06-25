@@ -21,16 +21,19 @@ namespace BadmintonBooking.Controllers
         private static List<TimeSlot> _slots = new List<TimeSlot>();
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly UserManager<IdentityUser> _UserManager;
+        
         public BookingController(DemobadmintonContext demobadmintonContext, IHttpContextAccessor httpContextAccessor, UserManager<IdentityUser> userManager)
         {
             _demobadmintonContext = demobadmintonContext;
             _httpContextAccessor = httpContextAccessor;
             _UserManager = userManager;
         }
+        
         [HttpGet]
         public async Task<IActionResult> GetBookSlots()
         {
-            var booked = await _demobadmintonContext.TimeSlots.ToListAsync();
+            int court = int.Parse(_httpContextAccessor.HttpContext.Session.GetString("CoId"));
+            var booked = await _demobadmintonContext.TimeSlots.Where(x => x.CoId == court).ToListAsync();
             return Ok(booked);
         }
         
@@ -45,6 +48,7 @@ namespace BadmintonBooking.Controllers
         public async Task<IActionResult> UpdateBooking([FromBody] BookingData bookingData)
         {
             string userId = _UserManager.GetUserId(User);
+            string types = _httpContextAccessor.HttpContext.Session.GetString("Types");
 
             // Check if user ID is found
             if (userId == null)
@@ -67,19 +71,22 @@ namespace BadmintonBooking.Controllers
                 Booking booking = new Booking()
                 {
                     UserId = userId,
-                    BBookingType = _httpContextAccessor.HttpContext.Session.GetString("Types"),
+                    BBookingType = types,
                     CoId = int.Parse(_httpContextAccessor.HttpContext.Session.GetString("CoId")),
                     BGuestName = _UserManager.GetUserName(User)
                 };
-                TimeSlot slot = new TimeSlot()
-                {
-                    CoId = int.Parse(_httpContextAccessor.HttpContext.Session.GetString("CoId")),
-                    TsCheckedIn = false,
-                    TsDate = date,
-                    TsStart = time,
-                    TsEnd = time.AddHours(1),
-                };
-                booking.TimeSlots.Add(slot);
+                if(types == "Casual") {
+                    TimeSlot slot = new TimeSlot()
+                    {
+                        CoId = int.Parse(_httpContextAccessor.HttpContext.Session.GetString("CoId")),
+                        TsCheckedIn = false,
+                        TsDate = date,
+                        TsStart = time,
+                        TsEnd = time.AddHours(1),
+                    };
+                    booking.TimeSlots.Add(slot);
+                }
+                
                 int quantity = booking.TimeSlots.Count;
                 Payment payment = new Payment()
                 {

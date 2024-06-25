@@ -1,27 +1,35 @@
 ﻿@{
-	ViewData["Title"] = "Booking";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Booking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var types = ViewData["Types"] as string;
 }
 
 <body class="Date">
     <script src="~/js/script.js"></script>
+    <input id="types" type="hidden" value="@types"></input>
     <div class="date-container">
-        <div class="headr">
-            <button class="navi-button" id="prev-week">&lt;</button>
+        <div class="calendar-headr">
+            @if(types != "Fixed")
+            {
+                <button class="navi-button" id="prev-week">&lt;</button>
+            }
             <h1 id="week-range"></h1>
-            <button class="navi-button" id="next-week">&gt;</button>
+            @if (types != "Fixed")
+            {
+                <button class="navi-button" id="next-week">&gt;</button>
+            }           
         </div>
         <table id="schedule">
             <thead>
                 <tr>
                     <th>Time</th>
-                    <th>Thu<br>May 30</th>
-                    <th>Fri<br>May 31</th>
-                    <th>Sat<br>Jun 1</th>
-                    <th>Sun<br>Jun 2</th>
-                    <th>Mon<br>Jun 3</th>
-                    <th>Tue<br>Jun 4</th>
-                    <th>Wed<br>Jun 5</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>

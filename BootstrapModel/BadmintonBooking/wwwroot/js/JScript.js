@@ -5,6 +5,7 @@
     const scheduleTable = document.getElementById("schedule").getElementsByTagName("thead")[0].getElementsByTagName("tr")[0];
     const cancelAllButton = document.getElementById("cancel-all");
     const totalPriceElement = document.getElementById("total-price");
+    const type = document.getElementById("types");
 
     let currentStartDate = new Date();
     let scheduleData = [];
@@ -106,6 +107,7 @@
             updateTotalPrice();
         }
     }
+
     function sendBookingData(slot) {
         fetch('/Booking/UpdateBooking', {
             method: 'POST',
@@ -129,7 +131,6 @@
                 console.error('Error:', error);
             });
     }
-
 
     function cancelAllBookings() {
         const bookedCells = document.querySelectorAll(".booked");
@@ -182,14 +183,24 @@
     function addEventListenersToBookableCells() {
         const bookableCells = document.querySelectorAll(".bookable");
         bookableCells.forEach(cell => {
-            cell.removeEventListener("click", clickBooking); // Prevent duplicate listeners
+            cell.removeEventListener("click", clickBooking);
             cell.addEventListener("click", clickBooking);
         });
     }
 
     function updateTotalPrice() {
-        const bookedCells = document.querySelectorAll(".booked").length;
-        const totalPrice = bookedCells * 10;
+        const bookedCellsCount = document.querySelectorAll(".booked").length;
+        const types = type.value;
+
+        let totalPrice = 0;
+        if (types === "Fixed") {
+            totalPrice = bookedCellsCount * 9 * 4; // Example calculation for fixed type
+        } else if (types === "Flexible") {
+            totalPrice = bookedCellsCount * 7; // Example calculation for flexible type
+        } else {
+            totalPrice = bookedCellsCount * 10; // Default price calculation
+        }
+
         totalPriceElement.textContent = totalPrice;
     }
 
@@ -227,31 +238,35 @@
 
     function findCellByTimeAndDate(time, date) {
         const rows = document.querySelectorAll("#schedule tbody tr");
-        for (let row of rows) {
-            const timeCell = row.cells[0].textContent;
-            if (timeCell === time) {
-                for (let i = 1; i < row.cells.length; i++) {
-                    const dateCell = document.querySelector(`#schedule thead tr th:nth-child(${i + 1})`).innerHTML.split('<br>')[1];
-                    if (dateCell === date) {
-                        return row.cells[i];
-                    }
-                }
-            }
-        }
-        return null;
-    }
+           for (let row of rows) {
+               const timeCell = row.cells[0].textContent;
+               if (timeCell === time) {
+                   for (let i = 1; i < row.cells.length; i++) {
+                       const dateCell = document.querySelector(`#schedule thead tr th:nth-child(${i + 1})`).innerHTML.split('<br>')[1];
+                       if (dateCell === date) {
+                           return row.cells[i];
+                       }
+                   }
+               }
+           }
+           return null;
+       }
 
-    prevButton.addEventListener("click", function () {
-        currentStartDate.setDate(currentStartDate.getDate() - 7);
-        updateWeekRange();
-    });
+       // Event listeners for navigation buttons if they exist
+       if (prevButton && nextButton) {
+           prevButton.addEventListener("click", function () {
+               currentStartDate.setDate(currentStartDate.getDate() - 7);
+               updateWeekRange();
+           });
 
-    nextButton.addEventListener("click", function () {
-        currentStartDate.setDate(currentStartDate.getDate() + 7);
-        updateWeekRange();
-    });
+           nextButton.addEventListener("click", function () {
+               currentStartDate.setDate(currentStartDate.getDate() + 7);
+               updateWeekRange();
+           });
+       }
 
-    cancelAllButton.addEventListener("click", cancelAllBookings);
+       cancelAllButton.addEventListener("click", cancelAllBookings);
 
-    updateWeekRange();
-});
+       updateWeekRange();
+   });
+

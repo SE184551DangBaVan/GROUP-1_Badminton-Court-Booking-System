@@ -40,13 +40,11 @@ namespace BadmintonBooking.Controllers
             return View();
         }
 
-        public IActionResult Date(int? CoId, string Types)
+        public IActionResult Date(int CoId, string Types)
         {
-            if (CoId.HasValue && !string.IsNullOrEmpty(Types))
-            {
-                _httpContextAccessor.HttpContext.Session.SetString("CoId", CoId.Value.ToString());
-                _httpContextAccessor.HttpContext.Session.SetString("Types", Types);
-            }
+            _httpContextAccessor.HttpContext.Session.SetString("CoId", CoId.ToString());
+            _httpContextAccessor.HttpContext.Session.SetString("Types", Types);
+            ViewData["Types"] = Types;
             return View();
         }
 
@@ -66,7 +64,7 @@ namespace BadmintonBooking.Controllers
 
             return View(data);
         }
-        
+
         public IActionResult Book2(int page = 1, string address = "", string sortOrder = "")
         {
             DemobadmintonContext context = new DemobadmintonContext();
@@ -192,13 +190,13 @@ namespace BadmintonBooking.Controllers
         public IActionResult CheckOut()
         {
             DemobadmintonContext context = new DemobadmintonContext();
-            string userId =   _httpContextAccessor.HttpContext.Session.GetString("CusId");
+            string userId = _httpContextAccessor.HttpContext.Session.GetString("CusId");
             if (userId == null)
             {
                 return NotFound();
-                
+
             }
-            var data = context.Bookings.Where(b=>b.UserId==userId).Include(b => b.TimeSlots).Include(b => b.Co).ToList();
+            var data = context.Bookings.Where(b => b.UserId == userId).Include(b => b.TimeSlots).Include(b => b.Co).ToList();
             return View(data);
 
         }

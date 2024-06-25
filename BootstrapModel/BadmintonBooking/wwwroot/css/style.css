@@ -1192,3 +1192,15 @@ nav {
 .password-forgot {
     background-image: linear-gradient(to right top, #b5c3f5, #bcc9f8, #c3d0fa, #cbd6fd, #d2ddff);
 }
+
+.calendar-headr{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+#week-range{
+    flex: 1;
+    text-align: center;
+}
+
