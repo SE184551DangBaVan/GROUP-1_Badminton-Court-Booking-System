@@ -1,9 +1,12 @@
 ﻿using BadmintonBooking.Models;
 using BadmintonBooking.Repository.Service;
+using BadmintonBooking.ViewModels;
+using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PayPal;
 using PayPal.Api;
 
 namespace BadmintonBooking.Controllers
@@ -93,7 +96,6 @@ namespace BadmintonBooking.Controllers
         private PayPal.Api.Payment CreatePayment(APIContext apiContext, string redirectUrl, string blogId)
         {
             var quantity = int.Parse(httpContextAccessor.HttpContext.Session.GetString("quantity"));
-            //create itemlist and add item objects to it
             var itemList = new ItemList()
             {
                 items = new List<Item>()
@@ -161,21 +163,49 @@ namespace BadmintonBooking.Controllers
         }
         public IActionResult Invoice()
         {
-            //try
-            //{
-            //    using var context = new DemobadmintonContext();
-            //    BadmintonBooking.Models.Payment? payment = context.Payments.FirstOrDefault(p => p.BId =) ?? throw new Exception("Payment not found");
-            //    if (Payment != null)
-            //    {
-            //        string formattedDate = payment.PDateTime.ToString("MMMM dd, yyyy");
-            //        ViewData["formattedDate"] = formattedDate; 
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw new Exception(ex.Message);
-            //}
-            return View();
+            InvoiceViewModel invoiceViewModel = null;
+            try
+            {
+                using var context = new DemobadmintonContext();
+
+                // Retrieve BId from session
+                var bId = httpContextAccessor.HttpContext.Session.GetInt32("BId");
+                if (bId == null)
+                {
+                    throw new Exception("BId not found in session.");
+                }
+
+                // Fetch payment using BId
+                string formattedDate = null;
+                string formattedTime = null;
+                BadmintonBooking.Models.Payment? payment = context.Payments.FirstOrDefault(p => p.BId == bId.Value);
+                if (payment != null)
+                {
+                    formattedDate = payment.PDateTime.ToString("MMMM dd, yyyy");
+                    formattedTime = payment.PDateTime.ToString("hh:mm tt"); // Format time as HH:MM AM/PM
+                    ViewData["formattedDate"] = formattedDate;
+                    ViewData["formattedTime"] = formattedTime;
+                }
+                var booking = context.Bookings.FirstOrDefault(b => b.BId == bId.Value);
+                string typeOfBooking = booking.BBookingType;
+                string courtName = context.Courts.FirstOrDefault(c => c.CoId == booking.CoId).CoName;
+                invoiceViewModel = new InvoiceViewModel()
+                {
+                    PId = payment.PId,
+                    formattedDate = formattedDate,
+                    formattedTime = formattedTime,
+                    toUser = _userManager.GetUserName(User),
+                    typeOfBooking = typeOfBooking,
+                    courtName = courtName,
+                    amount = payment.PAmount
+                };
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return View(invoiceViewModel);
         }
     }
 }

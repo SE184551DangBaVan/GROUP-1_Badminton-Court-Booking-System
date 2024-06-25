@@ -1,4 +1,7 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@model BadmintonBooking.ViewModels.InvoiceViewModel;
+
+@{
 	ViewData["Title"] = "Invoice";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -14,20 +17,20 @@
                     </div>
                     <div class="i_title">
                         <h2>INVOICE</h2>
-                        <p class="p_title text_right">May 31, 2024</p>
-                        @* <p class="p_title text_right"> @ViewData["formattedDate"]</p> *@
+                        <p class="p_title text_right"> @Model.formattedDate</p>
+                        <p class="p_title text_right"> @Model.formattedTime</p>
                     </div>
                 </div>
                 <div class="i_row">
                     <div class="i_number">
-                        <p class="p_title">INVOICE NO: 3452324</p>
+                        <p class="p_title">INVOICE NO: @Model.PId</p>
                     </div>
                     <div class="i_address text_right">
                         <p>TO</p>
                         <p class="p_title">
-                          Facebook <br />
-                          <span>Menlo Park, California</span><br />
-                          <span>United States</span>
+                          User <br />
+                          <span>@Model.toUser</span><br />
+                          @* <span>United States</span> *@
                         </p> 
                     </div>
                 </div>
@@ -53,17 +56,17 @@
                     <div class="i_table_body">
                         <div class="i_row">
                             <div class="i_col w_15">
-                                <p>Sân cầu lông Thảo Nguyên</p>
+                                <p>@Model.courtName</p>
                             </div>
                             <div class="i_col w_55">
                                 <p></p>
                                 <span></span>
                             </div>
                             <div class="i_col w_15">
-                                <p>Casual booking</p>
+                                <p>@Model.typeOfBooking booking</p>
                             </div>
                             <div class="i_col w_15">
-                                <p>$30.00</p>
+                                <p>@Model.amountMinus2</p>
                             </div>
 
                             
@@ -116,11 +119,11 @@
 
                              <div class="i_col w_15">
                               <p>Shipping</p> 
-                              <p>Tax 10%</p>
+                              <p>Tax</p>
                             </div>
                             <div class="i_col w_15">
                                <p>$1.00</p> 
-                              <p>$15.00</p>
+                              <p>$1.00</p>
                             </div> 
 
                         </div>
@@ -129,7 +132,7 @@
                             <div class="i_col w_50 grand_total">
                                 <p>
                                     <span>GRAND TOTAL:</span>
-                                    <span>$30.00</span>
+                                    <span>@Model.amount</span>
                                 </p>
                             </div>
                         </div>

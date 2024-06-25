@@ -62,6 +62,7 @@ namespace BadmintonBooking.Controllers
                 DateOnly date = DateOnly.ParseExact(bookingData.Date, "MMM d", CultureInfo.InvariantCulture);
                 bool booked = bookingData.Booked;
 
+
                 Console.WriteLine($"Parsed Booking Data - Time: {time}, Date: {date}, Booked: {booked}");
                 Booking booking = new Booking()
                 {
@@ -78,15 +79,14 @@ namespace BadmintonBooking.Controllers
                     TsStart = time,
                     TsEnd = time.AddHours(1),
                 };
-
                 booking.TimeSlots.Add(slot);
+                int quantity = booking.TimeSlots.Count;
                 Payment payment = new Payment()
                 {
                     PDateTime = DateTime.Now,
-                    PAmount = 50000000
+                    PAmount = quantity * 10 +2
                 };
                 booking.Payments.Add(payment);
-                int quantity = booking.TimeSlots.Count;
                 _httpContextAccessor.HttpContext.Session.SetString("quantity", quantity.ToString());
                 var jsonString = JsonConvert.SerializeObject(booking);
                 _httpContextAccessor.HttpContext.Session.SetString("Booking", jsonString);
@@ -141,6 +141,9 @@ namespace BadmintonBooking.Controllers
             {
                 await _demobadmintonContext.AddAsync(booking);
                 await _demobadmintonContext.SaveChangesAsync();
+
+                //get Bid for paypal invoice
+                _httpContextAccessor.HttpContext.Session.SetInt32("BId", booking.BId);
                 _httpContextAccessor.HttpContext.Session.Remove("Booking");
 
                 return true;
