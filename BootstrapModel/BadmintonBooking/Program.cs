@@ -65,11 +65,11 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-
+app.UseRouting();
 //session for paypal id
 app.UseSession();
 
-app.UseRouting();
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapRazorPages();

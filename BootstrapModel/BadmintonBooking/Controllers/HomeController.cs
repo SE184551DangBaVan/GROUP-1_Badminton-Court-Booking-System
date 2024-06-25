@@ -40,10 +40,13 @@ namespace BadmintonBooking.Controllers
             return View();
         }
 
-        public IActionResult Date(int CoId, string Types)
+        public IActionResult Date(int? CoId, string Types)
         {
-            _httpContextAccessor.HttpContext.Session.SetString("CoId", CoId.ToString());            
-            _httpContextAccessor.HttpContext.Session.SetString("Types", Types);
+            if (CoId.HasValue && !string.IsNullOrEmpty(Types))
+            {
+                _httpContextAccessor.HttpContext.Session.SetString("CoId", CoId.Value.ToString());
+                _httpContextAccessor.HttpContext.Session.SetString("Types", Types);
+            }
             return View();
         }
 
