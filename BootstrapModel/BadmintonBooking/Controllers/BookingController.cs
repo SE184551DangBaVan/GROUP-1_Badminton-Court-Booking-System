@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Net.NetworkInformation;
 using Microsoft.AspNetCore.Identity;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.Extensions.Caching.Memory;
 
 
 namespace BadmintonBooking.Controllers
@@ -21,14 +23,16 @@ namespace BadmintonBooking.Controllers
         private static List<TimeSlot> _slots = new List<TimeSlot>();
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly UserManager<IdentityUser> _UserManager;
-        
-        public BookingController(DemobadmintonContext demobadmintonContext, IHttpContextAccessor httpContextAccessor, UserManager<IdentityUser> userManager)
+        private readonly IMemoryCache cache;
+
+        public BookingController(DemobadmintonContext demobadmintonContext, IHttpContextAccessor httpContextAccessor, UserManager<IdentityUser> userManager, IMemoryCache memoryCache)
         {
             _demobadmintonContext = demobadmintonContext;
             _httpContextAccessor = httpContextAccessor;
             _UserManager = userManager;
+            cache = memoryCache;
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> GetBookSlots()
         {
@@ -36,7 +40,7 @@ namespace BadmintonBooking.Controllers
             var booked = await _demobadmintonContext.TimeSlots.Where(x => x.CoId == court).ToListAsync();
             return Ok(booked);
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Cancel()
         {
@@ -45,11 +49,9 @@ namespace BadmintonBooking.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateBooking([FromBody] BookingData bookingData)
+        public async Task<IActionResult> CreateBooking([FromBody] BookingData bookingData)
         {
             string userId = _UserManager.GetUserId(User);
-            string types = _httpContextAccessor.HttpContext.Session.GetString("Types");
-
             // Check if user ID is found
             if (userId == null)
             {
@@ -68,52 +70,106 @@ namespace BadmintonBooking.Controllers
 
 
                 Console.WriteLine($"Parsed Booking Data - Time: {time}, Date: {date}, Booked: {booked}");
-                Booking booking = new Booking()
+
+
+                TimeSlot slot = new TimeSlot()
                 {
-                    UserId = userId,
-                    BBookingType = types,
                     CoId = int.Parse(_httpContextAccessor.HttpContext.Session.GetString("CoId")),
-                    BGuestName = _UserManager.GetUserName(User)
+                    TsCheckedIn = false,
+                    TsDate = date,
+                    TsStart = time,
+                    TsEnd = time.AddHours(1),
                 };
-                if(types == "Casual") {
-                    TimeSlot slot = new TimeSlot()
-                    {
-                        CoId = int.Parse(_httpContextAccessor.HttpContext.Session.GetString("CoId")),
-                        TsCheckedIn = false,
-                        TsDate = date,
-                        TsStart = time,
-                        TsEnd = time.AddHours(1),
-                    };
-                    booking.TimeSlots.Add(slot);
-                }
-                
-                int quantity = booking.TimeSlots.Count;
-                Payment payment = new Payment()
-                {
-                    PDateTime = DateTime.Now,
-                    PAmount = quantity * 10 +2
-                };
-                booking.Payments.Add(payment);
-                _httpContextAccessor.HttpContext.Session.SetString("quantity", quantity.ToString());
-                var jsonString = JsonConvert.SerializeObject(booking);
-                _httpContextAccessor.HttpContext.Session.SetString("Booking", jsonString);
-                Console.WriteLine(_slots);
+                _slots.Add(slot);
+                int quantity = _slots.Count;
+                cache.Set("slot", _slots);
                 return Ok(new { message = "Booking data received successfully." });
             }
 
             catch (Exception ex)
             {
-                // Log the exception for debugging purposes
                 Console.WriteLine($"Error processing booking: {ex.Message}");
                 return StatusCode(500, "Internal server error");
             }
         }
+        [HttpPost]
+        public async Task<IActionResult> UpdateBooking(int totalWeeks, int totalHours, int totalPrice)
+        {
+            int quantity = _slots.Count;
+            cache.TryGetValue("slot", out List<TimeSlot> slots);
+            cache.Remove("slot");
+            string types = _httpContextAccessor.HttpContext.Session.GetString("Types");
+            Booking booking = new Booking()
+            {
+                UserId = _UserManager.GetUserId(User),
+                BBookingType = types,
+                CoId = int.Parse(_httpContextAccessor.HttpContext.Session.GetString("CoId")),
+                BTotalHours = totalHours,
+                BGuestName = _UserManager.GetUserName(User)
+            };
+            if (types == "Fixed")
+            {
+                foreach (var item in slots)
+                {
+                    for (int i = 0; i < totalWeeks; i++)
+                    {
+                        TimeSlot timeSlot = new TimeSlot()
+                        {
+                            CoId = item.CoId,
+                            TsCheckedIn = item.TsCheckedIn,
+                            TsDate = item.TsDate.AddDays(7 * i),
+                            TsStart = item.TsStart,
+                            TsEnd = item.TsEnd,
+                        };
+                        booking.TimeSlots.Add(timeSlot);
+                    }
+                }
+                Payment payment = new Payment()
+                {
+                    PDateTime = DateTime.Now,
+                    PAmount = totalPrice,
+                };
+                booking.Payments.Add(payment);
+                quantity = booking.TimeSlots.Count;
+            }
+            else if (booking.BBookingType == "Flexible")
+            {
+                booking.BTotalHours = totalHours - quantity;
+                Payment payment = new Payment()
+                {
+                    PDateTime = DateTime.Now,
+                    PAmount = totalPrice,
+                };
+                booking.Payments.Add(payment);
+                foreach (var item in slots)
+                {
+                    booking.TimeSlots.Add(item);
+                }
+            }
+            else
+            {
+                Payment payment = new Payment()
+                {
+                    PDateTime = DateTime.Now,
+                    PAmount = totalPrice,
+                };
+                booking.Payments.Add(payment);
+                foreach (var item in slots)
+                {
+                    booking.TimeSlots.Add(item);
+                }
+            }
+            _httpContextAccessor.HttpContext.Session.SetString("quantity", quantity.ToString());
+            var jsonString = JsonConvert.SerializeObject(booking);
+            _httpContextAccessor.HttpContext.Session.SetString("Booking", jsonString);
+            return RedirectToAction("PaymentWithPaypal", "PayPal");
+        }
+
         [HttpGet]
         public async Task<IActionResult> SaveBookingToDb()
         {
             try
             {
-                //var booking = TempData["Booking"] as Booking;
                 var jsonString = _httpContextAccessor.HttpContext.Session.GetString("Booking");
                 if (string.IsNullOrEmpty(jsonString))
                 {

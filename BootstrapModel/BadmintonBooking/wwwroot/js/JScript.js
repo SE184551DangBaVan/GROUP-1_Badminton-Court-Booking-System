@@ -109,7 +109,7 @@
     }
 
     function sendBookingData(slot) {
-        fetch('/Booking/UpdateBooking', {
+        fetch('/Booking/CreateBooking', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -202,6 +202,7 @@
         }
 
         totalPriceElement.textContent = totalPrice;
+        document.getElementById("price-input").value = totalPrice;
     }
 
     function fetchBookedTimeslots() {
