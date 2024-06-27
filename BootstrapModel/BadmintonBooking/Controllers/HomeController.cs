@@ -207,5 +207,30 @@ namespace BadmintonBooking.Controllers
             var data = context.TimeSlots.Include(ts => ts.Co).Include(ts => ts.BIdNavigation).Where(ts => ts.BId == bookingid).ToList();
             return View(data);
         }
+        public IActionResult Rating(int courtid, string userid, int bookingId)
+        {
+            DemobadmintonContext context = new DemobadmintonContext();
+            ViewData["bookingId"] = bookingId;
+            var data = context.Courts.Include(c => c.Bookings).FirstOrDefault(c => c.CoId == courtid);
+            return View(data);
+        }
+        [HttpPost]
+        public IActionResult Rating(Rating rating, int bookingId)
+        {
+            DemobadmintonContext context = new DemobadmintonContext();
+            Rating ratingCourt = new Rating
+            {
+
+
+                CourtId = rating.CourtId,
+                UserId = rating.UserId,
+                Review = rating.Review,
+                Rating1 = rating.Rating1,
+               CreatedAt = DateTime.Now,
+            };
+            context.Ratings.Add(ratingCourt);
+            context.SaveChanges();
+            return RedirectToAction("CheckoutDetail", new { bookingId = bookingId });
+        }
     }
 }
