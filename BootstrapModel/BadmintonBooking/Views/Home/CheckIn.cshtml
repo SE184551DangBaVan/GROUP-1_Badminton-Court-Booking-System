@@ -103,6 +103,30 @@
                     <p>Address : @Html.DisplayFor(modelItem => item.Co.CoAddress)</p>
                     <p>Type of Booking: @Html.DisplayFor(modelItem => item.BBookingType)</p>
                     <p>Total hours: @Html.DisplayFor(modelItem => item.BTotalHours)</p>
+                    @if (item.TimeSlots != null && item.TimeSlots.Count > 0)
+                    {
+                        <ul>
+                            @{
+                                int checkedInCount = 0;
+                            }
+                            @foreach (var timeslot in item.TimeSlots)
+                            {
+                                <li>
+                                    @if (timeslot.TsCheckedIn)
+                                    {
+                                        checkedInCount++;
+                                    }
+                                </li>
+                            }
+                        </ul>
+                        <p>Number of Checked-In: <b> @checkedInCount /@item.TimeSlots.Count()</b></p>
+                    }
+                    else
+                    {
+                        <p>No Time Slots found for this booking.</p>
+                    }
+
+
                     @{
                         DemobadmintonContext context = new DemobadmintonContext();
                         var username = context.AspNetUsers.FirstOrDefault(a => a.Id == item.UserId);

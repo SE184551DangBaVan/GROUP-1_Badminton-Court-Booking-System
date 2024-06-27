@@ -6,7 +6,30 @@
 }
 
 <style>
+    .star-rating {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+        font-size: 0;
+        cursor: pointer;
+    }
 
+        .star-rating input {
+            display: none;
+        }
+
+        .star-rating label {
+            font-size: 30px;
+            color: #ccc;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+
+            .star-rating input:checked ~ label,
+            .star-rating label:hover,
+            .star-rating label:hover ~ label {
+                color: gold; /* Adjust color as needed */
+            }
 </style>
 
 <div class="container">
@@ -14,24 +37,36 @@
         <h1>Rate Court - @Model.CoName</h1>
         <h1>Court Id @Model.CoId</h1>
     </div>
+
     @{
         string userId = _httpContextAccessor.HttpContext.Session.GetString("CusId");
-        using var context = new DemobadmintonContext();
-        var Bid = context.Bookings.FirstOrDefault();
     }
+
     <form asp-controller="Home" asp-action="Rating" method="post">
         <input type="hidden" name="CourtId" value="@Model.CoId" />
         <input type="hidden" name="BookingId" value='@ViewData["bookingId"]' />
 
-
         <div class="form-group">
             <label for="UserId">UserId</label>
-            <input type="number" class="form-control" name="UserId" value="@userId" readonly="readonly" />
+            <input type="text" class="form-control" name="UserId" value="@userId" readonly="readonly" />
         </div>
+
         <div class="form-group">
-            <label for="Rating1">Rating (1-5)</label>
-            <input type="number" class="form-control" name="Rating1" min="1" max="5" required />
+            <label>Rating (1-5)</label><br>
+            <div class="star-rating">
+                <input type="radio" id="star5" name="Rating1" value="5" />
+                <label for="star5" title="5 stars">☆</label>
+                <input type="radio" id="star4" name="Rating1" value="4" />
+                <label for="star4" title="4 stars">☆</label>
+                <input type="radio" id="star3" name="Rating1" value="3" />
+                <label for="star3" title="3 stars">☆</label>
+                <input type="radio" id="star2" name="Rating1" value="2" />
+                <label for="star2" title="2 stars">☆</label>
+                <input type="radio" id="star1" name="Rating1" value="1" />
+                <label for="star1" title="1 star">☆</label>
+            </div>
         </div>
+
         <div class="form-group">
             <label for="Review">Review</label>
             <textarea class="form-control" name="Review" rows="3"></textarea>
@@ -39,7 +74,8 @@
 
         <button type="submit" class="btn btn-primary">Submit Rating</button>
     </form>
-    <a href="/home/checkout" class="btn ">Back</a>
+
+    <a href="/home/checkout" class="btn">Back</a>
 </div>
 
 @section Scripts {

@@ -165,7 +165,6 @@ namespace BadmintonBooking.Controllers
         public IActionResult CheckIn()
         {
             DemobadmintonContext context = new DemobadmintonContext();
-            // var guestid = _httpContextAccessor.HttpContext.Session.GetString("GuestId");
             var data = context.Bookings.Include(b => b.TimeSlots).Include(b => b.Co).ToList();
             return View(data);
         }
@@ -231,6 +230,12 @@ namespace BadmintonBooking.Controllers
             context.Ratings.Add(ratingCourt);
             context.SaveChanges();
             return RedirectToAction("CheckoutDetail", new { bookingId = bookingId });
+        }
+        public IActionResult CourtDetail(int CourtId)
+        {
+            DemobadmintonContext context = new DemobadmintonContext();
+            var data = context.Courts.Include(c => c.Ratings).FirstOrDefault(c => c.CoId == CourtId);
+            return View(data);
         }
     }
 }

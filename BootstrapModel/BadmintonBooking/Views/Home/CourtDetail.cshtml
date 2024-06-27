@@ -1,0 +1,142 @@
+﻿@model BadmintonBooking.Models.Court
+
+@{
+    ViewData["Title"] = "Court Detail";
+    Layout = null;
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
+
+    .header {
+        text-align: center;
+        padding: 20px;
+        background-color: #007bff;
+        color: white;
+        margin-bottom: 20px;
+        border-radius: 8px 8px 0 0;
+    }
+
+        .header h1 {
+            margin: 0;
+        }
+
+    .court-detail {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+        .court-detail img {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+    .court-info {
+        flex: 1;
+    }
+
+        .court-info h3 {
+            margin: 0 0 10px;
+            font-size: 24px;
+        }
+
+        .court-info p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+    .ratings-section {
+        margin-top: 20px;
+    }
+
+    .rating {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+        .rating .stars {
+            display: flex;
+            gap: 2px;
+        }
+
+    .star {
+        font-size: 24px;
+        color: gold;
+        cursor: default;
+    }
+
+        .star.empty {
+            color: #ccc;
+        }
+</style>
+
+<div class="container">
+    <div class="header">
+        <h1>Court Details</h1>
+    </div>
+
+    <div class="court-detail">
+        <div class="court-info">
+            <h3>Court Id: @Html.DisplayFor(model => model.CoId)</h3>
+            <p><strong>Court Name:</strong> @Html.DisplayFor(model => model.CoName)</p>
+            <p><strong>Address:</strong> @Html.DisplayFor(model => model.CoAddress)</p>
+            <p><strong>Info:</strong> @Html.DisplayFor(model => model.CoInfo)</p>
+            <p><strong>Price:</strong> @Html.DisplayFor(model => model.CoPrice)</p>
+        </div>
+        <div>
+            <img src="~/Upload/Image/@Model.CoPath" alt="Court Image" />
+        </div>
+
+        <div class="ratings-section">
+            <h3>Ratings</h3>
+            @if (Model.Ratings != null && Model.Ratings.Any())
+            {
+                @foreach (var rating in Model.Ratings)
+                {
+                    <div class="rating">
+                        <div class="stars">
+                            @for (int i = 0; i < (rating.Rating1 ?? 0); i++)
+                            {
+                                <span class="star">☆</span>
+                            }
+                            @for (int i = (rating.Rating1 ?? 0); i < 5; i++)
+                            {
+                                <span class="star empty">☆</span>
+                            }
+                        </div>
+                        <p>@rating.Review</p>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>No ratings available for this court.</p>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+}

@@ -49,6 +49,12 @@
                                         <p class="card-text"><i class="fa-solid fa-money-bill"></i> @court.CoPrice</p>
                                         <p class="card-text"><i class="fa-solid fa-circle-info"></i>@court.CoInfo</p>
                                         <p class="card-text"><strong>Status:</strong> @(court.CoStatus ? "Active" : "Inactive")</p>
+                                        @{
+                                            using var context = new DemobadmintonContext();
+                                            var ratingsListForCourt = context.Ratings.Where(r => r.CourtId == court.CoId).Select(r => r.Rating1).ToList();
+                                            var ratingAvg = ratingsListForCourt.Average();
+                                        }
+                                        <p class="card-text"><i class="fa-solid fa-star"></i>@ratingAvg (@ratingsListForCourt.Count())</p>
                                         <form asp-action="Date" asp-controller="Home">
                                             <input type="hidden" name="CoId" value="@court.CoId"/>
                                             <select name="Types">                                                
@@ -58,6 +64,7 @@
                                             </select>
                                             <button>Book</button>
                                         </form>
+                                        <a class="btn btn-success" href="/home/CourtDetail?CourtId=@court.CoId">Detail</a>
                                     </div>
                                 </div>
                             </div>
