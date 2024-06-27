@@ -156,6 +156,7 @@ nav {
 #register:hover, #login:hover {
     margin: 10px;
     outline: solid;
+    outline-color: brown;
     border-radius: 20px;
 }
 
