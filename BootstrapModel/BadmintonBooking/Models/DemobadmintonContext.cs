@@ -33,6 +33,8 @@ public partial class DemobadmintonContext : DbContext
 
     public virtual DbSet<Payment> Payments { get; set; }
 
+    public virtual DbSet<Rating> Ratings { get; set; }
+
     public virtual DbSet<TimeSlot> TimeSlots { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -115,7 +117,7 @@ public partial class DemobadmintonContext : DbContext
 
         modelBuilder.Entity<Booking>(entity =>
         {
-            entity.HasKey(e => e.BId).HasName("PK__Booking__4B26EFE62285CC63");
+            entity.HasKey(e => e.BId).HasName("PK__Booking__4B26EFE60BB05A0F");
 
             entity.ToTable("Booking");
 
@@ -143,7 +145,7 @@ public partial class DemobadmintonContext : DbContext
 
         modelBuilder.Entity<Court>(entity =>
         {
-            entity.HasKey(e => e.CoId).HasName("PK__Court__F38FB8F58D625F27");
+            entity.HasKey(e => e.CoId).HasName("PK__Court__F38FB8F5CC93CDB2");
 
             entity.ToTable("Court");
 
@@ -172,7 +174,7 @@ public partial class DemobadmintonContext : DbContext
 
         modelBuilder.Entity<Payment>(entity =>
         {
-            entity.HasKey(e => e.PId).HasName("PK__Payment__A3420A77D9D5A254");
+            entity.HasKey(e => e.PId).HasName("PK__Payment__A3420A77F1652EFD");
 
             entity.ToTable("Payment");
 
@@ -191,9 +193,25 @@ public partial class DemobadmintonContext : DbContext
                 .HasConstraintName("FK_Payment.B_ID");
         });
 
+        modelBuilder.Entity<Rating>(entity =>
+        {
+            entity.HasKey(e => e.RatingId).HasName("PK__Rating__FCCDF87C53BCEA20");
+
+            entity.ToTable("Rating");
+
+            entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+            entity.Property(e => e.Rating1).HasColumnName("Rating");
+            entity.Property(e => e.UserId).HasMaxLength(450);
+
+            entity.HasOne(d => d.Court).WithMany(p => p.Ratings)
+                .HasForeignKey(d => d.CourtId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Court_Rating");
+        });
+
         modelBuilder.Entity<TimeSlot>(entity =>
         {
-            entity.HasKey(e => e.TsId).HasName("PK__TimeSlot__D128865A84B5C729");
+            entity.HasKey(e => e.TsId).HasName("PK__TimeSlot__D128865A57281125");
 
             entity.ToTable("TimeSlot");
 
