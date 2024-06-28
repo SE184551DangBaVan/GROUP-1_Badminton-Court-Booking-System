@@ -1,0 +1,219 @@
+﻿@model IEnumerable<BadmintonBooking.Models.AspNetUser>
+@{
+    ViewData["Title"] = "Index";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/fontawesome.css" rel="stylesheet" />
+
+    <title>Admin</title>
+
+    <style>
+        .table th, .table td {
+            vertical-align: middle;
+        }
+
+        .table img {
+            max-width: 150px;
+            max-height: 150px;
+            object-fit: cover;
+        }
+
+        .header-btn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navigation {
+            background-color: #343a40; /* Dark background for the sidebar */
+            height: 100vh; /* Full height */
+            position: fixed; /* Fixed position */
+            top: 0;
+            left: 0;
+            width: 250px; /* Fixed width */
+            overflow-y: auto; /* Scroll if content overflows */
+        }
+
+            .navigation .nav {
+                flex-direction: column;
+                height: 100%;
+            }
+
+            .navigation .nav-item {
+                width: 100%;
+            }
+
+            .navigation .nav-link {
+                display: flex;
+                align-items: center;
+                padding: 15px;
+                color: #fff;
+                text-decoration: none;
+                transition: background-color 0.3s ease;
+            }
+
+                .navigation .nav-link:hover {
+                    background-color: #495057; /* Slightly lighter shade on hover */
+                }
+
+            .navigation .icon {
+                font-size: 1.5em;
+                margin-right: 10px;
+            }
+
+            .navigation .title {
+                font-size: 1.1em;
+            }
+
+        .content {
+            margin-left: 250px; /* Same width as the sidebar */
+            padding: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="navigation">
+        <ul class="nav flex-column bg-dark text-white">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="/admin/overview">
+                    <span class="icon">
+                        <ion-icon name="settings-outline"></ion-icon>
+                    </span>
+                    <span class="title">Overview</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" asp-controller="admin" asp-action="show">
+                    <span class="icon">
+                        <ion-icon name="home-outline"></ion-icon>
+                    </span>
+                    <span class="title">Court Management</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#">
+                    <span class="icon">
+                        <ion-icon name="people-outline"></ion-icon>
+                    </span>
+                    <span class="title">Customers</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" asp-controller="Account" asp-action="Logout">
+                    <span class="icon">
+                        <ion-icon name="log-out-outline"></ion-icon>
+                    </span>
+                    <span class="title">Sign Out</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-12">
+                    <div class="header-btn mb-3">
+                        @if (TempData["Success"] != null)
+                        {
+                            <div id="tempDataMessage" class="alert alert-success">
+                                @TempData["Success"]
+                            </div>
+                        }
+                        <h1 class="text-center">User data</h1>
+                    </div>
+
+                    <div class="row justify-content-center mb-3">
+                        <div class="col-md-6 col-lg-4">
+                            <div class="input-group">
+                                <input type="text" placeholder="Search here" id="txtSearch" class="form-control" />
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Sort By
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="/admin/show?page=1&sortOrder=name_asc">Name Ascending</a>
+                                        <a class="dropdown-item" href="/admin/show?page=1&sortOrder=name_desc">Name Descending</a>
+                                        <a class="dropdown-item" href="/admin/show?page=1&sortOrder=price_asc">Price Ascending</a>
+                                        <a class="dropdown-item" href="/admin/show?page=1&sortOrder=price_desc">Price Descending</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="table table-bordered table-hover shadow-sm">
+                        <thead>
+                            <tr class="text-center bg-success text-light">
+                                <th>Id</th>
+                                <th>Username </th>
+                                <th>Email Confirmed</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                foreach (var a in Model)
+                                {
+                                   
+                                    <tr>
+                                        <td>@a.Id</td>
+                                        <td>@a.UserName</td>
+                                        <td>@a.EmailConfirmed</td>
+                                        
+                                       
+                                       
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="8">No User available</td>
+                                </tr>
+                            }
+                           
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script>
+        $(document).ready(function () {
+            if ($('#tempDataMessage').length > 0) {
+                setTimeout(function () {
+                    $('#tempDataMessage').fadeOut('slow');
+                }, 5000);
+            }
+
+            $('#txtSearch').keyup(function () {
+                var typeValue = $(this).val().toLowerCase();
+                $('tbody tr').each(function () {
+                    var rowText = $(this).text().toLowerCase();
+                    if (rowText.indexOf(typeValue) < 0) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

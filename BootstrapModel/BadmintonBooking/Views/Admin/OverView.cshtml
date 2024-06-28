@@ -1,0 +1,206 @@
+﻿
+@{
+    ViewData["Title"] = "OverView";
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/fontawesome.css" rel="stylesheet" />
+
+    <title>OverView</title>
+
+    <style>
+        
+
+        .navigation {
+            background-color: #343a40; /* Dark background for the sidebar */
+            height: 100vh; /* Full height */
+            position: fixed; /* Fixed position */
+            top: 0;
+            left: 0;
+            width: 250px; /* Fixed width */
+            overflow-y: auto; /* Scroll if content overflows */
+        }
+
+            .navigation .nav {
+                flex-direction: column;
+                height: 100%;
+            }
+
+            .navigation .nav-item {
+                width: 100%;
+            }
+
+            .navigation .nav-link {
+                display: flex;
+                align-items: center;
+                padding: 15px;
+                color: #fff;
+                text-decoration: none;
+                transition: background-color 0.3s ease;
+            }
+
+                .navigation .nav-link:hover {
+                    background-color: #495057; /* Slightly lighter shade on hover */
+                }
+
+            .navigation .icon {
+                font-size: 1.5em;
+                margin-right: 10px;
+            }
+
+            .navigation .title {
+                font-size: 1.1em;
+            }
+
+        /* ======================= Cards ====================== */
+        .cardBox {
+            position: relative;
+            width: 100%;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 30px;
+            margin-left:630px;
+        }
+
+            .cardBox .card {
+                position: relative;
+                background: var(--white);
+                padding: 30px;
+                border-radius: 20px;
+                display: flex;
+                justify-content: space-between;
+                cursor: pointer;
+                box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+            }
+
+                .cardBox .card .numbers {
+                    position: relative;
+                    font-weight: 500;
+                    font-size: 2.5rem;
+                    color: var(--blue);
+                }
+
+                .cardBox .card .cardName {
+                    color: var(--black2);
+                    font-size: 1.1rem;
+                    margin-top: 5px;
+                }
+
+                .cardBox .card .iconBx {
+                    font-size: 3.5rem;
+                    color: var(--black2);
+                }
+
+                .cardBox .card:hover {
+                    background: var(--blue);
+                }
+
+                    .cardBox .card:hover .numbers,
+                    .cardBox .card:hover .cardName,
+                    .cardBox .card:hover .iconBx {
+                        color: var(--white);
+                    }
+
+
+    </style>
+</head>
+<body>
+    <div class="navigation">
+        <ul class="nav flex-column bg-dark text-white">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#">
+                    <span class="icon">
+                        <ion-icon name="settings-outline"></ion-icon>
+                    </span>
+                    <span class="title">Overview</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" asp-controller="admin" asp-action="show">
+                    <span class="icon">
+                        <ion-icon name="home-outline"></ion-icon>
+                    </span>
+                    <span class="title">Court Management</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" asp-controller="admin" asp-action="customerInfo">
+                    <span class="icon">
+                        <ion-icon name="people-outline"></ion-icon>
+                    </span>
+                    <span class="title">Customers</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" asp-controller="Account" asp-action="Logout">
+                    <span class="icon">
+                        <ion-icon name="log-out-outline"></ion-icon>
+                    </span>
+                    <span class="title">Sign Out</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="cardBox">
+        <div class="card">
+            <div>
+                @{
+                    using var context = new DemobadmintonContext();
+                    var TotalCourt = context.Courts.Count();
+                    var TotalCustomer = context.AspNetUsers.Count();
+                }
+                <div class="numbers">@TotalCustomer</div>
+                <div class="cardName">All time customer</div>
+            </div>
+
+            <div class="iconBx">
+                <ion-icon name="eye-outline"></ion-icon>
+            </div>
+        </div>
+
+        <div class="card">
+            <div>
+                <div class="numbers">@TotalCourt</div>
+                <div class="cardName">Total Court</div>
+            </div>
+
+            <div class="iconBx">
+                <ion-icon name="home-outline"></ion-icon>
+            </div>
+        </div>
+
+       
+    </div>
+
+
+
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    
+
+</body>
+</html>
+
+

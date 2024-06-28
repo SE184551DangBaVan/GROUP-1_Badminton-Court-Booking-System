@@ -224,6 +224,16 @@ namespace BadmintonBooking.Controllers
             }
             return uniqueFileName;
         }
+        public IActionResult CustomerInfo()
+        {
+            DemobadmintonContext context = new DemobadmintonContext();
+            var data = context.AspNetUsers.ToList();
+            return View(data);
+        }
+        public IActionResult OverView()
+        {
+            return View();
+        }
 
     }
 }
