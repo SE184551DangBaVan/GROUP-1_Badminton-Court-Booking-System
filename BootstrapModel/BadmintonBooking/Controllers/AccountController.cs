@@ -182,6 +182,10 @@ namespace demobadminton.Controllers
                             {
                                 return RedirectToAction("ListUsers", "Administration");
                             }
+                            else if (User.IsInRole("Manager"))
+                            {
+                                return RedirectToAction("Show", "Admin");
+                            }
                             else
                             {
                                 return RedirectToAction("Index", "Home");
