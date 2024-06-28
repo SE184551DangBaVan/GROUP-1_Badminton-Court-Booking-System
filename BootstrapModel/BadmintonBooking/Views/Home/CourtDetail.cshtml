@@ -2,141 +2,164 @@
 
 @{
     ViewData["Title"] = "Court Detail";
-    Layout = null;
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Product Card/Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <link href="~/css/courtdetail.css" rel="stylesheet" />
+</head>
 
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 0;
-    }
+<body>
 
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: white;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-    }
+    <div class="card-wrapper">
+        <div class="card">
+            <!-- card left -->
+            <div class="product-imgs">
+                <div class="img-display">
+                    <div class="img-showcase">
+                        <img src="~/Upload/Image/@Model.CoPath" alt="@Model.CoName" />
 
-    .header {
-        text-align: center;
-        padding: 20px;
-        background-color: #007bff;
-        color: white;
-        margin-bottom: 20px;
-        border-radius: 8px 8px 0 0;
-    }
 
-        .header h1 {
-            margin: 0;
-        }
-
-    .court-detail {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-    }
-
-        .court-detail img {
-            max-width: 100%;
-            max-height: 300px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-    .court-info {
-        flex: 1;
-    }
-
-        .court-info h3 {
-            margin: 0 0 10px;
-            font-size: 24px;
-        }
-
-        .court-info p {
-            margin: 5px 0;
-            color: #555;
-        }
-
-    .ratings-section {
-        margin-top: 20px;
-    }
-
-    .rating {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 10px;
-    }
-
-        .rating .stars {
-            display: flex;
-            gap: 2px;
-        }
-
-    .star {
-        font-size: 24px;
-        color: gold;
-        cursor: default;
-    }
-
-        .star.empty {
-            color: #ccc;
-        }
-</style>
-
-<div class="container">
-    <div class="header">
-        <h1>Court Details</h1>
-    </div>
-
-    <div class="court-detail">
-        <div class="court-info">
-            <h3>Court Id: @Html.DisplayFor(model => model.CoId)</h3>
-            <p><strong>Court Name:</strong> @Html.DisplayFor(model => model.CoName)</p>
-            <p><strong>Address:</strong> @Html.DisplayFor(model => model.CoAddress)</p>
-            <p><strong>Info:</strong> @Html.DisplayFor(model => model.CoInfo)</p>
-            <p><strong>Price:</strong> @Html.DisplayFor(model => model.CoPrice)</p>
-        </div>
-        <div>
-            <img src="~/Upload/Image/@Model.CoPath" alt="Court Image" />
-        </div>
-
-        <div class="ratings-section">
-            <h3>Ratings</h3>
-            @if (Model.Ratings != null && Model.Ratings.Any())
-            {
-                @foreach (var rating in Model.Ratings)
-                {
-                    <div class="rating">
-                        <div class="stars">
-                            @for (int i = 0; i < (rating.Rating1 ?? 0); i++)
-                            {
-                                <span class="star">☆</span>
-                            }
-                            @for (int i = (rating.Rating1 ?? 0); i < 5; i++)
-                            {
-                                <span class="star empty">☆</span>
-                            }
-                        </div>
-                        <p>@rating.Review</p>
                     </div>
-                }
-            }
-            else
-            {
-                <p>No ratings available for this court.</p>
-            }
-        </div>
-    </div>
-</div>
+                </div>
 
-@section Scripts {
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-}
+            </div>
+            <!-- card right -->
+            <div class="product-content">
+                <h2 class="product-title">@Model.CoName</h2>
+                @{
+                    using var context = new DemobadmintonContext();
+                    var ratingsListForCourt = context.Ratings.Where(r => r.CourtId == Model.CoId).Select(r => r.Rating1).ToList();
+                    var ratingAvg = ratingsListForCourt.Any() ? ratingsListForCourt.Average() : 0.0;
+
+                    // Calculate full stars, half stars, and empty stars
+                    int fullStars = (int)ratingAvg;
+                    bool hasHalfStar = ratingAvg - fullStars >= 0.5;
+                }
+
+                <div class="product-rating">
+                    @{
+                        // Ceiling the average rating and convert it to an integer
+                        int ceilingRating = (int)Math.Ceiling((decimal)ratingAvg);
+                    }
+
+                    @for (int i = 1; i <= 5; i++)
+                    {
+                        if (i <= ceilingRating)
+                        {
+                            <i class="fas fa-star"></i> <!-- Full star -->
+                        }
+                        else
+                        {
+                            <i class="far fa-star"></i> <!-- Empty star -->
+                        }
+                    }
+
+                    <span>@ratingAvg (@(ratingsListForCourt.Count))</span>
+                </div>
+                @{
+                    double? OldPrice = Model.CoPrice + (Model.CoPrice * 5 / 100);
+                    double? NewPrice = Model.CoPrice;
+                }
+                <div class="product-price">
+                    <p class="last-price">Old Price: <span>@OldPrice VND</span></p>
+                    <p class="new-price">New Price: <span>@NewPrice VND(5%)</span></p>
+                </div>
+
+                <div class="product-detail">
+                    <h2>about this court: </h2>
+                    <p>@Model.CoInfo</p>
+                    <ul>
+                        <li>Address: <span>@Model.CoAddress</span></li>
+
+                    </ul>
+                </div>
+
+                <div class="purchase-info">
+                    <button type="button" class="btn">
+                        Book <i class="fas fa-shopping-cart"></i>
+                    </button>
+                </div>
+
+                <div class="social-links">
+                    <p>Share At: </p>
+                    <a href="#">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="#">
+                        <i class="fab fa-pinterest"></i>
+                    </a>
+                </div>
+
+            </div>
+            <div>
+                <div>
+                    Comment
+                </div>
+
+                @if (Model.Ratings != null && Model.Ratings.Any())
+                {
+                    @foreach (var rating in Model.Ratings)
+                    {
+                        <div class="rating">
+                            <div class="stars">
+                                @{
+                                    // Ceiling the average rating and convert it to an integer
+                                    int cusRating = (int)Math.Ceiling((decimal)rating.Rating1);
+                                }
+
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    if (i <= cusRating)
+                                    {
+                                        <i class="fas fa-star"></i> <!-- Full star -->
+                                    }
+                                    else
+                                    {
+                                        <i class="far fa-star"></i> <!-- Empty star -->
+                                    }
+                                }
+                            </div>
+
+                            @{
+                                DemobadmintonContext db = new DemobadmintonContext();
+                                var UserName = db.AspNetUsers.FirstOrDefault(a => a.Id == rating.UserId);
+                            }
+                            <p>@rating.CreatedAt</p>
+                            <p>@UserName.Email</p>
+                            <p>@rating.Review</p>
+                            <hr />
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>No ratings available for this court.</p>
+                }
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
