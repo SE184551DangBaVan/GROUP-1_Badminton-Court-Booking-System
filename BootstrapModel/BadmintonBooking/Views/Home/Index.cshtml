@@ -4,12 +4,14 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 
 	var courts = Model.GroupBy(c => c.CoAddress)
-	.Select(c => new
+	.Select(g => new
 	{
-		Description = c.Key,
-		ImgUrl = c.Key+".png",
-
+		Description = g.Key,
+		ImgUrl = g.Key + ".png",
+		CourtDescriptions = g.Select(d => d.CoInfo).ToList()
 	}).ToList();
+
+
 }
 
 
@@ -48,16 +50,23 @@
 				@foreach (var court in courts)
 				{
 					<div class="court-card">
-						<p>
+						<p class="court-select">
 							<img src="~/images/@court.ImgUrl" alt="@court.ImgUrl">
 							<a style="text-decoration:none" asp-controller="home" asp-action="book2" asp-route-address="@court.Description" asp-route-sortOrder="">@court.Description</a>
 
-
-
 						</p>
+						<p class="court-info-pop">
+							@foreach (var description in court.CourtDescriptions)
+							{
+								<span>@description</span>
 
+							}
+						</p>
 					</div>
+					
+
 				}
+				
 			</div>
 		</section>
 

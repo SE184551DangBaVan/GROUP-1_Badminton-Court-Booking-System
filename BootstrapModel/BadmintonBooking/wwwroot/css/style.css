@@ -86,6 +86,7 @@ nav {
     nav.sticky {
         padding: 2px;
         background: #333;
+        opacity: 0.98;
     }
 
     nav .nav-container {
@@ -300,11 +301,13 @@ nav {
     border-radius: 8px;
     display: inline-block;
     padding: 0.5rem 1rem;
-    background: #fff;
-    color: #333;
+    background-color: hsla(0, 0%, 100%, .2);
+    color: #ffff;
     font-weight: bold;
     text-decoration: none;
     transition: 0.2s ease;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
 }
 
 .heading .button:hover {
@@ -383,10 +386,29 @@ nav {
     transition: transform 0.2s;
 }
 
+.court-card a{
+    text-decoration: none;
+    color: brown;
+    transition: all 0.3s ease;
+}
 
-    .court-card:hover {
-        transform: scale(1.02);
-    }
+.court-card a:hover{
+    text-decoration: none;
+    color: white;
+}
+
+.court-card:hover {
+    transform: scale(1.02);
+}
+.court-info-pop span {
+    opacity: 0.05;
+    font-size: small;
+    transition:all 0.4s ease;
+}
+.court-card:has(.court-select img:hover) .court-info-pop span:not(img:hover) {
+    opacity: 1;
+    font-size: medium;
+}
 
     .court-card img {
         width: 94%;
