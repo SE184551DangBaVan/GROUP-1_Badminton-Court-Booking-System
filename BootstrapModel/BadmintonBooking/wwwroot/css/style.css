@@ -90,10 +90,11 @@ nav {
     }
 
     nav .nav-container {
+        position: relative;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin: 5px 20px;
+        margin: 5px 0;
         height: 100px;
     }
 
@@ -114,8 +115,9 @@ nav {
     nav .nav-direct {
         margin: 0 200px 0 0;
         list-style: none;
-        display: flex;
+        display: inline-flex;
         gap: 40px;
+        justify-content: space-between;
         color: #fff;
         transition: all 0.3s ease;
     }
@@ -137,6 +139,63 @@ nav {
                 color: brown;
             }
 
+    nav input {
+        display: none;
+    }
+
+#showMega:checked ~ .mega-box {
+    max-height: 200px;
+}
+
+.nav-direct .desktop-item {
+    display: none;
+}
+
+.nav-direct .mobile-item {
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.nav-direct .mobile-item:hover {
+    font-size: 1.3rem;
+    color: brown;
+}
+
+.mega-box {
+    position: static;
+    top: 6px;
+    opacity: 1;
+    visibility: visible;
+    padding: 0 10px 0 10px;
+    max-height: 0px;
+    overflow: scroll;
+    background-color: #333;
+    transition: all 0.3s ease;
+}
+
+    .mega-box .content {
+        box-shadow: none;
+        height: 180px;
+        flex-direction: row;
+    }
+
+        .mega-box .content .row {
+            width: 280px;
+            height: 20px;
+            margin-bottom: 5px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+.row .mega-links li {
+    margin-top: 0;
+}
+
+.content .row header {
+    margin-top: 60px;
+    font-size: 19px;
+}
 /*Login /Register*/
 .navbar-nav .account-actions {
     display: flex;

@@ -34,6 +34,25 @@
                     <li><a href="#BookingType">Information</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Profile">Profile</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About Us</a></li>
+                    <li>
+                        <a href="#" class="desktop-item">Notice</a>
+                        <input type="checkbox" id="showMega">
+                        <label for="showMega" class="mobile-item">Notice</label>
+                        <div class="mega-box">
+                            <div class="content">
+                                <div class="row">
+                                    <img src="~/images/open-badminton-tournament.jpg" alt="">
+                                </div>
+                                <div class="row">
+                                    <header>Headlines</header>
+                                    <ul class="mega-links">
+                                        <li><a href="#">Upcomming Events</a></li>
+                                        <li><a href="#">Booking History</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
                     @if (SignInManager.IsSignedIn(User) &&  User.IsInRole("Admin"))
                     {
                         <li class="nav-item dropdown">
