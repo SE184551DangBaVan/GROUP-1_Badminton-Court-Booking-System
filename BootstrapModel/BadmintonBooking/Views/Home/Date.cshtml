@@ -156,10 +156,10 @@
             </tbody>
         </table>
         <form method="post" asp-action="UpdateBooking" asp-controller="Booking">
-            @if(types == "Fixed")
+            @if (types == "Fixed")
             {
                 <label>Select your weeks: </label>
-                <select name="totalWeeks">
+                <select name="totalWeeks" id="total-weeks">
                     <option value="4">4</option>
                     <option value="5">5</option>
                     <option value="6">6</option>
@@ -167,23 +167,23 @@
                     <option value="8">8</option>
                 </select>
             }
-            @if(types == "Flexible")
-            {    
+            @if (types == "Flexible")
+            {
                 <label>Input Hour: </label>
-                 <input name="totalHours" type="text" />
+                <input name="totalHours" id="total-hours" type="number" value="0" min="0" />
             }
-            
+
             <div class="price">Total Price: $<span id="total-price">0</span></div>
             <input type="hidden" name="totalPrice" id="price-input" value="0">
-        
-        <div class="date-container1">
-            <div>
-                <button id="cancel-all">Cancel All Bookings</button>
+
+            <div class="date-container1">
+                <div>
+                    <button id="cancel-all" type="button">Cancel All Bookings</button>
+                </div>
+                <div>
+                    <button id="payment" type="submit">Pay</button>
+                </div>
             </div>
-            <div>
-                <button id="payment" type="submit">Pay</button>
-            </div>
-        </div>
         </form>
     </div>
     <script src="~/js/JScript.js"></script>

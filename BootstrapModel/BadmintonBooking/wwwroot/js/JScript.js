@@ -6,10 +6,25 @@
     const cancelAllButton = document.getElementById("cancel-all");
     const totalPriceElement = document.getElementById("total-price");
     const type = document.getElementById("types");
+    const hours = document.getElementById("total-hours");
+    const weeks = document.getElementById("total-weeks");
+    const form = document.querySelector("form");
 
     let currentStartDate = new Date();
     let scheduleData = [];
 
+    form.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" && event.target.tagName !== "TEXTAREA") {
+            event.preventDefault();
+        }
+    });
+
+    if (weeks) {
+        weeks.addEventListener("change", updateTotalPrice);
+    }
+    if (hours) {
+        hours.addEventListener("input", updateTotalPrice);
+    }
     function initializeScheduleData() {
         scheduleData = [];
         const startDate = new Date(currentStartDate);
@@ -194,11 +209,11 @@
 
         let totalPrice = 0;
         if (types === "Fixed") {
-            totalPrice = bookedCellsCount * 9 * 4; // Example calculation for fixed type
+            totalPrice = bookedCellsCount * 9 * parseInt(weeks.value);
         } else if (types === "Flexible") {
-            totalPrice = bookedCellsCount * 7; // Example calculation for flexible type
+            totalPrice = 7 * hours.value;
         } else {
-            totalPrice = bookedCellsCount * 10; // Default price calculation
+            totalPrice = bookedCellsCount * 10;
         }
 
         totalPriceElement.textContent = totalPrice;
@@ -239,35 +254,34 @@
 
     function findCellByTimeAndDate(time, date) {
         const rows = document.querySelectorAll("#schedule tbody tr");
-           for (let row of rows) {
-               const timeCell = row.cells[0].textContent;
-               if (timeCell === time) {
-                   for (let i = 1; i < row.cells.length; i++) {
-                       const dateCell = document.querySelector(`#schedule thead tr th:nth-child(${i + 1})`).innerHTML.split('<br>')[1];
-                       if (dateCell === date) {
-                           return row.cells[i];
-                       }
-                   }
-               }
-           }
-           return null;
-       }
+        for (let row of rows) {
+            const timeCell = row.cells[0].textContent;
+            if (timeCell === time) {
+                for (let i = 1; i < row.cells.length; i++) {
+                    const dateCell = document.querySelector(`#schedule thead tr th:nth-child(${i + 1})`).innerHTML.split('<br>')[1];
+                    if (dateCell === date) {
+                        return row.cells[i];
+                    }
+                }
+            }
+        }
+        return null;
+    }
 
-       // Event listeners for navigation buttons if they exist
-       if (prevButton && nextButton) {
-           prevButton.addEventListener("click", function () {
-               currentStartDate.setDate(currentStartDate.getDate() - 7);
-               updateWeekRange();
-           });
+    if (prevButton && nextButton) {
+        prevButton.addEventListener("click", function () {
+            currentStartDate.setDate(currentStartDate.getDate() - 7);
+            updateWeekRange();
+        });
 
-           nextButton.addEventListener("click", function () {
-               currentStartDate.setDate(currentStartDate.getDate() + 7);
-               updateWeekRange();
-           });
-       }
+        nextButton.addEventListener("click", function () {
+            currentStartDate.setDate(currentStartDate.getDate() + 7);
+            updateWeekRange();
+        });
+    }
 
-       cancelAllButton.addEventListener("click", cancelAllBookings);
+    cancelAllButton.addEventListener("click", cancelAllBookings);
 
-       updateWeekRange();
-   });
+    updateWeekRange();
+});
 

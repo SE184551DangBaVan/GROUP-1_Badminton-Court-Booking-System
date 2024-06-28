@@ -23,14 +23,12 @@ namespace BadmintonBooking.Controllers
         private static List<TimeSlot> _slots = new List<TimeSlot>();
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly UserManager<IdentityUser> _UserManager;
-        private readonly IMemoryCache cache;
 
         public BookingController(DemobadmintonContext demobadmintonContext, IHttpContextAccessor httpContextAccessor, UserManager<IdentityUser> userManager, IMemoryCache memoryCache)
         {
             _demobadmintonContext = demobadmintonContext;
             _httpContextAccessor = httpContextAccessor;
             _UserManager = userManager;
-            cache = memoryCache;
         }
 
         [HttpGet]
@@ -82,7 +80,6 @@ namespace BadmintonBooking.Controllers
                 };
                 _slots.Add(slot);
                 int quantity = _slots.Count;
-                cache.Set("slot", _slots);
                 return Ok(new { message = "Booking data received successfully." });
             }
 
@@ -96,8 +93,6 @@ namespace BadmintonBooking.Controllers
         public async Task<IActionResult> UpdateBooking(int totalWeeks, int totalHours, int totalPrice)
         {
             int quantity = _slots.Count;
-            cache.TryGetValue("slot", out List<TimeSlot> slots);
-            cache.Remove("slot");
             string types = _httpContextAccessor.HttpContext.Session.GetString("Types");
             Booking booking = new Booking()
             {
@@ -109,7 +104,7 @@ namespace BadmintonBooking.Controllers
             };
             if (types == "Fixed")
             {
-                foreach (var item in slots)
+                foreach (var item in _slots)
                 {
                     for (int i = 0; i < totalWeeks; i++)
                     {
@@ -141,10 +136,11 @@ namespace BadmintonBooking.Controllers
                     PAmount = totalPrice,
                 };
                 booking.Payments.Add(payment);
-                foreach (var item in slots)
+                foreach (var item in _slots)
                 {
                     booking.TimeSlots.Add(item);
                 }
+                quantity = totalHours;
             }
             else
             {
@@ -154,11 +150,16 @@ namespace BadmintonBooking.Controllers
                     PAmount = totalPrice,
                 };
                 booking.Payments.Add(payment);
-                foreach (var item in slots)
+                foreach (var item in _slots)
                 {
                     booking.TimeSlots.Add(item);
                 }
             }
+            foreach (var ts in booking.TimeSlots.ToList())
+            {
+                Console.WriteLine($"TimeSlot - Date: {ts.TsDate}, Start: {ts.TsStart}, End: {ts.TsEnd}, CheckedIn: {ts.TsCheckedIn}, CoId: {ts.CoId}");
+            }
+            _slots.Clear();
             _httpContextAccessor.HttpContext.Session.SetString("quantity", quantity.ToString());
             var jsonString = JsonConvert.SerializeObject(booking);
             _httpContextAccessor.HttpContext.Session.SetString("Booking", jsonString);
