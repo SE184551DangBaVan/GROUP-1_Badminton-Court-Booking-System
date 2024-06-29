@@ -52,11 +52,10 @@ namespace BadmintonBooking.Controllers
             //Pass the Model to the View
             return View(model);
         }
-
+        [Authorize]
         [HttpPost]
-        public async Task<IActionResult> EditUser(EditUserViewModel model)
+        public async Task<IActionResult> EditUser(EditUserViewModel model, string? caller)
         {
-            ViewData["Layout"] = null;
             //First Fetch the User by Id from the database
             var user = await _userManager.FindByIdAsync(model.Id);
 
@@ -80,6 +79,7 @@ namespace BadmintonBooking.Controllers
                 if (result.Succeeded)
                 {
                     //Once user data updated redirect to the ListUsers view
+                    if (!string.IsNullOrEmpty(caller)) return RedirectToAction("Profile", "Home");
                     return RedirectToAction("ListUsers");
                 }
                 else
@@ -87,9 +87,11 @@ namespace BadmintonBooking.Controllers
                     //In case any error, stay in the same view and show the model validation error
                     foreach (var error in result.Errors)
                     {
+                        if (!string.IsNullOrEmpty(caller)) return RedirectToAction("Profile", "Home");
                         ModelState.AddModelError("", error.Description);
                     }
                 }
+                if (!string.IsNullOrEmpty(caller)) return RedirectToAction("Profile", "Home");
 
                 return View(model);
             }

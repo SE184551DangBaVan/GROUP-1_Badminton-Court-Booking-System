@@ -35,7 +35,8 @@ namespace BadmintonBooking.Controllers
             return View();
         }
 
-        public IActionResult Profile()
+        [Authorize]
+        public async Task<IActionResult> Profile()
         {
             return View();
         }
