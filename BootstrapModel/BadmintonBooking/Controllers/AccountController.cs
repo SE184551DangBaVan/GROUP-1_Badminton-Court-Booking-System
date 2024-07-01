@@ -98,7 +98,7 @@ namespace demobadminton.Controllers
                         if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                         {
 
-                            return RedirectToAction("ListUsers", "Administration");
+                            return RedirectToAction("show", "admin");
                         }
 
                         var userId = await _userManager.GetUserIdAsync(user);
@@ -180,16 +180,15 @@ namespace demobadminton.Controllers
                             }
                             else if (User.IsInRole("Admin"))
                             {
-                                return RedirectToAction("ListUsers", "Administration");
-                            }
-                            else if (User.IsInRole("Manager"))
-                            {
                                 return RedirectToAction("Show", "Admin");
                             }
-                            else
+                            else if (User.IsInRole("Staff"))
+                            {
+                               return RedirectToAction("checkin","Home");
+
+                            } else
                             {
                                 return RedirectToAction("Index", "Home");
-
                             }
 
                         }

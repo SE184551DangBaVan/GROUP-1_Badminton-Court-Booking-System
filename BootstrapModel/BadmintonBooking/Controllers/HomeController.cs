@@ -163,6 +163,7 @@ namespace BadmintonBooking.Controllers
         {
             return View();
         }
+        [Authorize(Roles = "Staff")]
         public IActionResult CheckIn()
         {
             DemobadmintonContext context = new DemobadmintonContext();

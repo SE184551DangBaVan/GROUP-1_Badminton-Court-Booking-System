@@ -6,9 +6,12 @@
 
 <ul class="navbar-nav">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    @if (SignInManager.IsSignedIn(User))
+    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
     {
         <span class="account-actions">
+        <li class="nav-item" >
+            <a class="nav-link text-light" asp-controller="Admin" asp-action="Show">Admin</a>
+        </li>
         <li class="username nav-item">
             <a class="nav-link text-light">Hello <span>@UserManager.GetUserName(User)</span>!</a>
         </li>
@@ -23,7 +26,27 @@
         </li>
         </span>
     }
-    else
+    else @if (SignInManager.IsSignedIn(User) && User.IsInRole("Staff"))
+        {
+            <span class="account-actions">
+        <li class="nav-item">
+            <a class="nav-link text-light" asp-controller="Home" asp-action="Checkin">Staff Controller</a>
+        </li>
+            <li class="username nav-item">
+                <a class="nav-link text-light">Hello <span>@UserManager.GetUserName(User)</span>!</a>
+            </li>
+
+                @{
+                    var CustomerId = UserManager.GetUserId(User);
+                    _httpContextAccessor.HttpContext.Session.SetString("CusId", CustomerId);
+                }
+
+            <li class="logout nav-item">
+                <a class="nav-link text-light" asp-controller="Account" asp-action="Logout"><i class="fa-solid fa-right-from-bracket"></i>LogOut</a>
+            </li>
+            </span>
+        }
+        else
     {
         <span class="account-actions">
         <li class="nav-item">
