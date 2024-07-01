@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "CheckoutDetail";
+    Layout = null;
 }
 
 <style>
@@ -111,7 +112,6 @@
                     <p>Court Name: @Html.DisplayFor(modelItem => item.Co.CoName)</p>
                     <p>Court Id: @Html.DisplayFor(modelItem => item.Co.CoId)</p>
                     <p>Address: @Html.DisplayFor(modelItem => item.Co.CoAddress)</p>
-                    <p>Address: @Html.DisplayFor(modelItem => item.Co.CoInfo)</p>
                     <p>Date: @Html.DisplayFor(modelItem => item.TsDate)</p>
                     <p>Start: @Html.DisplayFor(modelItem => item.TsStart)</p>
                     <p>End: @Html.DisplayFor(modelItem => item.TsEnd)</p>

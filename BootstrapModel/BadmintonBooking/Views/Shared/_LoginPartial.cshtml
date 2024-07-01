@@ -46,6 +46,25 @@
             </li>
             </span>
         }
+    else @if (SignInManager.IsSignedIn(User))
+    {
+        <span class="account-actions">
+
+        <li class="username nav-item">
+            <a class="nav-link text-light">Hello <span>@UserManager.GetUserName(User)</span>!</a>
+        </li>
+
+            @{
+                var CustomerId = UserManager.GetUserId(User);
+                _httpContextAccessor.HttpContext.Session.SetString("CusId", CustomerId);
+            }
+
+        <li class="logout nav-item">
+            <a class="nav-link text-light" asp-controller="Account" asp-action="Logout"><i class="fa-solid fa-right-from-bracket"></i>LogOut</a>
+        </li>
+        </span>
+
+    }
         else
     {
         <span class="account-actions">
@@ -57,4 +76,6 @@
         </li>
         </span>
     }
+
+   
 </ul>
