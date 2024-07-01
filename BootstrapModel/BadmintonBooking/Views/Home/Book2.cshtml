@@ -56,12 +56,19 @@
                                         }
                                         <p class="card-text"><i class="fa-solid fa-star"></i>@ratingAvg (@ratingsListForCourt.Count())</p>
                                         <form asp-action="Date" asp-controller="Home">
-                                            <input type="hidden" name="CoId" value="@court.CoId"/>
-                                            <select name="Types">                                                
-                                                <option value="Casual">Casual</option>
-                                                <option value="Fixed">Fixed</option>
-                                                <option value="Flexible">Flexible</option>
-                                            </select>
+                                            <input type="hidden" name="CoId" value="@court.CoId" />
+                                            @if (!User.IsInRole("Manager"))
+                                            {
+                                                <select name="Types">
+                                                    <option value="Casual">Casual</option>
+                                                    <option value="Fixed">Fixed</option>
+                                                    <option value="Flexible">Flexible</option>
+                                                </select>
+                                            }
+                                            else
+                                            {
+                                                <input type="hidden" name="Types" value="Casual" />
+                                            }
                                             <button>Book</button>
                                         </form>
                                         <a class="btn btn-success" href="/home/CourtDetail?CourtId=@court.CoId">Detail</a>
