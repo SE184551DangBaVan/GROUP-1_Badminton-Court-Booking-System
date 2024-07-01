@@ -8,6 +8,14 @@
     })
 
     $(window).scroll(function () {
+        if (this.scrollY > 40) {
+            $('.mega-box').addClass("sticky");
+        } else {
+            $('.mega-box').removeClass("sticky");
+        }
+    })
+
+    $(window).scroll(function () {
         if (this.scrollY > 150) {
             $('.Quote').addClass("flow");
         } else {

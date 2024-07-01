@@ -38,7 +38,7 @@
 
 </form>
 
-<div class="row pt-2">
+<div class="External-login">
     <h5>
         External login
         @if (Model.Schemes.Count() == 0)
@@ -51,7 +51,7 @@
                 <div>
                     @foreach (var provider in Model.Schemes)
                     {
-                        <i class="fa-brands fa-google"></i>
+                        <div id="google"></div>
                         <button type="submit" class="btn btn-primary" name="provider"
                                 value="@provider.Name"
                                 title="Login using your @provider.Name account">
