@@ -9,20 +9,21 @@ public partial class Court
 {
     public int CoId { get; set; }
     [Required(ErrorMessage = "Court name is required")]
-
+    [Display(Name ="Court name")]
     public string CoName { get; set; } = null!;
 
     public string? CoPath { get; set; }
 
     public bool CoStatus { get; set; }
     [Required(ErrorMessage = "Address is required")]
+    [Display(Name = "Court Address")]
     public string CoAddress { get; set; } = null!;
     [Required(ErrorMessage = "Court information is required")]
-
+    [Display(Name = "Court Information")]
     public string CoInfo { get; set; } = null!;
     [Required(ErrorMessage = "Court price is required")]
     [Range(0.01, double.MaxValue, ErrorMessage = "Court price must be greater than 0")]
-
+    [Display(Name = "Court Price")]
     public double? CoPrice { get; set; }
     [NotMapped]
     [Display(Name = "Choose Image")]

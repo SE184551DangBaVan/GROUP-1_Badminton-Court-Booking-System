@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<BadmintonBooking.Models.Court>
 @{
     ViewData["Title"] = "Index";
-    Layout = null;
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <!DOCTYPE html>
 <html>
@@ -32,91 +32,12 @@
             align-items: center;
         }
 
-        .navigation {
-            background-color: #343a40; /* Dark background for the sidebar */
-            height: 100vh; /* Full height */
-            position: fixed; /* Fixed position */
-            top: 0;
-            left: 0;
-            width: 250px; /* Fixed width */
-            overflow-y: auto; /* Scroll if content overflows */
-        }
-
-            .navigation .nav {
-                flex-direction: column;
-                height: 100%;
-            }
-
-            .navigation .nav-item {
-                width: 100%;
-            }
-
-            .navigation .nav-link {
-                display: flex;
-                align-items: center;
-                padding: 15px;
-                color: #fff;
-                text-decoration: none;
-                transition: background-color 0.3s ease;
-            }
-
-                .navigation .nav-link:hover {
-                    background-color: #495057; /* Slightly lighter shade on hover */
-                }
-
-            .navigation .icon {
-                font-size: 1.5em;
-                margin-right: 10px;
-            }
-
-            .navigation .title {
-                font-size: 1.1em;
-            }
-
-        .content {
-            margin-left: 250px; /* Same width as the sidebar */
-            padding: 20px;
-        }
+       
 
     </style>
 </head>
 <body>
-    <div class="navigation">
-        <ul class="nav flex-column bg-dark text-white">
-            <li class="nav-item">
-                <a class="nav-link text-white" href="/admin/overview">
-                    <span class="icon">
-                        <ion-icon name="settings-outline"></ion-icon>
-                    </span>
-                    <span class="title">Overview</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white" asp-controller="admin" asp-action="show">
-                    <span class="icon">
-                        <ion-icon name="home-outline"></ion-icon>
-                    </span>
-                    <span class="title">Court Management</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white" href="/admin/customerInfo">
-                    <span class="icon">
-                        <ion-icon name="people-outline"></ion-icon>
-                    </span>
-                    <span class="title">Customers</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white" asp-controller="Account" asp-action="Logout">
-                    <span class="icon">
-                        <ion-icon name="log-out-outline"></ion-icon>
-                    </span>
-                    <span class="title">Sign Out</span>
-                </a>
-            </li>
-        </ul>
-    </div>
+    
 
     <div class="content">
         <div class="container mt-5">
@@ -133,7 +54,9 @@
                     </div>
 
                     <div class="row justify-content-center mb-3">
+                        
                         <div class="col-md-6 col-lg-4">
+                           
                             <div class="input-group">
                                 <input type="text" placeholder="Search here" id="txtSearch" class="form-control" />
                                 <div class="dropdown">
@@ -148,6 +71,13 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div>
+                            <form asp-controller="admin" asp-action="AddCourt" method="get">
+                                <button>Create new court</button>
+                            </form>
+                            
+                            
                         </div>
                     </div>
 

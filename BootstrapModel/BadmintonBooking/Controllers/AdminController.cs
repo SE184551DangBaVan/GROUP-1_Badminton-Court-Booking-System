@@ -1,10 +1,12 @@
 ﻿using BadmintonBooking.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using System;
 
 namespace BadmintonBooking.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly IWebHostEnvironment environment;
@@ -13,6 +15,7 @@ namespace BadmintonBooking.Controllers
         {
             this.environment = environment;
         }
+
         public IActionResult Show(int page = 1, string sortOrder = "")
         {
             DemobadmintonContext context = new DemobadmintonContext();
@@ -86,7 +89,7 @@ namespace BadmintonBooking.Controllers
                     return RedirectToAction("Show");
 
                 }
-                ModelState.AddModelError(string.Empty, "Model properties is not valid, please check");
+                ModelState.AddModelError(string.Empty, "Please check all fields again");
 
             }
             catch (Exception ex)
@@ -230,10 +233,10 @@ namespace BadmintonBooking.Controllers
             var data = context.AspNetUsers.ToList();
             return View(data);
         }
-        public IActionResult OverView()
-        {
-            return View();
-        }
+       // public IActionResult OverView()
+        //{
+          //  return View();
+        //}
 
     }
 }
