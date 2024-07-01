@@ -2,7 +2,12 @@
 
 @{
     ViewData["Title"] = "CheckOut";
+    Layout = null;
 }
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
     body {
@@ -29,6 +34,31 @@
         .header h1 {
             margin: 0;
         }
+
+    .search-form {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+        .search-form input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 300px;
+            margin-right: 10px;
+        }
+
+        .search-form button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color:green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+           
+
 
     .card-container {
         display: flex;
@@ -86,10 +116,30 @@
             background-color: #0056b3;
         }
 </style>
+    </head>
+<body>
 
 <div class="container">
     <div class="header">
         <h1>Check Out</h1>
+    </div>
+    
+    <div class="search-form">
+
+        <form method="get" action="@Url.Action("CheckOut", "Home")">
+            <input type="text" name="searchTerm" placeholder="Search by keyword..." />
+            <button type="submit">Search</button>
+        </form>
+        <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Sort By
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="/home/checkout?searchTerm=@ViewBag.SearchTerm&sortOrder=booking_Id">Booking Id</a>
+            <a class="dropdown-item" href="/home/checkout?searchTerm=@ViewBag.SearchTerm&sortOrder=name_Asc">Name Ascending</a>
+            <a class="dropdown-item" href="/home/checkout?searchTerm=@ViewBag.SearchTerm&sortOrder=name_Desc">Name Descending</a>
+        </div>
+    </div>
     </div>
     @if (Model == null || !Model.Any())
     {
@@ -97,22 +147,36 @@
     }
     else
     {
-        <div class="card-container">
+        <div class="card-container" >
             @foreach (var item in Model)
             {
                 <div class="card">
                     <img src="~/Upload/Image/@item.Co.CoPath" alt="Court Image" />
                     <div class="card-content">
                         <h3>Booking ID: @Html.DisplayFor(modelItem => item.BId)</h3>
-                        <p>Court Id: @Html.DisplayFor(modelItem => item.Co.CoId)</p>
+                        <!-- <p>Court Id: @Html.DisplayFor(modelItem => item.Co.CoId)</p>-->
                         <p>Court Name: @Html.DisplayFor(modelItem => item.Co.CoName)</p>
                         <p>Address : @Html.DisplayFor(modelItem => item.Co.CoAddress)</p>
                         <p>Type of Booking: @Html.DisplayFor(modelItem => item.BBookingType)</p>
-                        <p>Total hours: @Html.DisplayFor(modelItem => item.BTotalHours)</p>
+                       
                         @{
                             DemobadmintonContext context = new DemobadmintonContext();
                             var customername = context.AspNetUsers.FirstOrDefault(a => a.Id == item.UserId);
                         }
+                        @if (item.TimeSlots != null && item.TimeSlots.Count > 0)
+                        {
+                            
+                                int checkedInCount = item.TimeSlots.Count(ts => ts.TsCheckedIn);
+                                int pendingCount = item.TimeSlots.Count(ts=>!ts.TsCheckedIn);    
+                            <p> Checked-In: <b>@checkedInCount </b></p>
+                            <p> Pending: <b>@pendingCount </b></p>
+                            
+                        }
+                        else
+                        {
+                            <p>No Time Slots found for this booking.</p>
+                        }
+                       
                         <p>Username: @customername.UserName</p>
                         <a href="/home/CheckoutDetail?bookingid=@item.BId" class="btn">Detail</a>
                     </div>
@@ -122,7 +186,13 @@
     }
 </div>
 
-@section Scripts {
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-}
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    </body>
+ 
+

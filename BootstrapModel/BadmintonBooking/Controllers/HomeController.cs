@@ -188,7 +188,7 @@ namespace BadmintonBooking.Controllers
 
 
         }
-        public IActionResult CheckOut()
+        public IActionResult CheckOut(string searchTerm="",string sortOrder="")
         {
             DemobadmintonContext context = new DemobadmintonContext();
             string userId = _httpContextAccessor.HttpContext.Session.GetString("CusId");
@@ -197,7 +197,29 @@ namespace BadmintonBooking.Controllers
                 return NotFound();
 
             }
-            var data = context.Bookings.Where(b => b.UserId == userId).Include(b => b.TimeSlots).Include(b => b.Co).ToList();
+            var data = context.Bookings
+        .Where(b => b.UserId == userId &&
+                  (string.IsNullOrEmpty(searchTerm) ||
+                   b.BId.ToString().Equals(searchTerm) ||
+                   b.Co.CoName.Contains(searchTerm) ||
+                   b.BBookingType.Contains(searchTerm)))
+       .Include(b => b.TimeSlots)
+       .Include(b => b.Co)
+       .ToList();
+            switch (sortOrder)
+            {
+                case "booking_Id":
+                    data = data.OrderByDescending(b => b.BId).ToList();
+                    break;
+                case "name_Asc":
+                    data = data.OrderBy(b=>b.Co.CoName).ToList();
+                    break;
+                default:
+                    data = data.OrderBy(b => b.BId).ToList();
+                    break;
+            }
+
+            ViewBag.SearchTerm = searchTerm;
             return View(data);
 
         }
