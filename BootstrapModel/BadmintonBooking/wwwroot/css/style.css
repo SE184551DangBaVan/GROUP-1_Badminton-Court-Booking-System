@@ -114,10 +114,12 @@ nav {
         }
 
     nav .nav-direct {
-        margin: 0 200px 0 0;
+        margin: 5px 0 0 0;
+        padding: 0 100px 0 0;
         list-style: none;
+        text-align: center;
         display: inline-flex;
-        gap: 40px;
+        gap: 20px;
         justify-content: space-between;
         color: #fff;
         transition: all 0.3s ease;
@@ -126,6 +128,7 @@ nav {
         nav .nav-direct li {
             margin: 10px 0 0 0;
             height: 30px;
+            width: 100px;
         }
 
         nav .nav-direct a {
@@ -155,7 +158,6 @@ nav {
 .nav-direct .mobile-item {
     font-size: 20px;
     cursor: pointer;
-    border-radius: 5px;
     transition: all 0.3s ease;
 }
 
@@ -187,12 +189,13 @@ nav {
     top: 6px;
     opacity: 1;
     visibility: visible;
-    padding: 0 30px 0 50px;
+    padding: 0 20px 0 130px;
     max-height: 0px;
+    width: 600px;
     border-radius: 8px;
     overflow: auto;
     transition: all 0.3s ease;
-    transform: translateX(-40%);
+    transform: translateX(-60%);
 }
 .mega-box.sticky {
     background-color: #333;
@@ -212,6 +215,7 @@ nav {
 
 .row .mega-links li {
     margin-top: 0;
+    width: 200px;
 }
 
 .content .row header {
@@ -250,12 +254,15 @@ nav {
 
 .navbar-nav .username {
     font-weight: bold;
-    margin: 10px;
+    margin: 5px;
     display: flex;
     align-content: space-between;
 }
 .account-actions .username span {
     color: #acb7e2;
+}
+.account-actions .username span:hover {
+    color: brown;
 }
 
 .navbar-nav .logout{
@@ -332,7 +339,7 @@ nav {
     height: 30px;
     padding: 8px;
     margin: auto;
-    box-shadow: 2px 4px 2px rgba(128, 0, 0, 1);
+    box-shadow: 0px 1px 2px rgba(128, 0, 0, 1);
 }
 
 #google::before {
@@ -345,7 +352,7 @@ nav {
   width: 15px;
   height: 8px;
   background: #4285F4;
-  box-shadow: 2px 0px 0px rgba(128, 0, 0, 1);
+  box-shadow: 0.1px 0px 0px rgba(128, 0, 0, 1);
 }
 
 #google::after {
@@ -360,6 +367,7 @@ nav {
   height: 0;
   box-shadow: 0px 0px 0px rgba(128, 0, 0, 1);
 }
+
 
 /*Content*/
 .Quote {
