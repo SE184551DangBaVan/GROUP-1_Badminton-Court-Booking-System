@@ -180,14 +180,17 @@ namespace demobadminton.Controllers
                             }
                             else if (User.IsInRole("Admin"))
                             {
+                                TempData["message"] = "Login Successfully as Admin!";
                                 return RedirectToAction("Show", "Admin");
                             }
                             else if (User.IsInRole("Staff"))
                             {
-                               return RedirectToAction("checkin","Home");
+                                TempData["message"] = "Login Successfully as Staff!";
+                                return RedirectToAction("checkin","Home");
 
                             } else
                             {
+                                TempData["message"] = "Login Successfully!";
                                 return RedirectToAction("Index", "Home");
                             }
 
@@ -206,7 +209,8 @@ namespace demobadminton.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Login", "Account");
+			TempData["message"] = "Logout Successfully!";
+			return RedirectToAction("Login", "Account");
         }
         public string GetEmailBody(string username,string? title,string? callbackUrl,string?EmailTemplateName)
         {
@@ -363,6 +367,7 @@ namespace demobadminton.Controllers
                 , isPersistent: false, bypassTwoFactor: true);
             if (signInResult.Succeeded)
             {
+               
                 return RedirectToAction("index", "home");
             }
             else
@@ -385,7 +390,8 @@ namespace demobadminton.Controllers
 
                     }
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+					TempData["message"] = "Login Successfully!";
+					return RedirectToAction("Index", "Home");
                 }
             }
 

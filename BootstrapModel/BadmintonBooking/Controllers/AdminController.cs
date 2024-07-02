@@ -83,7 +83,7 @@ namespace BadmintonBooking.Controllers
                     };
                     context.Courts.Add(data);
                     context.SaveChanges();
-                    TempData["Success"] = "Record saved successfully";
+                    TempData["message"] = "Record has been saved successfully";
 
 
                     return RedirectToAction("Show");
@@ -170,7 +170,7 @@ namespace BadmintonBooking.Controllers
                     }
                     context.Courts.Update(data);
                     context.SaveChanges();
-                    TempData["Success"] = "Court Updated Successfully";
+                    TempData["message"] = "Record has been updated successfully";
                 }
                 else
                 {
@@ -199,7 +199,7 @@ namespace BadmintonBooking.Controllers
                 data.CoStatus = false;
                 context.Courts.Update(data);
                 context.SaveChanges();
-                TempData["Success"] = "Court Deleted Successfully";
+                TempData["message"] = "Record has been deleted successfully";
             }
             return RedirectToAction("Show", "Admin");
         }
