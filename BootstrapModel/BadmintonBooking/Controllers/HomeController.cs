@@ -255,11 +255,25 @@ namespace BadmintonBooking.Controllers
             context.SaveChanges();
             return RedirectToAction("CheckoutDetail", new { bookingId = bookingId });
         }
-        public IActionResult CourtDetail(int CourtId)
+        public IActionResult CourtDetail(int CourtId, int page = 1)
         {
             DemobadmintonContext context = new DemobadmintonContext();
-            var data = context.Courts.Include(c => c.Ratings).FirstOrDefault(c => c.CoId == CourtId);
-            return View(data);
+            int NoOfRecordPerPage = 3;
+            var data = context.Ratings.Include(r => r.Court).Where(r => r.CourtId == CourtId).ToList();
+            int totalRecords = data.Count;
+            int NoOfPages = (int)Math.Ceiling((double)totalRecords / NoOfRecordPerPage);
+            if (NoOfPages == 0) NoOfPages = 1;
+
+            // Pagination logic
+            int NoOfRecordToSkip = (page - 1) * NoOfRecordPerPage;
+            var pagedData = data.Skip(NoOfRecordToSkip).Take(NoOfRecordPerPage).ToList();
+
+            //ViewBag properties
+            ViewBag.Page = page;
+            ViewBag.NoOfPages = NoOfPages;
+            ViewBag.TotalRecords = totalRecords;
+            ViewBag.CourtId = CourtId;
+            return View(pagedData);
         }
     }
 }
