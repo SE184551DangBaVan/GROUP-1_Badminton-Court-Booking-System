@@ -156,17 +156,20 @@ namespace demobadminton.Controllers
                     if (checkEmail == null)
                     {
                         ModelState.AddModelError(string.Empty, "Email is not found");
+                        TempData["error"] = "Email is not found";
                         return View(model);
                     }
                     if (await _userManager.CheckPasswordAsync(checkEmail, model.Password) == false)
                     {
                         ModelState.AddModelError(string.Empty, "Incorrect Password or Email");
+                        TempData["error"] = "Incorrect Password or Email";
                         return View(model);
 
                     }
                     bool confirmStatus = await _userManager.IsEmailConfirmedAsync(checkEmail);
                     if (!confirmStatus) {
                         ModelState.AddModelError("", "Email not confirmed");
+                        TempData["error"] = "Email not confirmed";
                         return View(model);
                     }
                     else

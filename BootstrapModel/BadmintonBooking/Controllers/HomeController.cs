@@ -184,10 +184,12 @@ namespace BadmintonBooking.Controllers
             updated.TsCheckedIn = true;
             context.TimeSlots.Update(updated);
             context.SaveChanges();
+            TempData["message"] = "Checked in successfully!";
             return RedirectToAction("Detail", new { bookingId = bookingId });
 
 
         }
+        [Authorize]
         public IActionResult CheckOut(string searchTerm="",string sortOrder="")
         {
             DemobadmintonContext context = new DemobadmintonContext();
@@ -253,6 +255,7 @@ namespace BadmintonBooking.Controllers
             };
             context.Ratings.Add(ratingCourt);
             context.SaveChanges();
+            TempData["message"] = "Your review has been submitted";
             return RedirectToAction("CheckoutDetail", new { bookingId = bookingId });
         }
         public IActionResult CourtDetail(int CourtId, int page = 1)
