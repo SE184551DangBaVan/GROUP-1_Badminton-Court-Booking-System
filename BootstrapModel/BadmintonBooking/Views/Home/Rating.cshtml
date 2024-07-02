@@ -5,140 +5,131 @@
     ViewData["Title"] = "Rate Court";
     Layout = null;
 }
-
-<style>
-    .container {
-        max-width: 600px;
-        margin: 20px auto;
-        padding: 20px;
-        background-color: #ffffff;
-        border: 1px solid #e1e1e1;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .header {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    .star-rating {
-        display: flex;
-        flex-direction: row-reverse;
-        justify-content: center;
-        font-size: 0;
-        cursor: pointer;
-    }
-
-        .star-rating input {
-            display: none;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/font-awesome/css/fontawesome.css" rel="stylesheet" />
+    <link href="~/font-awesome/css/fontawesome.min.css" rel="stylesheet" />
+    <style>
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #e1e1e1;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        .star-rating label {
-            font-size: 30px;
-            color: #ccc;
-            transition: color 0.2s;
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .court-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
             cursor: pointer;
         }
 
-            .star-rating input:checked ~ label,
-            .star-rating label:hover,
-            .star-rating label:hover ~ label {
-                color: gold; /* Adjust color as needed */
+            .btn-primary:hover {
+                background-color: #0056b3;
             }
 
-    .form-group {
-        margin-bottom: 20px;
-    }
-
-    .form-control {
-        width: 100%;
-        padding: 10px;
-        font-size: 16px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    .btn-primary {
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-    }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
+        .btn {
+            background-color: #e9ecef;
+            color: #495057;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
         }
 
-    .btn {
-        background-color: #e9ecef;
-        color: #495057;
-        border: none;
-        border-radius: 5px;
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-        text-decoration: none;
-    }
-
-        .btn:hover {
-            background-color: #d1d1d1;
-        }
-</style>
-
-<div class="container">
-    <div class="header">
-        <h1>Rate Court - @Model.CoName</h1>
-        <h3>Court Id: @Model.CoId</h3>
-    </div>
-    <div>
-        <img src="~/Upload/Image/@Model.CoPath" alt="@Model.CoName" />
-    </div>
-
-    @{
-        string userId = _httpContextAccessor.HttpContext.Session.GetString("CusId");
-    }
-
-    <form asp-controller="Home" asp-action="Rating" method="post">
-        <input type="hidden" name="CourtId" value="@Model.CoId" />
-        <input type="hidden" name="BookingId" value='@ViewData["bookingId"]' />
-
-        <div class="form-group">
-            <label for="UserId">User ID</label>
-            <input type="text" class="form-control" name="UserId" value="@userId" readonly="readonly" />
+            .btn:hover {
+                background-color: #d1d1d1;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Rate Court - @Model.CoName</h1>
+            <h1>Court Id @Model.CoId</h1>
         </div>
 
-        <div class="form-group">
-            <label>Rating (1-5)</label><br>
-            <div class="star-rating">
-                <input type="radio" id="star5" name="Rating" value="5" />
-                <label for="star5" title="5 stars">☆</label>
-                <input type="radio" id="star4" name="Rating" value="4" />
-                <label for="star4" title="4 stars">☆</label>
-                <input type="radio" id="star3" name="Rating" value="3" />
-                <label for="star3" title="3 stars">☆</label>
-                <input type="radio" id="star2" name="Rating" value="2" />
-                <label for="star2" title="2 stars">☆</label>
-                <input type="radio" id="star1" name="Rating" value="1" />
-                <label for="star1" title="1 star">☆</label>
+        @{
+            string userId = _httpContextAccessor.HttpContext.Session.GetString("CusId");
+        }
+
+        <form asp-controller="Home" asp-action="Rating" method="post">
+            <input type="hidden" name="CourtId" value="@Model.CoId" />
+            <input type="hidden" name="BookingId" value='@ViewData["bookingId"]' />
+
+            <div>
+                <img src="/Upload/Image/@Model.CoPath" class="court-image" alt="@Model.CoName">
             </div>
-        </div>
 
-        <div class="form-group">
-            <label for="Review">Review</label>
-            <textarea class="form-control" name="Review" rows="3" required></textarea>
-        </div>
+            <div class="form-group">
+                <label for="UserId">UserId</label>
+                <input type="text" class="form-control" name="UserId" value="@userId" readonly="readonly" />
+            </div>
 
-        <button type="submit" class="btn btn-primary">Submit Rating</button>
-    </form>
+            <div class="form-group">
+                <label for="Rating">Rating (1-5)</label>
+                <select class="form-control" name="Rating1" id="Rating" required>
+                    <option value="" disabled selected>Select Rating</option>
+                    <option value="5">5 ★</option>
+                    <option value="4">4 ★</option>
+                    <option value="3">3 ★</option>
+                    <option value="2">2 ★</option>
+                    <option value="1">1 ★</option>
+                </select>
+            </div>
 
-    <a href="/home/checkout" class="btn">Back</a>
-</div>
+            <div class="form-group">
+                <label for="Review">Review</label>
+                <textarea class="form-control" name="Review" rows="3" required></textarea>
+            </div>
 
-@section Scripts {
+            <button type="submit" class="btn btn-primary">Submit Rating</button>
+        </form>
+
+        <a href="/home/checkoutdetail?bookingId=@ViewData["bookingId"]" class="btn">Back</a>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-}
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html>
