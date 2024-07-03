@@ -59,7 +59,7 @@ svg {
 body {
     height: 100vh;
     background: url(../images/desktop-wallpaper-badminton-shuttlecock-sport-equipment-shuttlecock.jpg) no-repeat;
-    background-color: #24316B;
+    background-color: #242526;
     background-position: center;
     background-size: cover;
     line-height: 1.6;
@@ -183,6 +183,11 @@ nav {
         color: brown;
     }
 
+.account-actions label {
+    padding-left: 10px;
+    color: darkgray;
+}
+
 .account-actions .drop-menu {
     position: absolute;
     opacity: 1;
@@ -200,41 +205,41 @@ nav {
     list-style: none;
 }
 
-.account-actions .drop-menu li{
-    justify-content: center;
-    margin: 10px 0 5px 40px;
-}
+    .account-actions .drop-menu li {
+        justify-content: center;
+        margin: 10px 0 5px 40px;
+    }
 
-.account-actions .drop-menu li a {
-    width: 100%;
-    display: block;
-    padding: 0 0 0 15px;
-    font-weight: 400;
-    border-radius: 0px;
-    text-decoration: none;
-    font-weight: bold;
-    color: #ccc;
-    transition: all 0.3s ease;
-}
+        .account-actions .drop-menu li a {
+            width: 100%;
+            display: block;
+            padding: 0 0 0 15px;
+            font-weight: 400;
+            border-radius: 0px;
+            text-decoration: none;
+            font-weight: bold;
+            color: #ccc;
+            transition: all 0.3s ease;
+        }
 
-.account-actions .drop-menu li a:nth-child(1):hover, .account-actions .drop-menu li a:nth-child(2):hover,
-.account-actions .drop-menu li a:nth-child(3):hover {
-    color: brown;
-    font-size: large;
-    transition: all 0.5s ease;
-}
+            .account-actions .drop-menu li a:nth-child(1):hover, .account-actions .drop-menu li a:nth-child(2):hover,
+            .account-actions .drop-menu li a:nth-child(3):hover {
+                color: brown;
+                font-size: large;
+                transition: all 0.5s ease;
+            }
 
-.account-actions .drop-menu li:nth-child(1), .account-actions .drop-menu li:nth-child(2),
-.account-actions .drop-menu li:nth-child(3){
-    outline: solid;
-    width: 60%;
-    border-radius: 3px;
-    outline-color: #555555d2;
-}
+        .account-actions .drop-menu li:nth-child(1), .account-actions .drop-menu li:nth-child(2),
+        .account-actions .drop-menu li:nth-child(3) {
+            outline: solid;
+            width: 60%;
+            border-radius: 3px;
+            outline-color: #555555d2;
+        }
 
-.account-actions .drop-menu.sticky{
-    background-color: #333;
-}
+    .account-actions .drop-menu.sticky {
+        background-color: #333;
+    }
 
 ::-webkit-scrollbar {
     width: 8px;
@@ -311,12 +316,12 @@ nav {
     margin-right: 5px;
 }
 
-.navbar-nav .account-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-right: 5px;
-}
+    .navbar-nav .account-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-right: 5px;
+    }
 
 
 #register, #login {
@@ -349,11 +354,11 @@ nav {
     margin-left: -20px;
 }
 
-.account-actions .profile-pic img{
-    outline: 6px solid;
-    outline-color: lightcyan;
-    border-radius: 50%;
-}
+    .account-actions .profile-pic img {
+        outline: 6px solid;
+        outline-color: lightcyan;
+        border-radius: 50%;
+    }
 
 .account-actions .username span {
     color: #acb7e2;
@@ -364,7 +369,6 @@ nav {
     }
 
 .navbar-nav .logout {
-
     text-align: center;
     outline: solid;
     outline-color: white;
@@ -609,10 +613,10 @@ nav {
     border-radius: 25% 25% 0% 0% / 1% 1% 100% 100%;
 }
 
-.BookingType h2 {
-    text-align: center;
-    margin-bottom: 2rem;
-}
+    .BookingType h2 {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
 
 .court-list {
     position: relative;
@@ -642,53 +646,64 @@ nav {
     transition: transform 0.2s;
 }
 
-.court-card a {
-    text-decoration: none;
-    color: brown;
-    transition: all 0.3s ease;
-}
+    .court-card a {
+        text-decoration: none;
+        color: brown;
+        transition: all 0.3s ease;
+    }
 
-.court-card a:hover {
-    text-decoration: none;
-    color: white;
-}
+        .court-card a:hover {
+            text-decoration: none;
+            color: white;
+        }
 
-.court-card:hover {
-    transform: scale(1.1);
-}
+    .court-card:hover {
+        transform: scale(1.1);
+    }
 
 .court-info-pop {
-    margin-bottom: -10px;
+    margin-bottom: -60px;
+    transform: translateY(-300%);
 }
 
-.court-info-pop span {
-    visibility: hidden;
-    font-size: small;
-    font-family: system-ui;
-    color: darkgray;
-    transition: all 0.1s ease;
-}
+    .court-info-pop span {
+        visibility: hidden;
+        font-size: small;
+        font-family: system-ui;
+        color: darkgray;
+        transition: all 0.1s ease;
+    }
 
 .court-card:hover .court-info-pop span {
     visibility: visible;
     font-size: medium;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
     transition: all 0.4s ease;
 }
 
 .court-card .assert {
     margin-top: -50px;
+    transform: translateY(60%);
     visibility: hidden;
     font-weight: bold;
     text-align: center;
-    background: linear-gradient(to right, #6BAECF 0%, #CF1512 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    transition: all 0.1s ease;
+    transition: all 0.3s ease;
 }
 
-.court-card:has(.court-select a:hover) .assert:not(a:hover) {
+    .court-card .assert a {
+        color: brown;
+    }
+
+.court-card:has(.court-select a:hover) .assert:not(a:hover, img:hover) {
     visibility: visible;
-    transform: translateY(20%);
+    transform: translateY(50%);
+    transition: all 0.5s ease;
+}
+
+.court-card:has(.assert a:hover) .assert a:not(img:hover) {
+    visibility: visible;
+    color: lightcyan;
+    transform: translateY(50%);
     transition: all 0.5s ease;
 }
 
@@ -698,11 +713,11 @@ nav {
     border-radius: 10px;
 }
 
-.court-card img:hover {
-    width: 100%;
-    height: 18vmax;
-    border-radius: 10px;
-}
+    .court-card img:hover {
+        width: 100%;
+        height: 18vmax;
+        border-radius: 10px;
+    }
 
 .court-card h2 {
     font-size: 1.5em;
@@ -723,29 +738,29 @@ nav {
     margin: 5px 10px;
 }
 
-.buttons .button {
-    background: #555;
-    color: white;
-    text-decoration: none;
-    font-size: 1.2em;
-    cursor: pointer;
-    padding: 0.5rem;
-    display: flex;
-    justify-content: center;
-    border-radius: 6px;
-    width: 100%;
-}
+    .buttons .button {
+        background: #555;
+        color: white;
+        text-decoration: none;
+        font-size: 1.2em;
+        cursor: pointer;
+        padding: 0.5rem;
+        display: flex;
+        justify-content: center;
+        border-radius: 6px;
+        width: 100%;
+    }
 
-.buttons .button:hover {
-    color: white;
-    background: brown;
-    border: none;
-    font-size: 1.2em;
-    cursor: pointer;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    width: 100%;
-}
+        .buttons .button:hover {
+            color: white;
+            background: brown;
+            border: none;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            width: 100%;
+        }
 
 .slide-buttons {
     position: absolute;
@@ -765,9 +780,9 @@ nav {
         transition: 0.5s;
     }
 
-.slide-buttons button:hover {
-    background-color: #33333382;
-}
+        .slide-buttons button:hover {
+            background-color: #33333382;
+        }
 
 
 .shape {
@@ -923,7 +938,7 @@ nav {
 
 /*Book*/
 .book1 {
-    margin-top: 100px;
+    margin-top: 200px;
 }
 
 .container {
@@ -938,7 +953,7 @@ nav {
     justify-content: space-between;
     padding: 20px;
     margin-top: 50px;
-    background: #e9ecef;
+    background-image: radial-gradient(circle, #233238, #39454a, #4f595e, #676e71, #7f8486);
 }
 
 .main-image {
@@ -986,6 +1001,51 @@ nav {
     padding-right: 20px;
 }
 
+.main-content img{
+    margin: 10px;
+    border-radius: 10px;
+}
+
+    .main-content .court-item {
+        background-image: radial-gradient(circle, #3e6574, #35535f, #2b424a, #223136, #192124);
+        border-style: none;
+        outline: solid;
+    }
+
+        .main-content .court-item .card {
+            border-style: none;
+            border-radius: 10px;
+            background-image: radial-gradient(circle, #046d71, #08585f, #0c434c, #0e3038, #0c1e24);
+            transition: all 0.4s ease;
+        }
+
+            .main-content .court-item .card:hover {
+                transform: scale(1.01);
+                border-radius: 15px;
+                border-style: none;
+                background-image: linear-gradient(to right, #046d71, #08585f, #0c434c, #0e3038, #0c1e24);
+                transition: all 0.5s ease;
+            }
+
+.court-item .card .card-body {
+    color: white;
+}
+
+    .court-item .card .card-body i {
+        margin-right: 10px;
+        color: #7f8486;
+    }
+
+.court-item .card .booking-img {
+    padding: 10px;
+    height: 60%;
+    width: 30%;
+}
+
+    .court-item .card .booking-img img {
+        border-radius: 10px;
+    }
+
 .form-inline {
     display: flex;
     flex-wrap: wrap;
@@ -1006,11 +1066,6 @@ nav {
     width: 100%;
     margin-bottom: 10px;
 }
-
-
-
-
-
 
 
 .container2 {
@@ -1522,6 +1577,7 @@ nav {
     background-image: linear-gradient(to right bottom, #8c313a, #7f426b, #5d5984, #476881, #567074);
     padding: 300px;
 }
+
 .forgorPass {
     opacity: 1;
     background-image: linear-gradient(to top, #7f8486, #676e71, #4f595e, #39454a, #233238);

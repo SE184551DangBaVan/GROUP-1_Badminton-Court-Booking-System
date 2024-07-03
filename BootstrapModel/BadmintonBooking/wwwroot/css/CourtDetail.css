@@ -8,15 +8,43 @@
 }
 
 body {
-    line-height: 1.5;
+    background: url(../images/desktop-wallpaper-badminton-shuttlecock-sport-equipment-shuttlecock.jpg) no-repeat;
+    background-color: #242526;
+    background-position: center;
+    background-size: cover;
+    line-height: 1.6;
+    scroll-behavior: smooth;
 }
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #242526;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3A3B3C;
+    border-radius: 20px;
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+        transition: all 0.3s ease;
+    }
 
 .card-wrapper {
     max-width: 1100px;
-    margin: 0 auto;
+    margin: 200px auto;
 }
 
+    .card-wrapper .card {
+        background-image: radial-gradient(circle, #808080, #6e7179, #566472, #365869, #014d5b);
+    }
+
 img {
+    padding: 20px;
     width: 100%;
     display: block;
 }
@@ -31,9 +59,10 @@ img {
     transition: all 0.5s ease;
 }
 
-    .img-showcase img {
-        min-width: 100%;
-    }
+.img-display .img-showcase img {
+    min-width: 100%;
+    border-radius: 12px;
+}
 
 .img-select {
     display: flex;
@@ -112,6 +141,10 @@ img {
         font-weight: 400;
     }
 
+    .product-price .new-price span {
+        color: #ddd;
+    }
+
 .last-price span {
     color: #f64749;
     text-decoration: line-through;
@@ -175,6 +208,7 @@ img {
     .purchase-info .btn {
         cursor: pointer;
         color: #fff;
+        transition: all 0.6s ease;
     }
 
         .purchase-info .btn:first-of-type {
@@ -186,7 +220,9 @@ img {
         }
 
         .purchase-info .btn:hover {
-            opacity: 0.9;
+            background: brown;
+            transform: scale(1.05);
+            transition: all 0.3s ease;
         }
 
 .social-links {
@@ -214,6 +250,14 @@ img {
             border-color: transparent;
             color: #fff;
         }
+
+.ratings{
+    display: inline-block;
+}
+
+.ratings h3 {
+    font-weight: bold;
+}
 
 @media screen and (min-width: 992px) {
     .card {
