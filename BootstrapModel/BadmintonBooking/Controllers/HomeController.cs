@@ -164,11 +164,43 @@ namespace BadmintonBooking.Controllers
             return View();
         }
         [Authorize(Roles = "Staff")]
-        public IActionResult CheckIn()
+        public IActionResult CheckIn(int page = 1, string searchTerm = "", string sortOrder = "")
         {
             DemobadmintonContext context = new DemobadmintonContext();
-            var data = context.Bookings.Include(b => b.TimeSlots).Include(b => b.Co).ToList();
-            return View(data);
+            int NoOfRecordPerPage = 10;
+            var data = context.Bookings.Where(b=> string.IsNullOrEmpty(searchTerm) || b.BId.ToString().Equals(searchTerm) ||  b.Co.CoName.Contains(searchTerm) ||
+            b.BBookingType.Contains(searchTerm)).Include(b => b.TimeSlots).Include(b => b.Co).ToList();
+            switch (sortOrder)
+            {
+                case "recent_Booking":
+                    data = data.OrderByDescending(b => b.BId).ToList();
+                    break;
+                case "name_Asc":
+                    data = data.OrderBy(b => b.Co.CoName).ToList();
+                    break;
+                case "old_Booking":
+                    data = data.OrderBy(b => b.BId).ToList();
+                    break;
+                default:
+                    data = data.OrderBy(b => b.BId).ToList();
+                    break;
+            }
+            int totalRecords = data.Count;
+            int NoOfPages = (int)Math.Ceiling((double)totalRecords / NoOfRecordPerPage);
+            if (NoOfPages == 0) NoOfPages = 1;
+
+            // Pagination logic
+            int NoOfRecordToSkip = (page - 1) * NoOfRecordPerPage;
+            var pagedData = data.Skip(NoOfRecordToSkip).Take(NoOfRecordPerPage).ToList();
+
+            //ViewBag properties
+            ViewBag.Page = page;
+            ViewBag.NoOfPages = NoOfPages;
+            ViewBag.TotalRecords = totalRecords;
+            ViewBag.SortOrder = sortOrder;
+            ViewBag.SearchTerm = searchTerm;
+
+            return View(pagedData);
         }
         public IActionResult Detail(int bookingId)
         {
@@ -190,10 +222,12 @@ namespace BadmintonBooking.Controllers
 
         }
         [Authorize]
-        public IActionResult CheckOut(string searchTerm="",string sortOrder="")
+        public IActionResult CheckOut(int page=1,string searchTerm="",string sortOrder="")
         {
             DemobadmintonContext context = new DemobadmintonContext();
-            string userId = _httpContextAccessor.HttpContext.Session.GetString("CusId");
+            int NoOfRecordPerPage = 10;
+            //string userId = _httpContextAccessor.HttpContext.Session.GetString("CusId");
+            string userId = _userManager.GetUserId(User);
             if (userId == null)
             {
                 return NotFound();
@@ -210,19 +244,34 @@ namespace BadmintonBooking.Controllers
        .ToList();
             switch (sortOrder)
             {
-                case "booking_Id":
+                case "recent_Booking":
                     data = data.OrderByDescending(b => b.BId).ToList();
                     break;
                 case "name_Asc":
                     data = data.OrderBy(b=>b.Co.CoName).ToList();
                     break;
+                case "old_Booking":
+                    data = data.OrderBy(b => b.BId).ToList();
+                    break;
                 default:
                     data = data.OrderBy(b => b.BId).ToList();
                     break;
             }
+            int totalRecords = data.Count;
+            int NoOfPages = (int)Math.Ceiling((double)totalRecords / NoOfRecordPerPage);
+            if (NoOfPages == 0) NoOfPages = 1;
 
+            // Pagination logic
+            int NoOfRecordToSkip = (page - 1) * NoOfRecordPerPage;
+            var pagedData = data.Skip(NoOfRecordToSkip).Take(NoOfRecordPerPage).ToList();
+
+            //ViewBag properties
+            ViewBag.Page = page;
+            ViewBag.NoOfPages = NoOfPages;
+            ViewBag.TotalRecords = totalRecords;
+            ViewBag.SortOrder = sortOrder;
             ViewBag.SearchTerm = searchTerm;
-            return View(data);
+            return View(pagedData);
 
         }
         public IActionResult CheckoutDetail(int bookingid)

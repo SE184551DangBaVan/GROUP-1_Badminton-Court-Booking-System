@@ -1,5 +1,6 @@
 ﻿using BadmintonBooking.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using System;
@@ -10,16 +11,18 @@ namespace BadmintonBooking.Controllers
     public class AdminController : Controller
     {
         private readonly IWebHostEnvironment environment;
+        private readonly UserManager<IdentityUser> _UserManager;
 
-        public AdminController(IWebHostEnvironment environment)
+        public AdminController(IWebHostEnvironment environment,UserManager<IdentityUser> userManager)
         {
             this.environment = environment;
+            this._UserManager = userManager;
         }
 
         public IActionResult Show(int page = 1, string sortOrder = "")
         {
             DemobadmintonContext context = new DemobadmintonContext();
-            var courtlist = context.Courts.Where(c => c.UserId == "1").ToList();
+            var courtlist = context.Courts.ToList();
             //sort
             ViewBag.SortOrder = sortOrder;
 
@@ -71,13 +74,14 @@ namespace BadmintonBooking.Controllers
                     DemobadmintonContext context = new DemobadmintonContext();
 
                     string uniqueFileName = UploadImage(model);
+                    string userid = _UserManager.GetUserId(User);
                     var data = new Court()
                     {
                         CoName = model.CoName,
                         CoAddress = model.CoAddress,
                         CoInfo = model.CoInfo,
                         CoPrice = model.CoPrice,
-                        UserId = "1",
+                        UserId = userid,
                         CoStatus = true,
                         CoPath = uniqueFileName,
                     };
@@ -133,6 +137,7 @@ namespace BadmintonBooking.Controllers
         public IActionResult EditCourt(Court model)
         {
             DemobadmintonContext context = new DemobadmintonContext();
+            string userid = _UserManager.GetUserId(User);
             var data = context.Courts.FirstOrDefault(c => c.CoId == model.CoId);
             try
             {
@@ -162,7 +167,7 @@ namespace BadmintonBooking.Controllers
                     data.CoInfo = model.CoInfo;
                     data.CoPrice = model.CoPrice;
                     data.CoStatus = true;
-                    data.UserId = "1";
+                    data.UserId = userid;
 
                     if (model.ImagePath != null)
                     {

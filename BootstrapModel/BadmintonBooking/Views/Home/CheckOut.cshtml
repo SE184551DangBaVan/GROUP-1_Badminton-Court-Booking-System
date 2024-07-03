@@ -135,7 +135,8 @@
             Sort By
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="/home/checkout?searchTerm=@ViewBag.SearchTerm&sortOrder=booking_Id">Booking Id</a>
+            <a class="dropdown-item" href="/home/checkout?searchTerm=@ViewBag.SearchTerm&sortOrder=recent_Booking">Newest Booking</a>
+            <a class="dropdown-item" href="/home/checkout?searchTerm=@ViewBag.SearchTerm&sortOrder=old_Booking">Old Booking</a>
             <a class="dropdown-item" href="/home/checkout?searchTerm=@ViewBag.SearchTerm&sortOrder=name_Asc">Name Ascending</a>
             <a class="dropdown-item" href="/home/checkout?searchTerm=@ViewBag.SearchTerm&sortOrder=name_Desc">Name Descending</a>
         </div>
@@ -185,7 +186,32 @@
         </div>
     }
 </div>
+    @if (ViewBag.NoOfPages > 1 || ViewBag.TotalRecords <= 5)
+    {
+        <ul class="pagination justify-content-center mt-4">
+            @{
+                int PrevPage = ViewBag.Page - 1;
+                if (PrevPage <= 0) PrevPage = 1;
+                int NextPage = ViewBag.Page + 1;
+                if (NextPage > ViewBag.NoOfPages) NextPage = ViewBag.NoOfPages;
+            }
 
+            <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
+                <a class="page-link" href="/home/checkout?page=@PrevPage&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">Prev</a>
+            </li>
+
+            @for (int i = 1; i <= ViewBag.NoOfPages; i++)
+            {
+                <li class="page-item @(i == ViewBag.Page ? "active" : "")">
+                    <a class="page-link" href="/home/checkout?page=@i&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">@i</a>
+                </li>
+            }
+
+            <li class="page-item @(ViewBag.Page == ViewBag.NoOfPages ? "disabled" : "")">
+                <a class="page-link" href="/home/checkout?page=@NextPage&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">Next</a>
+            </li>
+        </ul>
+    }
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>

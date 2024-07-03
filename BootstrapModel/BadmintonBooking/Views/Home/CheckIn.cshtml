@@ -1,5 +1,6 @@
-﻿@model IEnumerable<BadmintonBooking.Models.Booking>
-
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<BadmintonBooking.Models.Booking>
+@inject UserManager<IdentityUser> UserManager
 @{
     ViewData["Title"] = "CheckIn";
 }
@@ -91,6 +92,24 @@
     <div class="header">
         <h1>CheckIn</h1>
     </div>
+    <div class="search-form d-flex justify-content-center align-items-center">
+
+        <form method="get" action="@Url.Action("Checkin", "Home")">
+            <input type="text" name="searchTerm" placeholder="Search by keyword..." />
+            <button type="submit">Search</button>
+        </form>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Sort By
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/home/checkin?searchTerm=@ViewBag.SearchTerm&sortOrder=recent_Booking">Newest Booking</a>
+                <a class="dropdown-item" href="/home/checkin?searchTerm=@ViewBag.SearchTerm&sortOrder=old_Booking">Old Booking</a>
+                <a class="dropdown-item" href="/home/checkin?searchTerm=@ViewBag.SearchTerm&sortOrder=name_Asc">Name Ascending</a>
+                <a class="dropdown-item" href="/home/checkin?searchTerm=@ViewBag.SearchTerm&sortOrder=name_Desc">Name Descending</a>
+            </div>
+        </div>
+    </div>
 
     <div class="card-container">
         @foreach (var item in Model)
@@ -102,28 +121,25 @@
                     <p>Court Name: @Html.DisplayFor(modelItem => item.Co.CoName)</p>
                     <p>Address : @Html.DisplayFor(modelItem => item.Co.CoAddress)</p>
                     <p>Type of Booking: @Html.DisplayFor(modelItem => item.BBookingType)</p>
-                    <p>Total hours: @Html.DisplayFor(modelItem => item.BTotalHours)</p>
+                    <!-- <p>Total hours: @Html.DisplayFor(modelItem => item.BTotalHours)</p>-->
                     @if (item.TimeSlots != null && item.TimeSlots.Count > 0)
                     {
-                        <ul>
-                            @{
                                 int checkedInCount = 0;
-                            }
+                            
                             @foreach (var timeslot in item.TimeSlots)
                             {
-                                <li>
                                     @if (timeslot.TsCheckedIn)
                                     {
                                         checkedInCount++;
                                     }
-                                </li>
+                                
                             }
-                        </ul>
+                        
                         <p>Number of Checked-In: <b> @checkedInCount /@item.TimeSlots.Count()</b></p>
                     }
                     else
                     {
-                        <p>No Time Slots found for this booking.</p>
+                        <p>No Time Slots found.</p>
                     }
 
 
@@ -138,6 +154,32 @@
         }
     </div>
 </div>
+@if (ViewBag.NoOfPages > 1 || ViewBag.TotalRecords <= 5)
+{
+    <ul class="pagination justify-content-center mt-4">
+        @{
+            int PrevPage = ViewBag.Page - 1;
+            if (PrevPage <= 0) PrevPage = 1;
+            int NextPage = ViewBag.Page + 1;
+            if (NextPage > ViewBag.NoOfPages) NextPage = ViewBag.NoOfPages;
+        }
+
+        <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
+            <a class="page-link" href="/home/checkin?page=@PrevPage&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">Prev</a>
+        </li>
+
+        @for (int i = 1; i <= ViewBag.NoOfPages; i++)
+        {
+            <li class="page-item @(i == ViewBag.Page ? "active" : "")">
+                <a class="page-link" href="/home/checkin?page=@i&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">@i</a>
+            </li>
+        }
+
+        <li class="page-item @(ViewBag.Page == ViewBag.NoOfPages ? "disabled" : "")">
+            <a class="page-link" href="/home/checkin?page=@NextPage&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">Next</a>
+        </li>
+    </ul>
+}
 
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
