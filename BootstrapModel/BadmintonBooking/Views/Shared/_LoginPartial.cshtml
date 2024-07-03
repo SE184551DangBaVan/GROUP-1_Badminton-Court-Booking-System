@@ -13,7 +13,7 @@
             <a class="nav-link text-light" asp-controller="Admin" asp-action="Show">Admin</a>
         </li>
         <li class="username nav-item">
-            <a class="nav-link text-light">Hello <span>@UserManager.GetUserName(User)</span>!</a>
+            <a asp-area="" asp-controller="Home" asp-action="Profile" class="nav-link text-light"><span>@UserManager.GetUserName(User)</span></a>
         </li>
 
             @{
@@ -33,7 +33,7 @@
             <a class="nav-link text-light" asp-controller="Home" asp-action="Checkin">Staff Controller</a>
         </li>
             <li class="username nav-item">
-                <a class="nav-link text-light">Hello <span>@UserManager.GetUserName(User)</span>!</a>
+                <a asp-area="" asp-controller="Home" asp-action="Profile" class="nav-link text-light"><span>@UserManager.GetUserName(User)</span></a>
             </li>
 
                 @{
@@ -51,7 +51,7 @@
         <span class="account-actions">
 
         <li class="username nav-item">
-            <a class="nav-link text-light">Hello <span>@UserManager.GetUserName(User)</span>!</a>
+            <a asp-area="" asp-controller="Home" asp-action="Profile" class="nav-link text-light"><span>@UserManager.GetUserName(User)</span></a>
         </li>
 
             @{

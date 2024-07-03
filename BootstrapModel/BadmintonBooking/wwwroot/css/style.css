@@ -149,7 +149,7 @@ nav {
     }
 
 #showMega:checked ~ .mega-box {
-    max-height: 200px;
+    max-height: 400px;
 }
 
 .nav-direct .desktop-item {
@@ -192,6 +192,7 @@ nav {
     visibility: visible;
     padding: 0 20px 0 130px;
     max-height: 0px;
+    height: 250px;
     width: 600px;
     border-radius: 8px;
     overflow: auto;
@@ -231,7 +232,7 @@ nav {
 .content .row .mega-links {
     list-style: none;
 }
-/*Login /Register*/
+/*Login /Register/ Logout Actions*/
 .navbar-nav .account-actions {
     display: flex;
     justify-content: space-between;
@@ -558,7 +559,7 @@ nav {
 }
 
 .court-card:hover {
-    transform: scale(1.02);
+    transform: scale(1.1);
 }
 
 .court-info-pop {
