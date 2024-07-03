@@ -53,4 +53,34 @@
         backSpeed: 80,
         loop: true
     });
+    
+
+
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const slide = document.getElementById('slide');
+    const prevButton = document.getElementById('prev');
+    const nextButton = document.getElementById('next');
+
+    let currentIndex = 0;
+    const slideWidth = document.querySelector('.court-card').offsetWidth + 50; // Adjust for margin
+
+    // Add transition for smooth sliding
+    slide.style.transition = 'transform 0.5s ease-in-out';
+
+    nextButton.addEventListener('click', function () {
+        const maxIndex = slide.children.length - Math.floor(slide.parentElement.offsetWidth / slideWidth);
+        if (currentIndex < maxIndex) {
+            currentIndex++;
+            slide.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+        }
+    });
+
+    prevButton.addEventListener('click', function () {
+        if (currentIndex > 0) {
+            currentIndex--;
+            slide.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+        }
+    });
 });

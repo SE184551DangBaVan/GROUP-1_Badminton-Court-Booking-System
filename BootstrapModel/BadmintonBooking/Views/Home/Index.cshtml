@@ -52,27 +52,30 @@
         <section id="BookingType" class="BookingType">
             <h2>--Featured Courts--</h2>
             <div class="court-list">
-                @foreach (var addressGroup in courts)
-                {
-                    @foreach (var court in addressGroup.Courts)
-                    {
-                        <div class="court-card">
-                            <p class="court-select">
-                                <img src="~/images/@court.ImgUrl" alt="@court.ImgUrl">
-                                <a style="text-decoration:none" asp-controller="home" asp-action="book2" asp-route-address="@addressGroup.Address" asp-route-sortOrder="">@court.Name</a>
-
-                            </p>
-                            <p class="court-info-pop">
-
-                                <span>@court.CourtInfo</span>
-                                
-                                <div class="assert">Book This Court?</div>
-                            </p>
-                        </div>
-                    }
-
-                }
-
+                <div id="slide-container">
+                    <div id="slide">
+                        @foreach (var addressGroup in courts)
+                        {
+                            @foreach (var court in addressGroup.Courts)
+                            {
+                                <div class="court-card">
+                                    <p class="court-select">
+                                        <img src="~/images/@court.ImgUrl" alt="@court.ImgUrl">
+                                        <a style="text-decoration:none" asp-controller="home" asp-action="book2" asp-route-address="@addressGroup.Address" asp-route-sortOrder="">@court.Name</a>
+                                    </p>
+                                    <p class="court-info-pop">
+                                        <span>@court.CourtInfo</span>
+                                        <div class="assert">Book This Court?</div>
+                                    </p>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="slide-buttons">
+                    <button id="prev"><i class="fa-solid fa-angle-left"></i></button>
+                    <button id="next"><i class="fa-solid fa-angle-right"></i></button>
+                </div>
             </div>
         </section>
 

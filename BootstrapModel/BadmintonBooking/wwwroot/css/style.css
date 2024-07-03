@@ -509,36 +509,40 @@ nav {
     width: 100%;
     padding: 10rem 0 8rem;
     background: #555555d2;
+    overflow: hidden;
     border-radius: 25% 25% 0% 0% / 1% 1% 100% 100%;
 }
 
-    .BookingType h2 {
-        text-align: center;
-        margin-bottom: 2rem;
-    }
+.BookingType h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
 
 .court-list {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    padding: 50px;
+    overflow: hidden;
+}
+
+#slide-container {
     display: flex;
-    gap: 40px;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+    width: 100%;
+}
+
+#slide {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
 }
 
 .court-card {
-    background: #333;
-    border-radius: 6px;
-    width: 20%;
+    background: #33333360;
+    border-radius: 10px;
+    display: inline-block;
+    width: 280px;
     margin: 50px;
-    box-shadow: 1px 0 2px rgba(0,0,0,0.1);
-    transition: transform 0.2s;
-}
-
-.courtlist .court-card.pop {
-    background: #333;
-    border-radius: 6px;
-    width: 20%;
-    margin: 20px;
-    box-shadow: 1px 0 2px rgba(0,0,0,0.1);
+    box-shadow: 1px 0 2px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
 }
 
@@ -548,33 +552,38 @@ nav {
     transition: all 0.3s ease;
 }
 
-    .court-card a:hover {
-        text-decoration: none;
-        color: white;
-    }
+.court-card a:hover {
+    text-decoration: none;
+    color: white;
+}
 
 .court-card:hover {
     transform: scale(1.02);
 }
 
+.court-info-pop {
+    margin-bottom: -10px;
+}
+
 .court-info-pop span {
     visibility: hidden;
     font-size: small;
+    font-family: system-ui;
+    color: darkgray;
     transition: all 0.1s ease;
 }
 
-.court-card:has(.court-select img:hover) .court-info-pop span:not(img:hover) {
+.court-card:hover .court-info-pop span {
     visibility: visible;
     font-size: medium;
     transition: all 0.4s ease;
 }
 
 .court-card .assert {
-    margin-top: -40px;
+    margin-top: -50px;
     visibility: hidden;
     font-weight: bold;
     text-align: center;
-    background: #6BAECF;
     background: linear-gradient(to right, #6BAECF 0%, #CF1512 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -583,24 +592,21 @@ nav {
 
 .court-card:has(.court-select a:hover) .assert:not(a:hover) {
     visibility: visible;
-    transform: translateY(-100%);
+    transform: translateY(20%);
     transition: all 0.5s ease;
 }
 
 .court-card img {
-    width: 94%;
+    width: 100%;
     height: 18vmax;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    margin: 10px;
+    border-radius: 10px;
 }
 
-    .court-card img:hover {
-        width: 94%;
-        height: 18vmax;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-    }
+.court-card img:hover {
+    width: 100%;
+    height: 18vmax;
+    border-radius: 10px;
+}
 
 .court-card h2 {
     font-size: 1.5em;
@@ -621,29 +627,52 @@ nav {
     margin: 5px 10px;
 }
 
-    .buttons .button {
-        background: #555;
-        color: white;
-        text-decoration: none;
-        font-size: 1.2em;
-        cursor: pointer;
-        padding: 0.5rem;
-        display: flex;
-        justify-content: center;
-        border-radius: 6px;
-        width: 100%;
+.buttons .button {
+    background: #555;
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    border-radius: 6px;
+    width: 100%;
+}
+
+.buttons .button:hover {
+    color: white;
+    background: brown;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    width: 100%;
+}
+
+.slide-buttons {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 20px;
+}
+
+    .slide-buttons button {
+        width: 50px;
+        height: 50px;
+        background-color: #33333300;
+        border-radius: 50%;
+        border: 1px solid #555;
+        transition: 0.5s;
     }
 
-        .buttons .button:hover {
-            color: white;
-            background: brown;
-            border: none;
-            font-size: 1.2em;
-            cursor: pointer;
-            border-bottom-left-radius: 5px;
-            border-bottom-right-radius: 5px;
-            width: 100%;
-        }
+.slide-buttons button:hover {
+    background-color: #33333382;
+}
+
 
 .shape {
     background: linear-gradient(45deg, var(--primary) 0%, var(--secondary) 100%);
