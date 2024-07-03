@@ -10,7 +10,7 @@ var connectionString = builder.Configuration.GetConnectionString("BadmintonBooki
 
 builder.Services.AddDbContext<BadmintonBookingIdentityContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddDbContext<DemobadmintonContext>();
-builder.Services.AddDefaultIdentity<IdentityUser>(options => {options.SignIn.RequireConfirmedAccount = true;options.SignIn.RequireConfirmedEmail = true;
+builder.Services.AddDefaultIdentity<IdentityUser>(options => {options.SignIn.RequireConfirmedAccount = true; options.User.AllowedUserNameCharacters= "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+/ "; options.SignIn.RequireConfirmedEmail = true;
 }).AddRoles<IdentityRole>().AddEntityFrameworkStores<BadmintonBookingIdentityContext>().AddDefaultTokenProviders();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.ConfigureApplicationCookie(options =>

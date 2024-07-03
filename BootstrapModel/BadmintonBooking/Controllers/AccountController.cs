@@ -90,7 +90,8 @@ namespace demobadminton.Controllers
                     {
                         UserName = model.Email,
                         Email = model.Email,
-                        EmailConfirmed = createdByAdmin
+                        EmailConfirmed = createdByAdmin,
+                        
                     };
                     var result=await _userManager.CreateAsync(user,model.Password);
                     if (result.Succeeded)
@@ -174,7 +175,7 @@ namespace demobadminton.Controllers
                     }
                     else
                     {
-                        var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                        var result = await _signInManager.PasswordSignInAsync(_userManager.FindByEmailAsync(model.Email).Result, model.Password, model.RememberMe, lockoutOnFailure: false);
                         if (result.Succeeded)
                         {
                             if (!string.IsNullOrEmpty(ReturnUrl) && Url.IsLocalUrl(ReturnUrl))

@@ -75,11 +75,16 @@ namespace BadmintonBooking.Controllers
 
                 //UpdateAsync Method will update the user data in the AspNetUsers Identity table
                 var result = await _userManager.UpdateAsync(user);
+                
 
                 if (result.Succeeded)
                 {
                     //Once user data updated redirect to the ListUsers view
-                    if (!string.IsNullOrEmpty(caller)) return RedirectToAction("Profile", "Home");
+                    if (!string.IsNullOrEmpty(caller)){
+                        TempData["message"] = "Profile updated successfully!";
+                        TempData["info"] = "Log in again to take effect for your username on view panel";
+                        return RedirectToAction("Profile", "Home"); 
+                    } else
                     return RedirectToAction("ListUsers");
                 }
                 else
@@ -87,7 +92,10 @@ namespace BadmintonBooking.Controllers
                     //In case any error, stay in the same view and show the model validation error
                     foreach (var error in result.Errors)
                     {
-                        if (!string.IsNullOrEmpty(caller)) return RedirectToAction("Profile", "Home");
+                        if (!string.IsNullOrEmpty(caller))
+                            TempData["error"] = "Profile updated failed";
+                            TempData["info"] = "Our website hasnt supported unikey text names :( ";
+                        return RedirectToAction("Profile", "Home");
                         ModelState.AddModelError("", error.Description);
                     }
                 }
@@ -95,6 +103,7 @@ namespace BadmintonBooking.Controllers
 
                 return View(model);
             }
+            
         }
 
         [HttpPost]
