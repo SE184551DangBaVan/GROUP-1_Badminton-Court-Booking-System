@@ -13,18 +13,19 @@ namespace BadmintonBooking.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly DemobadmintonContext _context;
 
-        public HomeController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, IHttpContextAccessor httpContextAccessor)
+        public HomeController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, IHttpContextAccessor httpContextAccessor, DemobadmintonContext context)
         {
             _logger = logger;
             _userManager = userManager;
             _httpContextAccessor = httpContextAccessor;
+            _context = context;
         }
 
         public IActionResult Index(string txtSearch)
         {
-            DemobadmintonContext context = new DemobadmintonContext();
-            var courtlist = context.Courts.Where(c => c.CoStatus == true).ToList();
+            var courtlist = _context.Courts.Where(c => c.CoStatus == true).ToList();
 
 
             return View(courtlist);
@@ -43,6 +44,17 @@ namespace BadmintonBooking.Controllers
 
         public IActionResult Date(int CoId, string Types)
         {
+            string userId = _userManager.GetUserId(User);
+            var booking = _context.Bookings.FirstOrDefault(c => c.UserId == userId && c.BTotalHours.HasValue && c.BTotalHours > 0);
+            //missing court compare
+            if(booking != null && userId != null)
+            {
+                var time = _context.Payments.FirstOrDefault(c => c.BId == booking.BId).PDateTime.AddDays(30);
+                ViewData["Hours"] = booking.BTotalHours;
+                ViewData["Remain"] = (time - DateTime.Now).Days;
+                ViewData["BookingId"] = booking.BId;
+                Types = "Flexible";
+            }
             _httpContextAccessor.HttpContext.Session.SetString("CoId", CoId.ToString());
             _httpContextAccessor.HttpContext.Session.SetString("Types", Types);
             ViewData["Types"] = Types;
@@ -56,8 +68,7 @@ namespace BadmintonBooking.Controllers
 
         public IActionResult Book(int id)
         {
-            DemobadmintonContext context = new DemobadmintonContext();
-            var data = context.Courts.FirstOrDefault(c => c.CoId == id);
+            var data = _context.Courts.FirstOrDefault(c => c.CoId == id);
             if (data == null)
             {
                 return NotFound();
@@ -68,14 +79,13 @@ namespace BadmintonBooking.Controllers
 
         public IActionResult Book2(int page = 1, string address = "", string sortOrder = "")
         {
-            DemobadmintonContext context = new DemobadmintonContext();
             int NoOfRecordPerPage = 5;
 
             ViewBag.SearchAddress = address;
 
 
             // Get court list based on group
-            var data = context.Courts
+            var data = _context.Courts
                                .Where(c => string.IsNullOrEmpty(address) || c.CoAddress == address)
                                .ToList();
             // Sort data
@@ -166,9 +176,8 @@ namespace BadmintonBooking.Controllers
         [Authorize(Roles = "Staff")]
         public IActionResult CheckIn(int page = 1, string searchTerm = "", string sortOrder = "")
         {
-            DemobadmintonContext context = new DemobadmintonContext();
             int NoOfRecordPerPage = 10;
-            var data = context.Bookings.Where(b=> string.IsNullOrEmpty(searchTerm) || b.BId.ToString().Equals(searchTerm) ||  b.Co.CoName.Contains(searchTerm) ||
+            var data = _context.Bookings.Where(b=> string.IsNullOrEmpty(searchTerm) || b.BId.ToString().Equals(searchTerm) ||  b.Co.CoName.Contains(searchTerm) ||
             b.BBookingType.Contains(searchTerm)).Include(b => b.TimeSlots).Include(b => b.Co).ToList();
             switch (sortOrder)
             {
@@ -204,18 +213,16 @@ namespace BadmintonBooking.Controllers
         }
         public IActionResult Detail(int bookingId)
         {
-            DemobadmintonContext context = new DemobadmintonContext();
-            var data = context.TimeSlots.Include(ts => ts.Co).Include(ts => ts.BIdNavigation).Where(ts => ts.BId == bookingId).ToList();
+            var data = _context.TimeSlots.Include(ts => ts.Co).Include(ts => ts.BIdNavigation).Where(ts => ts.BId == bookingId).ToList();
             return View(data);
 
         }
         public IActionResult Approve(int tsid, int bookingId)
         {
-            DemobadmintonContext context = new DemobadmintonContext();
-            var updated = context.TimeSlots.FirstOrDefault(ts => ts.TsId == tsid);
+            var updated = _context.TimeSlots.FirstOrDefault(ts => ts.TsId == tsid);
             updated.TsCheckedIn = true;
-            context.TimeSlots.Update(updated);
-            context.SaveChanges();
+            _context.TimeSlots.Update(updated);
+            _context.SaveChanges();
             TempData["message"] = "Checked in successfully!";
             return RedirectToAction("Detail", new { bookingId = bookingId });
 
@@ -224,7 +231,6 @@ namespace BadmintonBooking.Controllers
         [Authorize]
         public IActionResult CheckOut(int page=1,string searchTerm="",string sortOrder="")
         {
-            DemobadmintonContext context = new DemobadmintonContext();
             int NoOfRecordPerPage = 10;
             //string userId = _httpContextAccessor.HttpContext.Session.GetString("CusId");
             string userId = _userManager.GetUserId(User);
@@ -233,7 +239,7 @@ namespace BadmintonBooking.Controllers
                 return NotFound();
 
             }
-            var data = context.Bookings
+            var data = _context.Bookings
         .Where(b => b.UserId == userId &&
                   (string.IsNullOrEmpty(searchTerm) ||
                    b.BId.ToString().Equals(searchTerm) ||
@@ -277,21 +283,18 @@ namespace BadmintonBooking.Controllers
         public IActionResult CheckoutDetail(int bookingid)
         {
 
-            DemobadmintonContext context = new DemobadmintonContext();
-            var data = context.TimeSlots.Include(ts => ts.Co).Include(ts => ts.BIdNavigation).Where(ts => ts.BId == bookingid).ToList();
+            var data = _context.TimeSlots.Include(ts => ts.Co).Include(ts => ts.BIdNavigation).Where(ts => ts.BId == bookingid).ToList();
             return View(data);
         }
         public IActionResult Rating(int courtid, string userid, int bookingId)
         {
-            DemobadmintonContext context = new DemobadmintonContext();
             ViewData["bookingId"] = bookingId;
-            var data = context.Courts.Include(c => c.Bookings).FirstOrDefault(c => c.CoId == courtid);
+            var data = _context.Courts.Include(c => c.Bookings).FirstOrDefault(c => c.CoId == courtid);
             return View(data);
         }
         [HttpPost]
         public IActionResult Rating(Rating rating, int bookingId)
         {
-            DemobadmintonContext context = new DemobadmintonContext();
             Rating ratingCourt = new Rating
             {
 
@@ -302,8 +305,8 @@ namespace BadmintonBooking.Controllers
                 Rating1 = rating.Rating1,
                CreatedAt = DateTime.Now,
             };
-            context.Ratings.Add(ratingCourt);
-            context.SaveChanges();
+            _context.Ratings.Add(ratingCourt);
+            _context.SaveChanges();
             TempData["message"] = "Your review has been submitted";
             return RedirectToAction("CheckoutDetail", new { bookingId = bookingId });
         }

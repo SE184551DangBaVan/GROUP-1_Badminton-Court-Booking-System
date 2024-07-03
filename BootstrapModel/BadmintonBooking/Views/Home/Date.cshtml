@@ -2,11 +2,14 @@
     ViewData["Title"] = "Booking";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var types = ViewData["Types"] as string;
+    var hours = ViewData["Hours"] as string;
+    var remain = ViewData["Remain"] as string;
+    var bId = ViewData["BookingId"] as string;
 }
 
 <body class="Date">
     <script src="~/js/script.js"></script>
-    <input id="types" type="hidden" value="@types"></input>
+    <input id="types" type="hidden" value="@types" />
     <div class="date-container">
         <div class="calendar-headr">
             @if (types != "Fixed")
@@ -33,158 +36,67 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>9:00 AM</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>10:00 AM</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>11:00 AM</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>12:00 PM</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>1:00 PM</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>2:00 PM</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>3:00 PM</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>4:00 PM</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>5:00 PM</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>6:00 PM</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>7:00 PM</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>8:00 PM</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+                @for (var i = 9; i <= 20; i++)
+                {
+                    <tr>
+                        <td>@((i > 12 ? i - 12 : i) + ":00 " + (i >= 12 ? "PM" : "AM"))</td>
+                        @for (var j = 0; j < 7; j++)
+                        {
+                            <td></td>
+                        }
+                    </tr>
+                }
             </tbody>
         </table>
-        <form method="post" asp-action="UpdateBooking" asp-controller="Booking">
-            @if (types == "Fixed")
-            {
-                <label>Select your weeks: </label>
-                <select name="totalWeeks" id="total-weeks">
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                </select>
-            }
-            @if (types == "Flexible")
-            {
-                <label>Input Hour: </label>
-                <input name="totalHours" id="total-hours" type="number" value="0" min="0" />
-            }
-
-            <div class="price">Total Price: $<span id="total-price">0</span></div>
-            <input type="hidden" name="totalPrice" id="price-input" value="0">
-
-            <div class="date-container1">
-                <div>
-                    <button id="cancel-all" type="button">Cancel All Bookings</button>
+        @if (hours == null)
+        {
+            
+            <form method="post" asp-action="UseFlexible" asp-controller="Booking">
+                <label>You still have : @hours hours</label>
+                <label>Remaining time: @remain days</label>
+                <input name="bId" type="hidden" value="@bId" />
+                <div class="date-container1">
+                    <div>
+                        <button id="cancel-all" type="button">Cancel All Bookings</button>
+                    </div>
+                    <div>
+                        <button id="payment" type="submit">Confirm</button>
+                    </div>
                 </div>
-                <div>
-                    <button id="payment" type="submit">Pay</button>
+            </form>
+        }
+        else
+        {
+            <form method="post" asp-action="UpdateBooking" asp-controller="Booking">
+                @if (types == "Fixed")
+                {
+                    <label>Select your weeks: </label>
+                    <select name="totalWeeks" id="total-weeks">
+                        @for (var i = 4; i <= 8; i++)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                }
+                @if (types == "Flexible")
+                {
+                    <label>Input Hour: </label>
+                    <input name="totalHours" id="total-hours" type="number" value="0" min="0" />
+                }
+
+                <div class="price">Total Price: $<span id="total-price">0</span></div>
+                <input type="hidden" name="totalPrice" id="price-input" value="0" />
+
+                <div class="date-container1">
+                    <div>
+                        <button id="cancel-all" type="button">Cancel All Bookings</button>
+                    </div>
+                    <div>
+                        <button id="payment" type="submit">Pay</button>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        }
     </div>
     <script src="~/js/JScript.js"></script>
 </body>

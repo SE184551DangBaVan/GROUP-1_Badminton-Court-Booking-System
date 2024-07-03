@@ -42,6 +42,7 @@ namespace BadmintonBooking.Controllers
         [HttpPost]
         public async Task<IActionResult> Cancel()
         {
+            _slots.Clear();
             _httpContextAccessor.HttpContext.Session.Remove("Booking");
             return Ok(new { message = "Cancel successfully" });
         }
@@ -164,6 +165,18 @@ namespace BadmintonBooking.Controllers
             var jsonString = JsonConvert.SerializeObject(booking);
             _httpContextAccessor.HttpContext.Session.SetString("Booking", jsonString);
             return RedirectToAction("PaymentWithPaypal", "PayPal");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UseFlexible(string bId)
+        {
+            foreach (var item in _slots)
+                {
+                    item.BId = int.Parse(bId);
+                    await _demobadmintonContext.TimeSlots.AddAsync(item);
+                    await _demobadmintonContext.SaveChangesAsync();
+                }
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
