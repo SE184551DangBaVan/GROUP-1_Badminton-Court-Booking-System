@@ -4,11 +4,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var courts = Model.GroupBy(c => c.CoAddress)
-    .Select(g => new
+    .Select(addressGroup => new
     {
-        Description = g.Key,
-        ImgUrl = g.Select(p => p.CoPath).FirstOrDefault(),
-        CourtDescriptions = g.Select(d => d.CoInfo)
+        Address = addressGroup.Key,
+        Courts = addressGroup.GroupBy(c => c.CoName)
+                             .Select(nameGroup => new
+                             {
+                                 Name = nameGroup.Key,
+                                 ImgUrl = nameGroup.Select(p => p.CoPath).FirstOrDefault(),
+                                 CourtInfo = nameGroup.Select(d => d.CoInfo).FirstOrDefault()
+                             }).ToList()
     }).ToList();
 
 
@@ -47,23 +52,24 @@
         <section id="BookingType" class="BookingType">
             <h2>--Featured Courts--</h2>
             <div class="court-list">
-                @foreach (var court in courts)
+                @foreach (var addressGroup in courts)
                 {
-                    <div class="court-card">
-                        <p class="court-select">
-                            <img src="~/images/@court.ImgUrl" alt="@court.ImgUrl">
-                            <a style="text-decoration:none" asp-controller="home" asp-action="book2" asp-route-address="@court.Description" asp-route-sortOrder="">@court.Description</a>
+                    @foreach (var court in addressGroup.Courts)
+                    {
+                        <div class="court-card">
+                            <p class="court-select">
+                                <img src="~/images/@court.ImgUrl" alt="@court.ImgUrl">
+                                <a style="text-decoration:none" asp-controller="home" asp-action="book2" asp-route-address="@addressGroup.Address" asp-route-sortOrder="">@court.Name</a>
 
-                        </p>
-                        <p class="court-info-pop">
-                            @foreach (var description in court.CourtDescriptions)
-                            {
-                                <span>@description</span>
-                            }
-                            <div class="assert">Book This Court?</div>
-                        </p>
-                    </div>
+                            </p>
+                            <p class="court-info-pop">
 
+                                <span>@court.CourtInfo</span>
+                                
+                                <div class="assert">Book This Court?</div>
+                            </p>
+                        </div>
+                    }
 
                 }
 
