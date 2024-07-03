@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<BadmintonBooking.Models.Court>
 @{
-	ViewData["Title"] = "Home Page";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 
-	var courts = Model.GroupBy(c => c.CoAddress)
-	.Select(g => new
-	{
-		Description = g.Key,
-		ImgUrl = g.Key + ".png",
-		CourtDescriptions = g.Select(d => d.CoInfo).ToList()
-	}).ToList();
+    var courts = Model.GroupBy(c => c.CoName)
+    .Select(g => new
+    {
+        Description = g.Key,
+        ImgUrl = g.Select(p => p.CoPath).FirstOrDefault(),
+        CourtDescriptions = g.Select(d => d.CoInfo)
+    }).ToList();
 
 
 }
@@ -17,58 +17,58 @@
 <partial name="_Notification" />
 
 <body>
-	<script src="~/js/script.js"></script>
+    <script src="~/js/script.js"></script>
 
-	<section class="Quote">
-		<div>
-			<div>We Offer You Our <span class="typing"></span></div>
-			<div>Badminton Courts</div>
-		</div>
-	</section>
+    <section class="Quote">
+        <div>
+            <div>We Offer You Our <span class="typing"></span></div>
+            <div>Badminton Courts</div>
+        </div>
+    </section>
 
-	<section class="heading" id="home">
-		<div class="outter-container">
-			<div class="welcome-container">
-				<h2>Welcome</h2>
-				<p>Your satisfaction is our priority. We offer our great fields to meet your needs.</p>
-				<h4>Get started!</h4>
-				<a href="#BookingType" class="button">Book Now!</a>
-				<p class="btn-text">[Direct to booking reccomendations]</p>
-			</div>
-		</div>
-	</section>
+    <section class="heading" id="home">
+        <div class="outter-container">
+            <div class="welcome-container">
+                <h2>Welcome</h2>
+                <p>Your satisfaction is our priority. We offer our great fields to meet your needs.</p>
+                <h4>Get started!</h4>
+                <a href="#BookingType" class="button">Book Now!</a>
+                <p class="btn-text">[Direct to booking reccomendations]</p>
+            </div>
+        </div>
+    </section>
 
-	<div class="welc-images">
-		<img class="welc1-image" src="~/images/badminton-emnmmr8ioymey8eu.jpg" />
-		<img class="welc2-image" src="~/images/badminton_rackets_image.png" />
-	</div>
+    <div class="welc-images">
+        <img class="welc1-image" src="~/images/badminton-emnmmr8ioymey8eu.jpg" />
+        <img class="welc2-image" src="~/images/badminton_rackets_image.png" />
+    </div>
 
-	<div class="shape">
-		<section id="BookingType" class="BookingType">
-			<h2>--Featured Courts--</h2>
-			<div class="court-list">
-				@foreach (var court in courts)
-				{
-					<div class="court-card">
-						<p class="court-select">
-							<img src="~/images/@court.ImgUrl" alt="@court.ImgUrl">
-							<a style="text-decoration:none" asp-controller="home" asp-action="book2" asp-route-address="@court.Description" asp-route-sortOrder="">@court.Description</a>
+    <div class="shape">
+        <section id="BookingType" class="BookingType">
+            <h2>--Featured Courts--</h2>
+            <div class="court-list">
+                @foreach (var court in courts)
+                {
+                    <div class="court-card">
+                        <p class="court-select">
+                            <img src="~/images/@court.ImgUrl" alt="@court.ImgUrl">
+                            <a style="text-decoration:none" asp-controller="home" asp-action="book2" asp-route-address="@court.Description" asp-route-sortOrder="">@court.Description</a>
 
-						</p>
-						<p class="court-info-pop">
-							@foreach (var description in court.CourtDescriptions)
-							{
-								<span>@description</span>
+                        </p>
+                        <p class="court-info-pop">
+                            @foreach (var description in court.CourtDescriptions)
+                            {
+                                <span>@description</span>
+                            }
+                            <div class="assert">Book This Court?</div>
+                        </p>
+                    </div>
 
-							}
-						</p>
-					</div>
-					
 
-				}
-				
-			</div>
-		</section>
+                }
+
+            </div>
+        </section>
 
 		<section id="contact" class="contact-section">
 			<div class="con-container">
