@@ -16,6 +16,14 @@
     })
 
     $(window).scroll(function () {
+        if (this.scrollY > 40) {
+            $('.account-actions .drop-menu').addClass("sticky");
+        } else {
+            $('.account-actions .drop-menu').removeClass("sticky");
+        }
+    })
+
+    $(window).scroll(function () {
         if (this.scrollY > 150) {
             $('.Quote').addClass("flow");
         } else {

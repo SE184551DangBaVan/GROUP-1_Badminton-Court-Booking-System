@@ -9,6 +9,22 @@
     @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
     {
         <span class="account-actions">
+        <li>
+            <a href="#" class="desktop-item"><i class="fa-solid fa-angle-down"></i></a>
+            <input type="checkbox" id="showDrop">
+            <label for="showDrop" class="mobile-item"><i class="fa-solid fa-angle-down"></i></label>
+            <ul class="drop-menu">
+                <li><a asp-area="" asp-controller="Home" asp-action="Profile">Profile</a></li>
+                <li><a href="#">Notification</a></li>
+                <li><a href="#">Dashboard</a></li>
+                <li class="logout nav-item">
+                    <a class="nav-link text-light" asp-controller="Account" asp-action="Logout"><i class="fa-solid fa-right-from-bracket"></i>LogOut</a>
+                </li>
+            </ul>
+        </li>
+        <li class="profile-pic">
+            <img src="~/images/150.png">
+        </li>
         <li class="nav-item" >
             <a class="nav-link text-light" asp-controller="Admin" asp-action="Show">Admin</a>
         </li>
@@ -21,14 +37,28 @@
                 _httpContextAccessor.HttpContext.Session.SetString("CusId", CustomerId);
             }
 
-        <li class="logout nav-item">
-            <a class="nav-link text-light" asp-controller="Account" asp-action="Logout"><i class="fa-solid fa-right-from-bracket"></i>LogOut</a>
-        </li>
+        
         </span>
     }
     else @if (SignInManager.IsSignedIn(User) && User.IsInRole("Staff"))
         {
-            <span class="account-actions">
+        <span class="account-actions">
+        <li>
+            <a href="#" class="desktop-item"><i class="fa-solid fa-angle-down"></i></a>
+            <input type="checkbox" id="showDrop">
+            <label for="showDrop" class="mobile-item"><i class="fa-solid fa-angle-down"></i></label>
+            <ul class="drop-menu">
+                <li><a asp-area="" asp-controller="Home" asp-action="Profile">Profile</a></li>
+                <li><a href="#">Notification</a></li>
+                <li><a href="#">Dashboard</a></li>
+                <li class="logout nav-item">
+                    <a class="nav-link text-light" asp-controller="Account" asp-action="Logout"><i class="fa-solid fa-right-from-bracket"></i>LogOut</a>
+                </li>
+            </ul>
+        </li>
+        <li class="profile-pic">
+            <img src="~/images/150.png">
+        </li>
         <li class="nav-item">
             <a class="nav-link text-light" asp-controller="Home" asp-action="Checkin">Staff Controller</a>
         </li>
@@ -41,15 +71,28 @@
                     _httpContextAccessor.HttpContext.Session.SetString("CusId", CustomerId);
                 }
 
-            <li class="logout nav-item">
-                <a class="nav-link text-light" asp-controller="Account" asp-action="Logout"><i class="fa-solid fa-right-from-bracket"></i>LogOut</a>
-            </li>
-            </span>
+            
+        </span>
         }
     else @if (SignInManager.IsSignedIn(User))
     {
         <span class="account-actions">
-
+        <li>
+            <a href="#" class="desktop-item"><i class="fa-solid fa-angle-down"></i></a>
+            <input type="checkbox" id="showDrop">
+            <label for="showDrop" class="mobile-item"><i class="fa-solid fa-angle-down"></i></label>
+            <ul class="drop-menu">
+                <li><a asp-area="" asp-controller="Home" asp-action="Profile">Profile</a></li>
+                <li><a href="#">Notification</a></li>
+                <li><a href="#">Dashboard</a></li>
+                <li class="logout nav-item">
+                    <a class="nav-link text-light" asp-controller="Account" asp-action="Logout"><i class="fa-solid fa-right-from-bracket"></i>LogOut</a>
+                </li>
+            </ul>
+        </li>
+        <li class="profile-pic">
+            <img src="~/images/150.png">
+        </li>
         <li class="username nav-item">
             <a asp-area="" asp-controller="Home" asp-action="Profile" class="nav-link text-light"><span>@UserManager.GetUserName(User)</span></a>
         </li>
@@ -59,21 +102,19 @@
                 _httpContextAccessor.HttpContext.Session.SetString("CusId", CustomerId);
             }
 
-        <li class="logout nav-item">
-            <a class="nav-link text-light" asp-controller="Account" asp-action="Logout"><i class="fa-solid fa-right-from-bracket"></i>LogOut</a>
-        </li>
+        
         </span>
 
     }
         else
     {
         <span class="account-actions">
-        <li class="nav-item">
-            <a class="nav-link text-light" id="register" asp-controller="Account" asp-action="Register">Register</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-light" id="login" asp-controller="Account" asp-action="Login">Login</a>
-        </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" id="register" asp-controller="Account" asp-action="Register">Register</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" id="login" asp-controller="Account" asp-action="Login">Login</a>
+            </li>
         </span>
     }
 

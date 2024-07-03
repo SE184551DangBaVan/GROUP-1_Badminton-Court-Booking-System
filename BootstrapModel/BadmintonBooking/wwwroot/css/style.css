@@ -148,6 +148,7 @@ nav {
         display: none;
     }
 
+#showDrop:checked ~ .drop-menu,
 #showMega:checked ~ .mega-box {
     max-height: 400px;
 }
@@ -166,6 +167,74 @@ nav {
         font-size: 1.3rem;
         color: brown;
     }
+
+.account-actions .desktop-item {
+    display: none;
+}
+
+.account-actions .mobile-item {
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .account-actions .mobile-item:hover {
+        font-size: 1.3rem;
+        color: brown;
+    }
+
+.account-actions .drop-menu {
+    position: absolute;
+    opacity: 1;
+    top: 90px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    visibility: visible;
+    padding-left: 20px;
+    width: 330px;
+    max-height: 0px;
+    height: 150px;
+    overflow: hidden;
+    box-shadow: none;
+    transition: all 0.4s ease;
+    list-style: none;
+}
+
+.account-actions .drop-menu li{
+    justify-content: center;
+    margin: 10px 0 5px 40px;
+}
+
+.account-actions .drop-menu li a {
+    width: 100%;
+    display: block;
+    padding: 0 0 0 15px;
+    font-weight: 400;
+    border-radius: 0px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #ccc;
+    transition: all 0.3s ease;
+}
+
+.account-actions .drop-menu li a:nth-child(1):hover, .account-actions .drop-menu li a:nth-child(2):hover,
+.account-actions .drop-menu li a:nth-child(3):hover {
+    color: brown;
+    font-size: large;
+    transition: all 0.5s ease;
+}
+
+.account-actions .drop-menu li:nth-child(1), .account-actions .drop-menu li:nth-child(2),
+.account-actions .drop-menu li:nth-child(3){
+    outline: solid;
+    width: 60%;
+    border-radius: 3px;
+    outline-color: #555555d2;
+}
+
+.account-actions .drop-menu.sticky{
+    background-color: #333;
+}
 
 ::-webkit-scrollbar {
     width: 8px;
@@ -233,11 +302,22 @@ nav {
     list-style: none;
 }
 /*Login /Register/ Logout Actions*/
+.navbar-nav {
+    justify-content: center;
+    outline: 2px solid;
+    outline-color: #555;
+    border-radius: 10px;
+    height: 70px;
+    margin-right: 5px;
+}
+
 .navbar-nav .account-actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-right: 5px;
 }
+
 
 #register, #login {
     margin: 10px;
@@ -263,6 +343,18 @@ nav {
     align-content: space-between;
 }
 
+.account-actions .profile-pic {
+    transform: scale(0.3);
+    margin-right: -50px;
+    margin-left: -20px;
+}
+
+.account-actions .profile-pic img{
+    outline: 6px solid;
+    outline-color: lightcyan;
+    border-radius: 50%;
+}
+
 .account-actions .username span {
     color: #acb7e2;
 }
@@ -272,22 +364,22 @@ nav {
     }
 
 .navbar-nav .logout {
+
     text-align: center;
     outline: solid;
     outline-color: white;
     border-radius: 6px;
-    width: 80px;
+    width: 90px;
     transition: all 0.3s ease;
 }
 
     .navbar-nav .logout:hover {
-        text-align: center;
-        color: brown;
-        outline: solid;
         outline-color: brown;
         border-radius: 12px;
-        width: 80px;
+        width: 100px;
     }
+
+
 
 .forg-btn {
     outline: solid;
@@ -300,8 +392,8 @@ nav {
 
 .btn:hover {
     background: brown;
-    text-shadow: 3px 2px 2px rgba(0, 0, 0, 1);
-    box-shadow: 2px 4px 2px rgba(128, 0, 0, 1);
+    text-shadow: 4px 2px 3px rgba(0, 0, 0, 1);
+    box-shadow: 2px 4px 6px rgba(128, 0, 0, 1);
 }
 
 .forg-btn:hover {
@@ -311,11 +403,14 @@ nav {
     color: brown;
     text-decoration: none;
     background: transparent;
-    box-shadow: 2px 4px 2px rgba(128, 0, 0, 1);
-    text-shadow: 1px 1.5px 2px rgba(0, 0, 0, 1);
+    box-shadow: 4px 4px 4px rgba(128, 0, 0, 1);
+    text-shadow: 2px 1.5px 6px rgba(0, 0, 0, 1);
 }
 
 .btn {
+    border-style: none;
+    outline: 1px solid;
+    outline-color: black;
     background: brown;
     padding: 4px 6px 4px 6px;
     transition: 0.3s ease;
@@ -654,7 +749,7 @@ nav {
 
 .slide-buttons {
     position: absolute;
-    top: 80%;
+    top: 85%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
@@ -1422,7 +1517,14 @@ nav {
 }
 
 .password-forgot {
-    background-image: linear-gradient(to right top, #b5c3f5, #bcc9f8, #c3d0fa, #cbd6fd, #d2ddff);
+    position: absolute;
+    width: 100.5%;
+    background-image: linear-gradient(to right bottom, #8c313a, #7f426b, #5d5984, #476881, #567074);
+    padding: 300px;
+}
+.forgorPass {
+    opacity: 1;
+    background-image: linear-gradient(to top, #7f8486, #676e71, #4f595e, #39454a, #233238);
 }
 
 .calendar-headr {
