@@ -3,7 +3,7 @@
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    var courts = Model.GroupBy(c => c.CoName)
+    var courts = Model.GroupBy(c => c.CoAddress)
     .Select(g => new
     {
         Description = g.Key,
