@@ -1,4 +1,6 @@
-﻿@model IEnumerable<BadmintonBooking.Models.AspNetUser>
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IdentityUser>
+@inject UserManager<IdentityUser> UserManager
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -72,27 +74,97 @@
                         </div>
                     </div>
 
+                    @* add new user *@
+                    <a asp-action="Register" asp-controller="Account"
+                       class="btn btn-primary mb-3" style="width:auto">
+                        Add New User
+                    </a>
+
+                    @* add new role *@
+                    <div class="mb-3">
+                        <button id="showCreateRoleForm" class="btn btn-primary">Create New Role</button>
+                    </div>
+
+
+                    <div id="createRoleForm" style="display: none;" class="mb-3">
+                        <form asp-action="CreateRole" asp-controller="Admin" method="post" class="form-inline">
+                            <div class="form-group mr-2">
+                                <input name="RoleName" id="RoleName" class="form-control" placeholder="Role Name" required>
+                                @if (TempData["RoleError"] != null)
+                                {
+                                    <span class="text-danger">@TempData["RoleError"]</span>
+                                }
+                                @if (TempData["RoleSuccess"] != null)
+                                {
+                                    <span class="text-success">@TempData["RoleSuccess"]</span>
+                                }
+                            </div>
+                            <button type="submit" class="btn btn-success">Create Role</button>
+                            <button type="button" id="cancelCreateRole" class="btn btn-secondary ml-2">Cancel</button>
+                        </form>
+                    </div>
+
+
                     <table class="table table-bordered table-hover shadow-sm">
                         <thead>
                             <tr class="text-center bg-success text-light">
-                                <th>Id</th>
-                                <th>Username </th>
-                                <th>Email Confirmed</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Roles</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             @if (Model != null)
                             {
-                                foreach (var a in Model)
+                                foreach (var user in Model)
                                 {
                                    
                                     <tr>
-                                        <td>@a.Id</td>
-                                        <td>@a.UserName</td>
-                                        <td>@a.EmailConfirmed</td>
-                                        
-                                       
-                                       
+                                        <td>@user.UserName</td>
+                                        <td>@user.Email</td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownRoles_@user.Id" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Roles
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownRoles_@user.Id">
+                                                    @{
+                                                        var roles = await UserManager.GetRolesAsync(user);
+                                                        if (roles.Any())
+                                                        {
+                                                            foreach (var role in roles)
+                                                            {
+                                                                <a class="dropdown-item" href="#">@role</a>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <a class="dropdown-item" href="#">No roles assigned</a>
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownActions_@user.Id" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Actions
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownActions_@user.Id">
+                                                    <a class="dropdown-item" asp-action="EditUser" asp-controller="Admin" asp-route-UserId="@user.Id">Edit</a>
+                                                    <a class="dropdown-item delete-user" href="#" data-userid="@user.Id">Delete</a>
+                                                </div>
+                                            </div>
+
+                                            <div id="confirmDelete_@user.Id" class="mt-2" style="display:none;">
+                                                <span>Are you sure you want to delete?</span>
+                                                <form asp-action="DeleteUser" asp-route-UserId="@user.Id" method="post" class="d-inline">
+                                                    <button type="submit" class="btn btn-danger btn-sm">Yes</button>
+                                                </form>
+                                                <button class="btn btn-secondary btn-sm cancel-delete" data-userid="@user.Id">No</button>
+                                            </div>
+                                        </td>
                                     </tr>
                                 }
                             }
@@ -135,6 +207,66 @@
             });
         });
     </script>
+    <script>
+        $(document).ready(function () {
+            if ($('#tempDataMessage').length > 0) {
+                setTimeout(function () {
+                    $('#tempDataMessage').fadeOut('slow');
+                }, 5000);
+            }
 
+            $('#txtSearch').keyup(function () {
+                var typeValue = $(this).val().toLowerCase();
+                $('tbody tr').each(function () {
+                    var rowText = $(this).text().toLowerCase();
+                    if (rowText.indexOf(typeValue) < 0) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
+                });
+            });
+
+            // Delete user functionality
+            $('.delete-user').click(function (e) {
+                e.preventDefault();
+                var userId = $(this).data('userid');
+                $('#dropdownActions_' + userId).hide();
+                $('#confirmDelete_' + userId).show();
+            });
+
+            $('.cancel-delete').click(function () {
+                var userId = $(this).data('userid');
+                $('#confirmDelete_' + userId).hide();
+                $('#dropdownActions_' + userId).show();
+            });
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#showCreateRoleForm').click(function () {
+                $('#createRoleForm').show();
+                $(this).hide();
+            });
+
+            $('#cancelCreateRole').click(function () {
+                $('#createRoleForm').hide();
+                $('#showCreateRoleForm').show();
+                $('.text-danger, .text-success').remove();
+            });
+
+            $('form[asp-action="CreateRole"]').submit(function () {
+                $('.text-danger, .text-success').remove();
+            });
+
+            // If there's an error or success message, show the form
+            if ($('.text-danger, .text-success').length > 0) {
+                $('#createRoleForm').show();
+                $('#showCreateRoleForm').hide();
+            }
+        });
+    </script>
 </body>
 </html>
