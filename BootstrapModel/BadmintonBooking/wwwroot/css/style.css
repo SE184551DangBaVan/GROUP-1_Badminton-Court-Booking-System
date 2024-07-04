@@ -58,7 +58,7 @@ svg {
 
 body {
     height: 100vh;
-    background: url(../images/desktop-wallpaper-badminton-shuttlecock-sport-equipment-shuttlecock.jpg) no-repeat;
+    background: url(../images/desktop-wallpaper-badminton-shuttlecock-sport-equipment-shuttlecock.jpg) no-repeat fixed;
     background-color: #242526;
     background-position: center;
     background-size: cover;
@@ -609,6 +609,7 @@ nav {
     width: 100%;
     padding: 10rem 0 8rem;
     background: #555555d2;
+    backdrop-filter: blur(4px);
     overflow: hidden;
     border-radius: 25% 25% 0% 0% / 1% 1% 100% 100%;
 }
@@ -641,7 +642,7 @@ nav {
     border-radius: 10px;
     display: inline-block;
     width: 280px;
-    margin: 50px;
+    margin: 50px 20px 50px 50px;
     box-shadow: 1px 0 2px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
 }
@@ -817,6 +818,7 @@ nav {
 .contact-section {
     padding: 2rem 0;
     background: #555555d2;
+    backdrop-filter: blur(4px);
 }
 
     .contact-section h2 {
@@ -859,13 +861,22 @@ nav {
     padding: 200px;
     width: 100%;
     height: 110vmax;
-    background: linear-gradient(to left bottom, #36b5e2, #0097e9, #0076eb, #0050e1, #060fc6);
+    background: url(../images/desktop-wallpaper-badminton-shuttlecock-sport-equipment-shuttlecock.jpg) no-repeat fixed;
+    
 }
 
 .intro-section {
+    text-align: center;
     border-radius: 65% 35% 70% 30% / 52% 58% 42% 48%;
-    background-image: linear-gradient(to left bottom, #ffffff, #d9d9f0, #acb7e2, #7597d4, #067ac6);
+    background-image: linear-gradient(to left bottom, #ffffff8a, #d9d9f086, #acb7e28d, #7596d49e, #0679c6b4);
+    backdrop-filter: blur(5px);
     padding: 80px 60px;
+    transition: all 0.5s ease;
+}
+
+.intro-section:hover{
+    border-radius: 85% 45% 60% 40% / 62% 70% 52% 58%;
+    transition: all 0.3s ease;
 }
 
     .intro-section .description {
@@ -889,13 +900,19 @@ nav {
         }
 
 .specialty-section {
-    background-color: #e9ecef;
+    background-color: rgba(233, 236, 239, 0.5);
+    backdrop-filter: blur(5px);
     padding: 80px 20px;
     margin: auto -200px;
     border-radius: 58% 26% 22% 42% / 12% 10% 12% 9%;
-    background: #5265a7;
+    transition: all 0.5s ease;
 }
 
+.specialty-section:hover {
+    padding: 85px 25px;
+    border-radius: 78% 36% 42% 32% / 20% 30% 42% 30%;
+    transition: all 0.3s ease;
+}
     .specialty-section .description1 {
         display: flex;
         justify-content: space-between;
@@ -917,13 +934,19 @@ nav {
         }
 
 .team-section {
-    background-color: #f8f9fa;
-    padding: 20px 0;
+    padding: 20px 20px;
     margin: 20px;
     font-weight: bold;
     font-style: oblique;
-    border-radius: 56% 44% 69% 31% / 38% 57% 43% 62%;
-    background-image: linear-gradient(to right top, #5ca7ff, #4797ff, #3a87ff, #3c74ff, #4a5fff);
+    border-radius: 38% 62% 47% 53% / 48% 62% 38% 52%;
+    backdrop-filter: blur(5px);
+    background-image: linear-gradient(to right top, #5ca7ff80, #4797ff80, #3a87ff80, #3c74ff80, #4a5fff80);
+    transition: all 0.5s ease;
+}
+
+.team-section:hover{
+    transform: scale(1.02);
+    transition: all 0.3s ease;
 }
 
     .team-section .rows {
@@ -933,8 +956,17 @@ nav {
 
 .team-member {
     padding: 0 100px;
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+    transition: all 0.5s ease;
 }
-
+.team-member img{
+    outline: solid;
+    outline-color: #005;
+}
+.team-member:hover{
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+}
 
 /*Book*/
 .book1 {
