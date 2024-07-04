@@ -2,9 +2,9 @@
     ViewData["Title"] = "Booking";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var types = ViewData["Types"] as string;
-    var hours = ViewData["Hours"] as string;
-    var remain = ViewData["Remain"] as string;
-    var bId = ViewData["BookingId"] as string;
+    var hours = ViewData["Hours"] ;
+    var remain = ViewData["Remain"] ;
+    var bId = ViewData["BookingId"] ;
 }
 
 <body class="Date">
@@ -48,7 +48,7 @@
                 }
             </tbody>
         </table>
-        @if (hours == null)
+        @if (hours != null)
         {
             
             <form method="post" asp-action="UseFlexible" asp-controller="Booking">
