@@ -42,17 +42,13 @@ namespace BadmintonBooking.Controllers
             return View();
         }
 
-        public IActionResult Date(int CoId, string Types)
+        public IActionResult Date(int CoId, string Types, int? BId, int Remain, int Hours)
         {
-            string userId = _userManager.GetUserId(User);
-            var booking = _context.Bookings.FirstOrDefault(c => c.UserId == userId && c.BTotalHours.HasValue && c.BTotalHours > 0);
-            //missing court compare
-            if(booking != null && userId != null)
+            if (BId != null)
             {
-                var time = _context.Payments.FirstOrDefault(c => c.BId == booking.BId).PDateTime.AddDays(30);
-                ViewData["Hours"] = booking.BTotalHours;
-                ViewData["Remain"] = (time - DateTime.Now).Days;
-                ViewData["BookingId"] = booking.BId;
+                ViewData["Hours"] = Hours;
+                ViewData["Remain"] = Remain;
+                ViewData["BookingId"] = BId;
                 Types = "Flexible";
             }
             _httpContextAccessor.HttpContext.Session.SetString("CoId", CoId.ToString());
@@ -122,6 +118,22 @@ namespace BadmintonBooking.Controllers
             ViewBag.Page = page;
             ViewBag.NoOfPages = NoOfPages;
             ViewBag.TotalRecords = totalRecords;
+            string userId = _userManager.GetUserId(User);
+            var booking = _context.Bookings.FirstOrDefault(c => c.UserId == userId && c.BTotalHours.HasValue && c.BTotalHours > 0);
+            //missing court compare
+            if (booking != null && userId != null)
+            {
+                var time = _context.Payments.FirstOrDefault(c => c.BId == booking.BId).PDateTime.AddDays(30);
+                int remain = (time - DateTime.Now).Days;
+                if(remain > 0)
+                {
+                    ViewData["Hours"] = booking.BTotalHours;
+                    ViewData["CoId"] = booking.CoId;
+                    ViewData["BookingId"] = booking.BId;
+                    ViewData["Remain"] = remain;
+                    ViewData["Message"] = "Your flexible booking are not yet over!";
+                }               
+            }
             return View(pagedData);
         }
 

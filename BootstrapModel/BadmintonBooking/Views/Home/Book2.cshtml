@@ -7,6 +7,11 @@
 @{
     ViewData["Title"] = "Booking";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var hours = ViewData["Hours"];
+    var bId = ViewData["BookingId"];
+    var CoId = ViewData["CoId"] as int?;
+    var mes = ViewData["Message"];
+    var remain = ViewData["Remain"];
 }
 
 <body class="book1">
@@ -48,7 +53,6 @@
                                         <p class="card-text"><i class="fa-solid fa-location-dot"></i> @court.CoAddress</p>
                                         <p class="card-text"><i class="fa-solid fa-money-bill"></i> @court.CoPrice</p>
                                         <p class="card-text"><i class="fa-solid fa-circle-info"></i>@court.CoInfo</p>
-                                        <p class="card-text"><strong>Status:</strong> @(court.CoStatus ? "Active" : "Inactive")</p>
                                         @{
                                             using var context = new DemobadmintonContext();
                                             var ratingsListForCourt = context.Ratings.Where(r => r.CourtId == court.CoId).Select(r => r.Rating1).ToList();
@@ -57,19 +61,29 @@
                                         <p class="card-text"><i class="fa-solid fa-star"></i>@ratingAvg (@ratingsListForCourt.Count())</p>
                                         <form asp-action="Date" asp-controller="Home">
                                             <input type="hidden" name="CoId" value="@court.CoId" />
-                                            @if (!User.IsInRole("Manager"))
+                                            @if(CoId == court.CoId && hours != null)
                                             {
-                                                <select name="Types">
-                                                    <option value="Casual">Casual</option>
-                                                    <option value="Fixed">Fixed</option>
-                                                    <option value="Flexible">Flexible</option>
-                                                </select>
+                                                <label>@mes</label>
+                                                <input type="hidden" name="Hours" value="@hours" />
+                                                <input type="hidden" name="Remain" value="@remain" />
+                                                <input type="hidden" name="BId" value="@bId" />
                                             }
                                             else
                                             {
-                                                <input type="hidden" name="Types" value="Casual" />
+                                                @if (!User.IsInRole("Manager"))
+                                                {
+                                                    <select name="Types">
+                                                        <option value="Casual">Casual</option>
+                                                        <option value="Fixed">Fixed</option>
+                                                        <option value="Flexible">Flexible</option>
+                                                    </select>
+                                                }
+                                                else
+                                                {
+                                                    <input type="hidden" name="Types" value="Casual" />
+                                                }
                                             }
-                                            <button>Book</button>
+                                            <br/><button>Book</button>
                                         </form>
                                         <a class="btn btn-success" href="/home/CourtDetail?CourtId=@court.CoId">Detail</a>
                                     </div>

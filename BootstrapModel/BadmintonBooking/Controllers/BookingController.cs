@@ -168,15 +168,15 @@ namespace BadmintonBooking.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UseFlexible(string bId)
+        public async Task<IActionResult> UseFlexible(int bId)
         {
             int quantity = _slots.Count;
             foreach (var item in _slots)
                 {
-                    item.BId = int.Parse(bId);
+                    item.BId = bId;
                     await _demobadmintonContext.TimeSlots.AddAsync(item);                   
                 }
-            var booking = _demobadmintonContext.Bookings.FirstOrDefault(c => c.BId == int.Parse(bId));
+            var booking = _demobadmintonContext.Bookings.FirstOrDefault(c => c.BId == bId);
             booking.BTotalHours -= quantity;
             _demobadmintonContext.Bookings.Update(booking);
             await _demobadmintonContext.SaveChangesAsync();
