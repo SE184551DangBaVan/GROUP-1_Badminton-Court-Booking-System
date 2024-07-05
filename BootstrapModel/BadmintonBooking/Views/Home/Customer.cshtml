@@ -1,0 +1,127 @@
+﻿@model IEnumerable<BadmintonBooking.Models.Court>
+
+@{
+    ViewData["Title"] = "Customer";
+    Layout = null;
+}
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+<partial name="_Notification" />
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 20px auto;
+    }
+
+    .card {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        overflow: hidden;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .card-title {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .card-text {
+        margin-bottom: 10px;
+        color: #555;
+    }
+
+    .card-img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px 8px 0 0;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            color: white;
+            text-decoration: none;
+        }
+</style>
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>CoId</th>
+                <th>CoName</th>
+                <th>CoPath</th>
+                <th>CoStatus</th>
+                <th>CoAddress</th>
+                <th>CoInfo</th>
+                <th>CoPrice</th>
+                <th>Actions</th>
+                <th>Rate now</th>
+            </tr>
+        </thead>
+        @if (Model != null && Model.Any())
+        {
+            <tbody>
+                @foreach (var court in Model)
+                {
+                    <tr>
+                        <td>@court.CoId</td>
+                        <td>@court.CoName</td>
+                        <td><img src="~/Upload/Image/@court.CoPath" alt="Court Image" style="width:100px" /></td>
+                        <td>@court.CoStatus</td>
+                        <td>@court.CoAddress</td>
+                        <td>@court.CoInfo</td>
+                        <td>@court.CoPrice</td>
+                        <td>
+                            <a href="@Url.Action("checkout", "Home", new { courtId = court.CoId })" class="btn btn-primary">Show all bookings</a>
+                        </td>
+                        <!--Get court id for rating-->
+                        @{
+                            TempData["CourtIdForRating"] = court.CoId;
+                        }
+                        <td>
+                            <a href="@Url.Action("rating", "Home")" class="btn btn-primary">Rate</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        } else
+        {
+            <tbody>
+                <tr>
+                    <td colspan="9" class="text-center"> <h2>No bookings available</h2></td>
+                </tr>
+            </tbody>
+        }
+
+    </table>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+}

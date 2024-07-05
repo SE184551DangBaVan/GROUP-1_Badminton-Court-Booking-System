@@ -117,17 +117,17 @@
                     <p>Start: @Html.DisplayFor(modelItem => item.TsStart)</p>
                     <p>End: @Html.DisplayFor(modelItem => item.TsEnd)</p>
                     <p>Status: @(item.TsCheckedIn ? "Approved" : "Pending")</p>
-                    @if (item.TsCheckedIn)
+              <!---@if (item.TsCheckedIn)
                     {
                         <a href="/home/rating?courtId=@item.Co.CoId&userId=@item.BIdNavigation.UserId&bookingId=@item.BIdNavigation.BId" class="btn">Rate Now</a>
 
-                    }
-                </div>
+                    }---->
+                                    </div>
             </div>
         }
     </div>
     <div>
-        <a class="btn btn-warning" asp-action="checkout" asp-controller="home" style="height:40px;width:50px">Return</a>
+        <!--<a class="btn btn-warning" asp-action="checkout" asp-controller="home" style="height:40px;width:50px">Return</a>-->
     </div>
 </div>
 

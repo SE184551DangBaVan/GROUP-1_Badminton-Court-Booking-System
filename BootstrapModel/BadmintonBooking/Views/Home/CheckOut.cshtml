@@ -128,6 +128,7 @@
 
         <form method="get" action="@Url.Action("CheckOut", "Home")">
             <input type="text" name="searchTerm" placeholder="Search by keyword..." />
+                <input type="hidden" name="courtId" value="@ViewBag.CourtID" />
             <button type="submit">Search</button>
         </form>
         <div class="dropdown">
@@ -135,10 +136,10 @@
             Sort By
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="/home/checkout?searchTerm=@ViewBag.SearchTerm&sortOrder=recent_Booking">Newest Booking</a>
-            <a class="dropdown-item" href="/home/checkout?searchTerm=@ViewBag.SearchTerm&sortOrder=old_Booking">Old Booking</a>
-            <a class="dropdown-item" href="/home/checkout?searchTerm=@ViewBag.SearchTerm&sortOrder=name_Asc">Name Ascending</a>
-            <a class="dropdown-item" href="/home/checkout?searchTerm=@ViewBag.SearchTerm&sortOrder=name_Desc">Name Descending</a>
+                    <a class="dropdown-item" href="/home/checkout?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=recent_Booking">Newest Booking</a>
+                    <a class="dropdown-item" href="/home/checkout?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=old_Booking">Old Booking</a>
+                    <a class="dropdown-item" href="/home/checkout?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=name_Asc">Name Ascending</a>
+                    <a class="dropdown-item" href="/home/checkout?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=name_Desc">Name Descending</a>
         </div>
     </div>
     </div>
@@ -179,7 +180,10 @@
                         }
                        
                         <p>Username: @customername.UserName</p>
-                        <a href="/home/CheckoutDetail?bookingid=@item.BId" class="btn">Detail</a>
+                            <form asp-action="CheckoutDetail" asp-controller="home" method="post">
+                                <input type="hidden" name="bookingId" value="@item.BId" />
+                                <button type="submit" class="btn">Detail</button>
+                            </form>
                     </div>
                 </div>
             }
@@ -198,18 +202,18 @@
             }
 
             <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
-                <a class="page-link" href="/home/checkout?page=@PrevPage&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">Prev</a>
+                <a class="page-link" href="/home/checkout?courtId=@ViewBag.CourtID&page=@PrevPage&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">Prev</a>
             </li>
 
             @for (int i = 1; i <= ViewBag.NoOfPages; i++)
             {
                 <li class="page-item @(i == ViewBag.Page ? "active" : "")">
-                    <a class="page-link" href="/home/checkout?page=@i&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">@i</a>
+                    <a class="page-link" href="/home/checkout?courtId=@ViewBag.CourtID&page=@i&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">@i</a>
                 </li>
             }
 
             <li class="page-item @(ViewBag.Page == ViewBag.NoOfPages ? "disabled" : "")">
-                <a class="page-link" href="/home/checkout?page=@NextPage&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">Next</a>
+                <a class="page-link" href="/home/checkout?courtId=@ViewBag.CourtID&page=@NextPage&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">Next</a>
             </li>
         </ul>
     }

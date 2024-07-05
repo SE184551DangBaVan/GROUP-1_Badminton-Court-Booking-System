@@ -240,33 +240,44 @@ namespace BadmintonBooking.Controllers
 
 
         }
+        //User section:
         [Authorize]
-        public IActionResult CheckOut(int page=1,string searchTerm="",string sortOrder="")
+        public IActionResult Customer()
+        {
+            var userId = _userManager.GetUserAsync(User).Result?.Id;
+            //get court info based on booking
+            var courts = _context.Courts
+                .Where(c => _context.Bookings.Any(b => b.UserId == userId && b.CoId == c.CoId))
+                .ToList();
+
+            return View(courts);
+        }
+        [Authorize]
+        public IActionResult CheckOut(int courtId, int page = 1, string searchTerm = "", string sortOrder = "")
         {
             int NoOfRecordPerPage = 10;
-            //string userId = _httpContextAccessor.HttpContext.Session.GetString("CusId");
-            string userId = _userManager.GetUserId(User);
-            if (userId == null)
-            {
-                return NotFound();
 
-            }
-            var data = _context.Bookings
-        .Where(b => b.UserId == userId &&
-                  (string.IsNullOrEmpty(searchTerm) ||
+            string userId = _userManager.GetUserId(User);
+            // First part: filter by courtId
+            var courtFilteredData = _context.Bookings
+                .Where(b => b.CoId == courtId && b.UserId == userId)
+                .Include(b => b.TimeSlots)
+                .Include(b => b.Co)
+                .ToList();
+            var data = courtFilteredData
+        .Where(b =>
+                   string.IsNullOrEmpty(searchTerm) ||
                    b.BId.ToString().Equals(searchTerm) ||
                    b.Co.CoName.Contains(searchTerm) ||
-                   b.BBookingType.Contains(searchTerm)))
-       .Include(b => b.TimeSlots)
-       .Include(b => b.Co)
-       .ToList();
+                   b.BBookingType.Contains(searchTerm))
+                   .ToList();
             switch (sortOrder)
             {
                 case "recent_Booking":
                     data = data.OrderByDescending(b => b.BId).ToList();
                     break;
                 case "name_Asc":
-                    data = data.OrderBy(b=>b.Co.CoName).ToList();
+                    data = data.OrderBy(b => b.Co.CoName).ToList();
                     break;
                 case "old_Booking":
                     data = data.OrderBy(b => b.BId).ToList();
@@ -284,6 +295,7 @@ namespace BadmintonBooking.Controllers
             var pagedData = data.Skip(NoOfRecordToSkip).Take(NoOfRecordPerPage).ToList();
 
             //ViewBag properties
+            ViewBag.CourtID = courtId;
             ViewBag.Page = page;
             ViewBag.NoOfPages = NoOfPages;
             ViewBag.TotalRecords = totalRecords;
@@ -292,20 +304,29 @@ namespace BadmintonBooking.Controllers
             return View(pagedData);
 
         }
+
+        
+
+        [HttpPost]
         public IActionResult CheckoutDetail(int bookingid)
         {
 
             var data = _context.TimeSlots.Include(ts => ts.Co).Include(ts => ts.BIdNavigation).Where(ts => ts.BId == bookingid).ToList();
             return View(data);
         }
-        public IActionResult Rating(int courtid, string userid, int bookingId)
+        public IActionResult Rating()
         {
-            ViewData["bookingId"] = bookingId;
-            var data = _context.Courts.Include(c => c.Bookings).FirstOrDefault(c => c.CoId == courtid);
+            var courtid = int.Parse(TempData["CourtIdForRating"].ToString());
+            if (courtid==null)
+            {
+                TempData["error"] = "Please proceed choosing booking again";
+                return RedirectToAction("customer", "home");
+            }
+             var data = _context.Courts.Include(c => c.Bookings).FirstOrDefault(c => c.CoId == courtid);
             return View(data);
         }
         [HttpPost]
-        public IActionResult Rating(Rating rating, int bookingId)
+        public IActionResult Rating(Rating rating)
         {
             Rating ratingCourt = new Rating
             {
@@ -320,7 +341,7 @@ namespace BadmintonBooking.Controllers
             _context.Ratings.Add(ratingCourt);
             _context.SaveChanges();
             TempData["message"] = "Your review has been submitted";
-            return RedirectToAction("CheckoutDetail", new { bookingId = bookingId });
+            return RedirectToAction("customer");
         }
         public IActionResult CourtDetail(int CourtId, int page = 1)
         {
