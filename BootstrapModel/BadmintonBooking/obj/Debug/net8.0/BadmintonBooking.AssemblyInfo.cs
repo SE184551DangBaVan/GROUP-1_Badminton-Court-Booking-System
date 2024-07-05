@@ -15,7 +15,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BadmintonBooking")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
+<<<<<<< HEAD
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ddfb7ffc2be3b8630cb9848798a02cd678fe431e")]
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+320bf8b34e36e43a1b95a7de15eba6523007979c")]
+>>>>>>> 40922f9fc2aff0a8213838cc4ee34dc8a43d2fa4
 [assembly: System.Reflection.AssemblyProductAttribute("BadmintonBooking")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BadmintonBooking")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

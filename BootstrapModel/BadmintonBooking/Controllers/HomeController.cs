@@ -42,7 +42,7 @@ namespace BadmintonBooking.Controllers
             return View();
         }
 
-        public IActionResult Date(int CoId, string Types, int? BId, int Remain, int Hours)
+        public IActionResult Date(int? CoId, string Types, int? BId, int Remain, int Hours)
         {
             if (BId != null)
             {
@@ -51,8 +51,11 @@ namespace BadmintonBooking.Controllers
                 ViewData["BookingId"] = BId;
                 Types = "Flexible";
             }
-            _httpContextAccessor.HttpContext.Session.SetString("CoId", CoId.ToString());
-            _httpContextAccessor.HttpContext.Session.SetString("Types", Types);
+            if (CoId.HasValue && !string.IsNullOrEmpty(Types))
+            {
+                _httpContextAccessor.HttpContext.Session.SetString("CoId", CoId.ToString());
+                _httpContextAccessor.HttpContext.Session.SetString("Types", Types);
+            }
             ViewData["Types"] = Types;
             return View();
         }
@@ -466,5 +469,46 @@ namespace BadmintonBooking.Controllers
             ViewBag.CourtId = CourtId;
             return View(pagedData);
         }
+
+
+        public IActionResult BookingHistory(string userID)
+        {
+            //if (string.IsNullOrEmpty(userID)) return (View ("Error"));
+
+            DemobadmintonContext context = new DemobadmintonContext();
+            var bookingHistory = context.Bookings.Where(b => b.UserId == userID)
+            .Include(b => b.Payments)
+            .Include(b => b.Co)
+            .ToList();
+            return View(bookingHistory);
+        }
+
+        public IActionResult UpComingEvent(string userID, string filter = null)
+        {
+            DemobadmintonContext context = new DemobadmintonContext();
+            var futureTimeSlot = context.Bookings
+                .Where(b => b.UserId == userID)
+                .Include(b => b.Co)
+                .Include(b => b.TimeSlots)
+                .ToList();
+            var today = DateOnly.FromDateTime(DateTime.Today);
+            var validFutureTimeSlot = futureTimeSlot
+                .Where(b => b.TimeSlots.Any(ts =>
+                    ts.TsCheckedIn == false &&
+                    ts.TsDate > today))
+                .ToList();
+
+            if (!string.IsNullOrEmpty(filter))
+            {
+                validFutureTimeSlot = validFutureTimeSlot
+                    .Where(b => b.BBookingType.Normalize().ToString() == filter.Normalize())
+                    .ToList();
+            }
+            ViewBag.UserID = userID;
+            ViewBag.CurrentFilter = filter;
+            return View(validFutureTimeSlot);
+        }
+
+
     }
 }

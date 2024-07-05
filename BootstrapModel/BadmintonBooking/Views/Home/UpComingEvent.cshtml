@@ -1,0 +1,192 @@
+﻿@model IEnumerable<BadmintonBooking.Models.Booking>
+@{
+    ViewData["Title"] = "UpComingEvent";
+    Layout = null;
+}
+
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Righteous&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap">
+    <style>
+        body {
+            /* solid background */
+            background: rgb(0,212,255);
+            /* gradient background*/
+            background: linear-gradient(45deg, rgba(0,212,255,1) 0%, rgba(11,3,45,1) 100%);
+            /* photo background */
+            background-image: url('/pictures/badmintoncourt.jpeg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            background-color: rgba(17, 25, 40, 0.25);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.125);
+            padding: 38px;
+            filter: drop-shadow(0 30px 10px rgba(0,0,0,0.125));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .wrapper {
+            width: 100%;
+            height: 100%;
+        }
+
+        .banner-image {
+            height: 300px;
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255, 0.255);
+            overflow: hidden;
+        }
+
+            .banner-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+            }
+
+        h1 {
+            font-family: 'Righteous', sans-serif;
+            color: rgba(255,255,255,0.98);
+            text-transform: uppercase;
+            font-size: 2.4rem;
+        }
+
+        p {
+            color: #fff;
+            font-family: 'Lato', sans-serif;
+            text-align: center;
+            font-size: 0.8rem;
+            line-height: 150%;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .button-wrapper {
+            margin-top: 18px;
+        }
+
+        .btn {
+            border: none;
+            padding: 12px 24px;
+            border-radius: 24px;
+            font-size: 12px;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+            .btn + .btn {
+                margin-left: 10px;
+            }
+
+        .outline {
+            background: transparent;
+            color: rgba(0, 212, 255, 0.9);
+            border: 1px solid rgba(0, 212, 255, 0.6);
+            transition: all .3s ease;
+        }
+
+            .outline:hover {
+                transform: scale(1.125);
+                color: rgba(255, 255, 255, 0.9);
+                border-color: rgba(255, 255, 255, 0.9);
+                transition: all .3s ease;
+            }
+
+        .fill {
+            background: rgba(0, 212, 255, 0.9);
+            color: rgba(255,255,255,0.95);
+            filter: drop-shadow(0);
+            font-weight: bold;
+            transition: all .3s ease;
+        }
+
+            .fill:hover {
+                transform: scale(1.125);
+                border-color: rgba(255, 255, 255, 0.9);
+                filter: drop-shadow(0 10px 5px rgba(0,0,0,0.125));
+                transition: all .3s ease;
+            }
+
+
+        .timeslots-section {
+            position: absolute;
+            top: 0;
+            right: -200px; /* Adjust based on desired width */
+            width: 200px;
+            height: 100%;
+            background-color: #f0f0f0;
+            transition: right 0.3s ease;
+            overflow: hidden;
+        }
+
+        .card.show-timeslots .timeslots-section {
+            right: 0;
+        }
+
+        .filter-buttons {
+            margin-bottom: 20px;
+        }
+
+        .filter-btn {
+            margin-right: 10px;
+        }
+
+        .filter-buttons{
+            display:block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="filter-buttons">
+        <a asp-action="UpComingEvent" asp-route-userID="@ViewBag.userID" asp-route-filter="" class="btn @(ViewBag.CurrentFilter == null ? "fill" : "outline") filter-btn">All</a>
+        <a asp-action="UpComingEvent" asp-route-userID="@ViewBag.userID" asp-route-filter="Fixed" class="btn @(ViewBag.CurrentFilter == "Fixed" ? "fill" : "outline") filter-btn">Fixed</a>
+        <a asp-action="UpComingEvent" asp-route-userID="@ViewBag.userID" asp-route-filter="Flexible" class="btn @(ViewBag.CurrentFilter == "Flexible" ? "fill" : "outline") filter-btn">Flexible</a>
+        <a asp-action="UpComingEvent" asp-route-userID="@ViewBag.userID" asp-route-filter="Casual" class="btn @(ViewBag.CurrentFilter == "Casual" ? "fill" : "outline") filter-btn">Casual</a>
+    </div>
+
+    @if (Model == null || !Model.Any())
+    {
+        string currentFilter = ViewBag.CurrentFilter ?? "";
+        <h1>You don't have any booked @currentFilter timeslots now</h1>
+    }
+    else
+    {
+        @foreach (var item in Model)
+        {
+            <div class="container">
+                <div class="wrapper">
+                    @foreach (var ts in item.TimeSlots)
+                    {
+                        <div class="banner-image"><img src="/Upload/Image/@item.Co.CoPath" class="img-fluid" alt="@item.Co.CoName"> </div>
+                        <p>Court Name : @Html.DisplayFor(modelItem => item.Co.CoName)</p>
+                        <p>Address : @Html.DisplayFor(modelItem => item.Co.CoAddress)</p>
+                        <p>Date : @Html.DisplayFor(modelItem => ts.TsDate)</p>
+                        <p>Start Time : @Html.DisplayFor(modelItem => ts.TsStart)</p>
+                        <p>End Time : @Html.DisplayFor(modelItem => ts.TsEnd)</p>
+                        <p>Type of Timeslot : @Html.DisplayFor(modelItem => item.BBookingType)</p>
+                    }
+                </div>
+            </div>
+        }
+    }
+    </div>
+</div>
+</body>

@@ -162,6 +162,7 @@ namespace BadmintonBooking.Controllers
             }
             _slots.Clear();
             _httpContextAccessor.HttpContext.Session.SetString("quantity", quantity.ToString());
+            _httpContextAccessor.HttpContext.Session.SetString("totalPrice", totalPrice.ToString());
             var jsonString = JsonConvert.SerializeObject(booking);
             _httpContextAccessor.HttpContext.Session.SetString("Booking", jsonString);
             return RedirectToAction("PaymentWithPaypal", "PayPal");
