@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using BadmintonBooking.ViewModels;
 using demobadminton.Repository.Interface;
 using demobadminton.Repository.Service;
 using demobadminton.ViewModels;
@@ -402,6 +403,46 @@ namespace demobadminton.Controllers
             ModelState.AddModelError("", $"Something went wrong");
             return View("Login", loginVM);
 
+        }
+
+        [Authorize]
+        public IActionResult ChangeCurrentPassword()
+        {
+            return View();
+        }
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> ChangeCurrentPassword(ChangePasswordViewModel model)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            // Check if the current password is correct
+            var user = await _userManager.GetUserAsync(User);
+            var passwordValid = await _userManager.CheckPasswordAsync(user, model.CurrentPassword);
+            if (!passwordValid)
+            {
+                ModelState.AddModelError(string.Empty, "Incorrect current password.");
+                return View(model); // Return the view with an error if the current password is incorrect
+            }
+
+            // Change the user's password
+            var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+            if (!changePasswordResult.Succeeded)
+            {
+                foreach (var error in changePasswordResult.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return View(model); // Return the view with errors if changing the password fails
+            }
+
+            // Redirect to a success page or action after successful password change
+            TempData["message"] = "Password changed successfully.";
+            return RedirectToAction("Index", "Home");
         }
 
 
