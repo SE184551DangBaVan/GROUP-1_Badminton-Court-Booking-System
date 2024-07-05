@@ -32,6 +32,14 @@ namespace BadmintonBooking.Controllers
         }
 
         [HttpGet]
+        public IActionResult GetPrice()
+        {
+            int court = int.Parse(_httpContextAccessor.HttpContext.Session.GetString("CoId"));
+            var price = _demobadmintonContext.Courts.FirstOrDefault(x => x.CoId == court).CoPrice;
+            return Ok(price);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> GetBookSlots()
         {
             int court = int.Parse(_httpContextAccessor.HttpContext.Session.GetString("CoId"));
@@ -173,10 +181,10 @@ namespace BadmintonBooking.Controllers
         {
             int quantity = _slots.Count;
             foreach (var item in _slots)
-                {
-                    item.BId = bId;
-                    await _demobadmintonContext.TimeSlots.AddAsync(item);                   
-                }
+            {
+                item.BId = bId;
+                await _demobadmintonContext.TimeSlots.AddAsync(item);
+            }
             var booking = _demobadmintonContext.Bookings.FirstOrDefault(c => c.BId == bId);
             booking.BTotalHours -= quantity;
             _demobadmintonContext.Bookings.Update(booking);

@@ -204,21 +204,33 @@
     }
 
     function updateTotalPrice() {
-        const bookedCellsCount = document.querySelectorAll(".booked").length;
-        const types = type.value;
+        fetch('/Manager/GetPrice')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(price => {
+                const bookedCellsCount = document.querySelectorAll(".booked").length;
+                const types = type.value;
 
-        let totalPrice = 0;
-        if (types === "Fixed") {
-            totalPrice = bookedCellsCount * 9 * parseInt(weeks.value);
-        } else if (types === "Flexible") {
-            totalPrice = 7 * hours.value;
-        } else {
-            totalPrice = bookedCellsCount * 10;
-        }
+                let totalPrice = 0;
+                if (types === "Fixed") {
+                    totalPrice = bookedCellsCount * price * parseInt(weeks.value);
+                } else if (types === "Flexible") {
+                    totalPrice = price * hours.value;
+                } else {
+                    totalPrice = bookedCellsCount * price;
+                }
 
-        totalPriceElement.textContent = totalPrice;
-        document.getElementById("price-input").value = totalPrice;
+                totalPriceElement.textContent = totalPrice;
+                document.getElementById("price-input").value = totalPrice;
+            })
+            .catch(error => console.error('Error:', error));
+
     }
+
 
     function fetchBookedTimeslots() {
         fetch('/Manager/GetBookSlots')

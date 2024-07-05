@@ -9,6 +9,7 @@
     Layout = "~/Views/Shared/_ManagerLayout.cshtml";
 }
 
+<partial name="_Notification" />
 <body class="book1">
     <div class="container container1">
         <div class="main-content">
@@ -53,7 +54,7 @@
                                         }
                                         <p class="card-text"><i class="fa-solid fa-star"></i>@ratingAvg (@ratingsListForCourt.Count())</p>
                                         <form asp-action="Date" asp-controller="Manager">
-                                            <input type="hidden" name="CoId" value="@court.CoId" />                                       
+                                            <input type="hidden" name="CoId" value="@court.CoId" />
                                             <input type="hidden" name="Types" value="Casual" />
                                             <br /><button>Book</button>
                                         </form>

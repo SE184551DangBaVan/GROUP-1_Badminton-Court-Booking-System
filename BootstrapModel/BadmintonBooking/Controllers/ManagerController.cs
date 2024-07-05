@@ -77,6 +77,13 @@ namespace BadmintonBooking.Controllers
             return View();
         }
         [HttpGet]
+        public IActionResult GetPrice()
+        {
+            int court = int.Parse(_httpContextAccessor.HttpContext.Session.GetString("CoId"));
+            var price = _context.Courts.FirstOrDefault(x => x.CoId == court).CoPrice;
+            return Ok(price);
+        }
+        [HttpGet]
         public async Task<IActionResult> GetBookSlots()
         {
             int court = int.Parse(_httpContextAccessor.HttpContext.Session.GetString("CoId"));
@@ -128,17 +135,24 @@ namespace BadmintonBooking.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> Confirm()
+        public async Task<IActionResult> Confirm(string Guest)
         {
-            int quantity = _slots.Count;
+            var booking = new Booking()
+            {
+                BBookingType = "Casual",
+                BGuestName = Guest,
+                CoId = int.Parse(_httpContextAccessor.HttpContext.Session.GetString("CoId")),
+                UserId = _userManager.GetUserId(User)
+            };
             foreach (var item in _slots)
             {
-                await _context.TimeSlots.AddAsync(item);
+                booking.TimeSlots.Add(item);
             }
+            await _context.Bookings.AddAsync(booking);
             await _context.SaveChangesAsync();
             _slots.Clear();
             TempData["Message"] = "Booked successfully!";
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Booking", "Manager");
         }
     }
 }

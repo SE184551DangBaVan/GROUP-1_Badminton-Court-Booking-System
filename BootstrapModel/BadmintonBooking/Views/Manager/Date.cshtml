@@ -6,10 +6,11 @@
 <body class="Date">
     <script src="~/js/script.js"></script>
     <div class="date-container">
-        <div class="calendar-headr">            
-               <button class="navi-button" id="prev-week">&lt;</button>
+        <input name="Types" type="hidden" value="Casual" />
+        <div class="calendar-headr">
+            <button class="navi-button" id="prev-week">&lt;</button>
             <h1 id="week-range"></h1>
-                <button class="navi-button" id="next-week">&gt;</button>           
+            <button class="navi-button" id="next-week">&gt;</button>
         </div>
         <table id="schedule">
             <thead>
@@ -37,19 +38,20 @@
                 }
             </tbody>
         </table>
-            <form method="post" asp-action="Confirm" asp-controller="Manager">
-                <div class="price">Total Price: $<span id="total-price">0</span></div>
-                <input type="hidden" name="totalPrice" id="price-input" value="0" />
-
-                <div class="date-container1">
-                    <div>
-                        <button id="cancel-all" type="button">Cancel All Bookings</button>
-                    </div>
-                    <div>
-                        <button id="payment" type="submit">Confirm</button>
-                    </div>
+        <form method="post" asp-action="Confirm" asp-controller="Manager">
+            <label>Enter guest name:</label>
+            <input name="Guest" type="text" />
+            <div class="price">Total Price: $<span id="total-price">0</span></div>
+            <input type="hidden" name="totalPrice" id="price-input" value="0" />
+            <div class="date-container1">
+                <div>
+                    <button id="cancel-all" type="button">Cancel All Bookings</button>
                 </div>
-            </form>
+                <div>
+                    <button id="payment" type="submit">Confirm</button>
+                </div>
+            </div>
+        </form>
     </div>
     <script src="~/js/JavaScript.js"></script>
 </body>
