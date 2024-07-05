@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_ManagerLayout.cshtml";
+}
+
+<body class="Date">
+    <script src="~/js/script.js"></script>
+    <div class="date-container">
+        <div class="calendar-headr">            
+               <button class="navi-button" id="prev-week">&lt;</button>
+            <h1 id="week-range"></h1>
+                <button class="navi-button" id="next-week">&gt;</button>           
+        </div>
+        <table id="schedule">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (var i = 9; i <= 20; i++)
+                {
+                    <tr>
+                        <td>@((i > 12 ? i - 12 : i) + ":00 " + (i >= 12 ? "PM" : "AM"))</td>
+                        @for (var j = 0; j < 7; j++)
+                        {
+                            <td></td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+            <form method="post" asp-action="Confirm" asp-controller="Manager">
+                <div class="price">Total Price: $<span id="total-price">0</span></div>
+                <input type="hidden" name="totalPrice" id="price-input" value="0" />
+
+                <div class="date-container1">
+                    <div>
+                        <button id="cancel-all" type="button">Cancel All Bookings</button>
+                    </div>
+                    <div>
+                        <button id="payment" type="submit">Confirm</button>
+                    </div>
+                </div>
+            </form>
+    </div>
+    <script src="~/js/JavaScript.js"></script>
+</body>

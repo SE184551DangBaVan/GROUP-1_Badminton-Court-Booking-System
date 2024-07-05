@@ -1,14 +1,144 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using BadmintonBooking.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace BadmintonBooking.Controllers
 {
     //[Authorize(Roles ="Manager")]
     public class ManagerController : Controller
     {
-        public IActionResult Booking()
+        private readonly ILogger<HomeController> _logger;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly DemobadmintonContext _context;
+        List<TimeSlot> _slots = new List<TimeSlot>();
+
+        public ManagerController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, IHttpContextAccessor httpContextAccessor, DemobadmintonContext context)
         {
+            _logger = logger;
+            _userManager = userManager;
+            _httpContextAccessor = httpContextAccessor;
+            _context = context;
+        }
+        public IActionResult Booking(int page = 1, string address = "", string sortOrder = "")
+        {
+            string userId = _userManager.GetUserId(User);
+            int NoOfRecordPerPage = 5;
+
+            ViewBag.SearchAddress = address;
+
+
+            // Get court list based on group
+            var data = _context.Courts
+                               .Where(c => string.IsNullOrEmpty(address) || c.CoAddress == address && c.UserId == userId)
+                               .ToList();
+            // Sort data
+            ViewBag.SortOrder = sortOrder;
+            switch (sortOrder)
+            {
+                case "name_asc":
+                    data = data.OrderBy(c => c.CoName).ToList();
+                    break;
+                case "name_desc":
+                    data = data.OrderByDescending(c => c.CoName).ToList();
+                    break;
+                case "price_asc":
+                    data = data.OrderBy(c => c.CoPrice).ToList();
+                    break;
+                case "price_desc":
+                    data = data.OrderByDescending(c => c.CoPrice).ToList();
+                    break;
+                default:
+                    data = data.OrderBy(c => c.CoId).ToList();
+                    break;
+            }
+            //paging
+            // Calculate total pages
+            int totalRecords = data.Count;
+            int NoOfPages = (int)Math.Ceiling((double)totalRecords / NoOfRecordPerPage);
+            if (NoOfPages == 0) NoOfPages = 1;
+
+            // Pagination logic
+            int NoOfRecordToSkip = (page - 1) * NoOfRecordPerPage;
+            var pagedData = data.Skip(NoOfRecordToSkip).Take(NoOfRecordPerPage).ToList();
+
+            //ViewBag properties
+            ViewBag.Page = page;
+            ViewBag.NoOfPages = NoOfPages;
+            ViewBag.TotalRecords = totalRecords;
+            return View(pagedData);
+        }
+        public IActionResult Date(int CoId)
+        {
+            _httpContextAccessor.HttpContext.Session.SetString("CoId", CoId.ToString());
             return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetBookSlots()
+        {
+            int court = int.Parse(_httpContextAccessor.HttpContext.Session.GetString("CoId"));
+            var booked = await _context.TimeSlots.Where(x => x.CoId == court).ToListAsync();
+            return Ok(booked);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Cancel()
+        {
+            _slots.Clear();
+            _httpContextAccessor.HttpContext.Session.Remove("Booking");
+            return Ok(new { message = "Cancel successfully" });
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateBooking([FromBody] BookingData bookingData)
+        {
+            try
+            {
+                if (bookingData == null)
+                {
+                    return BadRequest("Invalid booking data.");
+                }
+
+                TimeOnly time = TimeOnly.ParseExact(bookingData.Time, "h:mm tt", CultureInfo.InvariantCulture);
+                DateOnly date = DateOnly.ParseExact(bookingData.Date, "MMM d", CultureInfo.InvariantCulture);
+                bool booked = bookingData.Booked;
+
+
+                Console.WriteLine($"Parsed Booking Data - Time: {time}, Date: {date}, Booked: {booked}");
+
+
+                TimeSlot slot = new TimeSlot()
+                {
+                    CoId = int.Parse(_httpContextAccessor.HttpContext.Session.GetString("CoId")),
+                    TsCheckedIn = false,
+                    TsDate = date,
+                    TsStart = time,
+                    TsEnd = time.AddHours(1),
+                };
+                _slots.Add(slot);
+                int quantity = _slots.Count;
+                return Ok(new { message = "Booking data received successfully." });
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error processing booking: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> Confirm()
+        {
+            int quantity = _slots.Count;
+            foreach (var item in _slots)
+            {
+                await _context.TimeSlots.AddAsync(item);
+            }
+            await _context.SaveChangesAsync();
+            _slots.Clear();
+            TempData["Message"] = "Booked successfully!";
+            return RedirectToAction("Index", "Home");
         }
     }
 }

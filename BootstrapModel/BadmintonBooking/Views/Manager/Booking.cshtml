@@ -1,4 +1,124 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@model IEnumerable<BadmintonBooking.Models.Court>
+@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_ManagerLayout.cshtml";
 }
+
+<body class="book1">
+    <div class="container container1">
+        <div class="main-content">
+            <h1 class="text-center">Badminton Court Information</h1>
+            <div class="form-group" style="width:300px">
+                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter court name" id="txtSearch">
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Sort By
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/home/book2?page=1&address=@ViewBag.SearchAddress&sortOrder=name_asc">Name Ascending</a>
+                    <a class="dropdown-item" href="/home/book2?page=1&address=@ViewBag.SearchAddress&sortOrder=name_desc">Name Descending</a>
+                    <a class="dropdown-item" href="/home/book2?page=1&address=@ViewBag.SearchAddress&sortOrder=price_asc">Price Ascending</a>
+                    <a class="dropdown-item" href="/home/book2?page=1&address=@ViewBag.SearchAddress&sortOrder=price_desc">Price Descending </a>
+                </div>
+            </div>
+
+
+
+            <div class="court-item mt-4" id="courtList">
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var court in Model)
+                    {
+                        <div class="card mb-3">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="/Upload/Image/@court.CoPath" class="img-fluid" alt="@court.CoName">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">@court.CoName</h5>
+                                        <p class="card-text"><i class="fa-solid fa-location-dot"></i> @court.CoAddress</p>
+                                        <p class="card-text"><i class="fa-solid fa-money-bill"></i> @court.CoPrice</p>
+                                        <p class="card-text"><i class="fa-solid fa-circle-info"></i>@court.CoInfo</p>
+                                        @{
+                                            using var context = new DemobadmintonContext();
+                                            var ratingsListForCourt = context.Ratings.Where(r => r.CourtId == court.CoId).Select(r => r.Rating1).ToList();
+                                            var ratingAvg = ratingsListForCourt.Average();
+                                        }
+                                        <p class="card-text"><i class="fa-solid fa-star"></i>@ratingAvg (@ratingsListForCourt.Count())</p>
+                                        <form asp-action="Date" asp-controller="Manager">
+                                            <input type="hidden" name="CoId" value="@court.CoId" />                                       
+                                            <input type="hidden" name="Types" value="Casual" />
+                                            <br /><button>Book</button>
+                                        </form>
+                                        <a class="btn btn-success" href="/home/CourtDetail?CourtId=@court.CoId">Detail</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-warning" role="alert">
+                        No courts available.
+                    </div>
+                }
+                @if (ViewBag.NoOfPages > 1 || ViewBag.TotalRecords <= 5)
+                {
+                    <ul class="pagination justify-content-center mt-4">
+                        @{
+                            int PrevPage = ViewBag.Page - 1;
+                            if (PrevPage <= 0) PrevPage = 1;
+                            int NextPage = ViewBag.Page + 1;
+                            if (NextPage > ViewBag.NoOfPages) NextPage = ViewBag.NoOfPages;
+                        }
+
+                        <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
+                            <a class="page-link" href="/home/book2?page=@PrevPage&address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder">Prev</a>
+                        </li>
+
+                        @for (int i = 1; i <= ViewBag.NoOfPages; i++)
+                        {
+                            <li class="page-item @(i == ViewBag.Page ? "active" : "")">
+                                <a class="page-link" href="/home/book2?page=@i&address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder">@i</a>
+                            </li>
+                        }
+
+                        <li class="page-item @(ViewBag.Page == ViewBag.NoOfPages ? "disabled" : "")">
+                            <a class="page-link" href="/home/book2?page=@NextPage&address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder">Next</a>
+                        </li>
+                    </ul>
+                }
+
+
+            </div>
+            <div> <a class="btn btn-primary" asp-action="index" asp-controller="home">Click here to return</a></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="~/js/script.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#txtSearch').keyup(function () {
+                var searchValue = $(this).val().toLowerCase();
+                $('#courtList .card').each(function () {
+                    var cardText = $(this).text().toLowerCase();
+                    if (cardText.indexOf(searchValue) < 0) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
