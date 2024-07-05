@@ -23,58 +23,59 @@
 </head>
 <body>
     <header>
-        <nav>
-            <div class="nav-container">
-                <div class="logo">
-                    <svg>
-                        <text x="50%" y="50%" dy=".35em" text-anchor="middle">
-                            Freedom Court<span>.</span>
-                        </text>
-                    </svg>
-                </div>
-                <ul class="nav-direct">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a href="#BookingType">Information</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About Us</a></li>
-                    <li>
-                        <a href="#" class="desktop-item">Notice</a>
-                        <input type="checkbox" id="showMega">
-                        <label for="showMega" class="mobile-item">Notice</label>
-                        <div class="mega-box">
-                            <div class="content">
-                                <div class="row">
-                                    <img src="~/images/open-badminton-tournament.jpg" alt="">
-                                </div>
-                                <div class="row">
-                                    <header>Headlines</header>
-                                    <ul class="mega-links">
-                                        <li><a href="#">Upcomming Events</a></li>
-                                        <li><a href="#">Booking History</a></li>
-                                    </ul>
-                                </div>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <svg>
+                    <text x="50%" y="50%" dy=".35em" text-anchor="middle">
+                        Freedom Court<span>.</span>
+                    </text>
+                </svg>
+            </div>
+            <ul class="nav-direct">
+                <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                <li><a href="#bookingInformation">Information</a></li>
+                <li><a asp-area="" asp-controller="Home" asp-action="About">About Us</a></li>
+                <li>
+                    <a href="#" class="desktop-item">Notice</a>
+                    <input type="checkbox" id="showMega">
+                    <label for="showMega" class="mobile-item">Notice</label>
+                    <div class="mega-box">
+                        <div class="content">
+                            <div class="row">
+                                <img src="~/images/open-badminton-tournament.jpg" alt="">
+                            </div>
+                            <div class="row">
+                                <header>Headlines</header>
+                                <ul class="mega-links">
+                                    <li><a href="#">Upcomming Events</a></li>
+                                    <li><a href="#">Booking History</a></li>
+                                </ul>
                             </div>
                         </div>
+                    </div>
+                </li>
+                @if (SignInManager.IsSignedIn(User) &&  User.IsInRole("Admin"))
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Manage
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" asp-controller="Administration"
+                               asp-action="ListUsers">Users</a>
+                            <a class="dropdown-item" asp-controller="Administration"
+                               asp-action="ListRoles">Roles</a>
+                        </ul>
                     </li>
-                    @if (SignInManager.IsSignedIn(User) &&  User.IsInRole("Admin"))
-                    {
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                               data-bs-toggle="dropdown" aria-expanded="false">
-                                Manage
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" asp-controller="Administration"
-                                   asp-action="ListUsers">Users</a>
-                                <a class="dropdown-item" asp-controller="Administration"
-                                   asp-action="ListRoles">Roles</a>
-                            </ul>
-                        </li>
-                    }
-                </ul>
-                <partial name="_LoginPartial" />
-            </div>
-        </nav>
-    </header>
+                }
+            </ul>
+            <partial name="_LoginPartial" />
+        </div>
+    </nav>
+</header>
+
 
     <main role="main" class="pb-3">
         @RenderBody()

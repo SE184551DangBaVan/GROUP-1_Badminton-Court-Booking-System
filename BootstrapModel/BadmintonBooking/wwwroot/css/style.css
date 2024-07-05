@@ -616,7 +616,7 @@ nav {
 
     .BookingType h2 {
         text-align: center;
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
     }
 
 .court-list {
@@ -630,6 +630,8 @@ nav {
 #slide-container {
     display: flex;
     width: 100%;
+    -webkit-mask: linear-gradient(90deg, transparent, white 2%, white 80%, transparent);
+    mask: linear-gradient(to-right, white 10%, white, transparent 100%), linear-gradient(to-left, transparent, white 0%);
 }
 
 #slide {
@@ -644,22 +646,45 @@ nav {
     width: 280px;
     margin: 50px 20px 50px 50px;
     box-shadow: 1px 0 2px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
+    transition: transform 0.2s, opacity 0.5s ease;
+    opacity: 0.8;
 }
 
-    .court-card a {
+    .court-card.center {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+
+    .court-card.hovered {
+        transform: scale(1.15) !important;
+        opacity: 1 !important;
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    }
+
+
+    .court-card a:nth-child(2) {
+        text-decoration: none;
+        color: brown;
+        transition: all 0.3s ease;
+        border-radius: 5px;
+        padding: 0 5px 3px 5px;
+        background-color: #7f8486;
+    }
+
+    .court-card a:nth-child(1) {
         text-decoration: none;
         color: brown;
         transition: all 0.3s ease;
     }
 
-        .court-card a:hover {
+        .court-card a:nth-child(1):hover {
             text-decoration: none;
             color: white;
         }
 
-    .court-card:hover {
-        transform: scale(1.1);
+    .court-card a:nth-child(2):hover {
+        text-decoration: none;
+        color: lightcyan;
     }
 
 .court-info-pop {
@@ -765,11 +790,11 @@ nav {
 
 .slide-buttons {
     position: absolute;
-    top: 85%;
+    top: 80%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
-    gap: 20px;
+    gap: 500px;
 }
 
     .slide-buttons button {
@@ -783,8 +808,8 @@ nav {
 
         .slide-buttons button:hover {
             background-color: #33333382;
+            color: white;
         }
-
 
 .shape {
     background: linear-gradient(45deg, var(--primary) 0%, var(--secondary) 100%);
@@ -814,35 +839,74 @@ nav {
 
 
 
-/* Contact*/
+/* Book Info*/
 .contact-section {
-    padding: 2rem 0;
     background: #555555d2;
     backdrop-filter: blur(4px);
 }
+    .contact-section .con-container {
+        width: 100%;
+        height: 600px;
+    }
 
-    .contact-section h2 {
+    .contact-section .con-container h2 {
         text-align: center;
         margin-bottom: 5rem;
     }
 
-    .contact-section form {
+    .contact-section .flip-container {
         display: flex;
-        flex-direction: column;
-        max-width: 600px;
-        margin: auto;
+        text-align: center;
+        justify-content: space-evenly;
+        width: 1500px;
+        margin: 20px 5px;
+        height: 500px;
+        font-family: Helvetica, sans-serif;
     }
 
-    .contact-section label {
-        margin-bottom: 0.5rem;
-    }
+.flip-container .flip-front,
+.flip-container .flip-back {
+    width: 100%;
+    height: 100%;
+}
 
-    .contact-section input, .contact-section textarea {
-        padding: 0.5rem;
-        margin-bottom: 1rem;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
+.con-container .first-card,
+.con-container .seccond-card,
+.con-container .third-card {
+    width: 300px;
+    height: 200px;
+}
+
+.flip-container .first-card .flip-front {
+    color: #c0e7e5;
+    font-weight: bold;
+    width: 250px;
+    height: 300px;
+    border-radius: 10px;
+    background: url(../images/flip-card-tech1.jpg) center no-repeat;
+    -webkit-mask: linear-gradient(white, black, transparent);
+    mask: linear-gradient(white, black, transparent);
+}
+.flip-container .seccond-card .flip-front {
+    color: #88D5BF;
+    font-weight: bold;
+    width: 250px;
+    height: 300px;
+    border-radius: 10px;
+    background: url(../images/flip-card-tech2.jpg) center no-repeat;
+    -webkit-mask: linear-gradient(white, black, transparent);
+    mask: linear-gradient(white, black, transparent);
+}
+.flip-container .third-card .flip-front {
+    color: #ffffff;
+    font-weight: bold;
+    width: 250px;
+    height: 300px;
+    border-radius: 10px;
+    background: url(../images/flip-card-tech3.jpg) center no-repeat;
+    -webkit-mask: linear-gradient(white, black, transparent);
+    mask: linear-gradient(white, black, transparent);
+}
 
     .contact-section button {
         padding: 0.5rem 1rem;
@@ -862,7 +926,6 @@ nav {
     width: 100%;
     height: 110vmax;
     background: url(../images/desktop-wallpaper-badminton-shuttlecock-sport-equipment-shuttlecock.jpg) no-repeat fixed;
-    
 }
 
 .intro-section {
@@ -874,10 +937,10 @@ nav {
     transition: all 0.5s ease;
 }
 
-.intro-section:hover{
-    border-radius: 85% 45% 60% 40% / 62% 70% 52% 58%;
-    transition: all 0.3s ease;
-}
+    .intro-section:hover {
+        border-radius: 85% 45% 60% 40% / 62% 70% 52% 58%;
+        transition: all 0.3s ease;
+    }
 
     .intro-section .description {
         display: flex;
@@ -908,11 +971,12 @@ nav {
     transition: all 0.5s ease;
 }
 
-.specialty-section:hover {
-    padding: 85px 25px;
-    border-radius: 78% 36% 42% 32% / 20% 30% 42% 30%;
-    transition: all 0.3s ease;
-}
+    .specialty-section:hover {
+        padding: 85px 25px;
+        border-radius: 78% 36% 42% 32% / 20% 30% 42% 30%;
+        transition: all 0.3s ease;
+    }
+
     .specialty-section .description1 {
         display: flex;
         justify-content: space-between;
@@ -944,10 +1008,10 @@ nav {
     transition: all 0.5s ease;
 }
 
-.team-section:hover{
-    transform: scale(1.02);
-    transition: all 0.3s ease;
-}
+    .team-section:hover {
+        transform: scale(1.02);
+        transition: all 0.3s ease;
+    }
 
     .team-section .rows {
         display: flex;
@@ -959,14 +1023,16 @@ nav {
     text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
     transition: all 0.5s ease;
 }
-.team-member img{
-    outline: solid;
-    outline-color: #005;
-}
-.team-member:hover{
-    transform: scale(1.05);
-    transition: all 0.3s ease;
-}
+
+    .team-member img {
+        outline: solid;
+        outline-color: #005;
+    }
+
+    .team-member:hover {
+        transform: scale(1.05);
+        transition: all 0.3s ease;
+    }
 
 /*Book*/
 .book1 {
@@ -994,6 +1060,10 @@ nav {
     margin-bottom: 20px;
     border-radius: 5px;
 }
+
+    .main-image.shrink {
+        height: 400px;
+    }
 
 .aside-right {
     width: 300px;
@@ -1033,10 +1103,10 @@ nav {
     padding-right: 20px;
 }
 
-.main-content img{
-    margin: 10px;
-    border-radius: 10px;
-}
+    .main-content img {
+        margin: 10px;
+        border-radius: 10px;
+    }
 
     .main-content .court-item {
         background-image: radial-gradient(circle, #3e6574, #35535f, #2b424a, #223136, #192124);

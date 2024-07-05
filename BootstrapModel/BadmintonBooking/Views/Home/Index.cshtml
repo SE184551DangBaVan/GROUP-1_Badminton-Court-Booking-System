@@ -81,28 +81,45 @@
             </div>
         </section>
 
-		<section id="contact" class="contact-section">
-			<div class="con-container">
-				<h2>Contact Us</h2>
-				<form>
-					<label for="name">Name:</label>
-					<input type="text" id="name" placeholder="Enter Name" name="name" required>
+        <section id="bookingInformation" class="contact-section">
+            <div class="con-container">
+                <h2>Booking Information</h2>
+                <div class="flip-container">
+                    <div class="first-card">
+                        <div class="flip-front">
+                            <span class="casualBooking">Casual Booking</span>
+                        </div>
+                        <div class="flip-back">
+                            <p class="casualExplain">Casual Booking Explanation here...</p>
+                        </div>
+                    </div>
 
-					<label for="email">Email:</label>
-					<input type="email" id="email" placeholder="Enter Email" name="email" required>
+                    <div class="seccond-card">
+                        <div class="flip-front">
+                            <span class="fixedBooking">Fixed Booking</span>
+                        </div>
+                        <div class="flip-back">
+                            <p class="fixedExplain">Fixed Booking Explanation here...</p>
+                        </div>
+                    </div>
 
-					<label for="message">Message:</label>
-					<textarea id="message" placeholder="Enter Name" name="message" required></textarea>
+                    <div class="third-card">
+                        <div class="flip-front">
+                            <span class="flexibleBooking">Flexible Booking</span>
+                        </div>
+                        <div class="flip-back">
+                            <p class="flexibleExplain">Flexible Booking Explanation here...</p>
+                        </div>
+                    </div>
+                </div>
 
-					<button type="submit">Send</button>
-				</form>
-			</div>
-		</section>
-	</div>
+            </div>
+        </section>
+    </div>
 
-	<footer class="border-top footer text-muted">
-		<div class="footer-container">
-			&copy; 2024 - BadmintonBooking - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-		</div>
-	</footer>
+    <footer class="border-top footer text-muted">
+        <div class="footer-container">
+            &copy; 2024 - BadmintonBooking - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
 </body>
