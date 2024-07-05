@@ -161,20 +161,25 @@ namespace BadmintonBooking.Controllers
         {
             return View();
         }
-        public IActionResult Invoice()
+        public IActionResult Invoice(int bid = -1)
         {
             InvoiceViewModel invoiceViewModel = null;
             try
             {
                 using var context = new DemobadmintonContext();
 
-                // Retrieve BId from session
-                var bId = httpContextAccessor.HttpContext.Session.GetInt32("BId");
-                if (bId == null)
+                //for method transfer bid using route data
+                int? bId;
+                if (bid != -1) bId = bid;
+                //for transfering bid using session
+                else
                 {
-                    throw new Exception("BId not found in session.");
+                    bId = httpContextAccessor.HttpContext.Session.GetInt32("BId");
+                    if (bId == null)
+                    {
+                        throw new Exception("BId not found in session.");
+                    }
                 }
-
                 // Fetch payment using BId
                 string formattedDate = null;
                 string formattedTime = null;
@@ -186,9 +191,10 @@ namespace BadmintonBooking.Controllers
                     ViewData["formattedDate"] = formattedDate;
                     ViewData["formattedTime"] = formattedTime;
                 }
-                var booking = context.Bookings.FirstOrDefault(b => b.BId == bId.Value);
+                var booking = context.Bookings.Include(b => b.TimeSlots).FirstOrDefault(b => b.BId == bId.Value);
                 string typeOfBooking = booking.BBookingType;
                 string courtName = context.Courts.FirstOrDefault(c => c.CoId == booking.CoId).CoName;
+                int quantity = booking.TimeSlots.Count();
                 invoiceViewModel = new InvoiceViewModel()
                 {
                     PId = payment.PId,
@@ -197,7 +203,8 @@ namespace BadmintonBooking.Controllers
                     toUser = _userManager.GetUserName(User),
                     typeOfBooking = typeOfBooking,
                     courtName = courtName,
-                    amount = payment.PAmount
+                    amount = payment.PAmount,
+                    Quantity = quantity
                 };
 
             }

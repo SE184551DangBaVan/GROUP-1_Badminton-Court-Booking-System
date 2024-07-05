@@ -75,7 +75,41 @@
 
             
         </span>
-        }
+    }
+    else @if (SignInManager.IsSignedIn(User) && User.IsInRole("Manager"))
+    {
+        <span class="account-actions">
+        <li>
+            <a href="#" class="desktop-item"><i class="fa-solid fa-angle-down"></i></a>
+            <input type="checkbox" id="showDrop">
+            <label for="showDrop" class="mobile-item"><i class="fa-solid fa-angle-down"></i></label>
+            <ul class="drop-menu">
+                <li><a asp-area="" asp-controller="Home" asp-action="Profile">Profile</a></li>
+                <li><a asp-controller="Manager" asp-action="Booking">Manager</a></li>
+                <!--- <li><a href="#">Dashboard</a></li> -->
+                <li class="logout nav-item">
+                    <a class="nav-link text-light" asp-controller="Account" asp-action="Logout"><i class="fa-solid fa-right-from-bracket"></i>LogOut</a>
+                </li>
+            </ul>
+        </li>
+        <li class="profile-pic">
+            <img src="~/images/150.png">
+        </li>
+        <!--     <li class="nav-item">
+                  <a class="nav-link text-light" asp-controller="Home" asp-action="Checkin">Staff Controller</a>
+                    </li> -->
+        <li class="username nav-item">
+            <a asp-area="" asp-controller="Home" asp-action="Profile" class="nav-link text-light"><span>@UserManager.GetUserName(User)</span></a>
+        </li>
+
+            @{
+                var CustomerId = UserManager.GetUserId(User);
+                _httpContextAccessor.HttpContext.Session.SetString("CusId", CustomerId);
+            }
+
+
+        </span>
+    }
     else @if (SignInManager.IsSignedIn(User))
     {
         <span class="account-actions">
@@ -86,6 +120,8 @@
             <ul class="drop-menu">
                 <li><a asp-area="" asp-controller="Home" asp-action="Profile">Profile</a></li>
                 <li><a asp-controller="Home" asp-action="customer">Check Out</a></li>
+                <li><a asp-controller="Home" asp-action="BookingHistory" asp-route-userID="@UserManager.GetUserAsync(User)?.Result?.Id">Booking History</a></li>
+                <li><a asp-controller="Home" asp-action="UpComingEvent" asp-route-userID="@UserManager.GetUserAsync(User)?.Result?.Id">UpComing Event</a></li>
                 <!-- <li><a href="#">Dashboard</a></li>-->
                 <li class="logout nav-item">
                     <a class="nav-link text-light" asp-controller="Account" asp-action="Logout"><i class="fa-solid fa-right-from-bracket"></i>LogOut</a>

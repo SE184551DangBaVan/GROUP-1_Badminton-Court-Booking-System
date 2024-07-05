@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "HCoJqnqsddk+AokYyHLGBoJWJPWgJYJR7n2IBcuEnH/NdHSRtJMTdVXOjjEmiEVTZRDvVntzCMmNk4segw+e+A==",
+  "dgSpecHash": "z6+Mg2sG9p2NAajt3M81OUKE5SXFiPEJwhyNNNv1mquN4EJ60b1w/dLv9UhWOMu5R8RFToVB73cJxqmIv6n/Iw==",
   "success": true,
-  "projectFilePath": "D:\\FU\\SWP adding Manager View\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj",
+  "projectFilePath": "D:\\FU\\SWPaddingManagerView\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\User\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
