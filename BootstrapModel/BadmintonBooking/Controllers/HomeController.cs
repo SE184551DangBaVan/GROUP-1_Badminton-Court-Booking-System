@@ -42,7 +42,7 @@ namespace BadmintonBooking.Controllers
             return View();
         }
 
-        public IActionResult Date(int CoId, string Types, int? BId, int Remain, int Hours)
+        public IActionResult Date(int? CoId, string Types, int? BId, int Remain, int Hours)
         {
             if (BId != null)
             {
@@ -51,8 +51,11 @@ namespace BadmintonBooking.Controllers
                 ViewData["BookingId"] = BId;
                 Types = "Flexible";
             }
-            _httpContextAccessor.HttpContext.Session.SetString("CoId", CoId.ToString());
-            _httpContextAccessor.HttpContext.Session.SetString("Types", Types);
+            if (CoId.HasValue && !string.IsNullOrEmpty(Types))
+            {
+                _httpContextAccessor.HttpContext.Session.SetString("CoId", CoId.ToString());
+                _httpContextAccessor.HttpContext.Session.SetString("Types", Types);
+            }
             ViewData["Types"] = Types;
             return View();
         }

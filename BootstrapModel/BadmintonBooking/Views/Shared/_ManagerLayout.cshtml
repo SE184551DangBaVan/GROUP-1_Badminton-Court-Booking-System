@@ -1,0 +1,118 @@
+﻿@{
+    ViewData["Title"] = "_ManagerLayout";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/fontawesome.css" rel="stylesheet" />
+
+    <title>Manager</title>
+
+    <style>
+        .table th, .table td {
+            vertical-align: middle;
+        }
+
+        .table img {
+            max-width: 150px;
+            max-height: 150px;
+            object-fit: cover;
+        }
+
+        .header-btn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navigation {
+            background-color: #343a40; /* Dark background for the sidebar */
+            height: 100vh; /* Full height */
+            position: fixed; /* Fixed position */
+            top: 0;
+            left: 0;
+            width: 250px; /* Fixed width */
+            overflow-y: auto; /* Scroll if content overflows */
+        }
+
+            .navigation .nav {
+                flex-direction: column;
+                height: 100%;
+            }
+
+            .navigation .nav-item {
+                width: 100%;
+            }
+
+            .navigation .nav-link {
+                display: flex;
+                align-items: center;
+                padding: 15px;
+                color: #fff;
+                text-decoration: none;
+                transition: background-color 0.3s ease;
+            }
+
+                .navigation .nav-link:hover {
+                    background-color: #495057; /* Slightly lighter shade on hover */
+                }
+
+            .navigation .icon {
+                font-size: 1.5em;
+                margin-right: 10px;
+            }
+
+            .navigation .title {
+                font-size: 1.1em;
+            }
+
+        .content {
+            margin-left: 250px; /* Same width as the sidebar */
+            padding: 20px;
+        }
+
+    </style>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+    <div class="navigation">
+        <ul class="nav flex-column bg-dark text-white">
+            <li class="nav-item">
+                <a class="nav-link text-white" asp-controller="home" asp-action="index">
+                    <span class="icon">
+                        <ion-icon name="grid-outline"></ion-icon>
+                    </span>
+                    <span class="title">Home Screen</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" asp-controller="Manager" asp-action="Booking">
+                    <span class="icon">
+                        <ion-icon name="newspaper-outline"></ion-icon>
+                    </span>
+                    <span class="title">Booking</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" asp-controller="Account" asp-action="Logout">
+                    <span class="icon">
+                        <ion-icon name="log-out-outline"></ion-icon>
+                    </span>
+                    <span class="title">Sign Out</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <main role="main" class="">
+        @RenderBody()
+    </main>
+</body>
+</html>
+
