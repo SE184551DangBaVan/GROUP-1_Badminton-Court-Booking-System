@@ -1,0 +1,126 @@
+﻿@model IEnumerable<BadmintonBooking.Models.Court>
+
+@{
+    ViewData["Title"] = "Staff";
+    Layout = null;
+}
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 20px auto;
+    }
+
+    .table {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+        .table th,
+        .table td {
+            vertical-align: middle;
+        }
+
+        .table th {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .table td {
+            text-align: center;
+        }
+
+    img.court-image {
+        width: 100px;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    .action-link {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+        .action-link:hover {
+            text-decoration: underline;
+        }
+</style>
+
+<div class="container">
+    <h1>Staff</h1>
+    <form method="get" action="@Url.Action("Staff", "Home")">
+        <input type="text" name="searchTerm" placeholder="Search by keyword..." />
+        <button type="submit">Search</button>
+    </form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.CoId)</th>
+                <th>@Html.DisplayNameFor(model => model.CoName)</th>
+                <th>@Html.DisplayNameFor(model => model.CoPath)</th>
+                <th>@Html.DisplayNameFor(model => model.CoAddress)</th>
+                <th>@Html.DisplayNameFor(model => model.CoInfo)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.CoId)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CoName)</td>
+                    <td><img src="~/Upload/Image/@item.CoPath" alt="Court Image" class="court-image" /></td>
+                    <td>@Html.DisplayFor(modelItem => item.CoAddress)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CoInfo)</td>
+                    <td>
+                        <a href="@Url.Action("CheckIn", "Home", new { courtId = item.CoId })" class="action-link">See more booking</a>
+                    </td>
+                 
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@if (ViewBag.NoOfPages > 1 || ViewBag.TotalRecords <= 5)
+{
+    <ul class="pagination justify-content-center mt-4">
+        @{
+            int PrevPage = ViewBag.Page - 1;
+            if (PrevPage <= 0) PrevPage = 1;
+            int NextPage = ViewBag.Page + 1;
+            if (NextPage > ViewBag.NoOfPages) NextPage = ViewBag.NoOfPages;
+        }
+
+        <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
+            <a class="page-link" href="/home/staff?page=@PrevPage&searchTerm=@ViewBag.SearchTerm">Prev</a>
+        </li>
+
+        @for (int i = 1; i <= ViewBag.NoOfPages; i++)
+        {
+            <li class="page-item @(i == ViewBag.Page ? "active" : "")">
+                <a class="page-link" href="/home/staff?page=@i&searchTerm=@ViewBag.SearchTerm">@i</a>
+            </li>
+        }
+
+        <li class="page-item @(ViewBag.Page == ViewBag.NoOfPages ? "disabled" : "")">
+            <a class="page-link" href="/home/staff?page=@NextPage&searchTerm=@ViewBag.SearchTerm">Next</a>
+        </li>
+    </ul>
+}
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+}

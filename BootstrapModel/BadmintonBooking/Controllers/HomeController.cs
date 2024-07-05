@@ -185,12 +185,62 @@ namespace BadmintonBooking.Controllers
         {
             return View();
         }
+        //staff section
+        [Authorize]
         [Authorize(Roles = "Staff")]
-        public IActionResult CheckIn(int page = 1, string searchTerm = "", string sortOrder = "")
+        public IActionResult Staff(int page=1, string searchTerm = "")
+        {
+            int NoOfRecordPerPage = 7;
+
+         var data = _context.Courts
+        .Where(c => string.IsNullOrEmpty(searchTerm) ||
+                    c.CoId.ToString().ToLower().Trim().Equals(searchTerm) ||
+                    c.CoName.ToLower().Trim().Contains(searchTerm) ||
+                    c.CoAddress.ToLower().Trim().Contains(searchTerm) ||
+                    c.CoInfo.ToLower().Trim().Contains(searchTerm))
+        .ToList();
+            //pagination
+            int totalRecords = data.Count;
+            int NoOfPages = (int)Math.Ceiling((double)totalRecords / NoOfRecordPerPage);
+            if (NoOfPages == 0) NoOfPages = 1;
+
+            // Pagination logic
+            int NoOfRecordToSkip = (page - 1) * NoOfRecordPerPage;
+            var pagedData = data.Skip(NoOfRecordToSkip).Take(NoOfRecordPerPage).ToList();
+
+            //ViewBag properties
+            ViewBag.Page = page;
+            ViewBag.NoOfPages = NoOfPages;
+            ViewBag.TotalRecords = totalRecords;
+           // ViewBag.SortOrder = sortOrder;
+           ViewBag.SearchTerm = searchTerm;
+            return View(pagedData);
+        }
+        [Authorize]
+        [Authorize(Roles = "Staff")]
+        public IActionResult CheckIn(int courtId,int page = 1, string searchTerm = "", string sortOrder = "")
         {
             int NoOfRecordPerPage = 10;
-            var data = _context.Bookings.Where(b=> string.IsNullOrEmpty(searchTerm) || b.BId.ToString().Equals(searchTerm) ||  b.Co.CoName.Contains(searchTerm) ||
-            b.BBookingType.Contains(searchTerm)).Include(b => b.TimeSlots).Include(b => b.Co).ToList();
+            searchTerm = searchTerm?.ToLower().Trim();
+
+            // First part: filter by courtId
+            var courtFilteredData = _context.Bookings
+                .Where(b => b.CoId == courtId)
+                .Include(b => b.TimeSlots)
+                .Include(b => b.Co)
+                .ToList();
+
+            // Second part: apply search filter
+            var data = courtFilteredData
+                .Where(b => string.IsNullOrEmpty(searchTerm) ||
+                            b.BId.ToString().ToLower().Trim().Equals(searchTerm) ||
+                            b.Co.CoName.ToLower().Trim().Contains(searchTerm) ||
+                            b.BBookingType.ToLower().Trim().Contains(searchTerm) ||
+                            b.Co.CoAddress.ToLower().Trim().Contains(searchTerm)
+
+                            )
+                .ToList();
+
             switch (sortOrder)
             {
                 case "recent_Booking":
@@ -215,6 +265,7 @@ namespace BadmintonBooking.Controllers
             var pagedData = data.Skip(NoOfRecordToSkip).Take(NoOfRecordPerPage).ToList();
 
             //ViewBag properties
+            ViewBag.CourtID = courtId;
             ViewBag.Page = page;
             ViewBag.NoOfPages = NoOfPages;
             ViewBag.TotalRecords = totalRecords;
@@ -223,11 +274,63 @@ namespace BadmintonBooking.Controllers
 
             return View(pagedData);
         }
-        public IActionResult Detail(int bookingId)
+        public IActionResult Detail(int bookingId, int page = 1, string sortOrder = "", string searchTerm = "")
         {
-            var data = _context.TimeSlots.Include(ts => ts.Co).Include(ts => ts.BIdNavigation).Where(ts => ts.BId == bookingId).ToList();
-            return View(data);
+            int NoOfRecordPerPage = 5;
+            searchTerm = searchTerm?.ToLower().Trim();
 
+            // Filter by bookingId
+            var filteredData = _context.TimeSlots
+                .Include(ts => ts.Co)
+                .Include(ts => ts.BIdNavigation)
+                .Where(ts => ts.BId == bookingId)
+                .ToList();
+
+            // Apply search filter
+            var data = filteredData
+                .Where(ts => string.IsNullOrEmpty(searchTerm) ||
+                             ts.TsId.ToString().ToLower().Equals(searchTerm) ||
+                             ts.Co.CoName.ToLower().Contains(searchTerm) ||
+                             ts.BIdNavigation.BBookingType.ToLower().Contains(searchTerm))
+                .ToList();
+
+            // Sorting logic
+            switch (sortOrder)
+            {
+                case "old":
+                    data = data.OrderBy(ts => ts.TsId).ToList();
+                    break;
+                case "new":
+                    data = data.OrderByDescending(ts => ts.TsId).ToList();
+                    break;
+                case "needtodo":
+                    data = data.Where(ts => ts.TsCheckedIn == false).ToList();
+                    break;
+                case "today":
+                    data = data.Where(ts => ts.TsDate == DateOnly.FromDateTime(DateTime.Today)).ToList();
+                    break;
+                default:
+                    data = data.OrderBy(ts => ts.TsId).ToList();
+                    break;
+            }
+
+            // Paging logic
+            int totalRecords = data.Count;
+            int NoOfPages = (int)Math.Ceiling((double)totalRecords / NoOfRecordPerPage);
+            if (NoOfPages == 0) NoOfPages = 1;
+
+            // Pagination logic
+            int NoOfRecordToSkip = (page - 1) * NoOfRecordPerPage;
+            var pagedData = data.Skip(NoOfRecordToSkip).Take(NoOfRecordPerPage).ToList();
+
+            // ViewBag properties
+            ViewBag.Page = page;
+            ViewBag.NoOfPages = NoOfPages;
+            ViewBag.TotalRecords = totalRecords;
+            ViewBag.SortOrder = sortOrder;
+            ViewBag.SearchTerm = searchTerm;
+            ViewBag.bookingId = bookingId;
+            return View(pagedData);
         }
         public IActionResult Approve(int tsid, int bookingId)
         {

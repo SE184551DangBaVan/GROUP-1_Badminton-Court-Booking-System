@@ -96,6 +96,7 @@
 
         <form method="get" action="@Url.Action("Checkin", "Home")">
             <input type="text" name="searchTerm" placeholder="Search by keyword..." />
+            <input type="hidden" name="CourtID" value="@ViewBag.CourtID" />
             <button type="submit">Search</button>
         </form>
         <div class="dropdown">
@@ -103,10 +104,12 @@
                 Sort By
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="/home/checkin?searchTerm=@ViewBag.SearchTerm&sortOrder=recent_Booking">Newest Booking</a>
-                <a class="dropdown-item" href="/home/checkin?searchTerm=@ViewBag.SearchTerm&sortOrder=old_Booking">Old Booking</a>
-                <a class="dropdown-item" href="/home/checkin?searchTerm=@ViewBag.SearchTerm&sortOrder=name_Asc">Name Ascending</a>
-                <a class="dropdown-item" href="/home/checkin?searchTerm=@ViewBag.SearchTerm&sortOrder=name_Desc">Name Descending</a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/home/checkin?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=recent_Booking">Newest Booking</a>
+                    <a class="dropdown-item" href="/home/checkin?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=old_Booking">Old Booking</a>
+                    <a class="dropdown-item" href="/home/checkin?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=name_Asc">Name Ascending</a>
+                    <a class="dropdown-item" href="/home/checkin?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=name_Desc">Name Descending</a>
+                </div>
             </div>
         </div>
     </div>
@@ -165,21 +168,22 @@
         }
 
         <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
-            <a class="page-link" href="/home/checkin?page=@PrevPage&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">Prev</a>
+            <a class="page-link" href="/home/checkin?courtId=@ViewBag.CourtID&page=@PrevPage&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">Prev</a>
         </li>
 
         @for (int i = 1; i <= ViewBag.NoOfPages; i++)
         {
             <li class="page-item @(i == ViewBag.Page ? "active" : "")">
-                <a class="page-link" href="/home/checkin?page=@i&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">@i</a>
+                <a class="page-link" href="/home/checkin?courtId=@ViewBag.CourtID&page=@i&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">@i</a>
             </li>
         }
 
         <li class="page-item @(ViewBag.Page == ViewBag.NoOfPages ? "disabled" : "")">
-            <a class="page-link" href="/home/checkin?page=@NextPage&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">Next</a>
+            <a class="page-link" href="/home/checkin?courtId=@ViewBag.CourtID&page=@NextPage&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">Next</a>
         </li>
     </ul>
 }
+
 
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>

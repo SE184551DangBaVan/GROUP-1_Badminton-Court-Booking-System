@@ -2,8 +2,8 @@
 
 @{
     ViewData["Title"] = "Detail";
-
 }
+
 <partial name="_Notification" />
 <style>
     body {
@@ -27,10 +27,6 @@
         margin-bottom: 20px;
     }
 
-        .header h1 {
-            margin: 0;
-        }
-
     .card-container {
         display: flex;
         flex-wrap: wrap;
@@ -42,7 +38,7 @@
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         margin: 10px;
-        width: calc(20% - 20px); 
+        width: calc(20% - 20px);
         transition: transform 0.2s;
     }
 
@@ -53,7 +49,7 @@
         .card img {
             border-radius: 8px 8px 0 0;
             width: 100%;
-            height: 150px; 
+            height: 150px;
             object-fit: cover;
         }
 
@@ -63,13 +59,13 @@
 
         .card-content h3 {
             margin: 0;
-            font-size: 18px; 
+            font-size: 18px;
         }
 
         .card-content p {
             margin: 5px 0;
             color: #555;
-            font-size: 14px; 
+            font-size: 14px;
         }
 
     .btn {
@@ -102,7 +98,25 @@
     <div class="header">
         <h1>CheckIn</h1>
     </div>
+    <div class="search-form" style="display:flex">
 
+        <form method="get" action="@Url.Action("detail", "Home")">
+            <input type="text" name="searchTerm" placeholder="Search by keyword..." />
+            <input type="hidden" name="bookingId" value="@ViewBag.bookingId" />
+            <button type="submit">Search</button>
+        </form>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Sort By
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/home/detail?bookingId=@ViewBag.bookingId&searchTerm=@ViewBag.searchTerm&sortOrder=old">Old Timeslot</a>
+                <a class="dropdown-item" href="/home/detail?bookingId=@ViewBag.bookingId&searchTerm=@ViewBag.searchTerm&sortOrder=new">New TimeSlot</a>
+                <a class="dropdown-item" href="/home/detail?bookingId=@ViewBag.bookingId&searchTerm=@ViewBag.searchTerm&sortOrder=needtodo">Need to do</a>
+                <a class="dropdown-item" href="/home/detail?bookingId=@ViewBag.bookingId&searchTerm=@ViewBag.searchTerm&sortOrder=today">Today</a>
+            </div>
+        </div>
+    </div>
     <div class="card-container">
         @foreach (var item in Model)
         {
@@ -110,7 +124,8 @@
                 <div class="card-content">
                     <h3>Time slot Id: @Html.DisplayFor(modelItem => item.TsId)</h3>
                     <p>Court Name: @Html.DisplayFor(modelItem => item.Co.CoName)</p>
-                    <p>Address: @Html.DisplayFor(modelItem => item.Co.CoAddress)</p>
+                    <!----<p>Address: @Html.DisplayFor(modelItem => item.Co.CoAddress)</p>--->
+                    <p>Date:@Html.DisplayFor(modelItem => item.TsDate)</p>
                     <p>Start: @Html.DisplayFor(modelItem => item.TsStart)</p>
                     <p>End: @Html.DisplayFor(modelItem => item.TsEnd)</p>
                     <p>Status: @(item.TsCheckedIn ? "Approved" : "Pending")</p>
@@ -120,6 +135,32 @@
         }
     </div>
 </div>
+@if (ViewBag.NoOfPages > 1 || ViewBag.TotalRecords <= 5)
+{
+    <ul class="pagination justify-content-center mt-4">
+        @{
+            int PrevPage = ViewBag.Page - 1;
+            if (PrevPage <= 0) PrevPage = 1;
+            int NextPage = ViewBag.Page + 1;
+            if (NextPage > ViewBag.NoOfPages) NextPage = ViewBag.NoOfPages;
+        }
+
+        <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
+            <a class="page-link" href="/home/detail?bookingId=@ViewBag.bookingId&page=@PrevPage&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">Prev</a>
+        </li>
+
+        @for (int i = 1; i <= ViewBag.NoOfPages; i++)
+        {
+            <li class="page-item @(i == ViewBag.Page ? "active" : "")">
+                <a class="page-link" href="/home/detail?bookingId=@ViewBag.bookingId&page=@i&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">@i</a>
+            </li>
+        }
+
+        <li class="page-item @(ViewBag.Page == ViewBag.NoOfPages ? "disabled" : "")">
+            <a class="page-link" href="/home/detail?bookingId=@ViewBag.bookingId&page=@NextPage&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">Next</a>
+        </li>
+    </ul>
+}
 
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>

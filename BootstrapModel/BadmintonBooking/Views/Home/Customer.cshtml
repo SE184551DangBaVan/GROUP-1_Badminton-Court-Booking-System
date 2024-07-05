@@ -90,7 +90,7 @@
                     <tr>
                         <td>@court.CoId</td>
                         <td>@court.CoName</td>
-                        <td><img src="~/Upload/Image/@court.CoPath" alt="Court Image" style="width:100px" /></td>
+                        <td><img src="~/Upload/Image/@court.CoPath" alt="Court Image" style="width:100px" class="card-img" /></td>
                         <td>@court.CoStatus</td>
                         <td>@court.CoAddress</td>
                         <td>@court.CoInfo</td>
@@ -108,16 +108,15 @@
                     </tr>
                 }
             </tbody>
-
-        } else
+        }
+        else
         {
             <tbody>
                 <tr>
-                    <td colspan="9" class="text-center"> <h2>No bookings available</h2></td>
+                    <td colspan="9" class="text-center"><h2>No bookings available</h2></td>
                 </tr>
             </tbody>
         }
-
     </table>
 </div>
 
