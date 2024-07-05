@@ -55,8 +55,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const courtCards = document.querySelectorAll('.court-card');
 
     let currentIndex = 0;
-    const slideWidth = document.querySelector('.court-card').offsetWidth + 50; // Adjust margin
-    const maxIndex = slide.children.length - Math.floor(slide.parentElement.offsetWidth / slideWidth) + 1.5;
+    const cardMargin = -20; // Adjust margin
+    const slideWidth = document.querySelector('.court-card').offsetWidth + cardMargin;
+    const visibleCardsCount = Math.floor(slide.parentElement.offsetWidth / slideWidth);
+    const maxIndex = slide.children.length - visibleCardsCount + 1.5;
     let isUserInteracted = false;
     let autoScrollInterval;
     let idleTimeout;
