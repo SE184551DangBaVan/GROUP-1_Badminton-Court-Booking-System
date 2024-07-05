@@ -96,6 +96,7 @@ namespace BadmintonBooking.Controllers
         private PayPal.Api.Payment CreatePayment(APIContext apiContext, string redirectUrl, string blogId)
         {
             var quantity = int.Parse(httpContextAccessor.HttpContext.Session.GetString("quantity"));
+            var totalPrice = int.Parse(httpContextAccessor.HttpContext.Session.GetString("totalPrice"));
             var itemList = new ItemList()
             {
                 items = new List<Item>()
