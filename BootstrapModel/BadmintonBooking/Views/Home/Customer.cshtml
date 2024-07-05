@@ -99,11 +99,14 @@
                             <a href="@Url.Action("checkout", "Home", new { courtId = court.CoId })" class="btn btn-primary">Show all bookings</a>
                         </td>
                         <!--Get court id for rating-->
-                        @{
-                            TempData["CourtIdForRating"] = court.CoId;
-                        }
+                       
                         <td>
-                            <a href="@Url.Action("rating", "Home")" class="btn btn-primary">Rate</a>
+                            <form method="post" action="@Url.Action("Rating", "Home")">
+                                <input type="hidden" name="courtId" value="@court.CoId" />
+
+                                <!-- Submit button -->
+                                <button type="submit" class="btn btn-primary">Rate</button>
+                            </form>
                         </td>
                     </tr>
                 }

@@ -420,19 +420,24 @@ namespace BadmintonBooking.Controllers
             var data = _context.TimeSlots.Include(ts => ts.Co).Include(ts => ts.BIdNavigation).Where(ts => ts.BId == bookingid).ToList();
             return View(data);
         }
-        public IActionResult Rating()
+        [HttpPost]
+        public IActionResult Rating(int courtId)
         {
-            var courtid = int.Parse(TempData["CourtIdForRating"].ToString());
-            if (courtid==null)
+            // Retrieve court data including bookings
+            var data = _context.Courts.Include(c => c.Bookings)
+                                       .FirstOrDefault(c => c.CoId == courtId);
+
+            // Check if court data is found
+            if (data == null)
             {
-                TempData["error"] = "Please proceed choosing booking again";
-                return RedirectToAction("customer", "home");
+                TempData["error"] = "Court not found.";
+                return RedirectToAction("Customer", "Home");
             }
-             var data = _context.Courts.Include(c => c.Bookings).FirstOrDefault(c => c.CoId == courtid);
+
             return View(data);
         }
         [HttpPost]
-        public IActionResult Rating(Rating rating)
+        public IActionResult RatingSubmit(Rating rating)
         {
             Rating ratingCourt = new Rating
             {

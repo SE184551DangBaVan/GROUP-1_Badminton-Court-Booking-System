@@ -1,6 +1,9 @@
 ﻿@model BadmintonBooking.Models.Court
+@using Microsoft.AspNetCore.Identity
 @using BadmintonBooking.Models;
 @inject IHttpContextAccessor _httpContextAccessor
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 @{
     ViewData["Title"] = "Rate Court";
     Layout = null;
@@ -87,21 +90,18 @@
             <h1>Court Id @Model.CoId</h1>
         </div>
 
-        @{
-            string userId = _httpContextAccessor.HttpContext.Session.GetString("CusId");
-        }
+       
 
-        <form asp-controller="Home" asp-action="Rating" method="post">
+        <form asp-controller="Home" asp-action="RatingSubmit" method="post">
             <input type="hidden" name="CourtId" value="@Model.CoId" />
-            <input type="hidden" name="BookingId" value='@ViewData["bookingId"]' />
+            <!---<input type="hidden" name="BookingId" value='@ViewData["bookingId"]' />--->
 
             <div>
                 <img src="/Upload/Image/@Model.CoPath" class="court-image" alt="@Model.CoName">
             </div>
 
             <div class="form-group">
-                <label for="UserId">UserId</label>
-                <input type="text" class="form-control" name="UserId" value="@userId" readonly="readonly" />
+                <input type="hidden" class="form-control" name="UserId" value="@UserManager.GetUserAsync(User).Result?.Id" readonly="readonly" />
             </div>
 
             <div class="form-group">
