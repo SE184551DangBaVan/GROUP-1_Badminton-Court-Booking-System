@@ -185,7 +185,6 @@ nav {
 
 .account-actions label {
     padding-left: 10px;
-    color: darkgray;
 }
 
 .account-actions .drop-menu {
@@ -198,11 +197,10 @@ nav {
     padding-left: 20px;
     width: 330px;
     max-height: 0px;
-    height: 150px;
+    height: 185px;
     overflow: hidden;
     box-shadow: none;
     transition: all 0.4s ease;
-    list-style: none;
 }
 
     .account-actions .drop-menu li {
@@ -230,11 +228,18 @@ nav {
             }
 
         .account-actions .drop-menu li:nth-child(1), .account-actions .drop-menu li:nth-child(2),
-        .account-actions .drop-menu li:nth-child(3) {
+        .drop-menu li:nth-child(5) {
             outline: solid;
             width: 60%;
             border-radius: 3px;
             outline-color: #555555d2;
+            color: darkgray;
+            list-style: none;
+        }
+        .account-actions .drop-menu li:nth-child(3), .account-actions .drop-menu li:nth-child(4) {
+            width: 60%;
+            color: darkgray;
+            font-family: Helvetica, sans-serif;
         }
 
     .account-actions .drop-menu.sticky {
@@ -379,8 +384,8 @@ nav {
 
     .navbar-nav .logout:hover {
         outline-color: brown;
-        border-radius: 12px;
-        width: 100px;
+        border-radius: 10px;
+        width: 50%;
     }
 
 
@@ -630,8 +635,8 @@ nav {
 #slide-container {
     display: flex;
     width: 100%;
-    -webkit-mask: linear-gradient(90deg, transparent, white 2%, white 80%, transparent);
-    mask: linear-gradient(to-right, white 10%, white, transparent 100%), linear-gradient(to-left, transparent, white 0%);
+    -webkit-mask: linear-gradient(90deg, transparent, white 10%, white 80%, transparent);
+    mask: linear-gradient(90deg, transparent, white 2%, white 80%, transparent);
 }
 
 #slide {
@@ -647,7 +652,7 @@ nav {
     margin: 50px 20px 50px 50px;
     box-shadow: 1px 0 2px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s, opacity 0.5s ease;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
     .court-card.center {
@@ -661,14 +666,19 @@ nav {
         transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     }
 
+    .court-card.hovered a:nth-child(2) {
+        background-color: #7f8486;
+        padding: 0 10px 3px 10px;
+        transition: all 0.3s ease;
+    }
+
 
     .court-card a:nth-child(2) {
         text-decoration: none;
         color: brown;
-        transition: all 0.3s ease;
+        transition: all 0.4s ease;
         border-radius: 5px;
         padding: 0 5px 3px 5px;
-        background-color: #7f8486;
     }
 
     .court-card a:nth-child(1) {
@@ -860,7 +870,7 @@ nav {
         justify-content: space-evenly;
         width: 1500px;
         margin: 20px 5px;
-        height: 500px;
+        height: 300px;
         font-family: Helvetica, sans-serif;
     }
 
@@ -868,6 +878,7 @@ nav {
 .flip-container .flip-back {
     width: 100%;
     height: 100%;
+    position: absolute;
 }
 
 .con-container .first-card,
@@ -917,18 +928,14 @@ nav {
             background: #555;
         }
 
-.flip-container .first-card p,
-.flip-container .seccond-card p,
-.flip-container .third-card p {
-    visibility: hidden;
+.flip-container .first-card .flip-back,
+.flip-container .seccond-card .flip-back,
+.flip-container .third-card .flip-back {
     color: rgba(255,255,255,1);
     backdrop-filter: blur(20px);
-    background-image: linear-gradient(
-        120deg,
-        rgba(128, 128, 128, 0.2),
-        rgba(45, 54, 56, 0.6) );
-    width: 240px;
-    height: 150px;
+    background-image: linear-gradient( 120deg, rgba(128, 128, 128, 0.2), rgba(45, 54, 56, 0.6) );
+    width: 250px;
+    height: 300px;
     border-radius: 8px;
     transition: all 0.5s ease;
 }
@@ -946,25 +953,25 @@ nav {
     mask: linear-gradient(white 40%, transparent 95%);
     transition: all 0.3s ease;
 }
-    .flip-container .first-card:hover p {
+    .flip-container .first-card:hover .flip-back {
         visibility: visible;
         width: 1060px;
         height: 250px;
-        transform: translate(2%, -40%);
+        transform: translate(2%, 0%);
         transition: all 0.3s ease;
     }
-.flip-container .seccond-card:hover p{
+.flip-container .seccond-card:hover .flip-back{
     visibility: visible;
     width: 1060px;
     height: 250px;
-    transform: translate(-38%, -40%);
+    transform: translate(-38%, 0%);
     transition: all 0.3s ease;
 }
-.flip-container .third-card:hover p{
+.flip-container .third-card:hover .flip-back{
     visibility: visible;
     width: 1060px;
     height: 250px;
-    transform: translate(-78%, -40%);
+    transform: translate(-78%, 0%);
     transition: all 0.3s ease;
 }
 

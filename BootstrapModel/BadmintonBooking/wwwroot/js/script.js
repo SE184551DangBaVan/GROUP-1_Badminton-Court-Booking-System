@@ -55,10 +55,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const courtCards = document.querySelectorAll('.court-card');
 
     let currentIndex = 0;
-    const cardMargin = -20; // Adjust margin
+    const cardMargin = 20; // Adjust margin
     const slideWidth = document.querySelector('.court-card').offsetWidth + cardMargin;
     const visibleCardsCount = Math.floor(slide.parentElement.offsetWidth / slideWidth);
-    const maxIndex = slide.children.length - visibleCardsCount + 1.5;
+    const maxIndex = slide.children.length - 1 + (visibleCardsCount - 1); // Increase scroll range to center first/last elements
     let isUserInteracted = false;
     let autoScrollInterval;
     let idleTimeout;
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const distanceFromCenter = Math.abs(currentIndex - index + 1.2);
             const scale = Math.max(1.1 - (distanceFromCenter * 0.1), 0.6);
             card.style.transform = `scale(${scale})`;
-            card.style.opacity = 1 - (distanceFromCenter * 0.2);
+            card.style.opacity = 1 - (distanceFromCenter * 0.1);
         });
     }
 
@@ -141,9 +141,11 @@ document.addEventListener('DOMContentLoaded', function () {
         card.addEventListener('mouseenter', function () {
             stopAutoScroll();
             card.classList.add('hovered');
+            isUserInteracted = true; // Ensure the auto-scroll does not resume
         });
         card.addEventListener('mouseleave', function () {
             card.classList.remove('hovered');
+            isUserInteracted = false;
             resetIdleTimeout();
         });
     });
@@ -152,8 +154,10 @@ document.addEventListener('DOMContentLoaded', function () {
     [prevButton, nextButton].forEach(button => {
         button.addEventListener('mouseenter', function () {
             stopAutoScroll();
+            isUserInteracted = true; // Ensure the auto-scroll does not resume
         });
         button.addEventListener('mouseleave', function () {
+            isUserInteracted = false;
             resetIdleTimeout();
         });
     });
