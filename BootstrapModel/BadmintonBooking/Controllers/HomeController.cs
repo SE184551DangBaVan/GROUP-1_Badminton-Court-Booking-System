@@ -197,10 +197,10 @@ namespace BadmintonBooking.Controllers
 
          var data = _context.Courts
         .Where(c => string.IsNullOrEmpty(searchTerm) ||
-                    c.CoId.ToString().ToLower().Trim().Equals(searchTerm) ||
-                    c.CoName.ToLower().Trim().Contains(searchTerm) ||
-                    c.CoAddress.ToLower().Trim().Contains(searchTerm) ||
-                    c.CoInfo.ToLower().Trim().Contains(searchTerm))
+                    c.CoId.ToString().Equals(searchTerm) ||
+                    c.CoName.ToLower().Equals(searchTerm.ToLower()) ||
+                    
+                    c.CoInfo.ToLower().Equals(searchTerm.ToLower()))
         .ToList();
             //pagination
             int totalRecords = data.Count;
@@ -215,16 +215,16 @@ namespace BadmintonBooking.Controllers
             ViewBag.Page = page;
             ViewBag.NoOfPages = NoOfPages;
             ViewBag.TotalRecords = totalRecords;
-           // ViewBag.SortOrder = sortOrder;
+           //ViewBag.SortOrder = sortOrder;
            ViewBag.SearchTerm = searchTerm;
             return View(pagedData);
         }
         [Authorize]
         [Authorize(Roles = "Staff")]
-        public IActionResult CheckIn(int courtId,int page = 1, string searchTerm = "", string sortOrder = "")
+        public IActionResult CheckIn(int courtId, int page = 1, string searchTerm = "", string sortOrder = "")
         {
-            int NoOfRecordPerPage = 10;
-            searchTerm = searchTerm?.ToLower().Trim();
+            int NoOfRecordPerPage = 6;
+            searchTerm = searchTerm?.ToLower();
 
             // First part: filter by courtId
             var courtFilteredData = _context.Bookings
@@ -236,11 +236,11 @@ namespace BadmintonBooking.Controllers
             // Second part: apply search filter
             var data = courtFilteredData
                 .Where(b => string.IsNullOrEmpty(searchTerm) ||
-                            b.BId.ToString().ToLower().Trim().Equals(searchTerm) ||
-                            b.Co.CoName.ToLower().Trim().Contains(searchTerm) ||
-                            b.BBookingType.ToLower().Trim().Contains(searchTerm) ||
-                            b.Co.CoAddress.ToLower().Trim().Contains(searchTerm)
-
+                            b.BId.ToString().ToLower().Equals(searchTerm) ||
+                            b.Co.CoName.ToLower().Equals(searchTerm) ||
+                            b.BBookingType.ToLower().Equals(searchTerm) ||
+                            b.Co.CoAddress.ToLower().Equals(searchTerm)
+                           
                             )
                 .ToList();
 
@@ -293,8 +293,11 @@ namespace BadmintonBooking.Controllers
             var data = filteredData
                 .Where(ts => string.IsNullOrEmpty(searchTerm) ||
                              ts.TsId.ToString().ToLower().Equals(searchTerm) ||
-                             ts.Co.CoName.ToLower().Contains(searchTerm) ||
-                             ts.BIdNavigation.BBookingType.ToLower().Contains(searchTerm))
+                             ts.Co.CoName.ToLower().Equals(searchTerm.ToLower()) ||
+                             ts.TsDate.ToString().ToLower().Equals(searchTerm) ||
+                             ts.TsStart.ToString().Equals(searchTerm)||
+                             ts.TsEnd.ToString().Equals(searchTerm)||
+                             ts.BIdNavigation.BBookingType.ToLower().Equals(searchTerm.ToLower()))
                 .ToList();
 
             // Sorting logic
@@ -348,20 +351,47 @@ namespace BadmintonBooking.Controllers
         }
         //User section:
         [Authorize]
-        public IActionResult Customer()
+        public IActionResult Customer(int page = 1, string searchTerm = "")
         {
+            int NoOfRecordPerPage = 6;
             var userId = _userManager.GetUserAsync(User).Result?.Id;
             //get court info based on booking
-            var courts = _context.Courts
-                .Where(c => _context.Bookings.Any(b => b.UserId == userId && b.CoId == c.CoId))
+            //var courts = _context.Courts
+            //   .Where(c => _context.Bookings.Any(b => b.UserId == userId && b.CoId == c.CoId))
+            //   .ToList();
+            var filteredCourts = _context.Courts
+           .Where(c => _context.Bookings.Any(b => b.UserId == userId && b.CoId == c.CoId)).ToList();
+
+            var data = filteredCourts
+                .Where(c =>
+                string.IsNullOrEmpty(searchTerm) ||
+                c.CoId.ToString().Equals(searchTerm) ||
+                c.CoName.ToLower().Equals(searchTerm.ToLower()) ||
+               c.CoAddress.ToLower().Equals(searchTerm.ToLower())||
+               c.CoPrice.ToString().Equals(searchTerm)
+               )
                 .ToList();
 
-            return View(courts);
+
+            int totalRecords = data.Count;
+            int NoOfPages = (int)Math.Ceiling((double)totalRecords / NoOfRecordPerPage);
+            if (NoOfPages == 0) NoOfPages = 1;
+
+            // Pagination logic
+            int NoOfRecordToSkip = (page - 1) * NoOfRecordPerPage;
+            var pagedData = data.Skip(NoOfRecordToSkip).Take(NoOfRecordPerPage).ToList();
+
+            //ViewBag properties
+            ViewBag.Page = page;
+            ViewBag.NoOfPages = NoOfPages;
+            ViewBag.TotalRecords = totalRecords;
+            ViewBag.SearchTerm = searchTerm;
+            return View(pagedData);
         }
         [Authorize]
         public IActionResult CheckOut(int courtId, int page = 1, string searchTerm = "", string sortOrder = "")
         {
-            int NoOfRecordPerPage = 10;
+            int NoOfRecordPerPage = 6;
 
             string userId = _userManager.GetUserId(User);
             // First part: filter by courtId
@@ -374,8 +404,8 @@ namespace BadmintonBooking.Controllers
         .Where(b =>
                    string.IsNullOrEmpty(searchTerm) ||
                    b.BId.ToString().Equals(searchTerm) ||
-                   b.Co.CoName.Contains(searchTerm) ||
-                   b.BBookingType.Contains(searchTerm))
+                   b.Co.CoName.ToLower().Equals(searchTerm.ToLower()) ||
+                   b.BBookingType.ToLower().Equals(searchTerm.ToLower()))
                    .ToList();
             switch (sortOrder)
             {
@@ -411,14 +441,69 @@ namespace BadmintonBooking.Controllers
 
         }
 
-        
 
-        [HttpPost]
-        public IActionResult CheckoutDetail(int bookingid)
+
+        [HttpGet]
+        public IActionResult CheckoutDetail(int bookingId, int courtId, int page = 1, string searchTerm = "", string sortOrder = "")
         {
+            var userId = _userManager.GetUserAsync(User).Result?.Id;
+            string txtsearchTerm = searchTerm?.ToLower();
+            int NoOfRecordPerPage = 6; // Adjust this number as needed
 
-            var data = _context.TimeSlots.Include(ts => ts.Co).Include(ts => ts.BIdNavigation).Where(ts => ts.BId == bookingid).ToList();
-            return View(data);
+            // Retrieve the data with the necessary filtering and joins
+            var courtFilteredData = _context.TimeSlots
+                .Include(ts => ts.Co)
+                .Include(ts => ts.BIdNavigation)
+                .Where(ts => ts.BId == bookingId && ts.BIdNavigation.UserId == userId && ts.CoId == courtId).ToList();
+
+            // Apply search filter
+            var data = courtFilteredData
+         .Where(ts =>
+                    string.IsNullOrEmpty(txtsearchTerm) ||
+                    ts.TsId.ToString().Equals(txtsearchTerm) ||
+                    ts.Co.CoName.ToLower().Equals(txtsearchTerm.ToLower()) || ts.Co.CoAddress.ToLower().Equals(txtsearchTerm.ToLower())
+                    || ts.TsDate.ToString().Equals(txtsearchTerm)
+                    ).ToList();
+
+            // Apply sorting
+            switch (sortOrder)
+            {
+                case "new":
+                    data = data.OrderByDescending(ts => ts.TsId).ToList();
+                    break;
+                case "old":
+                    data = data.OrderBy(ts => ts.TsId).ToList();
+                    break;
+                case "today":
+                    data = data.Where(ts => ts.TsDate == DateOnly.FromDateTime(DateTime.Today)).ToList();
+                    break;
+                case "pending":
+                    data = data.Where(ts => ts.TsCheckedIn == false).ToList();
+                    break;
+                default:
+                    data = data.OrderByDescending(ts => ts.TsId).ToList();
+                    break;
+            }
+
+            int totalRecords = data.Count;
+            int NoOfPages = (int)Math.Ceiling((double)totalRecords / NoOfRecordPerPage);
+            if (NoOfPages == 0) NoOfPages = 1;
+
+            // Pagination logic
+            int NoOfRecordToSkip = (page - 1) * NoOfRecordPerPage;
+            var pagedData = data.Skip(NoOfRecordToSkip).Take(NoOfRecordPerPage).ToList();
+
+            //ViewBag properties
+            ViewBag.courtId = courtId;
+            ViewBag.bookingId = bookingId;
+            ViewBag.Page = page;
+            ViewBag.NoOfPages = NoOfPages;
+            ViewBag.TotalRecords = totalRecords;
+            ViewBag.SortOrder = sortOrder;
+            ViewBag.SearchTerm = searchTerm;
+
+
+            return View(pagedData);
         }
         [HttpPost]
         public IActionResult Rating(int courtId)

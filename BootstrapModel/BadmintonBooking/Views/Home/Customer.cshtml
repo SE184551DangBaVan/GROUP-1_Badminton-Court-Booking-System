@@ -84,6 +84,10 @@
         </thead>
         @if (Model != null && Model.Any())
         {
+            <form method="get" action="@Url.Action("customer", "Home")">
+                <input type="text" name="searchTerm" placeholder="Search by keyword..." />
+                <button type="submit">Search</button>
+            </form>
             <tbody>
                 @foreach (var court in Model)
                 {
@@ -122,6 +126,34 @@
         }
     </table>
 </div>
+
+@if (ViewBag.NoOfPages > 1 || ViewBag.TotalRecords <= 5)
+{
+    <ul class="pagination justify-content-center mt-4">
+        @{
+            int PrevPage = ViewBag.Page - 1;
+            if (PrevPage <= 0) PrevPage = 1;
+            int NextPage = ViewBag.Page + 1;
+            if (NextPage > ViewBag.NoOfPages) NextPage = ViewBag.NoOfPages;
+        }
+
+        <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
+            <a class="page-link" href="/home/customer?page=@PrevPage&searchTerm=@ViewBag.SearchTerm">Prev</a>
+        </li>
+
+        @for (int i = 1; i <= ViewBag.NoOfPages; i++)
+        {
+            <li class="page-item @(i == ViewBag.Page ? "active" : "")">
+                <a class="page-link" href="/home/customer?page=@i&searchTerm=@ViewBag.SearchTerm">@i</a>
+            </li>
+        }
+
+        <li class="page-item @(ViewBag.Page == ViewBag.NoOfPages ? "disabled" : "")">
+            <a class="page-link" href="/home/customer?page=@NextPage&searchTerm=@ViewBag.SearchTerm">Next</a>
+        </li>
+    </ul>
+}
+
 
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>

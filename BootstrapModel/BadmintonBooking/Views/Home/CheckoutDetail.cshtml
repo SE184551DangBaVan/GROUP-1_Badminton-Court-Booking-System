@@ -5,134 +5,199 @@
     Layout = null;
 }
 <partial name="_Notification" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 0;
-    }
-
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-    }
-
-    .header {
-        text-align: center;
-        padding: 20px;
-        background-color: #007bff;
-        color: white;
-        margin-bottom: 20px;
-    }
-
-        .header h1 {
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/font-awesome/css/fontawesome.css" rel="stylesheet" />
+    <link href="~/font-awesome/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
             margin: 0;
+            padding: 0;
         }
 
-    .card-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-    }
-
-    .card {
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        margin: 10px;
-        width: calc(20% - 20px);
-        transition: transform 0.2s;
-    }
-
-        .card:hover {
-            transform: scale(1.05);
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
-        .card img {
-            border-radius: 8px 8px 0 0;
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
+        .header {
+            text-align: center;
+            padding: 20px;
+            background-color: #007bff;
+            color: white;
+            margin-bottom: 20px;
         }
 
-    .card-content {
-        padding: 10px;
-    }
+            .header h1 {
+                margin: 0;
+            }
 
-        .card-content h3 {
-            margin: 0;
-            font-size: 18px;
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
         }
 
-        .card-content p {
-            margin: 5px 0;
-            color: #555;
-            font-size: 14px;
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            width: calc(20% - 20px);
+            transition: transform 0.2s;
         }
 
-    .btn {
-        display: block;
-        text-align: center;
-        background-color: #007bff;
-        color: white;
-        padding: 8px;
-        border-radius: 5px;
-        text-decoration: none;
-        margin-top: 10px;
-    }
+            .card:hover {
+                transform: scale(1.05);
+            }
 
-        .btn:hover {
-            background-color: #0056b3;
+            .card img {
+                border-radius: 8px 8px 0 0;
+                width: 100%;
+                height: 150px;
+                object-fit: cover;
+            }
+
+        .card-content {
+            padding: 10px;
         }
 
-    .status-approved {
-        background-color: #d4edda;
-        border-left: 5px solid #28a745;
-    }
+            .card-content h3 {
+                margin: 0;
+                font-size: 18px;
+            }
 
-    .status-pending {
-        background-color: #f8d7da;
-        border-left: 5px solid #dc3545;
-    }
-</style>
+            .card-content p {
+                margin: 5px 0;
+                color: #555;
+                font-size: 14px;
+            }
 
-<div class="container">
-    <div class="header">
-        <h1>Detail </h1>
-    </div>
+        .btn {
+            display: block;
+            text-align: center;
+            background-color: #007bff;
+            color: white;
+            padding: 8px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 10px;
+        }
 
-    <div class="card-container">
-        @foreach (var item in Model)
+            .btn:hover {
+                background-color: #0056b3;
+            }
+
+        .status-approved {
+            background-color: #d4edda;
+            border-left: 5px solid #28a745;
+        }
+
+        .status-pending {
+            background-color: #f8d7da;
+            border-left: 5px solid #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Detail </h1>
+        </div>
+        <div class="search-form">
+
+            <form method="get" action="@Url.Action("checkoutdetail", "Home")">
+                <input type="text" name="searchTerm" placeholder="Search by keyword..." />
+                <input type="hidden" name="bookingId" value="@ViewBag.bookingId" />
+                <input type="hidden" name="courtId" value="@ViewBag.courtId" />
+                <button type="submit">Search</button>
+            </form>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Sort By
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/home/checkoutdetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&searchTerm=@ViewBag.SearchTerm&sortOrder=new">New</a>
+                    <a class="dropdown-item" href="/home/checkoutdetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&searchTerm=@ViewBag.SearchTerm&sortOrder=old">Old</a>
+                    <a class="dropdown-item" href="/home/checkoutdetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&searchTerm=@ViewBag.SearchTerm&sortOrder=today">Today</a>
+                    <a class="dropdown-item" href="/home/checkoutdetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&searchTerm=@ViewBag.SearchTerm&sortOrder=pending">Pending</a>
+                </div>
+            </div>
+        </div>
+         @if (Model != null && Model.Any())
         {
-            <div class="card @(item.TsCheckedIn ? "status-approved" : "status-pending")">
-                <div class="card-content">
-                    <h3>Time slot Id: @Html.DisplayFor(modelItem => item.TsId)</h3>
-                    <p>Court Name: @Html.DisplayFor(modelItem => item.Co.CoName)</p>
-                    <p>Court Id: @Html.DisplayFor(modelItem => item.Co.CoId)</p>
-                    <p>Address: @Html.DisplayFor(modelItem => item.Co.CoAddress)</p>
-                    <p>Date: @Html.DisplayFor(modelItem => item.TsDate)</p>
-                    <p>Start: @Html.DisplayFor(modelItem => item.TsStart)</p>
-                    <p>End: @Html.DisplayFor(modelItem => item.TsEnd)</p>
-                    <p>Status: @(item.TsCheckedIn ? "Approved" : "Pending")</p>
-              <!---@if (item.TsCheckedIn)
-                    {
-                        <a href="/home/rating?courtId=@item.Co.CoId&userId=@item.BIdNavigation.UserId&bookingId=@item.BIdNavigation.BId" class="btn">Rate Now</a>
+        <div class="card-container">
+            @foreach (var item in Model)
+            {
+                <div class="card @(item.TsCheckedIn ? "status-approved" : "status-pending")">
+                    <div class="card-content">
+                        <h3>Time slot Id: @Html.DisplayFor(modelItem => item.TsId)</h3>
+                        <p>Court Name: @Html.DisplayFor(modelItem => item.Co.CoName)</p>
+                        <p>Court Id: @Html.DisplayFor(modelItem => item.Co.CoId)</p>
+                        <p>Address: @Html.DisplayFor(modelItem => item.Co.CoAddress)</p>
+                        <p>Date: @Html.DisplayFor(modelItem => item.TsDate)</p>
+                        <p>Start: @Html.DisplayFor(modelItem => item.TsStart)</p>
+                        <p>End: @Html.DisplayFor(modelItem => item.TsEnd)</p>
+                        <p>Status: @(item.TsCheckedIn ? "Approved" : "Pending")</p>
+                        <!---@if (item.TsCheckedIn)
+                        {
+                                      <a href="/home/rating?courtId=@item.Co.CoId&userId=@item.BIdNavigation.UserId&bookingId=@item.BIdNavigation.BId" class="btn">Rate Now</a>
 
-                    }---->
-                                    </div>
+                        }---->
+                    </div>
+                </div>
+            }
+            </div>
+        } else
+        {
+            <div class="alert alert-info" role="alert">
+                No time slots found.
             </div>
         }
-    </div>
-    <div>
-        <!--<a class="btn btn-warning" asp-action="checkout" asp-controller="home" style="height:40px;width:50px">Return</a>-->
-    </div>
-</div>
 
+        <div>
+            <!--<a class="btn btn-warning" asp-action="checkout" asp-controller="home" style="height:40px;width:50px">Return</a>-->
+        </div>
+    </div>
+    @if (ViewBag.NoOfPages > 1 || ViewBag.TotalRecords <= 5)
+    {
+        <ul class="pagination justify-content-center mt-4">
+            @{
+                int PrevPage = ViewBag.Page - 1;
+                if (PrevPage <= 0) PrevPage = 1;
+                int NextPage = ViewBag.Page + 1;
+                if (NextPage > ViewBag.NoOfPages) NextPage = ViewBag.NoOfPages;
+            }
 
-@section Scripts {
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-}
+            <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
+                <a class="page-link" href="/home/checkoutdetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&page=@PrevPage&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">Prev</a>
+            </li>
+
+            @for (int i = 1; i <= ViewBag.NoOfPages; i++)
+            {
+                <li class="page-item @(i == ViewBag.Page ? "active" : "")">
+                    <a class="page-link" href="/home/checkoutdetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&page=@i&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">@i</a>
+                </li>
+            }
+
+            <li class="page-item @(ViewBag.Page == ViewBag.NoOfPages ? "disabled" : "")">
+                <a class="page-link" href="/home/checkoutdetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&page=@NextPage&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">Next</a>
+            </li>
+        </ul>
+    }
+
+   
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+       
+    
+</body>

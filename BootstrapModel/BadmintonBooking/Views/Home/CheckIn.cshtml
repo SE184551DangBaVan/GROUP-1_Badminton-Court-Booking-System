@@ -3,7 +3,16 @@
 @inject UserManager<IdentityUser> UserManager
 @{
     ViewData["Title"] = "CheckIn";
+
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - YourAppName</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+
 
 <style>
     body {
@@ -87,12 +96,13 @@
             background-color: #0056b3;
         }
 </style>
-
+</head>
+<body>
 <div class="container">
     <div class="header">
         <h1>CheckIn</h1>
     </div>
-    <div class="search-form d-flex justify-content-center align-items-center">
+    <div class="search-form">
 
         <form method="get" action="@Url.Action("Checkin", "Home")">
             <input type="text" name="searchTerm" placeholder="Search by keyword..." />
@@ -104,12 +114,10 @@
                 Sort By
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="/home/checkin?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=recent_Booking">Newest Booking</a>
                     <a class="dropdown-item" href="/home/checkin?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=old_Booking">Old Booking</a>
                     <a class="dropdown-item" href="/home/checkin?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=name_Asc">Name Ascending</a>
                     <a class="dropdown-item" href="/home/checkin?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=name_Desc">Name Descending</a>
-                </div>
             </div>
         </div>
     </div>
@@ -127,17 +135,17 @@
                     <!-- <p>Total hours: @Html.DisplayFor(modelItem => item.BTotalHours)</p>-->
                     @if (item.TimeSlots != null && item.TimeSlots.Count > 0)
                     {
-                                int checkedInCount = 0;
-                            
-                            @foreach (var timeslot in item.TimeSlots)
+                        int checkedInCount = 0;
+
+                        @foreach (var timeslot in item.TimeSlots)
+                        {
+                            @if (timeslot.TsCheckedIn)
                             {
-                                    @if (timeslot.TsCheckedIn)
-                                    {
-                                        checkedInCount++;
-                                    }
-                                
+                                checkedInCount++;
                             }
-                        
+
+                        }
+
                         <p>Number of Checked-In: <b> @checkedInCount /@item.TimeSlots.Count()</b></p>
                     }
                     else
@@ -150,7 +158,7 @@
                         DemobadmintonContext context = new DemobadmintonContext();
                         var username = context.AspNetUsers.FirstOrDefault(a => a.Id == item.UserId);
                     }
-                    <p>Username:@username.UserName</p>
+                    <p>Customer name:@username.UserName</p>
                     <a href="/home/detail?bookingid=@item.BId" class="btn">Detail</a>
                 </div>
             </div>
@@ -189,3 +197,4 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 }
+</body>
