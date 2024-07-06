@@ -55,10 +55,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const courtCards = document.querySelectorAll('.court-card');
 
     let currentIndex = 0;
-    const cardMargin = 20; // Adjust margin
-    const slideWidth = document.querySelector('.court-card').offsetWidth + cardMargin;
+    const slideWidth = document.querySelector('.court-card').offsetWidth;
     const visibleCardsCount = Math.floor(slide.parentElement.offsetWidth / slideWidth);
-    const maxIndex = slide.children.length - 1 + (visibleCardsCount - 1); // Increase scroll range to center first/last elements
+    const maxIndex = slide.children.length - visibleCardsCount + 2; // Recalculate the max index with buffer
     let isUserInteracted = false;
     let autoScrollInterval;
     let idleTimeout;
@@ -69,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function updateCardScaling() {
         courtCards.forEach((card, index) => {
-            const distanceFromCenter = Math.abs(currentIndex - index + 1.2);
+            const distanceFromCenter = Math.abs(currentIndex - index);
             const scale = Math.max(1.1 - (distanceFromCenter * 0.1), 0.6);
             card.style.transform = `scale(${scale})`;
             card.style.opacity = 1 - (distanceFromCenter * 0.1);
@@ -78,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function startAutoScroll() {
         autoScrollInterval = setInterval(function () {
-            if (currentIndex >= maxIndex && direction === 1) {
+            if (currentIndex >= maxIndex+4 && direction === 1) {
                 direction = -1;
             } else if (currentIndex <= 0 && direction === -1) {
                 direction = 1;
@@ -111,8 +110,12 @@ document.addEventListener('DOMContentLoaded', function () {
     nextButton.addEventListener('click', function () {
         stopAutoScroll();
         isUserInteracted = true;
-        if (currentIndex < maxIndex) {
+        if (currentIndex < maxIndex+4) {
             currentIndex++;
+            slide.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+            updateCardScaling();
+        } else {
+            currentIndex = maxIndex;
             slide.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
             updateCardScaling();
         }
@@ -127,6 +130,10 @@ document.addEventListener('DOMContentLoaded', function () {
         isUserInteracted = true;
         if (currentIndex > 0) {
             currentIndex--;
+            slide.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+            updateCardScaling();
+        } else {
+            currentIndex = 0;
             slide.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
             updateCardScaling();
         }
