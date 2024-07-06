@@ -9,6 +9,8 @@
     const hours = document.getElementById("total-hours");
     const weeks = document.getElementById("total-weeks");
     const form = document.querySelector("form");
+    const confirmButton = document.getElementById("payment");
+    const confirmForm = document.getElementById("payment-form");
 
     let currentStartDate = new Date();
     let scheduleData = [];
@@ -291,6 +293,19 @@
             updateWeekRange();
         });
     }
+
+    confirmButton.addEventListener("click", function (event) {
+        var confirmMessage = "Are you certain you with your slots?";
+        if (confirm(confirmMessage)) {
+                const bookedCells = document.querySelectorAll(".booked");
+                if (bookedCells.length === 0) {
+                    alert("Please book before continue!");
+                    event.preventDefault();
+                    return;
+                }
+            confirmForm.submit();
+        }
+    });
 
     cancelAllButton.addEventListener("click", cancelAllBookings);
 
