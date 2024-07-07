@@ -85,7 +85,7 @@ namespace BadmintonBooking.Controllers
 
 
             // Get court list based on group
-            var data = _context.Courts
+            var data = _context.Courts.Include(c => c.TimeSlots).Include(c => c.Bookings)
                                .Where(c => string.IsNullOrEmpty(address) || c.CoAddress == address)
                                .ToList();
             // Sort data

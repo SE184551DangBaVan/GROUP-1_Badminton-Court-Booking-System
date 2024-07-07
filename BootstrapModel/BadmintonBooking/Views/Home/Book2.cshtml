@@ -13,7 +13,21 @@
     var mes = ViewData["Message"];
     var remain = ViewData["Remain"];
 }
+<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
 
+<style>
+    .status-active {
+        display: inline-flex;
+        align-items: center;
+        border-radius: 9999px;
+        padding: 0.5em 1em;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #fff;
+        background-color:goldenrod; 
+        border: 1px solid transparent;
+    }
+</style>
 <body class="book1">
     <div class="container container1">
         <div class="main-content">
@@ -21,7 +35,7 @@
             <img src="~/images/photo-1536598774668-2eeb8a1a5f99.png" class="main-image img-fluid" alt="Badminton Court Image">
 
             <div class="form-group" style="width:300px">
-                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter court name" id="txtSearch">
+                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="enter keyword" id="txtSearch">
             </div>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -50,15 +64,25 @@
                                 <div class="col-md-8">
                                     <div class="card-body">
                                         <h5 class="card-title">@court.CoName</h5>
-                                        <p class="card-text"><i class="fa-solid fa-location-dot"></i> @court.CoAddress</p>
-                                        <p class="card-text"><i class="fa-solid fa-money-bill"></i> @court.CoPrice</p>
-                                        <p class="card-text"><i class="fa-solid fa-circle-info"></i>@court.CoInfo</p>
+                                        <p class="card-text"><i class="fa-sharp fa-solid fa-location-dot fa-bounce fa-sm"></i> @court.CoAddress</p>
+                                        <p class="card-text"><i class="fa-thin fa-money-bill fa-sm" style="color: #FFD43B;"></i>@court.CoPrice</p>
+                                        <p class="card-text"><i class="fa-thin fa-circle-info"></i>@court.CoInfo</p>
                                         @{
                                             using var context = new DemobadmintonContext();
                                             var ratingsListForCourt = context.Ratings.Where(r => r.CourtId == court.CoId).Select(r => r.Rating1).ToList();
                                             var ratingAvg = ratingsListForCourt.Average();
                                         }
-                                        <p class="card-text"><i class="fa-solid fa-star"></i>@ratingAvg (@ratingsListForCourt.Count())</p>
+                                        <p class="card-text"><i class="fa-solid fa-star fa-spin" style="color: #FFD43B;"></i>@ratingAvg (@ratingsListForCourt.Count())</p>
+                                        <p>In progress:</p>
+                                        @foreach (var item in court.TimeSlots)
+                                        {
+                                            if (item.TsDate == DateOnly.FromDateTime(DateTime.Today))
+                                            {
+                                             <div class="status-active"><i class="fa-solid fa-badminton fa-bounce"></i>@item.TsStart || @item.TsEnd </div>   
+
+
+                                            }
+                                        }
                                         <form asp-action="Date" asp-controller="Home">
                                             <input type="hidden" name="CoId" value="@court.CoId" />
                                             @if(CoId == court.CoId && hours != null)
