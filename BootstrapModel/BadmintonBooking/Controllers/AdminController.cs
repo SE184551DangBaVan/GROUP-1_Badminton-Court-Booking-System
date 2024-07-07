@@ -1,5 +1,6 @@
 ﻿using BadmintonBooking.Models;
 using BadmintonBooking.ViewModels;
+using demobadminton.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -494,6 +495,48 @@ namespace BadmintonBooking.Controllers
             }
 
             return RedirectToAction("CustomerInfo");
+        }
+
+        [HttpGet]
+        public  IActionResult CreateNewUser()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateNewUser(RegisterVM model, List<string> selectedRoles)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new IdentityUser { UserName = model.Email, Email = model.Email, EmailConfirmed = true };
+                var result = await _UserManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
+                {
+                    if (selectedRoles != null && selectedRoles.Any())
+                    {
+                        var roleResult = await _UserManager.AddToRolesAsync(user, selectedRoles);
+                        if (!roleResult.Succeeded)
+                        {
+                            ModelState.AddModelError("", "Error assigning roles to the user.");
+                            return View(model);
+                        }
+                    }
+
+                    // Optionally, you can sign in the user immediately
+                    // await _signInManager.SignInAsync(user, isPersistent: false);
+
+                    return RedirectToAction("CustomerInfo");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
         }
     }
 }
