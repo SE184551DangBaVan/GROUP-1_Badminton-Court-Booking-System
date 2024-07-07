@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using PayPal.Api;
 using System.Diagnostics;
 
 namespace BadmintonBooking.Controllers
@@ -409,13 +410,10 @@ namespace BadmintonBooking.Controllers
                    .ToList();
             switch (sortOrder)
             {
-                case "recent_Booking":
+                case "recent":
                     data = data.OrderByDescending(b => b.BId).ToList();
                     break;
-                case "name_Asc":
-                    data = data.OrderBy(b => b.Co.CoName).ToList();
-                    break;
-                case "old_Booking":
+                case "old":
                     data = data.OrderBy(b => b.BId).ToList();
                     break;
                 default:

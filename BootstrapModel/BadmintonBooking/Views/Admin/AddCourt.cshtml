@@ -31,34 +31,7 @@
                             </div>
                             <div class="form-group">
                                 <label asp-for="CoAddress" class="control-label"></label>
-                                @Html.DropDownListFor(modelItem => modelItem.CoAddress, new[] {
-                                new SelectListItem { Text = "Other", Value = "Other" },
-                                new SelectListItem { Text = "District 1", Value = "District 1" },
-                                new SelectListItem { Text = "District 2", Value = "District 2" },
-                                new SelectListItem { Text = "District 3", Value = "District 3" },
-                                new SelectListItem { Text = "District 4", Value = "District 4" },
-                                new SelectListItem { Text = "District 5", Value = "District 5" },
-                                new SelectListItem { Text = "District 6", Value = "District 6" },
-                                new SelectListItem { Text = "District 7", Value = "District 7" },
-                                new SelectListItem { Text = "District 8", Value = "District 8" },
-                                new SelectListItem { Text = "District 9", Value = "District 9" },
-                                new SelectListItem { Text = "District 10", Value = "District 10" },
-                                new SelectListItem { Text = "District 11", Value = "District 11" },
-                                new SelectListItem { Text = "District 12", Value = "District 12" },
-                                new SelectListItem { Text = "Bình Tân", Value = "Bình Tân" },
-                                new SelectListItem { Text = "Bình Thạnh", Value = "Bình Thạnh" },
-                                new SelectListItem { Text = "Gò Vấp", Value = "Gò Vấp" },
-                                new SelectListItem { Text = "Phú Nhuận", Value = "Phú Nhuận" },
-                                new SelectListItem { Text = "Tân Bình", Value = "Tân Bình" },
-                                new SelectListItem { Text = "Tân Phú", Value = "Tân Phú" },
-                                new SelectListItem { Text = "Thủ Đức", Value = "Thủ Đức" },
-                                new SelectListItem { Text = "Bình Chánh", Value = "Bình Chánh" },
-                                new SelectListItem { Text = "Cần Giờ", Value = "Cần Giờ" },
-                                new SelectListItem { Text = "Củ Chi", Value = "Củ Chi" },
-                                new SelectListItem { Text = "Hóc Môn", Value = "Hóc Môn" },
-                                new SelectListItem { Text = "Nhà Bè", Value = "Nhà Bè" },
-                                new SelectListItem { Text = "Thủ Đức City", Value = "Thủ Đức City" }
-                                }, "Select District", new { @class = "form-control" })
+                                <input asp-for="CoAddress" class="form-control" />
                                 <span asp-validation-for="CoAddress" class="text-danger"></span>
                             </div>
                             <div class="form-group">

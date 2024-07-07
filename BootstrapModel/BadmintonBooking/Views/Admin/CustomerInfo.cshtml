@@ -14,6 +14,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/lib/font-awesome/css/fontawesome.min.css" rel="stylesheet" />
     <link href="~/lib/font-awesome/css/fontawesome.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
 
     
 
@@ -58,18 +59,8 @@
                     <div class="row justify-content-center mb-3">
                         <div class="col-md-6 col-lg-4">
                             <div class="input-group">
-                                <input type="text" placeholder="Search here" id="txtSearch" class="form-control" />
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Sort By
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="/admin/show?page=1&sortOrder=name_asc">Name Ascending</a>
-                                        <a class="dropdown-item" href="/admin/show?page=1&sortOrder=name_desc">Name Descending</a>
-                                        <a class="dropdown-item" href="/admin/show?page=1&sortOrder=price_asc">Price Ascending</a>
-                                        <a class="dropdown-item" href="/admin/show?page=1&sortOrder=price_desc">Price Descending</a>
-                                    </div>
-                                </div>
+                                 <input type="text"  placeholder=" Search here" id="txtSearch" class="form-control" />
+                                
                             </div>
                         </div>
                     </div>
@@ -124,6 +115,8 @@
                                         <td>@user.UserName</td>
                                         <td>@user.Email</td>
                                         <td>
+
+                                         
                                             <div class="dropdown">
                                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownRoles_@user.Id" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     Roles
@@ -181,6 +174,32 @@
             </div>
         </div>
     </div>
+    @if (ViewBag.NoOfPages > 1 || ViewBag.TotalRecords <= 5)
+    {
+        <ul class="pagination justify-content-center mt-4">
+            @{
+                int PrevPage = ViewBag.Page - 1;
+                if (PrevPage <= 0) PrevPage = 1;
+                int NextPage = ViewBag.Page + 1;
+                if (NextPage > ViewBag.NoOfPages) NextPage = ViewBag.NoOfPages;
+            }
+
+            <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
+                <a class="page-link" href="/admin/CustomerInfo?page=@PrevPage">Prev</a>
+            </li>
+
+            @for (int i = 1; i <= ViewBag.NoOfPages; i++)
+            {
+                <li class="page-item @(i == ViewBag.Page ? "active" : "")">
+                    <a class="page-link" href="/admin/CustomerInfo?page=@i">@i</a>
+                </li>
+            }
+
+            <li class="page-item @(ViewBag.Page == ViewBag.NoOfPages ? "disabled" : "")">
+                <a class="page-link" href="/admin/CustomerInfo?page=@NextPage">Next</a>
+            </li>
+        </ul>
+    }
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

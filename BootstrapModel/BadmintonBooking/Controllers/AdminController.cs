@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 
 namespace BadmintonBooking.Controllers
 {
@@ -236,11 +237,28 @@ namespace BadmintonBooking.Controllers
             }
             return uniqueFileName;
         }
-        public IActionResult CustomerInfo()
+        public IActionResult CustomerInfo(int page=1)
         {
+            int NoOfRecordPerPage = 5;
             DemobadmintonContext context = new DemobadmintonContext();
-            var data = _UserManager.Users;
-            return View(data);
+            var data = _UserManager.Users.ToList();
+
+            //pagination
+            int totalRecords = data.Count;
+            int NoOfPages = (int)Math.Ceiling((double)totalRecords / NoOfRecordPerPage);
+            if (NoOfPages == 0) NoOfPages = 1;
+
+            // Pagination logic
+            int NoOfRecordToSkip = (page - 1) * NoOfRecordPerPage;
+            var pagedData = data.Skip(NoOfRecordToSkip).Take(NoOfRecordPerPage).ToList();
+
+            //ViewBag properties
+            ViewBag.Page = page;
+            ViewBag.NoOfPages = NoOfPages;
+            ViewBag.TotalRecords = totalRecords;
+           
+
+            return View(pagedData);
         }
         // public IActionResult OverView()
         //{

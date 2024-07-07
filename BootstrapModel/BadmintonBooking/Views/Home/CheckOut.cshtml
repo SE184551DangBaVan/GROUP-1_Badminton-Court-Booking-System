@@ -136,10 +136,10 @@
                     Sort By
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="/home/checkout?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=recent_Booking">Newest Booking</a>
-                    <a class="dropdown-item" href="/home/checkout?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=old_Booking">Old Booking</a>
-                    <a class="dropdown-item" href="/home/checkout?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=name_Asc">Name Ascending</a>
-                    <a class="dropdown-item" href="/home/checkout?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=name_Desc">Name Descending</a>
+                    <a class="dropdown-item" href="/home/checkout?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=recent">Newest Booking</a>
+                    <a class="dropdown-item" href="/home/checkout?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=old">Old Booking</a>
+                    <!----<a class="dropdown-item" href="/home/checkout?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=name_Asc">Name Ascending</a>
+                    <a class="dropdown-item" href="/home/checkout?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=name_Desc">Name Descending</a>--->
                 </div>
             </div>
         </div>
@@ -158,7 +158,7 @@
                             <h3>Booking ID: @Html.DisplayFor(modelItem => item.BId)</h3>
                             <!-- <p>Court Id: @Html.DisplayFor(modelItem => item.Co.CoId)</p>-->
                             <p>Court Name: @Html.DisplayFor(modelItem => item.Co.CoName)</p>
-                            <p>Address : @Html.DisplayFor(modelItem => item.Co.CoAddress)</p>
+                            <!--<p>Address : @Html.DisplayFor(modelItem => item.Co.CoAddress)</p>-->
                             <p>Type of Booking: @Html.DisplayFor(modelItem => item.BBookingType)</p>
                             <p>Total hours: @Html.DisplayFor(modelItem => item.BTotalHours)</p>
 

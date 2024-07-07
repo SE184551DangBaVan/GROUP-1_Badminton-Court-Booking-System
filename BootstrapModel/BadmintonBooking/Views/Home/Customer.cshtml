@@ -70,17 +70,19 @@
 <div class="container">
     <table class="table">
         <thead>
-            <tr>
-                <th>CoId</th>
-                <th>CoName</th>
-                <th>CoPath</th>
-                <th>CoStatus</th>
-                <th>CoAddress</th>
-                <th>CoInfo</th>
-                <th>CoPrice</th>
-                <th>Actions</th>
-                <th>Rate now</th>
-            </tr>
+         <!--
+                <tr>
+                   <th>CoId</th>
+                   <th>CoName</th>
+                   <th>CoPath</th>
+                   <th>CoStatus</th>
+                   <th>CoAddress</th>
+                   <th>CoInfo</th>
+                   <th>CoPrice</th>
+                   <th>Actions</th>
+                   <th>Rate now</th>
+               </tr>
+         -->   
         </thead>
         @if (Model != null && Model.Any())
         {
@@ -95,7 +97,7 @@
                         <td>@court.CoId</td>
                         <td>@court.CoName</td>
                         <td><img src="~/Upload/Image/@court.CoPath" alt="Court Image" style="width:100px" class="card-img" /></td>
-                        <td>@court.CoStatus</td>
+                        <!--<td>@court.CoStatus</td>-->
                         <td>@court.CoAddress</td>
                         <td>@court.CoInfo</td>
                         <td>@court.CoPrice</td>
