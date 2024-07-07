@@ -236,6 +236,7 @@ nav {
             color: darkgray;
             list-style: none;
         }
+
         .account-actions .drop-menu li:nth-child(3), .account-actions .drop-menu li:nth-child(4) {
             width: 60%;
             color: darkgray;
@@ -389,7 +390,6 @@ nav {
     }
 
 
-
 .forg-btn {
     outline: solid;
     outline-color: brown;
@@ -517,7 +517,8 @@ nav {
 }
 
 .heading {
-    background: rgb(128, 128, 128);
+    background: rgb(128, 128, 128, 0.8);
+    backdrop-filter: blur(3px);
     color: #f4f4f4;
     padding: 15rem;
     margin-bottom: -10px;
@@ -537,7 +538,7 @@ nav {
     .heading .outter-container {
         width: 100%;
         margin: auto;
-        background: #555555d2;
+        background: #555555b2;
         border-radius: 22% 78% 40% 60% / 22% 70% 30% 78%;
     }
 
@@ -583,7 +584,7 @@ nav {
 }
 
 .heading .welcome-container:has(.button:hover) .btn-text:not(.button:hover) {
-    opacity: 10;
+    opacity: 1;
     font-size: medium;
 }
 
@@ -596,17 +597,15 @@ nav {
         margin-top: -650px;
         background: #555;
         border-radius: 0% 100% 58% 42% / 98% 53% 47% 2%;
-        width: 350px;
+        width: 340px;
         height: 500px;
     }
 
     .welc-images .welc2-image {
-        width: 210px;
-        height: 200px;
         margin-top: -650px;
         background: #555;
-        width: 350px;
-        height: 480px;
+        width: 340px;
+        height: 500px;
         border-radius: 64% 36% 0% 100% / 48% 4% 96% 52%;
     }
 
@@ -616,7 +615,6 @@ nav {
     background: #555555d2;
     backdrop-filter: blur(4px);
     overflow: hidden;
-    border-radius: 25% 25% 0% 0% / 1% 1% 100% 100%;
 }
 
     .BookingType h2 {
@@ -666,12 +664,12 @@ nav {
         transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     }
 
-    .court-card.hovered a:nth-child(2) {
-        background-color: #7f8486;
-        padding: 0 10px 3px 10px;
-        transition: all 0.3s ease;
-    }
-
+        .court-card.hovered a:nth-child(2) {
+            outline: solid;
+            outline-color: brown;
+            padding: 0 10px 3px 10px;
+            transition: all 0.3s ease;
+        }
 
     .court-card a:nth-child(2) {
         text-decoration: none;
@@ -694,6 +692,7 @@ nav {
 
     .court-card a:nth-child(2):hover {
         text-decoration: none;
+        outline-color: lightcyan;
         color: lightcyan;
     }
 
@@ -717,6 +716,12 @@ nav {
     transition: all 0.4s ease;
 }
 
+.court-card:hover .court-location {
+    visibility: visible;
+    transform: translateY(-1250%);
+    transition: transform 0.5s ease;
+}
+
 .court-card .assert {
     margin-top: -50px;
     transform: translateY(60%);
@@ -729,6 +734,21 @@ nav {
     .court-card .assert a {
         color: brown;
     }
+
+.court-card .court-location {
+    text-align: center;
+    font-weight: bold;
+    color: #ccc;
+    margin-top: -30px;
+    transform: translateY(-1800%);
+    transition: transform 0.9s ease;
+}
+
+    .court-card .court-location i {
+        color: white;
+        margin-right: 5px;
+    }
+
 
 .court-card:has(.court-select a:hover) .assert:not(a:hover, img:hover) {
     visibility: visible;
@@ -819,6 +839,7 @@ nav {
         .slide-buttons button:hover {
             background-color: #33333382;
             color: white;
+            transform: scale(1.15);
         }
 
 .shape {
@@ -854,15 +875,16 @@ nav {
     background: #555555d2;
     backdrop-filter: blur(4px);
 }
+
     .contact-section .con-container {
         width: 100%;
         height: 600px;
     }
 
-    .contact-section .con-container h2 {
-        text-align: center;
-        margin-bottom: 5rem;
-    }
+        .contact-section .con-container h2 {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
 
     .contact-section .flip-container {
         display: flex;
@@ -896,6 +918,7 @@ nav {
     border-radius: 10px;
     background: url(../images/flip-card-tech1.jpg) center no-repeat;
 }
+
 .flip-container .seccond-card .flip-front {
     color: #88D5BF;
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 1), 1px -1px 0 rgba(0, 0, 0, 1), -1px 1px 0 rgba(0, 0, 0, 1), 1px 1px 0 rgba(0, 0, 0, 1);
@@ -905,6 +928,7 @@ nav {
     border-radius: 10px;
     background: url(../images/flip-card-tech2.jpg) center no-repeat;
 }
+
 .flip-container .third-card .flip-front {
     color: #FBBC05;
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 1), 1px -1px 0 rgba(0, 0, 0, 1), -1px 1px 0 rgba(0, 0, 0, 1), 1px 1px 0 rgba(0, 0, 0, 1);
@@ -913,19 +937,20 @@ nav {
     height: 300px;
     border-radius: 10px;
     background: url(../images/flip-card-tech3.jpg) center no-repeat;
+    transition: all 0.3s ease;
 }
 
-    .contact-section button {
-        padding: 0.5rem 1rem;
-        border: none;
-        background: #333;
-        color: #fff;
-        cursor: pointer;
-    }
+.contact-section button {
+    padding: 0.5rem 1rem;
+    border: none;
+    background: #333;
+    color: #fff;
+    cursor: pointer;
+}
 
-        .contact-section button:hover {
-            background: #555;
-        }
+    .contact-section button:hover {
+        background: #555;
+    }
 
 .flip-container .first-card .flip-back,
 .flip-container .seccond-card .flip-back,
@@ -947,38 +972,43 @@ nav {
     transform: scale(1.05);
     transition: all 0.3s ease;
 }
-.flip-container .first-card:hover .flip-front,
-.flip-container .seccond-card:hover .flip-front,
-.flip-container .third-card:hover .flip-front{
-    -webkit-mask: linear-gradient(white 40%, transparent 95%);
-    mask: linear-gradient(white 40%, transparent 95%);
-    transition: all 0.3s ease;
-}
-    .flip-container .first-card:hover .flip-back {
-        visibility: visible;
-        width: 1400px;
-        height: 400px;
-        backdrop-filter: blur(20px);
-        background-image: linear-gradient(120deg, rgba(142, 201, 214, 0.2), rgba(98, 148, 169, 0.35), rgba(60, 97, 123, 0.5), rgba(28, 51, 78, 0.65), rgba(0, 3, 34, 0.8));
-        transform: translate(-8%, -60%);
+
+    .flip-container .first-card:hover .flip-front,
+    .flip-container .seccond-card:hover .flip-front,
+    .flip-container .third-card:hover .flip-front {
+        -webkit-mask: linear-gradient(white 40%, transparent 95%);
+        mask: linear-gradient(white 40%, transparent 95%);
+        padding: 0 200px 0 150px;
         transition: all 0.3s ease;
     }
+
+    .flip-container .first-card:hover .flip-back {
+        visibility: visible;
+        width: 1200px;
+        height: 400px;
+        backdrop-filter: blur(10px);
+        background-image: linear-gradient(120deg, rgba(142, 201, 214, 0.2), rgba(98, 148, 169, 0.35), rgba(60, 97, 123, 0.5), rgba(28, 51, 78, 0.65), rgba(0, 3, 34, 0.8));
+        transform: translate(0, -60%);
+        transition: all 0.3s ease;
+    }
+
     .flip-container .seccond-card:hover .flip-back {
         visibility: visible;
-        width: 1400px;
+        width: 1200px;
         height: 400px;
-        backdrop-filter: blur(20px);
+        backdrop-filter: blur(10px);
         background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(55, 37, 49, 0.35), rgba(94, 73, 109, 0.5), rgba(111, 119, 181, 0.65), rgba(81, 174, 255, 0.8));
         transform: translate(-39%, -60%);
         transition: all 0.3s ease;
     }
+
     .flip-container .third-card:hover .flip-back {
         visibility: visible;
-        width: 1400px;
+        width: 1200px;
         height: 400px;
-        backdrop-filter: blur(20px);
-        background-image: linear-gradient(60deg, rgba(0, 4, 11, 0.2), rgba(61, 43, 76, 0.35), rgba(158, 64, 103, 0.5), rgba(239, 107, 79, 0.65), rgba(255, 191, 0, 0.8));
-        transform: translate(-69%, -60%);
+        backdrop-filter: blur(10px);
+        background-image: linear-gradient(-60deg, rgba(0, 4, 11, 0.2), rgba(61, 43, 76, 0.35), rgba(158, 64, 103, 0.5), rgba(239, 107, 79, 0.65), rgba(255, 191, 0, 0.8));
+        transform: translate(-70.8%, -60%);
         transition: all 0.3s ease;
     }
 

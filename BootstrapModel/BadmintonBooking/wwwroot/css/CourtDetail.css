@@ -17,7 +17,7 @@ body {
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 7px;
 }
 
 ::-webkit-scrollbar-track {
@@ -227,8 +227,13 @@ img {
 
 .social-links {
     display: flex;
+    gap: 20px;
     align-items: center;
 }
+
+    .social-links p {
+        transform: translateY(30%);
+    }
 
     .social-links a {
         display: flex;
@@ -236,8 +241,8 @@ img {
         justify-content: center;
         width: 32px;
         height: 32px;
-        color: #000;
-        border: 1px solid #000;
+        color: #ddd;
+        border: 1px solid #ddd;
         margin: 0 0.2rem;
         border-radius: 50%;
         text-decoration: none;
@@ -251,12 +256,84 @@ img {
             color: #fff;
         }
 
-.ratings{
-    display: inline-block;
+.ratings {
+    max-height: 500px;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
-.ratings h3 {
-    font-weight: bold;
+    .ratings .reviewers {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        gap: 30px;
+    }
+
+        .ratings .reviewers .reviewers-blocks {
+            outline: 2px solid;
+            border-radius: 4px;
+            margin: 0 5px 2px 5px;
+        }
+
+            .ratings .reviewers .reviewers-blocks p:nth-child(1) {
+                color: white;
+                font-weight: bold;
+            }
+
+            .ratings .reviewers .reviewers-blocks p:nth-child(2) {
+                color: #ffd800;
+                font-weight: 400;
+            }
+
+            .ratings .reviewers .reviewers-blocks p:nth-child(3) {
+                color: #ddd;
+                font-weight: 400;
+            }
+
+            .ratings .reviewers .reviewers-blocks p:nth-child(4) {
+                height: 100px;
+                flex-wrap: wrap;
+                overflow: auto;
+                background-color: #ddd;
+                border-radius: 8px;
+                margin: 20px;
+                font-family: Calibri;
+            }
+
+    .ratings h3 {
+        font-weight: bold;
+        color: #0ff;
+        text-decoration: underline 2px;
+    }
+
+/* Animation for the star */
+@keyframes rotate-star {
+    0% {
+        transform: rotate(90deg);
+    }
+
+    25% {
+        transform: rotate(70deg);
+    }
+
+    50% {
+        transform: rotate(110deg);
+    }
+
+    75% {
+        transform: rotate(70deg);
+    }
+
+    100% {
+        transform: rotate(90deg);
+    }
+}
+
+.animated-star {
+    color: #FFD43B;
+    animation: rotate-star 3s ease-in-out infinite;
+    animation-delay: 0s;
+    animation-fill-mode: both;
 }
 
 @media screen and (min-width: 992px) {

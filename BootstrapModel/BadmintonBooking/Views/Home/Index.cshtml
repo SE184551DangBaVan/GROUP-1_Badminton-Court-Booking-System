@@ -12,7 +12,8 @@
                              {
                                  Name = nameGroup.Key,
                                  ImgUrl = nameGroup.Select(p => p.CoPath).FirstOrDefault(),
-                                 CourtInfo = nameGroup.Select(d => d.CoInfo).FirstOrDefault()
+                                 CourtInfo = nameGroup.Select(d => d.CoInfo).FirstOrDefault(),
+                                 CourtLocation = nameGroup.Select(l => l.CoAddress).FirstOrDefault()
                              }).ToList()
     }).ToList();
 
@@ -69,6 +70,7 @@
                                             <a style="text-decoration:none" asp-controller="home" asp-action="book2" asp-route-address="@addressGroup.Address" asp-route-sortOrder=""><i class="fa-solid fa-circle-info"></i>Information</a>
                                         </div>
                                     </p>
+                                    <div class="court-location"><i class="fa-solid fa-location-dot"></i>@court.CourtLocation</div>
                                 </div>
                             }
                         }

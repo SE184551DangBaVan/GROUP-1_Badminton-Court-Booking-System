@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function startAutoScroll() {
         autoScrollInterval = setInterval(function () {
-            if (currentIndex >= maxIndex+4 && direction === 1) {
+            if (currentIndex >= maxIndex + 2 && direction === 1) {
                 direction = -1;
             } else if (currentIndex <= 0 && direction === -1) {
                 direction = 1;
@@ -104,13 +104,13 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!isUserInteracted) {
                 startAutoScroll();
             }
-        }, 2000); // Adjust idle time here
+        }, 5000); // Adjust idle time here
     }
 
     nextButton.addEventListener('click', function () {
         stopAutoScroll();
         isUserInteracted = true;
-        if (currentIndex < maxIndex+4) {
+        if (currentIndex < maxIndex + 2) {
             currentIndex++;
             slide.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
             updateCardScaling();
