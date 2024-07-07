@@ -29,7 +29,6 @@
     }
 
     function initializeScheduleData() {
-        scheduleData = [];
         const startDate = new Date(currentStartDate);
         for (let i = 0; i < 7; i++) {
             const date = new Date(startDate);
@@ -37,14 +36,28 @@
             const day = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 
             for (let hour = 9; hour <= 20; hour++) {
+                const time = formatTime(hour);
+                const booked = scheduleData.some(slot => slot.date === day && slot.time === time && slot.booked);
+
+                const cell = findCellByTimeAndDate(time, day);
+                if (cell) {
+                    if (booked) {
+                        cell.classList.add("booked");
+                        cell.classList.remove("bookable");
+                        cell.textContent = "Booked";
+                    }
+                }
+
                 scheduleData.push({
                     date: day,
-                    time: formatTime(hour),
-                    booked: false
+                    time: time,
+                    booked: booked
                 });
             }
         }
     }
+
+
 
     function formatTime(hour) {
         const ampm = hour >= 12 ? 'PM' : 'AM';
@@ -53,10 +66,21 @@
     }
 
     function updateWeekRange() {
+        const rows = document.querySelectorAll("#schedule tbody tr");
+        rows.forEach(row => {
+            for (let i = 1; i < row.cells.length; i++) {
+                const cell = row.cells[i];
+                cell.classList.remove("booked", "bookable");
+                cell.textContent = "";
+            }
+        });
+
+
         const startDate = new Date(currentStartDate);
         const endDate = new Date(startDate);
         endDate.setDate(endDate.getDate() + 6);
         weekRangeElement.textContent = `${formatDate(startDate)} - ${formatDate(endDate)}`;
+
         updateTableHeaders(startDate);
         initializeScheduleData();
         addEventListenersToBookableCells();
@@ -116,15 +140,13 @@
 
             // Update schedule data
             const [time, day] = getTimeAndDayFromCell(cell);
-            console.log([time, day]);
-            const timeslot = scheduleData.find(slot => slot.date === day && slot.time === time);
-            if (timeslot) {
-                timeslot.booked = true;
-            }
+            scheduleData.push({ date: day, time: time, booked: true });
+
             sendBookingData({ time, date: day, booked: true });
             updateTotalPrice();
         }
     }
+
 
     function sendBookingData(slot) {
         fetch('/Booking/CreateBooking', {
@@ -156,13 +178,8 @@
             cell.classList.remove("booked");
             cell.classList.add("bookable");
             cell.textContent = "Book Now";
+            scheduleData.forEach(slot => slot.booked = false);
 
-            // Update schedule data
-            const [time, day] = getTimeAndDayFromCell(cell);
-            const timeslot = scheduleData.find(slot => slot.date === day && slot.time === time);
-            if (timeslot) {
-                timeslot.booked = false;
-            }
             fetch('/Booking/Cancel', {
                 method: 'POST',
                 headers: {
@@ -177,7 +194,6 @@
                 })
                 .then(data => {
                     console.log('Success:', data);
-                    // Handle success if needed
                 })
                 .catch(error => {
                     console.error('Error:', error);
