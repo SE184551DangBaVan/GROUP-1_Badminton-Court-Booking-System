@@ -392,7 +392,13 @@ nav {
     }
 
 .login-logout-card {
-    background-image: linear-gradient(to right bottom, #ddf7ff, #92dade, #46bcab, #009c69, #007916);
+    background-image: linear-gradient( to right bottom, rgba(201, 242, 255, 0.8),
+    rgba(156, 173, 190, 0.6),
+    rgba(110, 109, 122, 0.4),
+    rgba(59, 54, 59, 0.2),
+    rgba(0, 0, 0, 0.1)
+    );
+    backdrop-filter: blur(20px);
     border-radius: 10px;
 }
 
