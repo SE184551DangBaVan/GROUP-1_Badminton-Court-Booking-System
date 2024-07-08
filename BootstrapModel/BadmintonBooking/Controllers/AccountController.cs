@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using BadmintonBooking.Models;
 using BadmintonBooking.ViewModels;
 using demobadminton.Repository.Interface;
 using demobadminton.Repository.Service;
@@ -74,22 +75,33 @@ namespace demobadminton.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterVM model)
         {
+            DemobadmintonContext context = new DemobadmintonContext();
             Response response = new Response();
             bool createdByAdmin = (_signInManager.IsSignedIn(User) && User.IsInRole("Admin")) ? true: false;
                 try
             {
                 if (ModelState.IsValid)
                 {
+                    //check email if already existed
                     var chkEmail= await _userManager.FindByEmailAsync(model.Email);
                     if(chkEmail != null)
                     {
+                        TempData["error"] = "Email is already existed";
                         ModelState.AddModelError(string.Empty, "Email is already existed");
                         return View(model);
 
                     }
+                    //check username if already existed
+                    var chkUserName = await _userManager.FindByNameAsync(model.UserName);
+                    if (chkUserName != null)
+                    {
+                        TempData["error"] = "Username is already existed";
+                        ModelState.AddModelError(string.Empty, "Username is already existed");
+                        return View(model);
+                    }
                     var user = new IdentityUser()
                     {
-                        UserName = model.Email,
+                        UserName = model.UserName,
                         Email = model.Email,
                         EmailConfirmed = createdByAdmin,
                         
@@ -110,8 +122,54 @@ namespace demobadminton.Controllers
                         var confirmationLink = Url.Action("ConfirmMail", "Account", new { userId=userId,Token = code},protocol:Request.Scheme);
 
 
-                        string emailBody =  GetEmailBody(model.Email, "Email Confirmation", confirmationLink, "EmailConfirmation");
-                        bool status=   await _emailSender.EmailSendAsync(model.Email, "Email Confirmation",emailBody);
+                        //    string emailBody =  GetEmailBody(model.Email, "Email Confirmation", confirmationLink, "EmailConfirmation");
+
+                        // Email template
+                        string html = $@"
+                <table align='center'>
+                   <tr>
+                       <td>
+                           <table style='background-color:#0d494c' width='500px' align='center'>
+                               <tbody>
+                                   <tr>
+                                       <td>
+                                           <table>
+                                               <tr>
+                                                   <td height='43' align='center'>
+                                                       <h1 style='color:#fff;line-height:1rem'>Email Confirmation</h1>
+                                                   </td>
+                                               </tr>
+                                           </table>
+                                       </td>
+                                   </tr>
+                               </tbody>
+                           </table>
+                           <table style='width:500px;background-color:azure' align='center'>
+                               <tr>
+                                   <td style='padding:20px 20px 0px 0px' align='left'>
+                                       <p style='text-align:justify;margin-top:0px'>
+                                        You are receiving this message because you have recently signed up for a
+                                        <br/>
+                                        <b><em>Badminton Court website</em></b> 
+                                        Confirm your email address by clicking the button below
+                                       </p>
+                                       <div style='text-align:center;margin-top:30px;margin-bottom:30px'>
+                                           <a href='{confirmationLink}' style='background-color:blue;color:white;
+            padding:8px 15px;text-decoration:none;border-radius:10px'>Confirm Email</a>
+                                       </div>
+                                       <p style='text-align:center;margin-top:0px'>This link will expire in <b style='color:red'><i>24 hours</i></b></p>
+                                   <div style='text-align:center'>
+                                       <a href='' target='_blank'></a>
+                                   </div>
+                                   </td>
+                               </tr>
+                           </table>
+                       </td>
+                   </tr>
+                </table>";
+
+                      //  string html = $"<p>Please confirm your email by clicking this link: <a href='{confirmationLink}'>Confirm Email</a></p>";
+                        bool status = await _emailSender.EmailSendAsync(model.Email, "Email Confirmation", html);
                         if (status)
                         {
                             response.Message = "Please check your email for verification";
@@ -263,8 +321,49 @@ namespace demobadminton.Controllers
                 var code =await _userManager.GeneratePasswordResetTokenAsync(user);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, Token = code },
                     protocol:Request.Scheme);
-                string emailBody =  GetEmailBody("", "Reset Password", callbackUrl, "ResetPassword");
-                bool isSendEmail = await _emailSender.EmailSendAsync(forget.Email,"ResetPassword",emailBody);
+                //string emailBody =  GetEmailBody("", "Reset Password", callbackUrl, "ResetPassword");
+                //Email template:
+                string html = $@"
+        <table align='center'>
+           <tr>
+               <td>
+                   <table style='background-color:#0d494c' width='500px' align='center'>
+                       <tbody>
+                           <tr>
+                               <td>
+                                   <table>
+                                       <tr>
+                                           <td height='43' align='center'>
+                                               <h1 style='color:#fff;line-height:1rem'>Reset Password</h1>
+                                           </td>
+                                       </tr>
+                                   </table>
+                               </td>
+                           </tr>
+                       </tbody>
+                   </table>
+                   <table style='width:500px;background-color:azure' align='center'>
+                       <tr>
+                           <td style='padding:20px 20px 0px 0px' align='left'>
+                               <p style='text-align:justify;margin-top:0px'>
+                                Seem like you forgot your password for <b><em>Badminton Court</em></b>.
+                                If this is true, click below to reset your password.
+                               </p>
+                               <div style='text-align:center;margin-top:30px;margin-bottom:30px'>
+                                   <a href='{callbackUrl}' style='background-color:blue;color:white;
+            padding:8px 15px;text-decoration:none;border-radius:10px'>Reset Password</a>
+                               </div>
+                               <p style='text-align:justify;margin-top:0px'>If you did not forget your password, you can ignore this email.</p>
+                           <div style='text-align:center'>
+                               <a href='' target='_blank'></a>
+                           </div>
+                           </td>
+                       </tr>
+                   </table>
+               </td>
+           </tr>
+        </table>";
+                bool isSendEmail = await _emailSender.EmailSendAsync(forget.Email,"ResetPassword",html);
                 if (isSendEmail)
                 {
                     Response response = new Response();
@@ -405,6 +504,8 @@ namespace demobadminton.Controllers
 
         }
 
+
+        //Change current password at profile
         [Authorize]
         public IActionResult ChangeCurrentPassword()
         {
@@ -429,6 +530,7 @@ namespace demobadminton.Controllers
                 return View(model); // Return the view with an error if the current password is incorrect
             }
 
+
             // Change the user's password
             var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
             if (!changePasswordResult.Succeeded)
@@ -445,7 +547,69 @@ namespace demobadminton.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        //edit user
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> EditUser(EditUserViewModel model, string? caller)
+        {
+            //First Fetch the User by Id from the database
+            var user = await _userManager.FindByIdAsync(model.Id);
 
+            //Check if the User Exists in the database
+            if (user == null)
+            {
+                //If the User does not exists in the database, then return Not Found Error View
+                ViewBag.ErrorMessage = $"User with Id = {model.Id} cannot be found";
+                return View("NotFound");
+            }
+            var chkUserName = await _userManager.FindByNameAsync(model.UserName);
+            if (chkUserName != null)
+            {
+                TempData["error"] = "Username is already existed or you can not update your current name as new name";
+                ModelState.AddModelError(string.Empty, "Username is already existed");
+                return RedirectToAction("Profile", "Home");
+            }
+            else
+            {
+                //If the User Exists, then proceed and update the data
+                //Populate the user instance with the data from EditUserViewModel
+                user.Email = model.Email;
+                user.UserName = model.UserName;
+
+                //UpdateAsync Method will update the user data in the AspNetUsers Identity table
+                var result = await _userManager.UpdateAsync(user);
+
+
+                if (result.Succeeded)
+                {
+                    //Once user data updated redirect to the ListUsers view
+                    if (!string.IsNullOrEmpty(caller))
+                    {
+                        TempData["message"] = "Profile updated successfully!";
+                        TempData["info"] = "Log in again to take effect for your username on view panel";
+                        return RedirectToAction("Profile", "Home");
+                    }
+                    else
+                        return RedirectToAction("ListUsers");
+                }
+                else
+                {
+                    //In case any error, stay in the same view and show the model validation error
+                    foreach (var error in result.Errors)
+                    {
+                        if (!string.IsNullOrEmpty(caller))
+                            TempData["error"] = "Profile updated failed";
+                        TempData["info"] = "Our website hasnt supported unikey text names :( ";
+                        return RedirectToAction("Profile", "Home");
+                        ModelState.AddModelError("", error.Description);
+                    }
+                }
+                if (!string.IsNullOrEmpty(caller)) return RedirectToAction("Profile", "Home");
+
+                return View(model);
+            }
+
+        }
 
 
     }

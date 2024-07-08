@@ -4,6 +4,8 @@
     ViewData["Title"] = "Login";
     Layout = "~/Views/Shared/_LayoutLR.cshtml";
 }
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
 <partial name="_Notification" />
 <form method="post" asp-action="Login" asp-controller="Account">
     <input type="hidden" name="ReturnUrl" value="@ViewData["ReturnUrl"]" />
