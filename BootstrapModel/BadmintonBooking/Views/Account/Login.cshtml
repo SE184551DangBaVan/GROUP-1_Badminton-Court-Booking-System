@@ -41,7 +41,7 @@
 
 <div class="External-login">
     <h5>
-        External login
+        <span>or</span>
         @if (Model.Schemes.Count() == 0)
         {
             <div>No external login providers havve configured</div>
@@ -49,14 +49,15 @@
         else
         {
             <form asp-action="ExternalLogin" asp-controller="account">
-                <div>
+                <div class="googleLogin">
                     @foreach (var provider in Model.Schemes)
                     {
-                        <div id="google"></div>
+                        
                         <button type="submit" class="btn btn-primary" name="provider"
                                 value="@provider.Name"
                                 title="Login using your @provider.Name account">
-                            @provider.DisplayName
+
+                            <div><div id="google"></div><span>@provider.DisplayName</span></div>
                         </button>
                     }
                 </div>
