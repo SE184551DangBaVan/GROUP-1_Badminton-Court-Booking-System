@@ -11,36 +11,43 @@
         body {
             /* solid background */
             background: rgb(0,212,255);
-            /* gradient background*/
+            /* gradient background */
             background: linear-gradient(45deg, rgba(0,212,255,1) 0%, rgba(11,3,45,1) 100%);
             /* photo background */
-            background-image: url('/pictures/badmintoncourt.jpeg');
+            background-image: url('../pictures/background-badminton.jpg');
             background-size: cover;
             background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
         }
 
-        .container {
-            backdrop-filter: blur(16px) saturate(180%);
+        .events-wrapper {
+            margin-top: 150px;
+            padding: 20px;
+        }
+
+        .event-container {
+            backdrop-filter: blur(12px) saturate(180%);
             -webkit-backdrop-filter: blur(16px) saturate(180%);
             background-color: rgba(17, 25, 40, 0.25);
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.125);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
             padding: 38px;
             filter: drop-shadow(0 30px 10px rgba(0,0,0,0.125));
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             text-align: center;
+            flex: 1 1 calc(33% - 40px); 
+            box-sizing: border-box;
+            margin-bottom: 20px;
         }
 
         .wrapper {
-            width: 100%;
-            height: 100%;
+            width: 40%;
+            height: 60%;
         }
 
         .banner-image {
@@ -124,7 +131,6 @@
                 transition: all .3s ease;
             }
 
-
         .timeslots-section {
             position: absolute;
             top: 0;
@@ -141,20 +147,22 @@
         }
 
         .filter-buttons {
-            margin-bottom: 20px;
+            z-index: 100;
+            position: fixed;
+            display: block;
+            background-image: linear-gradient(to right bottom, #9ebbc4, #95a6b0, #8b929b, #7e7f84, #6e6e6e);
+            padding: 5px 40px;
+            margin-top: -200px;
+            text-align: center;
+            width: 100%;
         }
 
         .filter-btn {
             margin-right: 10px;
         }
-
-        .filter-buttons{
-            display:block;
-        }
     </style>
 </head>
 <body>
-
     <div class="filter-buttons">
         <a asp-action="UpComingEvent" asp-route-userID="@ViewBag.userID" asp-route-filter="" class="btn @(ViewBag.CurrentFilter == null ? "fill" : "outline") filter-btn">All</a>
         <a asp-action="UpComingEvent" asp-route-userID="@ViewBag.userID" asp-route-filter="Fixed" class="btn @(ViewBag.CurrentFilter == "Fixed" ? "fill" : "outline") filter-btn">Fixed</a>
@@ -169,24 +177,25 @@
     }
     else
     {
-        @foreach (var item in Model)
-        {
-            <div class="container">
-                <div class="wrapper">
+        <div class="events-wrapper">
+            @foreach (var item in Model)
+            {
+                <div class="event-container">
                     @foreach (var ts in item.TimeSlots)
                     {
-                        <div class="banner-image"><img src="/Upload/Image/@item.Co.CoPath" class="img-fluid" alt="@item.Co.CoName"> </div>
-                        <p>Court Name : @Html.DisplayFor(modelItem => item.Co.CoName)</p>
-                        <p>Address : @Html.DisplayFor(modelItem => item.Co.CoAddress)</p>
-                        <p>Date : @Html.DisplayFor(modelItem => ts.TsDate)</p>
-                        <p>Start Time : @Html.DisplayFor(modelItem => ts.TsStart)</p>
-                        <p>End Time : @Html.DisplayFor(modelItem => ts.TsEnd)</p>
-                        <p>Type of Timeslot : @Html.DisplayFor(modelItem => item.BBookingType)</p>
+                    <div class="wrapper">
+                            <div class="banner-image"><img src="/Upload/Image/@item.Co.CoPath" class="img-fluid" alt="@item.Co.CoName"></div>
+                            <p>Court Name : @Html.DisplayFor(modelItem => item.Co.CoName)</p>
+                            <p>Address : @Html.DisplayFor(modelItem => item.Co.CoAddress)</p>
+                            <p>Date : @Html.DisplayFor(modelItem => ts.TsDate)</p>
+                            <p>Start Time : @Html.DisplayFor(modelItem => ts.TsStart)</p>
+                            <p>End Time : @Html.DisplayFor(modelItem => ts.TsEnd)</p>
+                            <p>Type of Timeslot : @Html.DisplayFor(modelItem => item.BBookingType)</p>
+                    
+                    </div>
                     }
                 </div>
-            </div>
-        }
+            }
+        </div>
     }
-    </div>
-</div>
 </body>
