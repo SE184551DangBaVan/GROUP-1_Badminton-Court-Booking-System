@@ -37,15 +37,44 @@
             <div class="form-group" style="width:300px">
                 <input type="text" class="form-control mb-2 mr-sm-2" placeholder="enter keyword" id="txtSearch">
             </div>
+            <!----<form method="get" action="@Url.Action("Book2", "Home")">
+                <input type="text" name="search" placeholder="Search by keyword..." />
+                <input type="hidden" name="address" value="@ViewBag.SearchAddress" />
+                <button type="submit">Search</button>
+            </form>--->
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   Select time
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/home/book2?address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder&selectedTime=">Reset</a>
+                    <a class="dropdown-item" href="/home/book2?address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder&selectedTime=9:00">9AM</a>
+                    <a class="dropdown-item" href="/home/book2?address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder&selectedTime=10:00">10AM</a>
+                    <a class="dropdown-item" href="/home/book2?address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder&selectedTime=11:00">11AM</a>
+                    <a class="dropdown-item" href="/home/book2?address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder&selectedTime=12:00">12PM</a>
+                    <a class="dropdown-item" href="/home/book2?address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder&selectedTime=13:00">1PM</a>
+                    <a class="dropdown-item" href="/home/book2?address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder&selectedTime=14:00">2PM</a>
+                    <a class="dropdown-item" href="/home/book2?address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder&selectedTime=15:00">3PM</a>
+                    <a class="dropdown-item" href="/home/book2?address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder&selectedTime=16:00">4PM</a>
+                    <a class="dropdown-item" href="/home/book2?address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder&selectedTime=17:00">5PM</a>
+                    <a class="dropdown-item" href="/home/book2?address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder&selectedTime=18:00">6PM</a>
+                    <a class="dropdown-item" href="/home/book2?address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder&selectedTime=19:00">7PM</a>
+                    <a class="dropdown-item" href="/home/book2?address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder&selectedTime=20:00">8PM</a>
+                </div>
+            </div>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Sort By
                 </button>
+                @{
+                    var selectime = ViewBag.SelectedTime;
+                }
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="/home/book2?page=1&address=@ViewBag.SearchAddress&sortOrder=name_asc">Name Ascending</a>
-                    <a class="dropdown-item" href="/home/book2?page=1&address=@ViewBag.SearchAddress&sortOrder=name_desc">Name Descending</a>
-                    <a class="dropdown-item" href="/home/book2?page=1&address=@ViewBag.SearchAddress&sortOrder=price_asc">Price Ascending</a>
-                    <a class="dropdown-item" href="/home/book2?page=1&address=@ViewBag.SearchAddress&sortOrder=price_desc">Price Descending </a>
+                    <a class="dropdown-item" href="/home/book2?page=1&address=@ViewBag.SearchAddress&sortOrder=name_asc&selectedTime=@ViewBag.SelectedTime">Name Ascending</a>
+                    <a class="dropdown-item" href="/home/book2?page=1&address=@ViewBag.SearchAddress&sortOrder=name_desc&selectedTime=@ViewBag.SelectedTime">Name Descending</a>
+                    <a class="dropdown-item" href="/home/book2?page=1&address=@ViewBag.SearchAddress&sortOrder=price_asc&selectedTime=@ViewBag.SelectedTime">Price Ascending</a>
+                    <a class="dropdown-item" href="/home/book2?page=1&address=@ViewBag.SearchAddress&sortOrder=price_desc&selectedTime=@ViewBag.SelectedTime">Price Descending </a>
+                    <a class="dropdown-item" href="/home/book2?page=1&address=@ViewBag.SearchAddress&sortOrder=&selectedTime=@ViewBag.SelectedTime">Reset </a>
                 </div>
             </div>
                 
@@ -74,11 +103,12 @@
                                         }
                                         <p class="card-text"><i class="fa-solid fa-star fa-spin" style="color: #FFD43B;"></i>@ratingAvg (@ratingsListForCourt.Count())</p>
                                         <p>In progress:</p>
-                                        @foreach (var item in court.TimeSlots)
+                                     <!---->   @foreach (var item in court.TimeSlots)
                                         {
                                             if (item.TsDate == DateOnly.FromDateTime(DateTime.Today))
                                             {
-                                             <div class="status-active"><i class="fa-solid fa-badminton fa-bounce"></i>@item.TsStart || @item.TsEnd </div>   
+
+                                                <div class="status-active"><i class="fa-solid fa-badminton fa-bounce"></i>@item.TsStart  <i class="fa-light fa-turn-right fa-fade"></i> @item.TsEnd </div>
 
 
                                             }
@@ -133,18 +163,18 @@
                         }
 
                         <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
-                            <a class="page-link" href="/home/book2?page=@PrevPage&address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder">Prev</a>
+                            <a class="page-link" href="/home/book2?page=@PrevPage&address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder&selectTime=@ViewBag.SelectedTime">Prev</a>
                         </li>
 
                         @for (int i = 1; i <= ViewBag.NoOfPages; i++)
                         {
                             <li class="page-item @(i == ViewBag.Page ? "active" : "")">
-                                <a class="page-link" href="/home/book2?page=@i&address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder">@i</a>
+                                <a class="page-link" href="/home/book2?page=@i&address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder&selectTime=@ViewBag.SelectedTime">@i</a>
                             </li>
                         }
 
                         <li class="page-item @(ViewBag.Page == ViewBag.NoOfPages ? "disabled" : "")">
-                            <a class="page-link" href="/home/book2?page=@NextPage&address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder">Next</a>
+                            <a class="page-link" href="/home/book2?page=@NextPage&address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder&selectTime=@ViewBag.SelectedTime">Next</a>
                         </li>
                     </ul>
                 }

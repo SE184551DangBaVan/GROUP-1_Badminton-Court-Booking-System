@@ -77,17 +77,31 @@ namespace BadmintonBooking.Controllers
             return View(data);
         }
 
-        public IActionResult Book2(int page = 1, string address = "", string sortOrder = "")
+        public IActionResult Book2(int page = 1, string address = "", string sortOrder = "", TimeOnly? selectedTime = null)
         {
             int NoOfRecordPerPage = 5;
 
             ViewBag.SearchAddress = address;
-
+            ViewBag.SelectedTime = selectedTime;
 
             // Get court list based on group
             var data = _context.Courts.Include(c => c.TimeSlots).Include(c => c.Bookings)
                                .Where(c => string.IsNullOrEmpty(address) || c.CoAddress == address)
                                .ToList();
+            //Search
+            if (selectedTime.HasValue)
+            {
+                // data = data.Where(c => c.TimeSlots.All(t => t.TsStart != search && t.TsDate == DateOnly.FromDateTime(DateTime.Today)).Any())
+                //.ToList();
+                //data = data.Where(c => c.TimeSlots.Any(t => t.TsStart!= search && t.TsDate == DateOnly.FromDateTime(DateTime.Today)))
+                //.ToList();
+                data = data.Where(c => !c.TimeSlots.Any(ts =>
+                               ts.TsDate == DateOnly.FromDateTime(DateTime.Today) &&
+                               ts.TsStart == selectedTime.Value))
+                 .ToList();
+
+            }
+
             // Sort data
             ViewBag.SortOrder = sortOrder;
             switch (sortOrder)
