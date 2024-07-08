@@ -20,7 +20,7 @@
                         <h4 class="text-right">Profile Settings</h4>
                     </div>
                     <div asp-validation-summary="All" class="text-danger"></div>
-                    <form method="post" asp-action="EditUser" asp-controller="Administration">
+                    <form method="post" asp-action="EditUser" asp-controller="Account">
                         <input asp-for="Id" type="hidden" value="@userManager.GetUserId(User)" />
                         <input type="hidden" name="caller" value="USER PROFILE" />
                         <div class="form-group row">

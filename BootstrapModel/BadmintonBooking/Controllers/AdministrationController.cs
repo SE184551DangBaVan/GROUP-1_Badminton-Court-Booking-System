@@ -52,7 +52,7 @@ namespace BadmintonBooking.Controllers
             //Pass the Model to the View
             return View(model);
         }
-        [Authorize]
+     /*   [Authorize]
         [HttpPost]
         public async Task<IActionResult> EditUser(EditUserViewModel model, string? caller)
         {
@@ -65,6 +65,13 @@ namespace BadmintonBooking.Controllers
                 //If the User does not exists in the database, then return Not Found Error View
                 ViewBag.ErrorMessage = $"User with Id = {model.Id} cannot be found";
                 return View("NotFound");
+            }
+            var chkUserName = await _userManager.FindByNameAsync(model.UserName);
+            if (chkUserName != null)
+            {
+                TempData["error"] = "Username is already existed";
+                ModelState.AddModelError(string.Empty, "Username is already existed");
+                return View(model);
             }
             else
             {
@@ -104,7 +111,7 @@ namespace BadmintonBooking.Controllers
                 return View(model);
             }
             
-        }
+        } */
 
         [HttpPost]
         public async Task<IActionResult> DeleteUser(string UserId)

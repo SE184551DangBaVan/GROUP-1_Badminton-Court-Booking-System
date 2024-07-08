@@ -145,7 +145,7 @@
     }
 
     function sendBookingData(slot) {
-        fetch('/Manger/CreateBooking', {
+        fetch('/Manager/CreateBooking', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -228,16 +228,9 @@
             })
             .then(price => {
                 const bookedCellsCount = document.querySelectorAll(".booked").length;
-                const types = type.value;
 
                 let totalPrice = 0;
-                if (types === "Fixed") {
-                    totalPrice = bookedCellsCount * price * parseInt(weeks.value);
-                } else if (types === "Flexible") {
-                    totalPrice = price * hours.value;
-                } else {
-                    totalPrice = bookedCellsCount * price;
-                }
+                totalPrice = bookedCellsCount * price;
 
                 totalPriceElement.textContent = totalPrice;
                 document.getElementById("price-input").value = totalPrice;
@@ -310,12 +303,12 @@
     confirmButton.addEventListener("click", function (event) {
         var confirmMessage = "Are you certain you with your slots?";
         if (confirm(confirmMessage)) {
-                const bookedCells = document.querySelectorAll(".booked");
-                if (bookedCells.length === 0) {
-                    alert("Please book before continue!");
-                    event.preventDefault();
-                    return;
-                }
+            const bookedCells = document.querySelectorAll(".booked");
+            if (bookedCells.length === 0) {
+                alert("Please book before continue!");
+                event.preventDefault();
+                return;
+            }
             confirmForm.submit();
         }
     });
