@@ -161,13 +161,15 @@ img {
 }
 
 .product-detail p {
+    color: aqua;
     font-size: 0.9rem;
     padding: 0.3rem;
-    opacity: 0.8;
+    opacity: 0.6;
 }
 
 .product-detail ul {
     margin: 1rem 0;
+    color: white;
     font-size: 0.9rem;
 }
 
@@ -226,6 +228,8 @@ img {
         }
 
 .social-links {
+    color: #ddd;
+    font-weight: bold;
     display: flex;
     gap: 20px;
     align-items: center;
