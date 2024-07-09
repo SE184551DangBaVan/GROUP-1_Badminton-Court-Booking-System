@@ -238,7 +238,7 @@ namespace BadmintonBooking.Controllers
             }
             return uniqueFileName;
         }
-        public IActionResult CustomerInfo(int page=1)
+        public IActionResult CustomerInfo(int page = 1)
         {
             int NoOfRecordPerPage = 5;
             DemobadmintonContext context = new DemobadmintonContext();
@@ -257,7 +257,7 @@ namespace BadmintonBooking.Controllers
             ViewBag.Page = page;
             ViewBag.NoOfPages = NoOfPages;
             ViewBag.TotalRecords = totalRecords;
-           
+
 
             return View(pagedData);
         }
@@ -449,7 +449,7 @@ namespace BadmintonBooking.Controllers
                 {
                     ModelState.AddModelError("", "Can't delete the current user");
                     TempData["error"] = "Can not delete current user";
-                    return RedirectToAction("CustomerInfo","admin");
+                    return RedirectToAction("CustomerInfo", "admin");
                 }
                 var result = await _UserManager.DeleteAsync(user);
 
@@ -504,7 +504,7 @@ namespace BadmintonBooking.Controllers
         }
 
         [HttpGet]
-        public  IActionResult CreateNewUser()
+        public IActionResult CreateNewUser()
         {
             return View();
         }
