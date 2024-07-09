@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager;
+@inject UserManager<IdentityUser> UserManager;
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,8 +49,8 @@
                             <div class="row">
                                 <header>Headlines</header>
                                 <ul class="mega-links">
-                                    <li><a href="#">Upcomming Events</a></li>
-                                    <li><a href="#">Booking History</a></li>
+                                        <li><a asp-controller="Home" asp-action="BookingHistory" asp-route-userID="@UserManager.GetUserAsync(User)?.Result?.Id">Booking History</a></li>
+                                        <li><a asp-controller="Home" asp-action="UpComingEvent" asp-route-userID="@UserManager.GetUserAsync(User)?.Result?.Id">UpComing Event</a></li>
                                 </ul>
                             </div>
                         </div>
