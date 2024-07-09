@@ -14,14 +14,16 @@ namespace BadmintonBooking.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly DemobadmintonContext _context;
+        private readonly IWebHostEnvironment environment;
         List<TimeSlot> _slots = new List<TimeSlot>();
 
-        public ManagerController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, IHttpContextAccessor httpContextAccessor, DemobadmintonContext context)
+        public ManagerController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, IHttpContextAccessor httpContextAccessor, DemobadmintonContext context, IWebHostEnvironment environment)
         {
             _logger = logger;
             _userManager = userManager;
             _httpContextAccessor = httpContextAccessor;
             _context = context;
+            this.environment = environment;
         }
         public IActionResult Booking(int page = 1, string sortOrder = "")
         {
@@ -153,6 +155,74 @@ namespace BadmintonBooking.Controllers
             _slots.Clear();
             TempData["Message"] = "Booked successfully!";
             return RedirectToAction("Booking", "Manager");
+        }
+
+        //----------------------------------------
+        public IActionResult AddCourt()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddCourt(Court model)
+        {
+            try
+            {
+                ModelState.Remove("UserId");
+                ModelState.Remove("User");
+                ModelState.Remove("ImagePath");
+                if (ModelState.IsValid)
+                {
+
+
+                    DemobadmintonContext context = new DemobadmintonContext();
+
+                    string uniqueFileName = UploadImage(model);
+                    string userid = _userManager.GetUserId(User);
+                    var data = new Court()
+                    {
+                        CoName = model.CoName,
+                        CoAddress = model.CoAddress,
+                        CoInfo = model.CoInfo,
+                        CoPrice = model.CoPrice,
+                        UserId = userid,
+                        CoStatus = true,
+                        CoPath = uniqueFileName,
+                    };
+                    context.Courts.Add(data);
+                    context.SaveChanges();
+                    TempData["message"] = "Record has been saved successfully";
+
+
+                    return RedirectToAction("Booking");
+
+                }
+                ModelState.AddModelError(string.Empty, "Please check all fields again");
+
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+            }
+            return View(model);
+        }
+
+        private string UploadImage(Court model)
+        {
+            string uniqueFileName = string.Empty;
+            if (model.ImagePath != null)
+            {
+                string uploadFolder = Path.Combine(environment.WebRootPath, "Upload/Image/");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ImagePath.FileName;
+                string filePath = Path.Combine(uploadFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.ImagePath.CopyTo(fileStream);
+                }
+
+
+
+            }
+            return uniqueFileName;
         }
     }
 }

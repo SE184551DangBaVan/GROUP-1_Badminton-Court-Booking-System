@@ -15,32 +15,30 @@
     <link href="~/lib/font-awesome/css/fontawesome.min.css" rel="stylesheet" />
     <link href="~/lib/font-awesome/css/fontawesome.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
 
-    
+    <partial name="_Notification">
+        <style>
+            .table th, .table td {
+                vertical-align: middle;
+            }
 
-    <style>
-        .table th, .table td {
-            vertical-align: middle;
-        }
+            .table img {
+                max-width: 150px;
+                max-height: 150px;
+                object-fit: cover;
+            }
 
-        .table img {
-            max-width: 150px;
-            max-height: 150px;
-            object-fit: cover;
-        }
+            .header-btn {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
 
-        .header-btn {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-       
-
-    </style>
+        </style>
 </head>
 <body>
-   
+
 
     <div class="content">
         <div class="container mt-5">
@@ -59,8 +57,8 @@
                     <div class="row justify-content-center mb-3">
                         <div class="col-md-6 col-lg-4">
                             <div class="input-group">
-                                 <input type="text"  placeholder=" Search here" id="txtSearch" class="form-control" />
-                                
+                                <input type="text" placeholder=" Search here" id="txtSearch" class="form-control" />
+
                             </div>
                         </div>
                     </div>
@@ -110,13 +108,13 @@
                             {
                                 foreach (var user in Model)
                                 {
-                                   
+
                                     <tr>
                                         <td>@user.UserName</td>
                                         <td>@user.Email</td>
                                         <td>
 
-                                         
+
                                             <div class="dropdown">
                                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownRoles_@user.Id" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     Roles
@@ -167,7 +165,7 @@
                                     <td colspan="8">No User available</td>
                                 </tr>
                             }
-                           
+
                         </tbody>
                     </table>
                 </div>
