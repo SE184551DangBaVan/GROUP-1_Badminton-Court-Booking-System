@@ -205,11 +205,9 @@ nav {
     transition: all 0.4s ease;
 }
 
-    .account-actions .drop-menu li {
-        justify-content: center;
-        margin: 10px 0 5px 40px;
-        list-style: none;
-    }
+.mega-box .mega-links li i{
+    margin: 0px 5px 0 5px;
+}
 
         .account-actions .drop-menu li a {
             width: 100%;
@@ -307,6 +305,10 @@ nav {
     width: 200px;
 }
 
+.mega-links li a {
+    text-align: center;
+}
+
 .content .row header {
     color: lightslategray;
     font-weight: bold;
@@ -316,6 +318,10 @@ nav {
 
 .content .row .mega-links {
     list-style: none;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
 }
 /*Login /Register/ Logout Actions*/
 .navbar-nav {
