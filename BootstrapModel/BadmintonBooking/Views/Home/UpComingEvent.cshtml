@@ -25,6 +25,8 @@
         .events-wrapper {
             margin-top: 150px;
             padding: 20px;
+            background-color: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
         }
 
         .event-container {
@@ -165,6 +167,9 @@
     </style>
 </head>
 <body>
+    <@* <video autoplay muted loop plays-inline class="background-video">
+        <source src="../promo-videos/y2mate.com_-_Yonex_Astrox_100_Badminton_Rackets_Promotional_Launch_Video_v720P.mp4" type="video/mp4">
+    </video> *@
     <div class="filter-buttons">
         <a asp-action="UpComingEvent" asp-route-userID="@ViewBag.userID" asp-route-filter="" class="btn @(ViewBag.CurrentFilter == null ? "fill" : "outline") filter-btn">All</a>
         <a asp-action="UpComingEvent" asp-route-userID="@ViewBag.userID" asp-route-filter="Fixed" class="btn @(ViewBag.CurrentFilter == "Fixed" ? "fill" : "outline") filter-btn">Fixed</a>
