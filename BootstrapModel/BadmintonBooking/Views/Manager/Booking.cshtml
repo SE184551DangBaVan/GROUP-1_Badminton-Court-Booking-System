@@ -43,22 +43,28 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
+                                        <div class="selectedCourtInfo">
                                         <h5 class="card-title">@court.CoName</h5>
-                                        <p class="card-text"><i class="fa-solid fa-location-dot"></i> @court.CoAddress</p>
-                                        <p class="card-text"><i class="fa-solid fa-money-bill"></i> @court.CoPrice</p>
-                                        <p class="card-text"><i class="fa-solid fa-circle-info"></i>@court.CoInfo</p>
+                                            <p class="card-text"><i class="fa-solid fa-location-dot" style="color: red"></i> @court.CoAddress</p>
+                                            <p class="card-text"><i class="fa-solid fa-money-bill" style="color: lightblue;"></i> @court.CoPrice</p>
+                                        <p class="card-text"><i class="fa-solid fa-circle-info" ></i>@court.CoInfo</p>
                                         @{
                                             using var context = new DemobadmintonContext();
                                             var ratingsListForCourt = context.Ratings.Where(r => r.CourtId == court.CoId).Select(r => r.Rating1).ToList();
                                             var ratingAvg = ratingsListForCourt.Average();
                                         }
-                                        <p class="card-text"><i class="fa-solid fa-star"></i>@ratingAvg (@ratingsListForCourt.Count())</p>
+                                            <p class="card-text"><i class="fa-solid fa-star fa-spin" style="color: #FFD43B;"></i>@ratingAvg (@ratingsListForCourt.Count())</p>
+                                        </div>
+                                        
                                         <form asp-action="Date" asp-controller="Manager">
+                                            <div class="selectedCourtActions">
                                             <input type="hidden" name="CoId" value="@court.CoId" />
                                             <input type="hidden" name="Types" value="Casual" />
-                                            <br /><button>Book</button>
+                                            <br /><button class="bookBtn">Book</button>
+                                                <a class="detailBtn btn-success" href="/home/CourtDetail?CourtId=@court.CoId">Detail</a>
+                                            </div>
                                         </form>
-                                        <a class="btn btn-success" href="/home/CourtDetail?CourtId=@court.CoId">Detail</a>
+                                            
                                     </div>
                                 </div>
                             </div>

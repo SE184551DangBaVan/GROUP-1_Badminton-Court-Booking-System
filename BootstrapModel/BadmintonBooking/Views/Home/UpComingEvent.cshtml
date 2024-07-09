@@ -14,7 +14,7 @@
             /* gradient background */
             background: linear-gradient(45deg, rgba(0,212,255,1) 0%, rgba(11,3,45,1) 100%);
             /* photo background */
-            background-image: url('../pictures/background-badminton.jpg');
+            background-image: url(../images/desktop-wallpaper-badminton-shuttlecock-sport-equipment-shuttlecock.jpg);
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -180,11 +180,13 @@
     else
     {
         <div class="events-wrapper">
+            <h1>Upcoming Events</h1>
             @foreach (var item in Model)
             {
                 <div class="event-container">
                     @foreach (var ts in item.TimeSlots)
                     {
+                    
                     <div class="wrapper">
                             <div class="banner-image"><img src="/Upload/Image/@item.Co.CoPath" class="img-fluid" alt="@item.Co.CoName"></div>
                             <p>Court Name : @Html.DisplayFor(modelItem => item.Co.CoName)</p>
