@@ -22,10 +22,10 @@
                     Sort By
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="/home/book2?page=1&address=@ViewBag.SearchAddress&sortOrder=name_asc">Name Ascending</a>
-                    <a class="dropdown-item" href="/home/book2?page=1&address=@ViewBag.SearchAddress&sortOrder=name_desc">Name Descending</a>
-                    <a class="dropdown-item" href="/home/book2?page=1&address=@ViewBag.SearchAddress&sortOrder=price_asc">Price Ascending</a>
-                    <a class="dropdown-item" href="/home/book2?page=1&address=@ViewBag.SearchAddress&sortOrder=price_desc">Price Descending </a>
+                    <a class="dropdown-item" href="/manager/booking?page=1&sortOrder=name_asc">Name Ascending</a>
+                    <a class="dropdown-item" href="/manager/booking?page=1&&sortOrder=name_desc">Name Descending</a>
+                    <a class="dropdown-item" href="/manager/booking?page=1&&sortOrder=price_asc">Price Ascending</a>
+                    <a class="dropdown-item" href="/manager/booking?page=1&&sortOrder=price_desc">Price Descending </a>
                 </div>
             </div>
 
@@ -82,25 +82,25 @@
                         }
 
                         <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
-                            <a class="page-link" href="/home/book2?page=@PrevPage&address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder">Prev</a>
+                            <a class="page-link" href="/manager/booking?page=@PrevPage&sortOrder=@ViewBag.SortOrder">Prev</a>
                         </li>
 
                         @for (int i = 1; i <= ViewBag.NoOfPages; i++)
                         {
                             <li class="page-item @(i == ViewBag.Page ? "active" : "")">
-                                <a class="page-link" href="/home/book2?page=@i&address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder">@i</a>
+                                <a class="page-link" href="/manager/booking?page=@i&sortOrder=@ViewBag.SortOrder">@i</a>
                             </li>
                         }
 
                         <li class="page-item @(ViewBag.Page == ViewBag.NoOfPages ? "disabled" : "")">
-                            <a class="page-link" href="/home/book2?page=@NextPage&address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder">Next</a>
+                            <a class="page-link" href="/manager/booking?page=@NextPage&sortOrder=@ViewBag.SortOrder">Next</a>
                         </li>
                     </ul>
                 }
 
 
             </div>
-            <div> <a class="btn btn-primary" asp-action="index" asp-controller="home">Click here to return</a></div>
+            <!--<div> <a class="btn btn-primary" asp-action="index" asp-controller="home">Click here to return</a></div>-->
         </div>
     </div>
 
