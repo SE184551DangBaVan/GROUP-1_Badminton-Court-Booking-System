@@ -219,6 +219,13 @@ namespace demobadminton.Controllers
                         TempData["error"] = "Email is not found";
                         return View(model);
                     }
+                    // Check if the user has a null password and email is confirmed
+                    if (checkEmail.PasswordHash == null && await _userManager.IsEmailConfirmedAsync(checkEmail))
+                    {
+                        ModelState.AddModelError(string.Empty, "This email is already registered for a Google account");
+                        TempData["error"] = "This email is already registered for a Google account";
+                        return View(model);
+                    }
                     if (await _userManager.CheckPasswordAsync(checkEmail, model.Password) == false)
                     {
                         ModelState.AddModelError(string.Empty, "Incorrect Password or Email");
@@ -249,7 +256,7 @@ namespace demobadminton.Controllers
                             else if (User.IsInRole("Staff"))
                             {
                                 TempData["message"] = "Login Successfully as Staff!";
-                                return RedirectToAction("checkin","Home");
+                                return RedirectToAction("staff","Home");
 
                             } else
                             {
