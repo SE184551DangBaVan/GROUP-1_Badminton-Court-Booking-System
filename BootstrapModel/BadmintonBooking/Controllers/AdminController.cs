@@ -445,6 +445,12 @@ namespace BadmintonBooking.Controllers
             else
             {
                 //Delete the User Using DeleteAsync Method of UserManager Service
+                if (_UserManager.GetUserId(User) == user.Id)
+                {
+                    ModelState.AddModelError("", "Can't delete the current user");
+                    TempData["error"] = "Can not delete current user";
+                    return RedirectToAction("CustomerInfo","admin");
+                }
                 var result = await _UserManager.DeleteAsync(user);
 
                 if (result.Succeeded)
@@ -508,7 +514,7 @@ namespace BadmintonBooking.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = model.Email, Email = model.Email, EmailConfirmed = true };
+                var user = new IdentityUser { UserName = model.UserName, Email = model.Email, EmailConfirmed = true };
                 var result = await _UserManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
