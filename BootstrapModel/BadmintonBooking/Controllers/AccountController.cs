@@ -219,6 +219,13 @@ namespace demobadminton.Controllers
                         TempData["error"] = "Email is not found";
                         return View(model);
                     }
+                    // Check if the user has a null password and email is confirmed
+                    if (checkEmail.PasswordHash == null && await _userManager.IsEmailConfirmedAsync(checkEmail))
+                    {
+                        ModelState.AddModelError(string.Empty, "This email is already registered for a Google account");
+                        TempData["error"] = "This email is already registered for a Google account";
+                        return View(model);
+                    }
                     if (await _userManager.CheckPasswordAsync(checkEmail, model.Password) == false)
                     {
                         ModelState.AddModelError(string.Empty, "Incorrect Password or Email");
@@ -249,7 +256,7 @@ namespace demobadminton.Controllers
                             else if (User.IsInRole("Staff"))
                             {
                                 TempData["message"] = "Login Successfully as Staff!";
-                                return RedirectToAction("checkin","Home");
+                                return RedirectToAction("staff","Home");
 
                             } else
                             {
@@ -275,7 +282,7 @@ namespace demobadminton.Controllers
 			TempData["message"] = "Logout Successfully!";
 			return RedirectToAction("Login", "Account");
         }
-        public string GetEmailBody(string username,string? title,string? callbackUrl,string?EmailTemplateName)
+    /*    public string GetEmailBody(string username,string? title,string? callbackUrl,string?EmailTemplateName)
         {
             string url = configuration.GetValue<string>("Urls:LoginUrl");
             string path = Path.Combine(_webHostEnvironment.WebRootPath, "Template/"+ EmailTemplateName +".cshtml");
@@ -288,7 +295,7 @@ namespace demobadminton.Controllers
 
         }
 
-
+        */
 
 
         private IUserEmailStore<IdentityUser> GetEmailStore()
@@ -610,6 +617,89 @@ namespace demobadminton.Controllers
             }
 
         }
+        public IActionResult ResendEmailConfirmation()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> ResendEmailConfirmation(ResendEmailConfirmationVM model)
+        {
+           Response response = new Response();
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                TempData["error"] = "Email is not found";
+                TempData["info"] = "Have you created your account yet?";
+                ModelState.AddModelError(string.Empty, "Email is not found");
+                return View(model);
+            }
+            if (user.EmailConfirmed)
+            {
+                TempData["info"] = "Email is already confirmed";
+                ModelState.AddModelError(string.Empty, "Email is already confirmed");
+                return View(model);
+            }
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var confirmationLink = Url.Action("ConfirmMail", "Account", new { userId = user.Id, Token = code }, protocol: Request.Scheme);
+            //REsend email confirm template
+            string html = $@"
+        <table align='center'>
+           <tr>
+               <td>
+                   <table style='background-color:#0d494c' width='500px' align='center'>
+                       <tbody>
+                           <tr>
+                               <td>
+                                   <table>
+                                       <tr>
+                                           <td height='43' align='center'>
+                                               <h3 style='color:#fff;line-height:1rem'>Resend Email Confirmation</h3>
+                                           </td>
+                                       </tr>
+                                   </table>
+                               </td>
+                           </tr>
+                       </tbody>
+                   </table>
+                   <table style='width:500px;background-color:azure' align='center'>
+                       <tr>
+                           <td style='padding:20px 20px 0px 0px' align='left'>
+                               <p style='text-align:justify;margin-top:0px'>
+                                Seem like you want to confirm your account for <b><em>Badminton Court</em></b>.
+                                If this is true, click below to authenticate your account.
+                               </p>
+                               <div style='text-align:center;margin-top:30px;margin-bottom:30px'>
+                                   <a href='{confirmationLink}' style='background-color:blue;color:white;
+            padding:8px 15px;text-decoration:none;border-radius:10px'>Confirm Email</a>
+                               </div>
+                               <p style='text-align:justify;margin-top:0px'>Thank you for trusting our services.</p>
+                           <div style='text-align:center'>
+                               <a href='' target='_blank'></a>
+                           </div>
+                           </td>
+                       </tr>
+                   </table>
+               </td>
+           </tr>
+        </table>";
+
+            bool status = await _emailSender.EmailSendAsync(model.Email, "Resend Email Confirmation", html);
+            if (status)
+            {
+                response.Message = "Please check your email for verification";
+                return RedirectToAction("ForgetPasswordConfirmation", "Account", response);
+            }
+
+            return View();
+        }
+
+
+
+
 
 
     }
