@@ -4,6 +4,7 @@ using demobadminton.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,12 +18,13 @@ namespace BadmintonBooking.Controllers
         private readonly IWebHostEnvironment environment;
         private readonly UserManager<IdentityUser> _UserManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-
-        public AdminController(IWebHostEnvironment environment, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        private readonly DemobadmintonContext _context;
+        public AdminController(IWebHostEnvironment environment, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager,DemobadmintonContext context)
         {
             this.environment = environment;
             this._UserManager = userManager;
             _roleManager = roleManager;
+            _context = context;
         }
 
         public IActionResult Show(int page = 1, string sortOrder = "")
@@ -63,16 +65,33 @@ namespace BadmintonBooking.Controllers
         }
         public IActionResult AddCourt()
         {
+            var addressList = _context.Courts
+       .Select(c => c.CoAddress)
+       .Distinct()
+       .ToList();
+            ViewBag.AddressList = new SelectList(addressList);
             return View();
         }
         [HttpPost]
-        public IActionResult AddCourt(Court model)
+        public IActionResult AddCourt(Court model,string CoAddressTextBox)
         {
             try
             {
                 ModelState.Remove("UserId");
                 ModelState.Remove("User");
                 ModelState.Remove("ImagePath");
+          //      if(model.CoAddress == null && CoAddressTextBox == null)
+            //    {
+            //        TempData["error"] = "You cant leave blank address ";
+             //       return View(model);
+             //   }
+                if (model.CoAddress == null)
+                {
+                    ModelState.Remove("CoAddress");
+                }else
+                {
+                    ModelState.Remove("CoAddressTextBox");
+                }
                 if (ModelState.IsValid)
                 {
 
@@ -81,16 +100,23 @@ namespace BadmintonBooking.Controllers
 
                     string uniqueFileName = UploadImage(model);
                     string userid = _UserManager.GetUserId(User);
-                    var data = new Court()
+                    var data = new Court();
+
+                    data.CoName = model.CoName;
+                    if (model.CoAddress == null) {
+                        data.CoAddress = CoAddressTextBox;
+                    }
+                    else
                     {
-                        CoName = model.CoName,
-                        CoAddress = model.CoAddress,
-                        CoInfo = model.CoInfo,
-                        CoPrice = model.CoPrice,
-                        UserId = userid,
-                        CoStatus = true,
-                        CoPath = uniqueFileName,
-                    };
+                        data.CoAddress = model.CoAddress;
+                    }
+                    
+                    data.CoInfo = model.CoInfo;
+                    data.CoPrice = model.CoPrice;
+                    data.UserId = userid;
+                    data.CoStatus = true;
+                    data.CoPath = uniqueFileName;
+                    
                     context.Courts.Add(data);
                     context.SaveChanges();
                     TempData["message"] = "Record has been saved successfully";
@@ -124,6 +150,11 @@ namespace BadmintonBooking.Controllers
         public IActionResult EditCourt(int id)
         {
             DemobadmintonContext context = new DemobadmintonContext();
+            var addressList = _context.Courts
+      .Select(c => c.CoAddress)
+      .Distinct()
+      .ToList();
+            ViewBag.AddressList = new SelectList(addressList);
             var data = context.Courts.FirstOrDefault(c => c.CoId == id);
             if (data != null)
             {

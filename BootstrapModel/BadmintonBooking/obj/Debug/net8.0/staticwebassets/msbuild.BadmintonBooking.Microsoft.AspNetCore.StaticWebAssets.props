@@ -1952,6 +1952,22 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\js\bootstrap.min.js.map))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\js\CourtDropDown.js))">
+      <SourceType>Package</SourceType>
+      <SourceId>BadmintonBooking</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/BadmintonBooking</BasePath>
+      <RelativePath>js/CourtDropDown.js</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\js\CourtDropDown.js))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\js\JavaScript.js))">
       <SourceType>Package</SourceType>
       <SourceId>BadmintonBooking</SourceId>
@@ -5360,6 +5376,38 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\pictures\vi.png))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\promo-videos\y2mate.com_-_Yonex_Astrox_100_Badminton_Rackets_Promotional_Launch_Video_v720P.mp4))">
+      <SourceType>Package</SourceType>
+      <SourceId>BadmintonBooking</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/BadmintonBooking</BasePath>
+      <RelativePath>promo-videos/y2mate.com_-_Yonex_Astrox_100_Badminton_Rackets_Promotional_Launch_Video_v720P.mp4</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\promo-videos\y2mate.com_-_Yonex_Astrox_100_Badminton_Rackets_Promotional_Launch_Video_v720P.mp4))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\04dc97a3-8a8c-49bb-b377-69eb370452ad_flowers-276014_640.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>BadmintonBooking</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/BadmintonBooking</BasePath>
+      <RelativePath>Upload/Image/04dc97a3-8a8c-49bb-b377-69eb370452ad_flowers-276014_640.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\04dc97a3-8a8c-49bb-b377-69eb370452ad_flowers-276014_640.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\09966d00-0af2-4eb4-94c3-794c1339710c_court4.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>BadmintonBooking</SourceId>
@@ -5375,6 +5423,38 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\09966d00-0af2-4eb4-94c3-794c1339710c_court4.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\0c30f8f1-6421-4287-8229-88838db98eb6_flowers-276014_640.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>BadmintonBooking</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/BadmintonBooking</BasePath>
+      <RelativePath>Upload/Image/0c30f8f1-6421-4287-8229-88838db98eb6_flowers-276014_640.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\0c30f8f1-6421-4287-8229-88838db98eb6_flowers-276014_640.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\0ead6456-f41e-4c1e-9a00-aba7362245b3_flowers-276014_640.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>BadmintonBooking</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/BadmintonBooking</BasePath>
+      <RelativePath>Upload/Image/0ead6456-f41e-4c1e-9a00-aba7362245b3_flowers-276014_640.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\0ead6456-f41e-4c1e-9a00-aba7362245b3_flowers-276014_640.jpg))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\15b3c9f5-8700-4bce-b1ba-293cb183b792_court3.jpg))">
       <SourceType>Package</SourceType>
@@ -5407,6 +5487,22 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\1b205ae6-f4f6-4628-827f-27d9535c855d_court4.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\2de8adb8-038a-4908-8af2-58490a791b26_flowers-276014_640.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>BadmintonBooking</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/BadmintonBooking</BasePath>
+      <RelativePath>Upload/Image/2de8adb8-038a-4908-8af2-58490a791b26_flowers-276014_640.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\2de8adb8-038a-4908-8af2-58490a791b26_flowers-276014_640.jpg))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\326f4cb1-423e-4b5d-afa0-a37d3aeff527_court2.jpg))">
       <SourceType>Package</SourceType>
@@ -5455,6 +5551,22 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\48c36fb9-7dc3-4a76-9326-6c69b8cdb892_court4.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\4da4f1bb-a93b-4fab-aaf6-50949dba4d3c_flowers-276014_640.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>BadmintonBooking</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/BadmintonBooking</BasePath>
+      <RelativePath>Upload/Image/4da4f1bb-a93b-4fab-aaf6-50949dba4d3c_flowers-276014_640.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\4da4f1bb-a93b-4fab-aaf6-50949dba4d3c_flowers-276014_640.jpg))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\678a5c13-624f-41fc-b0a0-bee768df7ae7_nhanvien.jpg))">
       <SourceType>Package</SourceType>
@@ -5536,6 +5648,22 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\8fd77cc6-a784-4efe-a36c-7792f3a9b808_1689220970-SÂNCẦULÔNGSGBVƯỜNLÀI(3).jpg))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\aafb7d06-e5f7-4edd-a0f0-4ef5e1ab7f47_flowers-276014_640.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>BadmintonBooking</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/BadmintonBooking</BasePath>
+      <RelativePath>Upload/Image/aafb7d06-e5f7-4edd-a0f0-4ef5e1ab7f47_flowers-276014_640.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\aafb7d06-e5f7-4edd-a0f0-4ef5e1ab7f47_flowers-276014_640.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\ab99534b-98ba-4ad5-a741-178fed3c52b2_jojo.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>BadmintonBooking</SourceId>
@@ -5551,6 +5679,38 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\ab99534b-98ba-4ad5-a741-178fed3c52b2_jojo.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\b7f3a472-87c0-4736-b3c5-1d728e5fbb4e_flowers-276014_640.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>BadmintonBooking</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/BadmintonBooking</BasePath>
+      <RelativePath>Upload/Image/b7f3a472-87c0-4736-b3c5-1d728e5fbb4e_flowers-276014_640.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\b7f3a472-87c0-4736-b3c5-1d728e5fbb4e_flowers-276014_640.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\b8d9d000-b886-4196-bdbb-cbf19120cc21_flowers-276014_640.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>BadmintonBooking</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/BadmintonBooking</BasePath>
+      <RelativePath>Upload/Image/b8d9d000-b886-4196-bdbb-cbf19120cc21_flowers-276014_640.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\b8d9d000-b886-4196-bdbb-cbf19120cc21_flowers-276014_640.jpg))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\b929d15a-7a6d-4e0f-ac0a-b5fba2b1e95d_court3.jpg))">
       <SourceType>Package</SourceType>
@@ -5615,6 +5775,22 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\d19d5529-7dbf-4dee-b0b7-a722bb1de1ca_court4.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\d2896e99-901a-4b28-a859-fcc220783e33_flowers-276014_640.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>BadmintonBooking</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/BadmintonBooking</BasePath>
+      <RelativePath>Upload/Image/d2896e99-901a-4b28-a859-fcc220783e33_flowers-276014_640.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\d2896e99-901a-4b28-a859-fcc220783e33_flowers-276014_640.jpg))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Upload\Image\def054e7-76db-4209-9acd-d8d838a080c4_flowers-276014_640.jpg))">
       <SourceType>Package</SourceType>
