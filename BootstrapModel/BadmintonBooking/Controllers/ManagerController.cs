@@ -23,17 +23,17 @@ namespace BadmintonBooking.Controllers
             _httpContextAccessor = httpContextAccessor;
             _context = context;
         }
-        public IActionResult Booking(int page = 1, string address = "", string sortOrder = "")
+        public IActionResult Booking(int page = 1, string sortOrder = "")
         {
             string userId = _userManager.GetUserId(User);
             int NoOfRecordPerPage = 5;
 
-            ViewBag.SearchAddress = address;
+            //ViewBag.SearchAddress = address;
 
 
             // Get court list based on group
             var data = _context.Courts
-                               .Where(c => string.IsNullOrEmpty(address) || c.CoAddress == address && c.UserId == userId)
+                               
                                .ToList();
             // Sort data
             ViewBag.SortOrder = sortOrder;
