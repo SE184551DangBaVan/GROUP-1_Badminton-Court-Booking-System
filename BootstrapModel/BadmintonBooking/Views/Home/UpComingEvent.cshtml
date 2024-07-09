@@ -28,9 +28,6 @@
         }
 
         .event-container {
-            backdrop-filter: blur(12px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
-            background-color: rgba(17, 25, 40, 0.25);
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.125);
             display: flex;
@@ -48,6 +45,11 @@
         .wrapper {
             width: 40%;
             height: 60%;
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            background-color: rgba(17, 25, 40, 0.25);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.125);
         }
 
         .banner-image {
@@ -173,7 +175,7 @@
     @if (Model == null || !Model.Any())
     {
         string currentFilter = ViewBag.CurrentFilter ?? "";
-        <h1>You don't have any booked @currentFilter timeslots now</h1>
+        <h1>You haven't booked a court to see Upcoming Events at @currentFilter timeslots now</h1>
     }
     else
     {

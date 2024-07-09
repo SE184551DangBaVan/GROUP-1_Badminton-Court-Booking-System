@@ -120,8 +120,8 @@
             <ul class="drop-menu">
                 <li><a asp-area="" asp-controller="Home" asp-action="Profile">Profile</a></li>
                 <li><a asp-controller="Home" asp-action="customer">Check Out</a></li>
-                <li><a asp-controller="Home" asp-action="BookingHistory" asp-route-userID="@UserManager.GetUserAsync(User)?.Result?.Id">Booking History</a></li>
-                <li><a asp-controller="Home" asp-action="UpComingEvent" asp-route-userID="@UserManager.GetUserAsync(User)?.Result?.Id">UpComing Event</a></li>
+                <li><a asp-controller="Home" asp-action="BookingHistory" asp-route-userID="@UserManager.GetUserAsync(User)?.Result?.Id"><i class="fa-solid fa-clock-rotate-left"></i>Booking History</a></li>
+                <li><a asp-controller="Home" asp-action="UpComingEvent" asp-route-userID="@UserManager.GetUserAsync(User)?.Result?.Id"><i class="fa-regular fa-calendar-days"></i>UpComing Event</a></li>
                 <!-- <li><a href="#">Dashboard</a></li>-->
                 <li class="logout nav-item">
                     <a class="nav-link text-light" asp-controller="Account" asp-action="Logout"><i class="fa-solid fa-right-from-bracket"></i>LogOut</a>

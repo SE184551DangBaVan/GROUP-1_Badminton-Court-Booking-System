@@ -5,29 +5,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/lib/font-awesome/css/fontawesome.min.css" rel="stylesheet" />
     <link href="~/lib/font-awesome/css/fontawesome.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.js"></script>
     <link rel="stylesheet" href="~/demobadminton.styles.css" asp-append-version="true" />
-
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-          rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <!--Add Toastr Notification-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
-
     <title>Manager</title>
-
     <style>
+        body {
+            display: flex;
+        }
+
         .table th, .table td {
             vertical-align: middle;
         }
@@ -45,56 +43,142 @@
         }
 
         .navigation {
-            background-color: #343a40; /* Dark background for the sidebar */
-            height: 100vh; /* Full height */
-            position: fixed; /* Fixed position */
+            background-color: #343a40;
+            height: 100vh;
+            position: fixed;
             top: 0;
             left: 0;
-            width: 250px; /* Fixed width */
-            overflow-y: auto; /* Scroll if content overflows */
+            width: 250px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            transition: width 0.4s ease, backdrop-filter 0.4s ease;
+            backdrop-filter: blur(0px);
+            z-index: 1000;
         }
 
-            .navigation .nav {
-                flex-direction: column;
-                height: 100%;
+        .navigation-bg {
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(250, 250, 250, 0.2);
+            backdrop-filter: blur(5px);
+            z-index: 999;
+            transition: background-color 0.4s ease, backdrop-filter 0.4s ease;
+        }
+
+            .navigation-bg.minimized {
+                background-color: transparent;
+                backdrop-filter: none;
+                visibility: hidden;
             }
 
-            .navigation .nav-item {
-                width: 100%;
+        .navigation.minimized {
+            width: 60px;
+            transition: all 0.3s ease;
+        }
+
+        .navigation .nav {
+            flex-direction: column;
+            height: 100%;
+            padding-top: 50px;
+            transition: visibility 0.3s ease;
+        }
+
+        .navigation .nav-item {
+            visibility: visible;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: left;
+        }
+
+        .navigation .nav-link {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            padding: 15px;
+            color: #fff;
+            text-decoration: none;
+            visibility: visible;
+            transition: background-color 0.3s ease, visibility 0.4s ease;
+        }
+
+            .navigation .nav-link:hover {
+                background-color: #495057;
             }
 
-            .navigation .nav-link {
-                display: flex;
-                align-items: center;
-                padding: 15px;
-                color: #fff;
-                text-decoration: none;
-                transition: background-color 0.3s ease;
+            .navigation .nav-link.minimized {
+                visibility: hidden;
+                transition: visibility 0.3s ease;
             }
 
-                .navigation .nav-link:hover {
-                    background-color: #495057; /* Slightly lighter shade on hover */
-                }
+        .navigation .icon {
+            visibility: visible;
+            font-size: 1.5em;
+            margin-right: 10px;
+            transition: visibility 0.3s ease;
+        }
 
-            .navigation .icon {
-                font-size: 1.5em;
-                margin-right: 10px;
-            }
+        .navigation.minimized .icon {
+            margin: 0;
+            font-size: 2em;
+            visibility: hidden;
+        }
 
-            .navigation .title {
-                font-size: 1.1em;
-            }
+        .navigation .title {
+            font-size: 1.1em;
+            transition: opacity 0.4s ease;
+        }
+
+        .navigation.minimized .title {
+            opacity: 0;
+        }
 
         .content {
-            margin-left: 250px; /* Same width as the sidebar */
+            flex: 1;
             padding: 20px;
         }
 
+        .toggle-btn {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            z-index: 1001; /* Above the navigation menu */
+        }
     </style>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const toggleBtn = document.querySelector('.toggle-btn');
+            const navigation = document.querySelector('.navigation');
+            const navigationBG = document.querySelector('.navigation-bg');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            toggleBtn.addEventListener('click', function () {
+                navigation.classList.toggle('minimized');
+                navigationBG.classList.toggle('minimized');
+                toggleBtn.classList.toggle('fa-xmark');
+                toggleBtn.classList.toggle('fa-bars');
+
+                navLinks.forEach(link => {
+                    link.classList.toggle('minimized');
+                });
+            });
+        });
+    </script>
 </head>
 <body>
+    <button class="toggle-btn fa fa-xmark"></button>
+    <div class="navigation-bg"></div>
     <div class="navigation">
         <ul class="nav flex-column bg-dark text-white">
             <li class="nav-item">
@@ -123,9 +207,8 @@
             </li>
         </ul>
     </div>
-    <main role="main" class="">
+    <main role="main" class="content">
         @RenderBody()
     </main>
 </body>
 </html>
-

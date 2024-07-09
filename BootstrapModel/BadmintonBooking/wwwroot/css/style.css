@@ -208,6 +208,7 @@ nav {
     .account-actions .drop-menu li {
         justify-content: center;
         margin: 10px 0 5px 40px;
+        list-style: none;
     }
 
         .account-actions .drop-menu li a {
@@ -221,6 +222,8 @@ nav {
             color: #ccc;
             transition: all 0.3s ease;
         }
+
+        .account-actions .drop-menu li a i {margin: 0 5px 0 -10px;}
 
             .account-actions .drop-menu li a:nth-child(1):hover, .account-actions .drop-menu li a:nth-child(2):hover,
             .account-actions .drop-menu li a:nth-child(3):hover {
@@ -1751,8 +1754,7 @@ nav {
 
 /*Invoice*/
 .inv-body {
-    background-image: linear-gradient(to right bottom, #000000, #371f2d, #603c64, #7962aa, #6e91f8);
-    font-size: 12px;
+    background-image: linear-gradient(to left top, #9ebbc4, #95a6b0, #8b929b, #7e7f84, #6e6e6e);
     line-height: 20px;
     padding: 80px 20px;
     overflow: hidden;
@@ -1762,7 +1764,7 @@ nav {
         width: 600px;
         max-width: 100%;
         height: auto;
-        background-image: linear-gradient(to right bottom, #3e69ff, #6787ff, #8aa4ff, #aec1ff, #d2ddff);
+        background-image: linear-gradient(to right bottom, #ffffff, #d5d5da, #acaeb7, #838895, #5b6474);
         padding: 50px 60px;
         position: relative;
         margin: 20px auto;
