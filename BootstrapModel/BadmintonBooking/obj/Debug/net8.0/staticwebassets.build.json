@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Iq8kEXgPd3tsgGfAXAVd1bf6PFawoiyWG5bTg/HFZSM=",
+  "Hash": "yK6055ogmzcjq7YBF+VgdHsOEEZ7+Xy+5A/Q4UEyBXU=",
   "Source": "BadmintonBooking",
   "BasePath": "_content/BadmintonBooking",
   "Mode": "Default",
@@ -5867,6 +5867,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Upload\\Image\\4da4f1bb-a93b-4fab-aaf6-50949dba4d3c_flowers-276014_640.jpg"
+    },
+    {
+      "Identity": "C:\\swp391\\swp release 6\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\wwwroot\\Upload\\Image\\537830ee-1e5a-447c-b200-7c49717b175a_flowers-276014_640.jpg",
+      "SourceId": "BadmintonBooking",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\swp391\\swp release 6\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\wwwroot\\",
+      "BasePath": "_content/BadmintonBooking",
+      "RelativePath": "Upload/Image/537830ee-1e5a-447c-b200-7c49717b175a_flowers-276014_640.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Upload\\Image\\537830ee-1e5a-447c-b200-7c49717b175a_flowers-276014_640.jpg"
     },
     {
       "Identity": "C:\\swp391\\swp release 6\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\wwwroot\\Upload\\Image\\678a5c13-624f-41fc-b0a0-bee768df7ae7_nhanvien.jpg",

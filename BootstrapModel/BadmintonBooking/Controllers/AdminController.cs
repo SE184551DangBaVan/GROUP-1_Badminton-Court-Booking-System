@@ -65,7 +65,7 @@ namespace BadmintonBooking.Controllers
         }
         public IActionResult AddCourt()
         {
-            var addressList = _context.Courts
+            var addressList = _context.Courts.Where(c=>c.CoStatus==true)
        .Select(c => c.CoAddress)
        .Distinct()
        .ToList();
@@ -150,7 +150,7 @@ namespace BadmintonBooking.Controllers
         public IActionResult EditCourt(int id)
         {
             DemobadmintonContext context = new DemobadmintonContext();
-            var addressList = _context.Courts
+            var addressList = _context.Courts.Where(c=>c.CoStatus==true)
       .Select(c => c.CoAddress)
       .Distinct()
       .ToList();
