@@ -1,9 +1,12 @@
 using BadmintonBooking.Models;
+using BadmintonBooking.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using PayPal.Api;
 using System.Diagnostics;
 
@@ -610,7 +613,52 @@ namespace BadmintonBooking.Controllers
             ViewBag.CurrentFilter = filter;
             return View(validFutureTimeSlot);
         }
+        public async Task<IActionResult> CourtToCheckQuality()
+        {
+            var court = await _context.Courts.ToListAsync();
+            return View(court);
+        }
+        [HttpGet]
+        public IActionResult CourtQualityCheck(int? CoId)
+        {
+            _httpContextAccessor.HttpContext.Session.Remove("CoId");
+            if (CoId.HasValue)
+            {
+                _httpContextAccessor.HttpContext.Session.SetString("CoId", CoId.ToString());
+            }
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CourtQualityCheck(CourtQualityViewModel model)
+        {
+            if(ModelState.IsValid)
+            {
+                int CourtId = int.Parse(HttpContext.Session.GetString("CoId"));
+                CourtCondition courtCondition = new CourtCondition() 
+                { 
+                    CdCleanlinessCondition = model.CdCleanlinessCondtion,
+                    CdLightningCondition = model.CdLightningCondition,
+                    CdNetCondition = model.CdNetCondition,
+                    CdSurfaceCondition = model.CdSurfaceCondition,
+                    CdOverallCondition = model.CdOverallCondition,
+                    CoId = CourtId,
+                    CdCreatedAt = DateTime.Now,
+                    CdNotes = model.CdNotes,
+                };
+                _context.CourtConditions.Add(courtCondition);
+                _context.SaveChanges();
+                if(User.IsInRole("Staff")) return RedirectToAction("Staff", "Home");
+                if(User.IsInRole("Manager")) return RedirectToAction("Booking", "Manager");
+                return RedirectToAction("CourtToCheckQuality", "Home");
+            }
+            return View()
+;
+        }
 
-
+        public IActionResult QualityCheckHistory(int CoID)
+        {
+            var qcHistory = _context.CourtConditions.Where(c => c.CoId == CoID).Include(c =>c.Co).ToList();
+            return View(qcHistory);
+        }
     }
 }

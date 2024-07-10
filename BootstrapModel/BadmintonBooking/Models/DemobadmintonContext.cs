@@ -31,6 +31,8 @@ public partial class DemobadmintonContext : DbContext
 
     public virtual DbSet<Court> Courts { get; set; }
 
+    public virtual DbSet<CourtCondition> CourtConditions { get; set; }
+
     public virtual DbSet<Payment> Payments { get; set; }
 
     public virtual DbSet<Rating> Ratings { get; set; }
@@ -38,14 +40,9 @@ public partial class DemobadmintonContext : DbContext
     public virtual DbSet<TimeSlot> TimeSlots { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        var builder = new ConfigurationBuilder()
-      .SetBasePath(Directory.GetCurrentDirectory())
-      .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=localhost;Database=demobadminton;User Id=sa;Password=12345;TrustServerCertificate=True;");
 
-        IConfigurationRoot configuration = builder.Build();
-        optionsBuilder.UseSqlServer(configuration.GetConnectionString("BadmintonBookingIdentityContextConnection"));
-    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<AspNetRole>(entity =>
@@ -122,7 +119,7 @@ public partial class DemobadmintonContext : DbContext
 
         modelBuilder.Entity<Booking>(entity =>
         {
-            entity.HasKey(e => e.BId).HasName("PK__Booking__4B26EFE60BB05A0F");
+            entity.HasKey(e => e.BId).HasName("PK__Booking__4B26EFE6242FB012");
 
             entity.ToTable("Booking");
 
@@ -150,7 +147,7 @@ public partial class DemobadmintonContext : DbContext
 
         modelBuilder.Entity<Court>(entity =>
         {
-            entity.HasKey(e => e.CoId).HasName("PK__Court__F38FB8F5CC93CDB2");
+            entity.HasKey(e => e.CoId).HasName("PK__Court__F38FB8F5ADB7F0F9");
 
             entity.ToTable("Court");
 
@@ -158,6 +155,12 @@ public partial class DemobadmintonContext : DbContext
             entity.Property(e => e.CoAddress)
                 .HasMaxLength(255)
                 .HasColumnName("CO_Address");
+            entity.Property(e => e.CoBeneficiaryAccountName)
+                .HasMaxLength(50)
+                .HasColumnName("CO_BeneficiaryAccountName");
+            entity.Property(e => e.CoBeneficiaryPayPalEmail)
+                .HasMaxLength(255)
+                .HasColumnName("CO_BeneficiaryPayPalEmail");
             entity.Property(e => e.CoInfo)
                 .HasMaxLength(1000)
                 .HasColumnName("CO_Info");
@@ -177,9 +180,33 @@ public partial class DemobadmintonContext : DbContext
                 .HasConstraintName("FK_Court_AspNetUsers");
         });
 
+        modelBuilder.Entity<CourtCondition>(entity =>
+        {
+            entity.HasKey(e => e.CdId);
+
+            entity.ToTable("CourtCondition");
+
+            entity.Property(e => e.CdId).HasColumnName("CD_ID");
+            entity.Property(e => e.CdCleanlinessCondition).HasColumnName("CD_CleanlinessCondition");
+            entity.Property(e => e.CdCreatedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("CD_CreatedAt");
+            entity.Property(e => e.CdLightningCondition).HasColumnName("CD_LightningCondition");
+            entity.Property(e => e.CdNetCondition).HasColumnName("CD_NetCondition");
+            entity.Property(e => e.CdNotes).HasColumnName("CD_Notes");
+            entity.Property(e => e.CdOverallCondition).HasColumnName("CD_OverallCondition");
+            entity.Property(e => e.CdSurfaceCondition).HasColumnName("CD_SurfaceCondition");
+            entity.Property(e => e.CoId).HasColumnName("CO_ID");
+
+            entity.HasOne(d => d.Co).WithMany(p => p.CourtConditions)
+                .HasForeignKey(d => d.CoId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_CourtCondition_Court");
+        });
+
         modelBuilder.Entity<Payment>(entity =>
         {
-            entity.HasKey(e => e.PId).HasName("PK__Payment__A3420A77F1652EFD");
+            entity.HasKey(e => e.PId).HasName("PK__Payment__A3420A7780EE8F21");
 
             entity.ToTable("Payment");
 
@@ -200,7 +227,7 @@ public partial class DemobadmintonContext : DbContext
 
         modelBuilder.Entity<Rating>(entity =>
         {
-            entity.HasKey(e => e.RatingId).HasName("PK__Rating__FCCDF87C53BCEA20");
+            entity.HasKey(e => e.RatingId).HasName("PK__Rating__FCCDF87C7C5EBCDB");
 
             entity.ToTable("Rating");
 
@@ -216,7 +243,7 @@ public partial class DemobadmintonContext : DbContext
 
         modelBuilder.Entity<TimeSlot>(entity =>
         {
-            entity.HasKey(e => e.TsId).HasName("PK__TimeSlot__D128865A57281125");
+            entity.HasKey(e => e.TsId).HasName("PK__TimeSlot__D128865A5AC00984");
 
             entity.ToTable("TimeSlot");
 

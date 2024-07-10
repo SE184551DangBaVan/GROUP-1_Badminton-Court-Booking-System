@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace BadmintonBooking.Models;
 
@@ -9,7 +9,7 @@ public partial class Court
 {
     public int CoId { get; set; }
     [Required(ErrorMessage = "Court name is required")]
-    [Display(Name ="Court name")]
+    [Display(Name = "Court name")]
     public string CoName { get; set; } = null!;
 
     public string? CoPath { get; set; }
@@ -28,10 +28,15 @@ public partial class Court
     [NotMapped]
     [Display(Name = "Choose Image")]
     public IFormFile ImagePath { get; set; }
-
     public string UserId { get; set; } = null!;
 
+    public string? CoBeneficiaryAccountName { get; set; }
+
+    public string? CoBeneficiaryPayPalEmail { get; set; }
+
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+
+    public virtual ICollection<CourtCondition> CourtConditions { get; set; } = new List<CourtCondition>();
 
     public virtual ICollection<Rating> Ratings { get; set; } = new List<Rating>();
 

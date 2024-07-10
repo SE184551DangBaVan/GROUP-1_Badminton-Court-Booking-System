@@ -1,6 +1,6 @@
-﻿@model IEnumerable<BadmintonBooking.Models.Booking>
+﻿@model IEnumerable<BadmintonBooking.Models.CourtCondition>
 @{
-    ViewData["Title"] = "BookingHistory";
+    ViewData["Title"] = "Court Quality Check History";
     Layout = null;
 }
 
@@ -152,11 +152,11 @@
     <title>Event Page</title>
 </head>
 <body>
-    <h1>Booking History</h1>
+    <h1>Court Quality History</h1>
     <div class="container">
         @if (Model == null || !Model.Any())
         {
-            <h1><i class="fa-regular fa-face-sad-tear"></i>You haven't booked any to show any history</h1>
+            <h1><i class="fa-regular fa-face-sad-tear"></i>There is no Quality Check history for this court yet</h1>
         }
         else
         {
@@ -166,31 +166,17 @@
                     <div class="banner-image">
                         <img src="/Upload/Image/@item.Co.CoPath" class="img-fluid" alt="@item.Co.CoName">
                     </div>
-                    <p>Court Name: @Html.DisplayFor(modelItem => item.Co.CoName)</p>
-                    <p>Address: @Html.DisplayFor(modelItem => item.Co.CoAddress)</p>
-                    <p>Type of Booking: @Html.DisplayFor(modelItem => item.BBookingType)</p>
-                    <p>Date of Booking: @Html.DisplayFor(modelItem => item.Payments.FirstOrDefault().PDateTime)</p>
-                    <div class="button-wrapper">
-                        <a class="btn fill" asp-action="Invoice" asp-controller="PayPal" asp-route-bid="@item.BId">See Invoice</a>
-                    </div>
+                    <p>Court Name: @Html.DisplayFor(modelItem => item.Co.CoName)</p
+                    <p>Created At: @Html.DisplayFor(modelItem => item.CdCreatedAt)</p
+                    <p>Court Surface Condition: @Html.DisplayFor(modelItem => item.CdSurfaceCondition)</p
+                    <p>Court Lightning Condition: @Html.DisplayFor(modelItem => item.CdLightningCondition)</p
+                    <p>Court Cleanliness Condition: @Html.DisplayFor(modelItem => item.CdCleanlinessCondition)</p
+                    <p>Court Overall Condition: @Html.DisplayFor(modelItem => item.CdOverallCondition)</p
+                    <p>Additional notes: @(item.CdNotes ?? "N/A")</p>
                 </div>
             }
         }
     </div>
-<@* div class="container">
-    <div class="wrapper">
-        <div class="banner-image"> </div>
-        <h1> Toyota Supra</h1>
-        <p>
-            Lorem ipsum dolor sit amet, <br />
-            consectetur adipiscing elit.
-        </p>
-    </div>
-    <div class="button-wrapper">
-        <button class="btn outline">DETAILS</button>
-        <button class="btn fill">BUY NOW</button>
-    </div>
-</div> *@
 
 </div>
 </body>
