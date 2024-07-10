@@ -35,8 +35,6 @@ public partial class AspNetUser
 
     public int AccessFailedCount { get; set; }
 
-    public bool? Status { get; set; }
-
     public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; } = new List<AspNetUserClaim>();
 
     public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; } = new List<AspNetUserLogin>();
@@ -46,6 +44,8 @@ public partial class AspNetUser
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
     public virtual ICollection<Court> Courts { get; set; } = new List<Court>();
+
+    public virtual UserActiveStatus? UserActiveStatus { get; set; }
 
     public virtual ICollection<AspNetRole> Roles { get; set; } = new List<AspNetRole>();
 }

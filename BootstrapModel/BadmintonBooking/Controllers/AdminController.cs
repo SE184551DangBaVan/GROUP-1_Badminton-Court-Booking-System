@@ -275,6 +275,16 @@ namespace BadmintonBooking.Controllers
             DemobadmintonContext context = new DemobadmintonContext();
             var data = _UserManager.Users.ToList();
 
+            //var users = _context.Users.ToList();
+            //var userStatuses = _context.UserActiveStatuses.ToList();
+
+            //// Assuming you are passing both the users and their statuses to the view
+            //var model = users.Select(u => new
+            //{
+            //    User = u,
+            //    UserActiveStatus = userStatuses.FirstOrDefault(s => s.Id == u.Id)
+            //}).ToList();
+
             //pagination
             int totalRecords = data.Count;
             int NoOfPages = (int)Math.Ceiling((double)totalRecords / NoOfRecordPerPage);
@@ -482,23 +492,45 @@ namespace BadmintonBooking.Controllers
                     TempData["error"] = "Can not delete current user";
                     return RedirectToAction("CustomerInfo", "admin");
                 }
-                var result = await _UserManager.DeleteAsync(user);
+                //actually delete 
+                //var result = await _UserManager.DeleteAsync(user);
 
-                if (result.Succeeded)
+                //if (result.Succeeded)
+                //{
+                //    // Handle a successful delete
+                //    return RedirectToAction("CustomerInfo");
+                //}
+                //else
+                //{
+                //    // Handle failure
+                //    foreach (var error in result.Errors)
+                //    {
+                //        ModelState.AddModelError("", error.Description);
+                //    }
+                //}
+
+
+                // Update user status to inactive
+                var userStatus = _context.UserActiveStatuses.SingleOrDefault(u => u.Id == UserId);
+                if (userStatus == null)
                 {
-                    // Handle a successful delete
-                    return RedirectToAction("CustomerInfo");
+                    userStatus = new UserActiveStatus
+                    {
+                        Id = UserId,
+                        IsActive = false
+                    };
+                    _context.UserActiveStatuses.Add(userStatus);
                 }
                 else
                 {
-                    // Handle failure
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError("", error.Description);
-                    }
+                    userStatus.IsActive = false;
+                    _context.UserActiveStatuses.Update(userStatus);
                 }
 
-                return View("CustomerInfo");
+                await _context.SaveChangesAsync();
+
+                TempData["success"] = "User status updated successfully";
+                return RedirectToAction("CustomerInfo");
             }
         }
 
