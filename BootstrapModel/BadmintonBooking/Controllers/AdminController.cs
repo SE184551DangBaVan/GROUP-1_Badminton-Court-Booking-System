@@ -75,7 +75,7 @@ namespace BadmintonBooking.Controllers
         [HttpPost]
         public IActionResult AddCourt(Court model,string CoAddressTextBox)
         {
-            try
+           /* try
             {
                 ModelState.Remove("UserId");
                 ModelState.Remove("User");
@@ -84,7 +84,7 @@ namespace BadmintonBooking.Controllers
             //    {
             //        TempData["error"] = "You cant leave blank address ";
              //       return View(model);
-             //   }
+             //   } */
                 if (model.CoAddress == null)
                 {
                     ModelState.Remove("CoAddress");
@@ -92,9 +92,9 @@ namespace BadmintonBooking.Controllers
                 {
                     ModelState.Remove("CoAddressTextBox");
                 }
-                if (ModelState.IsValid)
+          /*      if (ModelState.IsValid)
                 {
-
+          */
 
                     DemobadmintonContext context = new DemobadmintonContext();
 
@@ -124,17 +124,19 @@ namespace BadmintonBooking.Controllers
 
                     return RedirectToAction("Show");
 
-                }
-                ModelState.AddModelError(string.Empty, "Please check all fields again");
+                /*     }
+                   ModelState.AddModelError(string.Empty, "Please check all fields again");
 
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                }
+                return View(model); */
             }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError(string.Empty, ex.Message);
-            }
-            return View(model);
-        }
-        public IActionResult DetailCourt(int id)
+
+
+            public IActionResult DetailCourt(int id)
         {
             DemobadmintonContext context = new DemobadmintonContext();
             var data = context.Courts.FirstOrDefault(c => c.CoId == id);
@@ -176,14 +178,14 @@ namespace BadmintonBooking.Controllers
             DemobadmintonContext context = new DemobadmintonContext();
             string userid = _UserManager.GetUserId(User);
             var data = context.Courts.FirstOrDefault(c => c.CoId == model.CoId);
-            try
+           /* try
             {
                 ModelState.Remove("UserId");
                 ModelState.Remove("User");
                 ModelState.Remove("ImagePath");
                 if (ModelState.IsValid)
                 {
-
+           */
                     string uniqueFileName = string.Empty;
                     if (model.ImagePath != null)
                     {
@@ -213,7 +215,7 @@ namespace BadmintonBooking.Controllers
                     context.Courts.Update(data);
                     context.SaveChanges();
                     TempData["message"] = "Record has been updated successfully";
-                }
+              /*  }
                 else
                 {
                     return View(model);
@@ -225,7 +227,7 @@ namespace BadmintonBooking.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-            }
+            }*/
             return RedirectToAction("Show", "Admin");
         }
         public IActionResult DeleteCourt(int id)
