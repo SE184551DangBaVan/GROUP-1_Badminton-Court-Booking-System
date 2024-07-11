@@ -197,6 +197,11 @@ namespace demobadminton.Controllers
         }
         [HttpGet]
         public IActionResult Login(string ReturnUrl = null) {
+            if (_signInManager.IsSignedIn(User))
+            {
+                return RedirectToAction("Index", "Home");
+
+            }
             ViewData["ReturnUrl"] = ReturnUrl;
             var loginVM = new LoginVM
             {
@@ -208,6 +213,7 @@ namespace demobadminton.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginVM model, string? ReturnUrl)
         {
+            
             try
             {
                 if (ModelState.IsValid)
