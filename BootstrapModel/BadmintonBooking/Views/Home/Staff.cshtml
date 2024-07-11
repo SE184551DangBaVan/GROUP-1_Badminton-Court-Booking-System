@@ -73,18 +73,23 @@
                 <th>@Html.DisplayNameFor(model => model.CoPath)</th>
                 <th>@Html.DisplayNameFor(model => model.CoAddress)</th>
                 <th>@Html.DisplayNameFor(model => model.CoInfo)</th>
-                <th></th>
+                <th>Check In/Total</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
+            DemobadmintonContext context = new DemobadmintonContext();
+            int checkIn=    context.TimeSlots.Where(ts => ts.CoId == item.CoId&&ts.TsCheckedIn==true).Count();
+            int total = context.TimeSlots.Where(ts => ts.CoId == item.CoId).Count();
+
                 <tr>
                     <td>@Html.DisplayFor(modelItem => item.CoId)</td>
                     <td>@Html.DisplayFor(modelItem => item.CoName)</td>
                     <td><img src="~/Upload/Image/@item.CoPath" alt="Court Image" class="court-image" /></td>
                     <td>@Html.DisplayFor(modelItem => item.CoAddress)</td>
                     <td>@Html.DisplayFor(modelItem => item.CoInfo)</td>
+                    <td>@checkIn /  @total</td>
                     <td>
                         <a href="@Url.Action("CheckIn", "Home", new { courtId = item.CoId })" class="action-link">See more booking</a>
                     </td>

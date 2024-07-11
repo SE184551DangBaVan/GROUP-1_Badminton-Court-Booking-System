@@ -1,6 +1,4 @@
-﻿
-
-$(document).ready(function () {
+﻿$(document).ready(function () {
     $('#ChooseImg').change(function (e) {
         var url = $('#ChooseImg').val();
         var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
@@ -13,5 +11,4 @@ $(document).ready(function () {
             reader.readAsDataURL(e.target.files[0]);
         }
     });
-    
-}
+});
