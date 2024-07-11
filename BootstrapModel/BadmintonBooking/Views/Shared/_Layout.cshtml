@@ -49,8 +49,11 @@
                             <div class="row">
                                 <header>Headlines</header>
                                 <ul class="mega-links">
-                                        <li><a asp-controller="Home" asp-action="BookingHistory" asp-route-userID="@UserManager.GetUserAsync(User)?.Result?.Id"><i class="fa-solid fa-clock-rotate-left"></i>Booking History</a></li>
-                                        <li><a asp-controller="Home" asp-action="UpComingEvent" asp-route-userID="@UserManager.GetUserAsync(User)?.Result?.Id"><i class="fa-regular fa-calendar-days"></i>UpComing Event</a></li>
+                                        @if (SignInManager.IsSignedIn(User))
+                                        {
+                                            <li><a asp-controller="Home" asp-action="BookingHistory" asp-route-userID="@UserManager.GetUserAsync(User)?.Result?.Id"><i class="fa-solid fa-clock-rotate-left"></i>Booking History</a></li>
+                                            <li><a asp-controller="Home" asp-action="UpComingEvent" asp-route-userID="@UserManager.GetUserAsync(User)?.Result?.Id"><i class="fa-regular fa-calendar-days"></i>UpComing Event</a></li>
+                                        }
                                 </ul>
                             </div>
                         </div>
