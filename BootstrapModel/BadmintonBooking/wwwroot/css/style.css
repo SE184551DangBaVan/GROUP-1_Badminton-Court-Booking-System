@@ -1465,6 +1465,30 @@ nav {
     margin-bottom: 10px;
 }
 
+.form-control{
+    outline: none;
+    padding: 8px 30px;
+    line-height: 30px;
+    border-radius: 10px;
+    border: 1px solid brown;
+    background: transparent;
+    transition: 0.2s ease;
+    
+}
+.form-control::placeholder{color: brown; opacity: 0.5; transition: 0.2s ease; }
+
+.form-control:focus,
+.form-control:valid,
+.form-control:focus-within{color: #0c1e24; background: transparent; border: 2px solid red;}
+
+.input-fields label {
+    color: white;
+    border-radius: 8px;
+    padding: 0 5px;
+    background: red;
+    font-weight: 600;
+    transform: translate(0, 70%);
+}
 
 .container2 {
     display: flex;
