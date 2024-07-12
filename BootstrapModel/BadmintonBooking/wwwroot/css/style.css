@@ -452,7 +452,6 @@ nav {
     text-decoration: none;
     background: transparent;
     box-shadow: 4px 4px 4px rgba(128, 0, 0, 1);
-    text-shadow: 2px 1.5px 6px rgba(0, 0, 0, 1);
 }
 
 .btn {
@@ -758,7 +757,6 @@ nav {
 .court-card {
     background: #33333360;
     border-radius: 10px;
-    display: inline-block;
     width: 280px;
     margin: 50px 20px 50px 50px;
     box-shadow: 1px 0 2px rgba(0, 0, 0, 0.1);
@@ -777,50 +775,39 @@ nav {
         transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     }
 
-        .court-card.hovered a:nth-child(2) {
-            outline: solid;
-            outline-color: brown;
-            padding: 0 10px 3px 10px;
-            transition: all 0.3s ease;
-        }
 
-    .court-card a:nth-child(2) {
-        text-decoration: none;
-        color: brown;
-        transition: all 0.4s ease;
-        border-radius: 5px;
-        padding: 0 5px 3px 5px;
-    }
 
-    .court-card a:nth-child(1) {
+    .court-card a {
         text-decoration: none;
         color: brown;
         transition: all 0.3s ease;
     }
 
-        .court-card a:nth-child(1):hover {
+        .court-card a:hover {
             text-decoration: none;
             color: white;
+            
         }
 
-    .court-card a:nth-child(2):hover {
-        text-decoration: none;
-        outline-color: lightcyan;
-        color: lightcyan;
+    .court-card .court-select {
+        text-align: center;
+        color: rgba(255,255,255,1);
+        text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
     }
 
 .court-info-pop {
     margin-bottom: -60px;
-    transform: translateY(-300%);
+    text-align: center;
+    transform: translateY(-100%);
 }
 
-    .court-info-pop span {
-        visibility: hidden;
-        font-size: small;
-        font-family: system-ui;
-        color: darkgray;
-        transition: all 0.1s ease;
-    }
+.court-info-pop span {
+    visibility: hidden;
+    font-size: small;
+    font-family: system-ui;
+    color: darkgray;
+    transition: all 0.1s ease;
+}
 
 .court-card:hover .court-info-pop span {
     visibility: visible;
@@ -837,15 +824,19 @@ nav {
 
 .court-card .assert {
     margin-top: -50px;
-    transform: translateY(60%);
-    visibility: hidden;
+    transform: translateX(90%) translateY(-140%);
+    background: #555555d2;
+    border-radius: 8px;
+    border: 1px solid #fff;
+    transition: all 0.5s ease;
     font-weight: bold;
     text-align: center;
+    width: 50%;
     transition: all 0.3s ease;
 }
 
     .court-card .assert a {
-        color: brown;
+        color: #ccc;
     }
 
 .court-card .court-location {
@@ -863,16 +854,9 @@ nav {
     }
 
 
-.court-card:has(.court-select a:hover) .assert:not(a:hover, img:hover) {
-    visibility: visible;
-    transform: translateY(50%);
-    transition: all 0.5s ease;
-}
-
-.court-card:has(.assert a:hover) .assert a:not(img:hover) {
-    visibility: visible;
+.court-card .assert a:hover {
     color: lightcyan;
-    transform: translateY(50%);
+    text-shadow: -0.1px -0.1px 3px #fff;
     transition: all 0.5s ease;
 }
 
@@ -895,7 +879,6 @@ nav {
 }
 
 .court-card p {
-    text-align: center;
     font-size: 1em;
     color: #ccc;
     font-weight: bold;
@@ -1014,6 +997,11 @@ nav {
     width: 100%;
     height: 100%;
 }
+.flip-container .flip-back {
+    display: flex;
+    background: url(../images/badminton-shuttlecock-black-background.png) no-repeat;
+}
+.flip-container .flip-back p {text-align: left; margin-left: 20px;}
 
 .con-container .first-card,
 .con-container .seccond-card,
@@ -1071,12 +1059,10 @@ nav {
     visibility: hidden;
     color: rgba(255,255,255,1);
     backdrop-filter: blur(20px);
-    background-image: linear-gradient( 120deg, rgba(128, 128, 128, 0.2), rgba(45, 54, 56, 0.6) );
-    width: 250px;
-    height: 30px;
-    border-radius: 8px;
-    transform: translateY(-100%);
-    transition: all 0.5s ease;
+    width: 1000px;
+    height: 550px;
+    transform: translate(-20%, -200%);
+    border-radius: 20px;
 }
 
 .flip-container .first-card:hover,
@@ -1096,41 +1082,39 @@ nav {
 
     .flip-container .first-card:hover .flip-back {
         visibility: visible;
-        width: 1200px;
-        height: 400px;
-        backdrop-filter: blur(10px);
-        background-image: linear-gradient(120deg, rgba(142, 201, 214, 0.2), rgba(98, 148, 169, 0.35), rgba(60, 97, 123, 0.5), rgba(28, 51, 78, 0.65), rgba(0, 3, 34, 0.8));
-        transform: translate(0, -75%);
+        width: 1000px;
+        height: 550px;
+        transform: translate(26%, -75%);
         transition: all 0.3s ease, visibility 0.3s ease;
+        background: url(../images/badminton-shuttlecock-black-background-transformed.png) no-repeat center;
+        backdrop-filter: blur(5px);
     }
 
     .flip-container .seccond-card:hover .flip-back {
         visibility: visible;
-        width: 1200px;
-        height: 400px;
-        backdrop-filter: blur(10px);
-        background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(55, 37, 49, 0.35), rgba(94, 73, 109, 0.5), rgba(111, 119, 181, 0.65), rgba(81, 174, 255, 0.8));
-        transform: translate(-39.2%, -75%);
+        width: 1000px;
+        height: 550px;
+        transform: translate(-38%, -75%);
         transition: all 0.3s ease, visibility 0.3s ease;
+        background: url(../images/best-badminton-background-gyixxvloqmf5t6of.jpg) no-repeat center;
     }
 
     .flip-container .third-card:hover .flip-back {
         visibility: visible;
-        width: 1200px;
-        height: 400px;
-        backdrop-filter: blur(10px);
-        background-image: linear-gradient(-60deg, rgba(0, 4, 11, 0.2), rgba(61, 43, 76, 0.35), rgba(158, 64, 103, 0.5), rgba(239, 107, 79, 0.65), rgba(255, 191, 0, 0.8));
-        transform: translate(-79%, -75%);
+        width: 1000px;
+        height: 550px;
+        transform: translate(-101%, -75%);
         transition: all 0.3s ease, visibility 0.3s ease;
+        background: url(../images/badminton-racket-shuttlecock-motion-sport-1592944849-transformed.webp) no-repeat right;
     }
 
 .fixedExplain,
 .casualExplain,
 .flexibleExplain {
     font-weight: bold;
-    font-size: 1.2em;
-    color: #333;
-
+    font-size: 2rem;
+    color: white;
+    text-shadow: -0.5px -0.5px 5px #fff, -0.5px -0.5px 5px #fff;
 }
 
 .instruction-paragraph {
@@ -1139,22 +1123,22 @@ nav {
     border: 2px solid #000;
     border-radius: 10px;
     max-width: 100%;
-    box-sizing: border-box;
+    height: 60%;
+    text-align: left;
     word-wrap: break-word;
     overflow-wrap: break-word;
-    background-image: linear-gradient(to right bottom, rgba(134, 142, 158, 0.8), rgba(154, 163, 181, 0.7), rgba(174, 184, 205, 0.6), rgba(195, 206, 230, 0.5), rgba(216, 228, 255, 0.4) );
+    background-image: linear-gradient(to right bottom, rgba(134, 142, 158, 0.5), rgba(154, 163, 181, 0.4), rgba(174, 184, 205, 0.3), rgba(195, 206, 230, 0.2), rgba(216, 228, 255, 0.1) );
     backdrop-filter: blur(10px);
+    
 }
 
-.instruction-paragraph .bookingType-explain {
-    font-family: system-ui;
-    font-size: 1.2em;
-    line-height: 1.5;
-    background: #121FCF;
-    background: linear-gradient(to right, #121FCF 0%, #CF1512 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
+    .instruction-paragraph .bookingType-explain {
+        font-family: system-ui;
+        font-size: 1.2em;
+        line-height: 2;
+        color: lightcyan;
+        text-shadow: -0.5px -0.5px 5px #000, -0.5px -0.5px 5px #000, 0.5px 0.5px 5px #000, 0.5px 0.5px 5px #000;
+    }
 /*About Us*/
 .about-section {
     padding: 200px;
@@ -1465,29 +1449,57 @@ nav {
     margin-bottom: 10px;
 }
 
-.form-control{
+.form-group {
+    width: 100%;
+    margin-bottom: 15px;
+} .form-group label{margin-bottom: 8px;}
+
+.input-fields .form-control,
+.form-group .form-control {
     outline: none;
     padding: 8px 30px;
     line-height: 30px;
     border-radius: 10px;
-    border: 1px solid brown;
+    border: 2px solid #333;
     background: transparent;
+    color: #333;
     transition: 0.2s ease;
-    
 }
-.form-control::placeholder{color: brown; opacity: 0.5; transition: 0.2s ease; }
+.form-control::placeholder{color: rgba(0, 0, 0, 1); opacity: 0.5; transition: 0.2s ease; }
 
-.form-control:focus,
-.form-control:valid,
-.form-control:focus-within{color: #0c1e24; background: transparent; border: 2px solid red;}
+.input-fields input:focus-within,
+.input-fields input:valid,
+.form-group input:focus-within,
+.form-group input:valid {
+    background: transparent;
+    border: 2px solid #4285F4;
+    transition: 0.2s ease;
+}
 
-.input-fields label {
+.input-fields:focus-within label,
+.input-fields:valid label,
+.form-group:focus-within label,
+.form-group:valid label {
+    transform: translateX(20%) translateY(65%);
+    background: #4285F4;
+    color: #ccc;
+    transition: 0.2s ease;
+}
+
+.input-fields label,
+.form-group label {
     color: white;
     border-radius: 8px;
     padding: 0 5px;
-    background: red;
+    background: #333;
     font-weight: 600;
-    transform: translate(0, 70%);
+    transform: translateX(10%) translateY(70%);
+    transition: 0.3s ease;
+}
+
+.input-fields-rememberMe label{
+    color: darkblue;
+    margin-left: 20px;
 }
 
 .container2 {

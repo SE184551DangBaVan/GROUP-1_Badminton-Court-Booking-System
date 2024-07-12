@@ -88,7 +88,7 @@
                                 <div class="court-card">
                                     <p class="court-select">
                                         <img src="~/images/@court.ImgUrl" alt="@court.ImgUrl">
-                                        <a style="text-decoration:none" asp-controller="home" asp-action="book2" asp-route-address="@addressGroup.Address" asp-route-sortOrder="">@court.Name</a>
+                                        <span class="courtName">@court.Name</span>
                                     </p>
                                     <p class="court-info-pop">
                                         <span>@court.CourtInfo</span>
@@ -166,9 +166,4 @@
         </section>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="footer-container">
-            &copy; 2024 - BadmintonBooking - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
 </body>

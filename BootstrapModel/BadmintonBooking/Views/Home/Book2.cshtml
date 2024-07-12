@@ -120,10 +120,12 @@
                                             <input type="hidden" name="CoId" value="@court.CoId" />
                                             @if(CoId == court.CoId && hours != null)
                                             {
-                                                <label>@mes</label>
-                                                <input type="hidden" name="Hours" value="@hours" />
-                                                <input type="hidden" name="Remain" value="@remain" />
-                                                <input type="hidden" name="BId" value="@bId" />
+                                                <div class="booking-still-active">
+                                                    <label class="text-warning">@mes</label>
+                                                    <input type="hidden" name="Hours" value="@hours" />
+                                                    <input type="hidden" name="Remain" value="@remain" />
+                                                    <input type="hidden" name="BId" value="@bId" />
+                                                </div>
                                             }
                                             else
                                             {
