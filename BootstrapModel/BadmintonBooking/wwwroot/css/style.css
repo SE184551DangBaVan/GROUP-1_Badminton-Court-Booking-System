@@ -82,12 +82,12 @@ nav {
     width: 100%;
     padding: 5px;
     transition: all 0.4s ease;
-    z-index: 100;
+    z-index: 1000;
     text-shadow: 3px 3px 2px rgba(0, 0, 0, 1);
 }
 
     nav.sticky {
-        padding: 2px;
+        padding: 1px;
         background: #333;
         opacity: 0.98;
     }
@@ -322,9 +322,6 @@ nav {
 /*Login /Register/ Logout Actions*/
 .navbar-nav {
     justify-content: center;
-    outline: 2px solid;
-    outline-color: #555;
-    border-radius: 10px;
     height: 70px;
     margin-right: 5px;
 }
@@ -334,8 +331,19 @@ nav {
         justify-content: space-between;
         align-items: center;
         padding-right: 5px;
+        outline: 2px solid;
+        outline-color: #555;
+        border-radius: 10px;
+        height: 95%;
     }
 
+.account-actions-preLogin {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 5px;
+    border-radius: 10px;
+}
 
 #register, #login {
     margin: 10px;
@@ -416,6 +424,10 @@ nav {
 .login-logout-card .card-header .nav-item2:hover { border-top-right-radius: 5px; border-top: 1.5px solid #555; border-left: 1.5px solid #555; border-right: 1.5px solid #555;}
 .login-logout-card .card-header .nav-item1:hover a { color: brown; font-weight: 600; transition: all 0.4s ease;}
 .login-logout-card .card-header .nav-item2:hover a { color: brown; font-weight: 600; transition: all 0.4s ease;}
+
+.forgorBtn{margin-left: -20px;}
+
+.resendConBtn{margin-left: -40px;}
 
 .forg-btn {
     outline: solid;
