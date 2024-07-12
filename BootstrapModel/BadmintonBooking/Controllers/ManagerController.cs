@@ -7,7 +7,7 @@ using System.Globalization;
 
 namespace BadmintonBooking.Controllers
 {
-    [Authorize(Roles ="Manager")]
+    //[Authorize(Roles ="Manager")]
     public class ManagerController : Controller
     {
         private readonly ILogger<HomeController> _logger;

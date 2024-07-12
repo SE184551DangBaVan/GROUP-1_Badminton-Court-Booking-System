@@ -16,13 +16,15 @@ namespace BadmintonBooking.Controllers
         private IHttpContextAccessor httpContextAccessor;
         IConfiguration _configuration;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly DemobadmintonContext _context;
         private PayPal.Api.Payment payment;
 
-        public PayPalController(IHttpContextAccessor httpContextAccessor, IConfiguration configuration, UserManager<IdentityUser> userManager)
+        public PayPalController(IHttpContextAccessor httpContextAccessor, IConfiguration configuration, UserManager<IdentityUser> userManager, DemobadmintonContext context)
         {
             this.httpContextAccessor = httpContextAccessor;
             _configuration = configuration;
             _userManager = userManager;
+            _context = context;
         }
 
         public ActionResult PaymentWithPaypal(string Cancel = null, string blogId = "", string PayerID = "", string guid = "")
@@ -96,7 +98,9 @@ namespace BadmintonBooking.Controllers
         private PayPal.Api.Payment CreatePayment(APIContext apiContext, string redirectUrl, string blogId)
         {
             var quantity = int.Parse(httpContextAccessor.HttpContext.Session.GetString("quantity"));
-            var totalPrice = int.Parse(httpContextAccessor.HttpContext.Session.GetString("totalPrice"));
+            string Types = httpContextAccessor.HttpContext.Session.GetString("Types");
+            int court = int.Parse(httpContextAccessor.HttpContext.Session.GetString("CoId"));
+            var price = _context.Courts.FirstOrDefault(x => x.CoId == court).CoPrice;
             var itemList = new ItemList()
             {
                 items = new List<Item>()
@@ -104,9 +108,9 @@ namespace BadmintonBooking.Controllers
             {
                 itemList.items.Add(new Item()
                 {
-                    name = "Book Time Slot Fixed",
+                    name = "Book Time Slot "+Types,
                     currency = "USD",
-                    price = "10.00",
+                    price = price.ToString(),
                     quantity = quantity.ToString(),
                     sku = "BOOK-TS-101"
                 });
@@ -123,15 +127,15 @@ namespace BadmintonBooking.Controllers
 
                 var details = new Details()
                 {
-                    tax = "1",
-                    shipping = "1",
-                    subtotal = (quantity * 10.00D).ToString()
+                    tax = "0",
+                    shipping = "0",
+                    subtotal = (quantity * price).ToString()
                 };
 
                 var amount = new Amount()
                 {
                     currency = "USD",
-                    total = ((quantity * 10.00D)+2.00D).ToString(), // Total must be equal to sum of tax, shipping and subto //
+                    total = ((quantity * price)).ToString(), // Total must be equal to sum of tax, shipping and subto //
                     details = details
                 };
 
@@ -167,7 +171,6 @@ namespace BadmintonBooking.Controllers
             InvoiceViewModel invoiceViewModel = null;
             try
             {
-                using var context = new DemobadmintonContext();
 
                 //for method transfer bid using route data
                 int? bId;
@@ -184,7 +187,7 @@ namespace BadmintonBooking.Controllers
                 // Fetch payment using BId
                 string formattedDate = null;
                 string formattedTime = null;
-                BadmintonBooking.Models.Payment? payment = context.Payments.FirstOrDefault(p => p.BId == bId.Value);
+                Models.Payment? payment = _context.Payments.FirstOrDefault(p => p.BId == bId.Value);
                 if (payment != null)
                 {
                     formattedDate = payment.PDateTime.ToString("MMMM dd, yyyy");
@@ -192,10 +195,19 @@ namespace BadmintonBooking.Controllers
                     ViewData["formattedDate"] = formattedDate;
                     ViewData["formattedTime"] = formattedTime;
                 }
-                var booking = context.Bookings.Include(b => b.TimeSlots).FirstOrDefault(b => b.BId == bId.Value);
+                var booking = _context.Bookings.Include(b => b.TimeSlots).FirstOrDefault(b => b.BId == bId.Value);
                 string typeOfBooking = booking.BBookingType;
-                string courtName = context.Courts.FirstOrDefault(c => c.CoId == booking.CoId).CoName;
-                int quantity = booking.TimeSlots.Count();
+                string courtName = _context.Courts.FirstOrDefault(c => c.CoId == booking.CoId).CoName;
+                int? quantity;
+                if (booking.BBookingType == "Flexible")
+                {
+                     quantity = booking.BTotalHours;
+                }
+                else
+                {
+                     quantity = booking.TimeSlots.Count;
+                }
+                
                 invoiceViewModel = new InvoiceViewModel()
                 {
                     PId = payment.PId,
