@@ -312,8 +312,9 @@
     confirmButton.addEventListener("click", function (event) {
         var confirmMessage = "Are you certain you with your slots?";
         if (confirm(confirmMessage)) {
+            const bookedCells = document.querySelectorAll(".booked");
+
             if (type.value === "Casual" || type.value === "Fixed") {
-                const bookedCells = document.querySelectorAll(".booked");
                 if (bookedCells.length === 0) {
                     alert("Please book before continue!");
                     event.preventDefault();
@@ -323,12 +324,17 @@
                 if (hours.value == 0) {
                     alert("Please input your time!");
                     event.preventDefault();
-                    return
+                    return;
+                } else if (hours.value < bookedCells.length) {
+                    alert("Your Hours must be higher than your selected slots!");
+                    event.preventDefault();
+                    return;
                 }
             }
             confirmForm.submit();
         }
     });
+
 
     cancelAllButton.addEventListener("click", cancelAllBookings);
 
