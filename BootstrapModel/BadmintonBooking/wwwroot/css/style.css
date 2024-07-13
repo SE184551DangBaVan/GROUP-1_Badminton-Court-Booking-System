@@ -586,8 +586,8 @@ nav {
 }
 
 .heading {
-    background: rgba(128, 128, 128, 0.8);
-    backdrop-filter: blur(3px);
+    background: rgba(128, 128, 128, 0.2);
+    backdrop-filter: blur(2px);
     color: #f4f4f4;
     padding: 5rem 0;
     text-align: left;
@@ -598,7 +598,8 @@ nav {
     .heading .outter-container {
         width: 100%;
         margin: auto;
-        background: #555555b2;
+        background: rgba(85, 85, 85, 0.4);
+        backdrop-filter: blur(2px);
         border-radius: 22% 78% 40% 60% / 22% 70% 30% 78%;
     }
 
@@ -610,7 +611,8 @@ nav {
         margin: 20px 0px 0px 100px;
         padding: 20px;
         font-size: large;
-        background: rgba(51, 51, 51, 0.7);
+        background: rgba(51, 51, 51, 0.6);
+        backdrop-filter: blur(5px);
         border-radius: 52% 48% 69% 31% / 49% 40% 60% 51%;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     }
@@ -660,13 +662,16 @@ nav {
 
 .heading .btn-text {
     opacity: 0.01;
-    font-size: xx-small;
+    font-size: small;
+    transform: translate(0, -40%);
     transition: all 0.3s ease;
 }
 
 .heading .welcome-container:has(.button:hover) .btn-text:not(.button:hover) {
     opacity: 1;
+    transform: translate(0, 40%);
     font-size: small;
+    transition: opacity 0.6s ease, transform 0.8s ease;
 }
 
 .heading .additional-info {
@@ -681,19 +686,20 @@ nav {
     flex: 1;
     margin: 2.5px 50px;
     padding: 10px;
-    background: rgba(85, 85, 85, 0.5);
+    background: rgba(85, 85, 85, 0.6);
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
     text-align: center;
 }
 
     .heading .info-block h3 {
-        margin-bottom: 10px;
+        margin-bottom: 15px;
         text-align: center;
     }
 
     .heading .info-block p{
         color: lightcyan;
+        font-size: 16px;
     }
 
     .heading .info-block i{
@@ -795,11 +801,13 @@ nav {
         text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
     }
 
-.court-info-pop {
-    margin-bottom: -60px;
-    text-align: center;
-    transform: translateY(-100%);
-}
+    .court-card.hovered .court-select{}
+
+    .court-info-pop {
+        margin-bottom: -60px;
+        text-align: center;
+        transform: translateY(-100%);
+    }
 
 .court-info-pop span {
     visibility: hidden;
