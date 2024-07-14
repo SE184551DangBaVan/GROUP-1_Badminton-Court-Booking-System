@@ -11,6 +11,7 @@
     const form = document.querySelector("form");
     const confirmButton = document.getElementById("payment");
     const confirmForm = document.getElementById("payment-form");
+    const hourLeft = document.getElementById("hour-left");
 
     let currentStartDate = new Date();
     let scheduleData = [];
@@ -140,8 +141,10 @@
 
             // Update schedule data
             const [time, day] = getTimeAndDayFromCell(cell);
+            const bookedCells = document.querySelectorAll(".booked");
             scheduleData.push({ date: day, time: time, booked: true });
-
+            console.log(confirmButton);
+            console.log(hourLeft.value < bookedCells.length);
             sendBookingData({ time, date: day, booked: true });
             updateTotalPrice();
         }
@@ -310,23 +313,29 @@
         });
     }
     confirmButton.addEventListener("click", function (event) {
-        var confirmMessage = "Are you certain you with your slots?";
+        var confirmMessage = "Are you certain you want to confirm your booking?";
         if (confirm(confirmMessage)) {
             const bookedCells = document.querySelectorAll(".booked");
 
             if (type.value === "Casual" || type.value === "Fixed") {
                 if (bookedCells.length === 0) {
-                    alert("Please book before continue!");
+                    alert("Please book before continuing!");
                     event.preventDefault();
                     return;
                 }
             } else {
-                if (hours.value == 0) {
-                    alert("Please input your time!");
-                    event.preventDefault();
-                    return;
-                } else if (hours.value < bookedCells.length) {
-                    alert("Your Hours must be higher than your selected slots!");
+                if (hours) {
+                    if (hours.value == 0) {
+                        alert("Please input your time!");
+                        event.preventDefault();
+                        return;
+                    } else if (hours.value < bookedCells.length) {
+                        alert("Your choices have passed the hours limit!");
+                        event.preventDefault();
+                        return;
+                    }
+                } else if ( hourLeft.value < bookedCells.length) {
+                    alert("Your choices have passed the hours limit");
                     event.preventDefault();
                     return;
                 }
@@ -334,7 +343,6 @@
             confirmForm.submit();
         }
     });
-
 
     cancelAllButton.addEventListener("click", cancelAllBookings);
 
