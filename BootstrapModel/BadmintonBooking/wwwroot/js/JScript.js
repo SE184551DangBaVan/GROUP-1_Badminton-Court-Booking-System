@@ -245,7 +245,7 @@
                 } else {
                     totalPrice = bookedCellsCount * price;
                 }
-
+                totalPrice = totalPrice < 0 ? 0 : totalPrice;
                 totalPriceElement.textContent = totalPrice;
                 document.getElementById("price-input").value = totalPrice;
             })
@@ -335,7 +335,7 @@
                         return;
                     }
                 } else if ( hourLeft.value < bookedCells.length) {
-                    alert("Your choices have passed the hours limit");
+                    alert("Your choices have passed the hours limit!");
                     event.preventDefault();
                     return;
                 }
