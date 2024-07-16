@@ -1493,6 +1493,10 @@
       "PackagePath": "staticwebassets\\pictures\\pp.png"
     },
     {
+      "Id": "C:\\swp391\\swp release 14\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\wwwroot\\pictures\\search.png",
+      "PackagePath": "staticwebassets\\pictures\\search.png"
+    },
+    {
       "Id": "C:\\swp391\\swp release 14\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\wwwroot\\pictures\\thumb-1920-438211.jpg",
       "PackagePath": "staticwebassets\\pictures\\thumb-1920-438211.jpg"
     },

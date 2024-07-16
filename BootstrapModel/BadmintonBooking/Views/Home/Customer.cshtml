@@ -9,152 +9,375 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
 <partial name="_Notification" />
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 0;
+ * {
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+
+
+body {
+    min-height: 100vh;
+    background: url(images/html_table.jpg) center / cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main.table {
+    width: 82vw;
+    height: 90vh;
+    background-color: #fff5;
+
+    backdrop-filter: blur(7px);
+    box-shadow: 0 .4rem .8rem #0005;
+    border-radius: .8rem;
+
+    overflow: hidden;
+}
+
+.table__header {
+    width: 100%;
+    height: 10%;
+    background-color: #fff4;
+    padding: .8rem 1rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.table__header .input-group {
+    width: 35%;
+    height: 100%;
+    background-color: #fff5;
+    padding: 0 .8rem;
+    border-radius: 2rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: .2s;
+}
+
+.table__header .input-group:hover {
+    width: 45%;
+    background-color: #fff8;
+    box-shadow: 0 .1rem .4rem #0002;
+}
+
+.table__header .input-group img {
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+.table__header .input-group input {
+    width: 100%;
+    padding: 0 .5rem 0 .3rem;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.table__body {
+    width: 95%;
+    max-height: calc(89% - 1.6rem);
+    background-color: #fffb;
+
+    margin: .8rem auto;
+    border-radius: .6rem;
+
+    overflow: auto;
+    overflow: overlay;
+}
+
+
+.table__body::-webkit-scrollbar{
+    width: 0.5rem;
+    height: 0.5rem;
+}
+
+.table__body::-webkit-scrollbar-thumb{
+    border-radius: .5rem;
+    background-color: #0004;
+    visibility: hidden;
+}
+
+.table__body:hover::-webkit-scrollbar-thumb{ 
+    visibility: visible;
+}
+
+
+table {
+    width: 100%;
+}
+
+td img {
+    width: 36px;
+    height: 36px;
+    margin-right: .5rem;
+    border-radius: 50%;
+
+    vertical-align: middle;
+}
+
+table, th, td {
+    border-collapse: collapse;
+    padding: 1rem;
+    text-align: left;
+}
+
+thead th {
+    position: sticky;
+    top: 0;
+    left: 0;
+    background-color: #d5d1defe;
+    cursor: pointer;
+    text-transform: capitalize;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #0000000b;
+}
+
+tbody tr {
+    --delay: .1s;
+    transition: .5s ease-in-out var(--delay), background-color 0s;
+}
+
+tbody tr.hide {
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+tbody tr:hover {
+    background-color: #fff6 !important;
+}
+
+tbody tr td,
+tbody tr td p,
+tbody tr td img {
+    transition: .2s ease-in-out;
+}
+
+tbody tr.hide td,
+tbody tr.hide td p {
+    padding: 0;
+    font: 0 / 0 sans-serif;
+    transition: .2s ease-in-out .5s;
+}
+
+tbody tr.hide td img {
+    width: 0;
+    height: 0;
+    transition: .2s ease-in-out .5s;
+}
+
+.status {
+    padding: .4rem 0;
+    border-radius: 2rem;
+    text-align: center;
+}
+
+.status.delivered {
+    background-color: #86e49d;
+    color: #006b21;
+}
+
+.status.cancelled {
+    background-color: #d893a3;
+    color: #b30021;
+}
+
+.status.pending {
+    background-color: #ebc474;
+}
+
+.status.shipped {
+    background-color: #6fcaea;
+}
+
+
+
+
+thead th span.icon-arrow {
+    display: inline-block;
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 50%;
+    border: 1.4px solid transparent;
+    
+    text-align: center;
+    font-size: 1rem;
+    
+    margin-left: .5rem;
+    transition: .2s ease-in-out;
+}
+
+thead th:hover span.icon-arrow{
+    border: 1.4px solid #6c00bd;
+}
+
+thead th:hover {
+    color: #6c00bd;
+}
+
+thead th.active span.icon-arrow{
+    background-color: #6c00bd;
+    color: #fff;
+}
+
+thead th.asc span.icon-arrow{
+    transform: rotate(180deg);
+}
+
+thead th.active,tbody td.active {
+    color: #6c00bd;
+}
+
+
+
+    .search-container {
+        display: flex;
+        align-items: center;
     }
 
-    .container {
-        max-width: 1200px;
-        margin: 20px auto;
+    .search-input {
+        flex: 1;
     }
 
-    .card {
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        margin-bottom: 20px;
-        overflow: hidden;
-    }
-
-    .card-body {
-        padding: 20px;
-    }
-
-    .card-title {
-        font-size: 20px;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-
-    .card-text {
-        margin-bottom: 10px;
-        color: #555;
-    }
-
-    .card-img {
-        width: 100%;
-        height: auto;
-        border-radius: 8px 8px 0 0;
-    }
-
-    .btn-primary {
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        padding: 8px 16px;
-        text-decoration: none;
-        transition: background-color 0.3s;
-    }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-            color: white;
-            text-decoration: none;
+        .search-input input {
+            width: 100%;
         }
+
+    .search-icon {
+        display: flex;
+        align-items: center;
+        margin-left: 5px;
+    }
+
+        .search-icon img {
+            width: 20px;
+        }
+
+    .hidden-button {
+        display: none;
+    }
 </style>
 
-<div class="container">
-    <table class="table">
-        <thead>
-         <!--
-                <tr>
-                   <th>CoId</th>
-                   <th>CoName</th>
-                   <th>CoPath</th>
-                   <th>CoStatus</th>
-                   <th>CoAddress</th>
-                   <th>CoInfo</th>
-                   <th>CoPrice</th>
-                   <th>Actions</th>
-                   <th>Rate now</th>
-               </tr>
-         -->   
-        </thead>
-        @if (Model != null && Model.Any())
-        {
-            <form method="get" action="@Url.Action("customer", "Home")">
-                <input type="text" name="searchTerm" placeholder="Search by keyword..." />
-                <button type="submit">Search</button>
-            </form>
-            <tbody>
-                @foreach (var court in Model)
-                {
-                    <tr>
-                        <td>@court.CoId</td>
-                        <td>@court.CoName</td>
-                        <td><img src="~/Upload/Image/@court.CoPath" alt="Court Image" style="width:100px" class="card-img" /></td>
-                        <!--<td>@court.CoStatus</td>-->
-                        <td>@court.CoAddress</td>
-                        <td>@court.CoInfo</td>
-                        <td>@court.CoPrice</td>
-                        <td>
-                            <a href="@Url.Action("checkout", "Home", new { courtId = court.CoId })" class="btn btn-primary">Show all bookings</a>
-                        </td>
-                        <!--Get court id for rating-->
-                       
-                        <td>
-                            <form method="post" action="@Url.Action("Rating", "Home")">
-                                <input type="hidden" name="courtId" value="@court.CoId" />
+<div class="">
+    
+      
+        
+            <body>
+                <main class="table" id="customers_table">
+                    <section class="table__header">
+                        <h1>Customer's Orders</h1>
+                        <div class="input-group">
+                        <form method="get" action="@Url.Action("customer", "Home")">
+                        <span class="search-input">
+                            <input type="search" name="searchTerm" placeholder="Search Data...">
+                        </span>
+                        <span class="search-icon">
+                            <img src="~/pictures/search.png" alt="searchIcon">
+                        </span>
 
-                                <!-- Submit button -->
-                                <button type="submit" class="btn btn-primary">Rate</button>
+                        <button type="submit" class="hidden-button" display>Search</button>
+
                             </form>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        }
-        else
-        {
-            <tbody>
-                <tr>
-                    <td colspan="9" class="text-center"><h2>No bookings available</h2></td>
-                </tr>
-            </tbody>
-        }
-    </table>
+                            
+                        </div>
+                        
+                    </section>
+                    <section class="table__body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th> Id </th>
+                                    <th> Name  </th>
+                                    <th> Image  </th>
+                                    <th> Location  </th>
+                                    <th> Information  </th>
+                                    <th> Price  </th>
+                                    <th>Actions</th>
+                                    <th>Rate</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <tr>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td> </td>
+                                    <td>
+                                        <p class="status delivered">Delivered</p>
+                                    </td>
+                                    <td> <strong> price </strong></td>
+                                </tr> -->
+                                @foreach (var court in Model)
+                                {
+                                    <tr>
+                                        <td>@court.CoId</td>
+                                        <td>@court.CoName</td>
+                                        <td><img src="~/Upload/Image/@court.CoPath" alt="Court Image" style="width:100px" class="card-img" /></td>
+                                        <td>@court.CoAddress</td>
+                                        <td>@court.CoInfo</td>
+                                        <td><strong> @court.CoPrice </strong></td>
+                                        <td>
+                                            <a href="@Url.Action("checkout", "Home", new { courtId = court.CoId })" class="btn btn-primary">Show all bookings</a>
+                                        </td>
+                                        <td>
+                                            <form method="post" action="@Url.Action("Rating", "Home")">
+                                                <input type="hidden" name="courtId" value="@court.CoId" />
+                                                <button type="submit" class="btn btn-primary">Rate</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </section>
+               
+
+                </main>
+            @if (ViewBag.NoOfPages >= 1 || ViewBag.TotalRecords <= 5)
+            {
+                <ul class="pagination justify-content-center mt-4">
+                    @{
+                        int PrevPage = ViewBag.Page - 1;
+                        if (PrevPage <= 0) PrevPage = 1;
+                        int NextPage = ViewBag.Page + 1;
+                        if (NextPage > ViewBag.NoOfPages) NextPage = ViewBag.NoOfPages;
+                    }
+
+                    <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
+                        <a class="page-link" href="/home/customer?page=@PrevPage&searchTerm=@ViewBag.SearchTerm">Prev</a>
+                    </li>
+
+                    @for (int i = 1; i <= ViewBag.NoOfPages; i++)
+                    {
+                        <li class="page-item @(i == ViewBag.Page ? "active" : "")">
+                            <a class="page-link" href="/home/customer?page=@i&searchTerm=@ViewBag.SearchTerm">@i</a>
+                        </li>
+                    }
+
+                    <li class="page-item @(ViewBag.Page == ViewBag.NoOfPages ? "disabled" : "")">
+                        <a class="page-link" href="/home/customer?page=@NextPage&searchTerm=@ViewBag.SearchTerm">Next</a>
+                    </li>
+                </ul>
+            }
+
+            </body>
+        
+       
+    
 </div>
 
-@if (ViewBag.NoOfPages >= 1 || ViewBag.TotalRecords <= 5)
-{
-    <ul class="pagination justify-content-center mt-4">
-        @{
-            int PrevPage = ViewBag.Page - 1;
-            if (PrevPage <= 0) PrevPage = 1;
-            int NextPage = ViewBag.Page + 1;
-            if (NextPage > ViewBag.NoOfPages) NextPage = ViewBag.NoOfPages;
-        }
-
-        <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
-            <a class="page-link" href="/home/customer?page=@PrevPage&searchTerm=@ViewBag.SearchTerm">Prev</a>
-        </li>
-
-        @for (int i = 1; i <= ViewBag.NoOfPages; i++)
-        {
-            <li class="page-item @(i == ViewBag.Page ? "active" : "")">
-                <a class="page-link" href="/home/customer?page=@i&searchTerm=@ViewBag.SearchTerm">@i</a>
-            </li>
-        }
-
-        <li class="page-item @(ViewBag.Page == ViewBag.NoOfPages ? "disabled" : "")">
-            <a class="page-link" href="/home/customer?page=@NextPage&searchTerm=@ViewBag.SearchTerm">Next</a>
-        </li>
-    </ul>
-}
 
 
 @section Scripts {
