@@ -727,18 +727,36 @@ nav {
         border-radius: 64% 36% 0% 100% / 48% 4% 96% 52%;
     }
 
+/*BookingType*/
 .BookingType {
     width: 100%;
     padding: 10rem 0 8rem;
-    background: #555555d2;
     backdrop-filter: blur(4px);
     overflow: hidden;
+    position: relative;
+    transition: background-image 0.5s ease-in-out;
+    background-size: cover;
+    background-position: center;
 }
 
     .BookingType h2 {
         text-align: center;
         margin-bottom: 1rem;
+        text-shadow: -0.5px -0.5px 1px #fff, -0.5px -0.5px 1px #fff, 0.5px 0.5px 1px #fff, 0.5px 0.5px 1px #fff;
     }
+
+.background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(0.5px); /* Adjust opacity as desired */
+    transition: opacity 0.5s ease-in-out; /* Optional: Add transition effect */
+}
 
 .court-list {
     position: relative;
@@ -751,13 +769,14 @@ nav {
 #slide-container {
     display: flex;
     width: 100%;
-    -webkit-mask: linear-gradient(90deg, transparent, white 10%, white 80%, transparent);
-    mask: linear-gradient(90deg, transparent, white 2%, white 80%, transparent);
+    -webkit-mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+    mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
 }
 
 #slide {
     display: flex;
     transition: transform 0.5s ease-in-out;
+    margin: 0 0 0 200px;
 }
 
 .court-card {
@@ -765,7 +784,7 @@ nav {
     border-radius: 10px;
     width: 300px;
     height: 340px;
-    margin: 50px 20px 50px 50px;
+    margin: 50px 20px 60px 50px;
     box-shadow: 1px 0 2px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s, opacity 0.5s ease;
     opacity: 0.9;
@@ -791,36 +810,35 @@ nav {
         .court-card a:hover {
             text-decoration: none;
             color: white;
-            
         }
 
-    .court-info-pop {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: -60px;
-        text-align: center;
-        transform: translateY(-100%);
+.court-info-pop {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: -60px;
+    text-align: center;
+    transform: translateY(-100%);
+}
+
+    .court-info-pop .courtName {
+        color: rgba(255,255,255,1);
+        transform: translate(-30%, -40%);
+        text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+        transition: all 0.2s ease;
     }
 
-        .court-info-pop .courtName {
-            color: rgba(255,255,255,1);
-            transform: translate(-30%, -40%);
-            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-            transition: all 0.2s ease;
-        }
+.court-card.hovered .court-info-pop .courtName {
+    transform: translate(-20%, -10%);
+    transition: all 0.4s ease;
+}
 
-        .court-card.hovered .court-info-pop .courtName {
-            transform: translate(-20%, -10%);
-            transition: all 0.4s ease;
-        }
-
-        .court-info-pop span:nth-child(2) {
-            visibility: hidden;
-            font-size: small;
-            font-family: system-ui;
-            color: darkgray;
-            transition: all 0.1s ease;
-        }
+.court-info-pop span:nth-child(2) {
+    visibility: hidden;
+    font-size: small;
+    font-family: system-ui;
+    color: darkgray;
+    transition: all 0.1s ease;
+}
 
 .court-card:hover .court-info-pop span {
     visibility: visible;
@@ -930,7 +948,7 @@ nav {
 
 .slide-buttons {
     position: absolute;
-    top: 80%;
+    top: 90%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
@@ -940,17 +958,19 @@ nav {
     .slide-buttons button {
         width: 50px;
         height: 50px;
-        background-color: #33333300;
+        background-color: #333;
+        color: #ccc;
         border-radius: 50%;
         border: 1px solid #555;
         transition: 0.5s;
     }
 
         .slide-buttons button:hover {
-            background-color: #33333382;
+            background-color: brown;
             color: white;
             transform: scale(1.15);
         }
+
 
 .shape {
     background: linear-gradient(45deg, var(--primary) 0%, var(--secondary) 100%);
@@ -976,9 +996,6 @@ nav {
         background: linear-gradient(45deg, var(--primary) 0%, var(--secondary) 100%);
     }
 }
-
-
-
 
 /* Book Info*/
 .contact-section {
@@ -1011,10 +1028,10 @@ nav {
     width: 100%;
     height: 100%;
 }
-.flip-container .first-card .flip-back {
+.flip-container .flip-back {
     display: flex;
-    background: url(../images/badminton-shuttlecock-black-background-transformed.png) no-repeat center;
 }
+
 .flip-container .flip-back p {text-align: left; margin-left: 20px;}
 
 .con-container .first-card,
@@ -1067,15 +1084,36 @@ nav {
         background: #555;
     }
 
-.flip-container .first-card .flip-back,
-.flip-container .seccond-card .flip-back,
+.flip-container .first-card .flip-back {
+    visibility: hidden;
+    color: rgba(255,255,255,1);
+    backdrop-filter: blur(20px);
+    width: 1000px;
+    height: 550px;
+    background: url(../images/badminton-shuttlecock-black-background-transformed.png) no-repeat center;
+    transform: translate(200%, -80%);
+    border-radius: 20px;
+}
+
+.flip-container .seccond-card .flip-back {
+    visibility: hidden;
+    color: rgba(255,255,255,1);
+    backdrop-filter: blur(20px);
+    width: 1000px;
+    height: 550px;
+    background: url(../images/badminton-shuttlecock-black-background-transformed.png) no-repeat center;
+    transform: translate(-38%, -200%);
+    border-radius: 20px;
+}
+
 .flip-container .third-card .flip-back {
     visibility: hidden;
     color: rgba(255,255,255,1);
     backdrop-filter: blur(20px);
     width: 1000px;
     height: 550px;
-    transform: translate(-20%, -200%);
+    background: url(../images/badminton-shuttlecock-black-background-transformed.png) no-repeat center;
+    transform: translate(-220%, -75%);
     border-radius: 20px;
 }
 

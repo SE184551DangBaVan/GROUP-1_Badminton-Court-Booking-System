@@ -4,18 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var courts = Model.GroupBy(c => c.CoAddress)
-    .Select(addressGroup => new
-    {
-        Address = addressGroup.Key,
-        Courts = addressGroup.GroupBy(c => c.CoName)
-                             .Select(nameGroup => new
-                             {
-                                 Name = nameGroup.Key,
-                                 ImgUrl = nameGroup.Select(p => p.CoPath).FirstOrDefault(),
-                                 CourtInfo = nameGroup.Select(d => d.CoInfo).FirstOrDefault(),
-                                 CourtLocation = nameGroup.Select(l => l.CoAddress).FirstOrDefault()
-                             }).ToList()
-    }).ToList();
+                  .Select(addressGroup => new
+                  {
+                      Address = addressGroup.Key,
+                      Court = addressGroup.First()
+                  }).ToList();
 
 
 }
@@ -75,41 +68,42 @@
         <img class="welc2-image" src="~/images/badminton_rackets_image.png" />
     </div>
 
-    <div class="shape">
-        <section id="BookingType" class="BookingType">
-            <h2>--Featured Courts--</h2>
-            <div class="court-list">
-                <div id="slide-container">
-                    <div id="slide">
-                        @foreach (var addressGroup in courts)
-                        {
-                            @foreach (var court in addressGroup.Courts)
-                            {
-                                <div class="court-card">
-                                    <p class="court-select">
-                                        <img src="~/images/@court.ImgUrl" alt="@court.ImgUrl">
-                                        
-                                    </p>
-                                    <p class="court-info-pop">
-                                        <span class="courtName">@court.Name</span>
-                                        <span>@court.CourtInfo</span>
-                                        <div class="assert">
-                                            <a style="text-decoration:none" asp-controller="home" asp-action="book2" asp-route-address="@addressGroup.Address" asp-route-sortOrder=""><i class="fa-solid fa-circle-info"></i>Information</a>
-                                        </div>
-                                    </p>
-                                    <div class="court-location"><i class="fa-solid fa-location-dot"></i>@court.CourtLocation</div>
+    <section id="BookingType" class="BookingType">
+        <div class="background-overlay"></div>
+        <h2>--Featured Courts--</h2>
+        <div class="court-list">
+            <div id="slide-container">
+                <div id="slide">
+                    @foreach (var addressGroup in courts)
+                    {
+                        <div class="court-card" data-bg-url="transformed-@addressGroup.Court.CoPath">
+                            <p class="court-select">
+                                <img src="~/images/@addressGroup.Court.CoPath" alt="@addressGroup.Court.CoPath">
+                            </p>
+                            <p class="court-info-pop">
+                                <span class="courtName">@addressGroup.Court.CoName</span>
+                                <span>@addressGroup.Court.CoInfo</span>
+                                <div class="assert">
+                                    <a style="text-decoration:none" asp-controller="home" asp-action="book2" asp-route-address="@addressGroup.Address" asp-route-sortOrder="">
+                                        <i class="fa-solid fa-circle-info"></i>Information
+                                    </a>
                                 </div>
-                            }
-                        }
-                    </div>
-                </div>
-                <div class="slide-buttons">
-                    <button id="prev"><i class="fa-solid fa-angle-left"></i></button>
-                    <button id="next"><i class="fa-solid fa-angle-right"></i></button>
+                            </p>
+                            <div class="court-location">
+                                <i class="fa-solid fa-location-dot"></i>@addressGroup.Court.CoAddress
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
-        </section>
+            <div class="slide-buttons">
+                <button id="prev"><i class="fa-solid fa-angle-left"></i></button>
+                <button id="next"><i class="fa-solid fa-angle-right"></i></button>
+            </div>
+        </div>
+    </section>
 
+    <div class="shape">
         <section id="bookingInformation" class="contact-section">
             <div class="con-container">
                 <h2>Booking Information</h2>

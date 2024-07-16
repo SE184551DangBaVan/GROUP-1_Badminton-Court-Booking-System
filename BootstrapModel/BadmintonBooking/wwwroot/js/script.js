@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentIndex = 0;
     const slideWidth = document.querySelector('.court-card').offsetWidth;
     const visibleCardsCount = Math.floor(slide.parentElement.offsetWidth / slideWidth);
-    const maxIndex = slide.children.length - visibleCardsCount; // Recalculate the max index with buffer
+    const maxIndex = slide.children.length - visibleCardsCount;
     let isUserInteracted = false;
     let autoScrollInterval;
     let idleTimeout;
@@ -71,8 +71,13 @@ document.addEventListener('DOMContentLoaded', function () {
             const distanceFromCenter = Math.abs(currentIndex - index);
             const scale = Math.max(1.1 - (distanceFromCenter * 0.1), 0.6);
             card.style.transform = `scale(${scale})`;
-            card.style.opacity = 1 - (distanceFromCenter * 0.1);
         });
+    }
+
+    function updateBackgroundImage() {
+        const currentCard = courtCards[Math.round(currentIndex)];
+        const newBgUrl = `/images/${currentCard.getAttribute('data-bg-url')}`;
+        document.querySelector('.BookingType').style.background = `url(${newBgUrl}) center no-repeat`;
     }
 
     function startAutoScroll() {
@@ -85,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
             currentIndex += direction * 0.02;
             slide.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
             updateCardScaling();
+            updateBackgroundImage();
         }, 120); // Adjust scroll speed here
     }
 
@@ -114,10 +120,12 @@ document.addEventListener('DOMContentLoaded', function () {
             currentIndex++;
             slide.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
             updateCardScaling();
+            updateBackgroundImage();
         } else {
             currentIndex = maxIndex;
             slide.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
             updateCardScaling();
+            updateBackgroundImage();
         }
         setTimeout(function () {
             isUserInteracted = false;
@@ -132,10 +140,12 @@ document.addEventListener('DOMContentLoaded', function () {
             currentIndex--;
             slide.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
             updateCardScaling();
+            updateBackgroundImage();
         } else {
             currentIndex = 0;
             slide.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
             updateCardScaling();
+            updateBackgroundImage();
         }
         setTimeout(function () {
             isUserInteracted = false;
@@ -148,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function () {
         card.addEventListener('mouseenter', function () {
             stopAutoScroll();
             card.classList.add('hovered');
-            isUserInteracted = true; // Ensure the auto-scroll does not resume
+            isUserInteracted = true;
         });
         card.addEventListener('mouseleave', function () {
             card.classList.remove('hovered');
@@ -180,6 +190,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Initial card scaling
+    // Initial card scaling and background update
     updateCardScaling();
+    updateBackgroundImage();
 });
