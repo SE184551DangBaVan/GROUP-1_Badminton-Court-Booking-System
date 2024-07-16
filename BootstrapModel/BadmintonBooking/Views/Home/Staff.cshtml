@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Staff";
+    
 }
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
 
@@ -18,6 +19,7 @@
     .container {
         max-width: 1200px;
         margin: 20px auto;
+        margin-top:70px;
     }
 
     .table {
@@ -102,7 +104,7 @@
         </tbody>
     </table>
 </div>
-@if (ViewBag.NoOfPages > 1 || ViewBag.TotalRecords <= 5)
+@if (ViewBag.NoOfPages >= 1 || ViewBag.TotalRecords <= 5)
 {
     <ul class="pagination justify-content-center mt-4">
         @{

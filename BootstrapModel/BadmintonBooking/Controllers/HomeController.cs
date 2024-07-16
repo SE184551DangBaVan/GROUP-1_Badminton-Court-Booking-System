@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using PayPal.Api;
 using System.Diagnostics;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BadmintonBooking.Controllers
 {
@@ -213,13 +214,35 @@ namespace BadmintonBooking.Controllers
         {
             int NoOfRecordPerPage = 7;
 
-         var data = _context.Courts
-        .Where(c => string.IsNullOrEmpty(searchTerm) ||
-                    c.CoId.ToString().Equals(searchTerm) ||
-                    c.CoName.ToLower().Equals(searchTerm.ToLower()) ||
-                    
-                    c.CoInfo.ToLower().Equals(searchTerm.ToLower()))
-        .ToList();
+            /* var data = _context.Courts
+            .Where(c => string.IsNullOrEmpty(searchTerm) ||
+                        c.CoId.ToString().Equals(searchTerm) ||
+                        c.CoName.ToLower().Equals(searchTerm.ToLower()) ||
+
+                        c.CoInfo.ToLower().Equals(searchTerm.ToLower()))
+            .ToList();*/
+            var allCourts = _context.Courts.ToList();
+
+            List<Court> data;
+
+            // First part: Search by CoId
+            if (int.TryParse(searchTerm, out int searchId))
+            {
+                data = allCourts
+                    .Where(c => c.CoId == searchId)
+                    .ToList();
+            }
+            else
+            {
+                // Second part: Search by other fields
+                data = allCourts
+                    .Where(c =>
+                        string.IsNullOrEmpty(searchTerm) ||
+                        c.CoName.ToLower().Contains(searchTerm.ToLower()) ||
+                        c.CoInfo.ToLower().Contains(searchTerm.ToLower())||
+                        c.CoAddress.ToLower().Contains(searchTerm.ToLower()))
+                    .ToList();
+            }
             //pagination
             int totalRecords = data.Count;
             int NoOfPages = (int)Math.Ceiling((double)totalRecords / NoOfRecordPerPage);
@@ -251,16 +274,37 @@ namespace BadmintonBooking.Controllers
                 .Include(b => b.Co)
                 .ToList();
 
+            /*    // Second part: apply search filter
+                var data = courtFilteredData
+                    .Where(b => string.IsNullOrEmpty(searchTerm) ||
+                                b.BId.ToString().ToLower().Equals(searchTerm) ||
+                                b.Co.CoName.ToLower().Equals(searchTerm) ||
+                                b.BBookingType.ToLower().Equals(searchTerm) ||
+                                b.Co.CoAddress.ToLower().Equals(searchTerm)
+
+                                )
+                    .ToList(); */
+
+            List<Booking> data;
+
             // Second part: apply search filter
-            var data = courtFilteredData
-                .Where(b => string.IsNullOrEmpty(searchTerm) ||
-                            b.BId.ToString().ToLower().Equals(searchTerm) ||
-                            b.Co.CoName.ToLower().Equals(searchTerm) ||
-                            b.BBookingType.ToLower().Equals(searchTerm) ||
-                            b.Co.CoAddress.ToLower().Equals(searchTerm)
-                           
-                            )
-                .ToList();
+            if (int.TryParse(searchTerm, out int searchId))
+            {
+                // Search by Booking ID
+                data = courtFilteredData
+                    .Where(b => b.BId == searchId)
+                    .ToList();
+            }
+            else
+            {
+                // Search by other fields
+                data = courtFilteredData
+                    .Where(b => string.IsNullOrEmpty(searchTerm) ||
+                                b.Co.CoName.ToLower().Contains(searchTerm) ||
+                                b.BBookingType.ToLower().Contains(searchTerm) ||
+                                b.Co.CoAddress.ToLower().Contains(searchTerm))
+                    .ToList();
+            }
 
             switch (sortOrder)
             {
@@ -308,15 +352,37 @@ namespace BadmintonBooking.Controllers
                 .ToList();
 
             // Apply search filter
-            var data = filteredData
-                .Where(ts => string.IsNullOrEmpty(searchTerm) ||
-                             ts.TsId.ToString().ToLower().Equals(searchTerm) ||
-                             ts.Co.CoName.ToLower().Equals(searchTerm.ToLower()) ||
-                             ts.TsDate.ToString().ToLower().Equals(searchTerm) ||
-                             ts.TsStart.ToString().Equals(searchTerm)||
-                             ts.TsEnd.ToString().Equals(searchTerm)||
-                             ts.BIdNavigation.BBookingType.ToLower().Equals(searchTerm.ToLower()))
-                .ToList();
+            /*   var data = filteredData
+                   .Where(ts => string.IsNullOrEmpty(searchTerm) ||
+                                ts.TsId.ToString().ToLower().Equals(searchTerm) ||
+                                ts.Co.CoName.ToLower().Equals(searchTerm.ToLower()) ||
+                                ts.TsDate.ToString().ToLower().Equals(searchTerm) ||
+                                ts.TsStart.ToString().Equals(searchTerm)||
+                                ts.TsEnd.ToString().Equals(searchTerm)||
+                                ts.BIdNavigation.BBookingType.ToLower().Equals(searchTerm.ToLower()))
+                   .ToList();*/
+            List<TimeSlot> data;
+
+            // Apply search filter
+            if (int.TryParse(searchTerm, out int searchId))
+            {
+                // Search by TsId
+                data = filteredData
+                    .Where(ts => ts.TsId == searchId)
+                    .ToList();
+            }
+            else
+            {
+                // Search by other fields
+                data = filteredData
+                    .Where(ts => string.IsNullOrEmpty(searchTerm) ||
+                                 ts.Co.CoName.ToLower().Contains(searchTerm.ToLower()) ||
+                                 ts.TsDate.ToString().ToLower().Equals(searchTerm.ToLower()) ||
+                                 ts.TsStart.ToString().Equals(searchTerm.ToLower()) ||
+                                 ts.TsEnd.ToString().Equals(searchTerm.ToLower()) ||
+                                 ts.BIdNavigation.BBookingType.ToLower().Equals(searchTerm.ToLower()))
+                    .ToList();
+            }
 
             // Sorting logic
             switch (sortOrder)
@@ -380,15 +446,26 @@ namespace BadmintonBooking.Controllers
             var filteredCourts = _context.Courts
            .Where(c => _context.Bookings.Any(b => b.UserId == userId && b.CoId == c.CoId)).ToList();
 
-            var data = filteredCourts
-                .Where(c =>
-                string.IsNullOrEmpty(searchTerm) ||
-                c.CoId.ToString().Equals(searchTerm) ||
-                c.CoName.ToLower().Equals(searchTerm.ToLower()) ||
-               c.CoAddress.ToLower().Equals(searchTerm.ToLower())||
-               c.CoPrice.ToString().Equals(searchTerm)
-               )
-                .ToList();
+            List<Court> data;
+
+            if (int.TryParse(searchTerm, out int searchId))
+            {
+                // Search by CoId
+                data = filteredCourts
+                    .Where(c => c.CoId == searchId||c.CoPrice==searchId)
+                    .ToList();
+            }
+            else
+            {
+                // Search by other fields
+                data = filteredCourts
+                    .Where(c =>
+                        string.IsNullOrEmpty(searchTerm) ||
+                        c.CoName.ToLower().Contains(searchTerm.ToLower()) ||
+                        c.CoAddress.ToLower().Contains(searchTerm.ToLower()) ||
+                        c.CoInfo.ToLower().Contains(searchTerm.ToLower()))
+                    .ToList();
+            }
 
 
             int totalRecords = data.Count;
@@ -418,13 +495,34 @@ namespace BadmintonBooking.Controllers
                 .Include(b => b.TimeSlots)
                 .Include(b => b.Co)
                 .ToList();
-            var data = courtFilteredData
-        .Where(b =>
-                   string.IsNullOrEmpty(searchTerm) ||
-                   b.BId.ToString().Equals(searchTerm) ||
-                   b.Co.CoName.ToLower().Equals(searchTerm.ToLower()) ||
-                   b.BBookingType.ToLower().Equals(searchTerm.ToLower()))
-                   .ToList();
+            /*  var data = courtFilteredData
+          .Where(b =>
+                     string.IsNullOrEmpty(searchTerm) ||
+                     b.BId.ToString().Equals(searchTerm) ||
+                     b.Co.CoName.ToLower().Equals(searchTerm.ToLower()) ||
+                     b.BBookingType.ToLower().Equals(searchTerm.ToLower()))
+                     .ToList(); */
+
+            List<Booking> data;
+
+            if (int.TryParse(searchTerm, out int searchId))
+            {
+                // Search by BId
+                data = courtFilteredData
+                    .Where(b => b.BId == searchId)
+                    .ToList();
+            }
+            else
+            {
+                // Search by other fields
+                data = courtFilteredData
+                    .Where(b =>
+                        string.IsNullOrEmpty(searchTerm) ||
+                        b.Co.CoName.ToLower().Contains(searchTerm.ToLower()) ||
+                        b.BBookingType.ToLower().Contains(searchTerm.ToLower()))
+                    .ToList();
+            }
+
             switch (sortOrder)
             {
                 case "recent":
@@ -472,13 +570,34 @@ namespace BadmintonBooking.Controllers
                 .Where(ts => ts.BId == bookingId && ts.BIdNavigation.UserId == userId && ts.CoId == courtId).ToList();
 
             // Apply search filter
-            var data = courtFilteredData
-         .Where(ts =>
-                    string.IsNullOrEmpty(txtsearchTerm) ||
-                    ts.TsId.ToString().Equals(txtsearchTerm) ||
-                    ts.Co.CoName.ToLower().Equals(txtsearchTerm.ToLower()) || ts.Co.CoAddress.ToLower().Equals(txtsearchTerm.ToLower())
-                    || ts.TsDate.ToString().Equals(txtsearchTerm)
-                    ).ToList();
+            /*    var data = courtFilteredData
+             .Where(ts =>
+                        string.IsNullOrEmpty(txtsearchTerm) ||
+                        ts.TsId.ToString().Equals(txtsearchTerm) ||
+                        ts.Co.CoName.ToLower().Equals(txtsearchTerm.ToLower()) || ts.Co.CoAddress.ToLower().Equals(txtsearchTerm.ToLower())
+                        || ts.TsDate.ToString().Equals(txtsearchTerm)
+                        ).ToList(); */
+            List<TimeSlot> data;
+
+            // First part: Search by TsId
+            if (int.TryParse(txtsearchTerm, out int searchId))
+            {
+                data = courtFilteredData
+                    .Where(ts => ts.TsId == searchId)
+                    .ToList();
+            }
+            else
+            {
+                // Second part: Search by other fields
+                data = courtFilteredData
+                    .Where(ts =>
+                        string.IsNullOrEmpty(txtsearchTerm) ||
+                        ts.Co.CoName.ToLower().Contains(txtsearchTerm) ||
+                        ts.Co.CoAddress.ToLower().Contains(txtsearchTerm) ||
+                        ts.TsDate.ToString().Contains(txtsearchTerm))
+                    .ToList();
+            }
+
 
             // Apply sorting
             switch (sortOrder)

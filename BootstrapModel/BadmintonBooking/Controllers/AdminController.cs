@@ -156,7 +156,11 @@ namespace BadmintonBooking.Controllers
       .Select(c => c.CoAddress)
       .Distinct()
       .ToList();
+            var statusList = _context.Courts.Select(c => c.CoStatus)
+       .Distinct()
+       .ToList();
             ViewBag.AddressList = new SelectList(addressList);
+            ViewBag.StatusList = new SelectList(statusList);
             var data = context.Courts.FirstOrDefault(c => c.CoId == id);
             if (data != null)
             {
@@ -205,7 +209,15 @@ namespace BadmintonBooking.Controllers
                     data.CoAddress = model.CoAddress;
                     data.CoInfo = model.CoInfo;
                     data.CoPrice = model.CoPrice;
-                    data.CoStatus = true;
+            if (model.CoStatus==false)
+            {
+                data.CoStatus = false;
+            }
+            else
+            {
+                data.CoStatus = true;
+            }
+                   
                     data.UserId = userid;
 
                     if (model.ImagePath != null)
