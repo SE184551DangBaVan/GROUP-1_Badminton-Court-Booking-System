@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentIndex = 0;
     const slideWidth = document.querySelector('.court-card').offsetWidth;
     const visibleCardsCount = Math.floor(slide.parentElement.offsetWidth / slideWidth);
-    const maxIndex = slide.children.length - visibleCardsCount + 2; // Recalculate the max index with buffer
+    const maxIndex = slide.children.length - visibleCardsCount; // Recalculate the max index with buffer
     let isUserInteracted = false;
     let autoScrollInterval;
     let idleTimeout;

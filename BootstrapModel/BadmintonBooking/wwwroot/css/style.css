@@ -586,7 +586,7 @@ nav {
 }
 
 .heading {
-    background: rgba(128, 128, 128, 0.2);
+    background: rgba(128, 128, 128, 0.6);
     backdrop-filter: blur(2px);
     color: #f4f4f4;
     padding: 5rem 0;
@@ -598,7 +598,7 @@ nav {
     .heading .outter-container {
         width: 100%;
         margin: auto;
-        background: rgba(85, 85, 85, 0.4);
+        background: rgba(51, 51, 51, 0.7);
         backdrop-filter: blur(2px);
         border-radius: 22% 78% 40% 60% / 22% 70% 30% 78%;
     }
@@ -611,7 +611,7 @@ nav {
         margin: 20px 0px 0px 100px;
         padding: 20px;
         font-size: large;
-        background: rgba(51, 51, 51, 0.6);
+        background: rgba(85, 85, 85, 0.6);
         backdrop-filter: blur(5px);
         border-radius: 52% 48% 69% 31% / 49% 40% 60% 51%;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -763,7 +763,8 @@ nav {
 .court-card {
     background: #33333360;
     border-radius: 10px;
-    width: 280px;
+    width: 300px;
+    height: 340px;
     margin: 50px 20px 50px 50px;
     box-shadow: 1px 0 2px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s, opacity 0.5s ease;
@@ -781,8 +782,6 @@ nav {
         transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     }
 
-
-
     .court-card a {
         text-decoration: none;
         color: brown;
@@ -795,44 +794,51 @@ nav {
             
         }
 
-    .court-card .court-select {
-        text-align: center;
-        color: rgba(255,255,255,1);
-        text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-    }
-
-    .court-card.hovered .court-select{}
-
     .court-info-pop {
+        display: flex;
+        flex-direction: column;
         margin-bottom: -60px;
         text-align: center;
         transform: translateY(-100%);
     }
 
-.court-info-pop span {
-    visibility: hidden;
-    font-size: small;
-    font-family: system-ui;
-    color: darkgray;
-    transition: all 0.1s ease;
-}
+        .court-info-pop .courtName {
+            color: rgba(255,255,255,1);
+            transform: translate(-30%, -40%);
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+            transition: all 0.2s ease;
+        }
+
+        .court-card.hovered .court-info-pop .courtName {
+            transform: translate(-20%, -10%);
+            transition: all 0.4s ease;
+        }
+
+        .court-info-pop span:nth-child(2) {
+            visibility: hidden;
+            font-size: small;
+            font-family: system-ui;
+            color: darkgray;
+            transition: all 0.1s ease;
+        }
 
 .court-card:hover .court-info-pop span {
     visibility: visible;
     font-size: medium;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    transform: translate(0%, -400%);
     transition: all 0.4s ease;
 }
 
 .court-card:hover .court-location {
     visibility: visible;
-    transform: translateY(-1250%);
+    transform: translateY(-1460%);
     transition: transform 0.5s ease;
 }
 
 .court-card .assert {
     margin-top: -50px;
-    transform: translateX(90%) translateY(-140%);
+    transform: translateX(90%) translateY(-160%);
     background: #555555d2;
     border-radius: 8px;
     border: 1px solid #fff;
@@ -852,7 +858,7 @@ nav {
     font-weight: bold;
     color: #ccc;
     margin-top: -30px;
-    transform: translateY(-1800%);
+    transform: translateY(-1900%);
     transition: transform 0.9s ease;
 }
 
@@ -870,13 +876,13 @@ nav {
 
 .court-card img {
     width: 100%;
-    height: 18vmax;
+    height: 21.5vmax;
     border-radius: 10px;
 }
 
     .court-card img:hover {
         width: 100%;
-        height: 18vmax;
+        height: 21.5vmax;
         border-radius: 10px;
     }
 
@@ -1005,9 +1011,9 @@ nav {
     width: 100%;
     height: 100%;
 }
-.flip-container .flip-back {
+.flip-container .first-card .flip-back {
     display: flex;
-    background: url(../images/badminton-shuttlecock-black-background.png) no-repeat;
+    background: url(../images/badminton-shuttlecock-black-background-transformed.png) no-repeat center;
 }
 .flip-container .flip-back p {text-align: left; margin-left: 20px;}
 
