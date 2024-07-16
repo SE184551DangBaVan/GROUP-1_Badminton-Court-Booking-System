@@ -156,11 +156,12 @@ namespace BadmintonBooking.Controllers
       .Select(c => c.CoAddress)
       .Distinct()
       .ToList();
-            var statusList = _context.Courts.Select(c => c.CoStatus)
+            /*var statusList = _context.Courts.Select(c => c.CoStatus)
        .Distinct()
-       .ToList();
+       .ToList(); */
+            //   ViewBag.StatusList = new SelectList(statusList);
             ViewBag.AddressList = new SelectList(addressList);
-            ViewBag.StatusList = new SelectList(statusList);
+        
             var data = context.Courts.FirstOrDefault(c => c.CoId == id);
             if (data != null)
             {
