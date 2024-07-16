@@ -166,7 +166,7 @@
             <!--<a class="btn btn-warning" asp-action="checkout" asp-controller="home" style="height:40px;width:50px">Return</a>-->
         </div>
     </div>
-    @if (ViewBag.NoOfPages > 1 || ViewBag.TotalRecords <= 5)
+    @if (ViewBag.NoOfPages >= 1 || ViewBag.TotalRecords <= 5)
     {
         <ul class="pagination justify-content-center mt-4">
             @{

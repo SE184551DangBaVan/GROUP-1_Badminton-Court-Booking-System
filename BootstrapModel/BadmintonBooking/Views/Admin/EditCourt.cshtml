@@ -115,6 +115,14 @@
 
                         </div>
                     </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CoStatus, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.DropDownListFor(model => model.CoStatus, (SelectList)ViewBag.StatusList, "Select Status", new { @class = "form-control",/*id = "CoAddressDropdown"*/ required = "required" })
+                            @Html.ValidationMessageFor(model => model.CoStatus, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <label asp-for="CoInfo" class="control-label">Information</label>
