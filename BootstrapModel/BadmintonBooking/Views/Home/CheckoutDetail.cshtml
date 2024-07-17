@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "CheckoutDetail";
-    Layout = null;
 }
 <partial name="_Notification" />
 <!DOCTYPE html>
@@ -14,158 +13,325 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
+        * {
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main.table {
+    width: 82vw;
+    height: 90vh;
+    background-color: #fff5;
+
+    backdrop-filter: blur(7px);
+    box-shadow: 0 .4rem .8rem #0005;
+    border-radius: .8rem;
+
+    overflow: hidden;
+}
+
+.table__header {
+    width: 100%;
+    height: 10%;
+    background-color: #fff4;
+    padding: .8rem 1rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.table__header .input-group {
+    width: 35%;
+    height: 100%;
+    background-color: #fff5;
+    padding: 0 .8rem;
+    border-radius: 2rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: .2s;
+}
+
+.table__header .input-group:hover {
+    width: 45%;
+    background-color: #fff8;
+    box-shadow: 0 .1rem .4rem #0002;
+}
+
+.table__header .input-group img {
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+.table__header .input-group input {
+    width: 100%;
+    padding: 0 .5rem 0 .3rem;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.table__body {
+    width: 95%;
+    max-height: calc(89% - 1.6rem);
+    background-color: #fffb;
+
+    margin: .8rem auto;
+    border-radius: .6rem;
+
+    overflow: auto;
+    overflow: overlay;
+}
+
+
+.table__body::-webkit-scrollbar{
+    width: 0.5rem;
+    height: 0.5rem;
+}
+
+.table__body::-webkit-scrollbar-thumb{
+    border-radius: .5rem;
+    background-color: #0004;
+    visibility: hidden;
+}
+
+.table__body:hover::-webkit-scrollbar-thumb{ 
+    visibility: visible;
+}
+
+
+table {
+    width: 100%;
+}
+
+td img {
+    width: 36px;
+    height: 36px;
+    margin-right: .5rem;
+    border-radius: 50%;
+
+    vertical-align: middle;
+}
+
+table, th, td {
+    border-collapse: collapse;
+    padding: 1rem;
+    text-align: left;
+}
+
+thead th {
+    position: sticky;
+    top: 0;
+    left: 0;
+    background-color: #d5d1defe;
+    cursor: pointer;
+    text-transform: capitalize;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #0000000b;
+}
+
+tbody tr {
+    --delay: .1s;
+    transition: .5s ease-in-out var(--delay), background-color 0s;
+}
+
+tbody tr.hide {
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+tbody tr:hover {
+    background-color: #fff6 !important;
+}
+
+tbody tr td,
+tbody tr td p,
+tbody tr td img {
+    transition: .2s ease-in-out;
+}
+
+tbody tr.hide td,
+tbody tr.hide td p {
+    padding: 0;
+    font: 0 / 0 sans-serif;
+    transition: .2s ease-in-out .5s;
+}
+
+tbody tr.hide td img {
+    width: 0;
+    height: 0;
+    transition: .2s ease-in-out .5s;
+}
+
+.status {
+    padding: .4rem 0;
+    border-radius: 2rem;
+    text-align: center;
+}
+
+.status.delivered {
+    background-color: #86e49d;
+    color: #006b21;
+}
+
+.status.cancelled {
+    background-color: #d893a3;
+    color: #b30021;
+}
+
+.status.pending {
+    background-color: #ebc474;
+}
+
+.status.shipped {
+    background-color: #6fcaea;
+}
+
+
+
+
+thead th span.icon-arrow {
+    display: inline-block;
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 50%;
+    border: 1.4px solid transparent;
+    
+    text-align: center;
+    font-size: 1rem;
+    
+    margin-left: .5rem;
+    transition: .2s ease-in-out;
+}
+
+thead th:hover span.icon-arrow{
+    border: 1.4px solid #6c00bd;
+}
+
+thead th:hover {
+    color: #6c00bd;
+}
+
+thead th.active span.icon-arrow{
+    background-color: #6c00bd;
+    color: #fff;
+}
+
+thead th.asc span.icon-arrow{
+    transform: rotate(180deg);
+}
+
+thead th.active,tbody td.active {
+    color: #6c00bd;
+}
+
+        .status-active {
+            display: inline-flex;
+            align-items: center;
+            border-radius: 9999px;
+            padding: 0.5em 1em;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #fff;
+            background-color: #28a745; /* Green background */
+            border: 1px solid transparent;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+        .status-inactive {
+            display: inline-flex;
+            align-items: center;
+            border-radius: 9999px;
+            padding: 0.5em 1em;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #fff;
+            background-color: #dc3545; /* Red background */
+            border: 1px solid transparent;
         }
 
-        .header {
-            text-align: center;
-            padding: 20px;
-            background-color: #007bff;
-            color: white;
-            margin-bottom: 20px;
-        }
 
-            .header h1 {
-                margin: 0;
-            }
-
-        .card-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
-
-        .card {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin: 10px;
-            width: calc(20% - 20px);
-            transition: transform 0.2s;
-        }
-
-            .card:hover {
-                transform: scale(1.05);
-            }
-
-            .card img {
-                border-radius: 8px 8px 0 0;
-                width: 100%;
-                height: 150px;
-                object-fit: cover;
-            }
-
-        .card-content {
-            padding: 10px;
-        }
-
-            .card-content h3 {
-                margin: 0;
-                font-size: 18px;
-            }
-
-            .card-content p {
-                margin: 5px 0;
-                color: #555;
-                font-size: 14px;
-            }
-
-        .btn {
-            display: block;
-            text-align: center;
-            background-color: #007bff;
-            color: white;
-            padding: 8px;
-            border-radius: 5px;
-            text-decoration: none;
-            margin-top: 10px;
-        }
-
-            .btn:hover {
-                background-color: #0056b3;
-            }
-
-        .status-approved {
-            background-color: #d4edda;
-            border-left: 5px solid #28a745;
-        }
-
-        .status-pending {
-            background-color: #f8d7da;
-            border-left: 5px solid #dc3545;
-        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Detail </h1>
-        </div>
-        <div class="search-form">
+    <main class="table" style="margin-left:160px;margin-top:207px" id="customers_table">
+        <section class="table__header">
+            <h1>Customer's Time slot detail</h1>
+            <div class="search-form">
 
-            <form method="get" action="@Url.Action("checkoutdetail", "Home")">
-                <input type="text" name="searchTerm" placeholder="Search by keyword..." />
-                <input type="hidden" name="bookingId" value="@ViewBag.bookingId" />
-                <input type="hidden" name="courtId" value="@ViewBag.courtId" />
-                <button type="submit">Search</button>
-            </form>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Sort By
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="/home/checkoutdetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&searchTerm=@ViewBag.SearchTerm&sortOrder=new">New</a>
-                    <a class="dropdown-item" href="/home/checkoutdetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&searchTerm=@ViewBag.SearchTerm&sortOrder=old">Old</a>
-                    <a class="dropdown-item" href="/home/checkoutdetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&searchTerm=@ViewBag.SearchTerm&sortOrder=today">Today</a>
-                    <a class="dropdown-item" href="/home/checkoutdetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&searchTerm=@ViewBag.SearchTerm&sortOrder=pending">Pending</a>
-                </div>
-            </div>
-        </div>
-         @if (Model != null && Model.Any())
-        {
-        <div class="card-container">
-            @foreach (var item in Model)
-            {
-                <div class="card @(item.TsCheckedIn ? "status-approved" : "status-pending")">
-                    <div class="card-content">
-                        <h3>Time slot Id: @Html.DisplayFor(modelItem => item.TsId)</h3>
-                        <p>Court Name: @Html.DisplayFor(modelItem => item.Co.CoName)</p>
-                        <p>Court Id: @Html.DisplayFor(modelItem => item.Co.CoId)</p>
-                        <p>Address: @Html.DisplayFor(modelItem => item.Co.CoAddress)</p>
-                        <p>Date: @Html.DisplayFor(modelItem => item.TsDate)</p>
-                        <p>Start: @Html.DisplayFor(modelItem => item.TsStart)</p>
-                        <p>End: @Html.DisplayFor(modelItem => item.TsEnd)</p>
-                        <p>Status: @(item.TsCheckedIn ? "Approved" : "Pending")</p>
-                        <!---@if (item.TsCheckedIn)
-                        {
-                                      <a href="/home/rating?courtId=@item.Co.CoId&userId=@item.BIdNavigation.UserId&bookingId=@item.BIdNavigation.BId" class="btn">Rate Now</a>
-
-                        }---->
+                <form method="get" action="@Url.Action("checkoutdetail", "Home")">
+                    <input type="text" name="searchTerm" placeholder="Search by keyword..." />
+                    <input type="hidden" name="bookingId" value="@ViewBag.bookingId" />
+                    <input type="hidden" name="courtId" value="@ViewBag.courtId" />
+                    <button type="submit">Search</button>
+                </form>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Sort By
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="/home/checkoutdetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&searchTerm=@ViewBag.SearchTerm&sortOrder=new">New</a>
+                        <a class="dropdown-item" href="/home/checkoutdetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&searchTerm=@ViewBag.SearchTerm&sortOrder=old">Old</a>
+                        <a class="dropdown-item" href="/home/checkoutdetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&searchTerm=@ViewBag.SearchTerm&sortOrder=today">Today</a>
+                        <a class="dropdown-item" href="/home/checkoutdetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&searchTerm=@ViewBag.SearchTerm&sortOrder=pending">Pending</a>
                     </div>
                 </div>
-            }
             </div>
-        } else
-        {
-            <div class="alert alert-info" role="alert">
-                No time slots found.
-            </div>
-        }
+           
+        </section>
+        <section class="table__body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Time Slot ID</th>
+                        <th>Court Name</th>
+                        <th>Court ID</th>
+                        <th>Address</th>
+                        <th>Date</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.TsId)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Co.CoName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Co.CoId)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Co.CoAddress)</td>
+                            <td>@Html.DisplayFor(modelItem => item.TsDate)</td>
+                            <td>@Html.DisplayFor(modelItem => item.TsStart)</td>
+                            <td>@Html.DisplayFor(modelItem => item.TsEnd)</td>
+                            <td>
+                                <div class="@(item.TsCheckedIn ? "status-active" : "status-inactive")">
+                                    @(item.TsCheckedIn ? "Approved" : "Pending")
+                                </div>
+                            </td>
+                        </tr>
+                    }
 
-        <div>
-            <!--<a class="btn btn-warning" asp-action="checkout" asp-controller="home" style="height:40px;width:50px">Return</a>-->
-        </div>
-    </div>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
     @if (ViewBag.NoOfPages >= 1 || ViewBag.TotalRecords <= 5)
     {
         <ul class="pagination justify-content-center mt-4">
@@ -192,12 +358,12 @@
             </li>
         </ul>
     }
+    
 
    
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-       
-    
-</body>
+
+

@@ -591,7 +591,9 @@ namespace BadmintonBooking.Controllers
                         string.IsNullOrEmpty(txtsearchTerm) ||
                         ts.Co.CoName.ToLower().Contains(txtsearchTerm) ||
                         ts.Co.CoAddress.ToLower().Contains(txtsearchTerm) ||
-                        ts.TsDate.ToString().Contains(txtsearchTerm))
+                        ts.TsDate.ToString().Contains(txtsearchTerm)||
+                        ts.TsStart.ToString().Contains(txtsearchTerm)||
+                        ts.TsEnd.ToString().Contains(txtsearchTerm))
                     .ToList();
             }
 
