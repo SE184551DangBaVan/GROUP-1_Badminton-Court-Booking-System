@@ -66,10 +66,10 @@
                                         </div>
                                         
                                         <form asp-action="Date" asp-controller="Manager">
-                                            <div class="selectedCourtActions">
-                                            <input type="hidden" name="CoId" value="@court.CoId" />
-                                            <input type="hidden" name="Types" value="Casual" />
-                                            <br /><button class="bookBtn">Book</button>
+                                            <div class="selectedCourtActions2nd">
+                                                <input type="hidden" name="CoId" value="@court.CoId" />
+                                                <input type="hidden" name="Types" value="Casual" />
+                                                <br /><button class="bookBtn">Book</button>
                                                 <a class="detailBtn btn-success" href="/home/CourtDetail?CourtId=@court.CoId">Detail</a>
                                                 <a class="detailBtn btn-success" asp-action="QualityCheckHistory" asp asp-controller="Home" asp-route-CoID="@court.CoId">See Quality History</a>
                                             </div>

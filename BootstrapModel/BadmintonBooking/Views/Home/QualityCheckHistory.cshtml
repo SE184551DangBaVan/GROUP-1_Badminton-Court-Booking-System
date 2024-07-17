@@ -78,15 +78,22 @@
             margin-top: 20px;
         }
 
-        p {
+        .event-container .court-quality-name {
             color: #fff;
+            font-weight: 800;
             font-family: 'Lato', sans-serif;
             text-align: center;
-            font-size: 1rem;
+            font-size: 1.2rem;
             line-height: 150%;
             letter-spacing: 1px;
             text-transform: uppercase;
             margin: 5px 0;
+        }
+
+        .event-container-within {
+            color: #ccc;
+            font-size: 1rem;
+            text-shadow: 1px 1px 2px #000;
         }
 
         .button-wrapper {
@@ -166,13 +173,15 @@
                     <div class="banner-image">
                         <img src="/Upload/Image/@item.Co.CoPath" class="img-fluid" alt="@item.Co.CoName">
                     </div>
-                    <p>Court Name: @Html.DisplayFor(modelItem => item.Co.CoName)</p
-                    <p>Created At: @Html.DisplayFor(modelItem => item.CdCreatedAt)</p
-                    <p>Court Surface Condition: @Html.DisplayFor(modelItem => item.CdSurfaceCondition)</p
-                    <p>Court Lightning Condition: @Html.DisplayFor(modelItem => item.CdLightningCondition)</p
-                    <p>Court Cleanliness Condition: @Html.DisplayFor(modelItem => item.CdCleanlinessCondition)</p
-                    <p>Court Overall Condition: @Html.DisplayFor(modelItem => item.CdOverallCondition)</p
-                    <p>Additional notes: @(item.CdNotes ?? "N/A")</p>
+                    <p class="court-quality-name">Court Name: @Html.DisplayFor(modelItem => item.Co.CoName)</p>
+                    <div class="event-container-within">
+                        <p>Created At: @Html.DisplayFor(modelItem => item.CdCreatedAt)</p>
+                        <p>Court Surface Condition: @Html.DisplayFor(modelItem => item.CdSurfaceCondition)</p>
+                        <p>Court Lightning Condition: @Html.DisplayFor(modelItem => item.CdLightningCondition)</p>
+                        <p>Court Cleanliness Condition: @Html.DisplayFor(modelItem => item.CdCleanlinessCondition)</p>
+                        <p>Court Overall Condition: @Html.DisplayFor(modelItem => item.CdOverallCondition)</p>
+                        <p>Additional notes: @(item.CdNotes ?? "N/A")</p>
+                    </div>
                 </div>
             }
         }

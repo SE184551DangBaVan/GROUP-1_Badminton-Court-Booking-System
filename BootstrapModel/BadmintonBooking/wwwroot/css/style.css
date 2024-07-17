@@ -89,7 +89,7 @@ nav {
     nav.sticky {
         padding: 1px;
         background: #333;
-        opacity: 0.9;
+        opacity: 0.99;
     }
 
     nav .nav-container {
@@ -653,11 +653,14 @@ nav {
     transition: 0.2s ease;
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
+    transition: all 0.4s ease;
 }
 
 .heading .button:hover {
     color: #c0e7e5;
     background: brown;
+
+    transition: all 0.4s ease;
 }
 
 .heading .btn-text {
@@ -737,6 +740,8 @@ nav {
     transition: background-image 0.5s ease-in-out;
     background-size: cover;
     background-position: center;
+    border-radius: 19% 38% 0% 0% / 6% 7% 8% 10%;
+    margin-top: -50px;
 }
 
     .BookingType h2 {
@@ -1467,6 +1472,47 @@ nav {
     }
 
 .card .card-body .selectedCourtActions .bookBtn:hover {
+    background: brown;
+    color: rgba(255,255,255,1);
+    text-shadow: 1px 2px 3px rgba(250, 250, 250, 1);
+}
+
+.card .card-body .selectedCourtActions2nd {
+    display: flex;
+    justify-content: space-between;
+    width: 150%;
+    transform: translate(-35%, 750%);
+}
+
+.card .card-body .selectedCourtActions2nd .detailBtn {
+    border-style: none;
+    outline: 1px solid;
+    outline-color: black;
+    background: brown;
+    padding: 3px 6px 3px 6px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.card .card-body .selectedCourtActions2nd .detailBtn:hover {
+    font-weight: 400;
+    background: #ccc;
+    color: black;
+    text-shadow: 1px 2px 3px rgba(0, 0, 0, 1);
+}
+
+    .card .card-body .selectedCourtActions2nd .bookBtn {
+        border-style: none;
+        outline: 1px solid;
+        outline-color: black;
+        background: #ccc;
+        padding: 3px 6px 3px 6px;
+        border-radius: 4px;
+        transition: 0.3s ease;
+    }
+
+.card .card-body .selectedCourtActions2nd .bookBtn:hover {
     background: brown;
     color: rgba(255,255,255,1);
     text-shadow: 1px 2px 3px rgba(250, 250, 250, 1);
