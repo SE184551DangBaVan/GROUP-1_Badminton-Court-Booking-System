@@ -1008,6 +1008,9 @@ nav {
 .contact-section {
     background: #555555d2;
     backdrop-filter: blur(4px);
+    height: 50vmax;
+    margin-top: -20px;
+    border-radius: 36% 24% 0% 0% / 2% 2% 8% 10%;
 }
 
     .contact-section .con-container {
@@ -1018,6 +1021,7 @@ nav {
         .contact-section .con-container h2 {
             text-align: center;
             margin-bottom: 5rem;
+            padding-top: 160px;
         }
 
     .contact-section .flip-container {
