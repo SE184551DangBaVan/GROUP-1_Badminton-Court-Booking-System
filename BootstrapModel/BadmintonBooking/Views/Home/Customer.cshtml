@@ -21,10 +21,17 @@
 
 
 body {
-    min-height: 100vh;
+    background: url(../images/transformed-b929d15a-7a6d-4e0f-ac0a-b5fba2b1e95d_court3.jpg) no-repeat fixed;
+    background-color: #242526;
+    background-position: center;
+    background-size: cover;
+    line-height: 1.6;
+    scroll-behavior: smooth;
+    min-height: 120vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 main.table {
@@ -51,8 +58,8 @@ main.table {
 }
 
 .table__header .input-group {
-    width: 35%;
-    height: 100%;
+    width: 75%;
+    height: 80%;
     background-color: #fff5;
     padding: 0 .8rem;
     border-radius: 2rem;
@@ -65,7 +72,7 @@ main.table {
 }
 
 .table__header .input-group:hover {
-    width: 45%;
+    width: 80%;
     background-color: #fff8;
     box-shadow: 0 .1rem .4rem #0002;
 }
@@ -177,6 +184,11 @@ tbody tr.hide td img {
     transition: .2s ease-in-out .5s;
 }
 
+.searchElements{
+    display: flex;
+    gap: 10px;
+}
+
 .status {
     padding: .4rem 0;
     border-radius: 2rem;
@@ -242,8 +254,11 @@ thead th.active,tbody td.active {
 
 
     .search-container {
+        width: 320px;
         display: flex;
-        align-items: center;
+        align-content: center;
+        flex-direction: row;
+        justify-content: space-between;
     }
 
     .search-input {
@@ -260,35 +275,48 @@ thead th.active,tbody td.active {
         margin-left: 5px;
     }
 
+    .search-GO {
+        border-style: none;
+        border-radius: 15px;
+        outline: 1px solid;
+        outline-color: black;
+        background: brown;
+        color: white;
+        padding: 4px 10px 4px 10px;
+        transition: 0.3s ease;
+    }
+
+        .search-GO:hover {
+        background: brown;
+        text-shadow: 4px 2px 3px rgba(0, 0, 0, 1);
+        box-shadow: 2px 4px 6px rgba(128, 0, 0, 1);
+    }
 
 </style>
 
-<div class="">
-    
-      
         
             <body>
                 <main class="table" id="customers_table">
                     <section class="table__header">
                         <h1>Customer's Orders</h1>
-                        <div class="input-group">
+                        <div class="search-container">
                         <form method="get" action="@Url.Action("customer", "Home")">
-                            <div style="display:inline">
-                            <div class="search-input">
-                                <input type="search" name="searchTerm" placeholder="Search Data...">
-                            </div>
-                            <div class="search-icon">
-                                <i class="fa-regular fa-magnifying-glass fa-lg"></i>
-                            </div>
+                        <div class="input-group">
+                            <div class="searchElements">
+                                <div class="search-input">
+                                    <input type="search" name="searchTerm" placeholder="Search Data...">
+                                </div>
+                                <div class="search-icon">
+                                    <i class="fa-regular fa-magnifying-glass fa-lg"></i>
+                                </div>
 
-
+                                
                             </div>
-                       
-                        <button type="submit" style="width:27px" display>GO</button>
-
-                            </form>
-                            
                         </div>
+                            <button class="search-GO" type="submit" >GO</button>
+                        </form>
+                        </div>
+                        
                         
                     </section>
                     <section class="table__body">
@@ -342,7 +370,7 @@ thead th.active,tbody td.active {
                     </section>
                
 
-                </main>
+            </main>
             @if (ViewBag.NoOfPages >= 1 || ViewBag.TotalRecords <= 5)
             {
                 <ul class="pagination justify-content-center mt-4">
@@ -372,10 +400,6 @@ thead th.active,tbody td.active {
 
             </body>
         
-       
-    
-</div>
-
 
 
 @section Scripts {
