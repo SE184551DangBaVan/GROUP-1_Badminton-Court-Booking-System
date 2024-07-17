@@ -265,8 +265,6 @@ thead th.active,tbody td.active {
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" href="/home/checkin?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=recent_Booking">Newest Booking</a>
                         <a class="dropdown-item" href="/home/checkin?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=old_Booking">Old Booking</a>
-                        <a class="dropdown-item" href="/home/checkin?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=name_Asc">Name Ascending</a>
-                        <a class="dropdown-item" href="/home/checkin?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=name_Desc">Name Descending</a>
                     </div>
                 </div>
             </div>
@@ -295,7 +293,7 @@ thead th.active,tbody td.active {
                             <td><img src="~/Upload/Image/@item.Co.CoPath" alt="Court Image" style="width:100px" class="card-img" /></td>
                             <td> @item.Co.CoAddress</td>
                             <td> @item.BBookingType</td>
-                            @if (item.TimeSlots != null && item.TimeSlots.Count > 0)
+                         <td>  @if (item.TimeSlots != null && item.TimeSlots.Count > 0)
                             {
                                 int checkedInCount = 0;
                                 @foreach (var timeslot in item.TimeSlots)
@@ -305,8 +303,9 @@ thead th.active,tbody td.active {
                                         checkedInCount++;
                                     }
                                 }
-                                <td> <b>@checkedInCount/@item.TimeSlots.Count()</b></td>
+                                <p> <b>@checkedInCount/@item.TimeSlots.Count()</b></p>
                             }
+                            </td>
                             @{
                                 var context = new DemobadmintonContext();
                                 var username = context.AspNetUsers.FirstOrDefault(a => a.Id == item.UserId)?.UserName;

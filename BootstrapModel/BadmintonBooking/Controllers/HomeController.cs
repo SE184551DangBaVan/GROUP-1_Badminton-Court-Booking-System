@@ -311,9 +311,6 @@ namespace BadmintonBooking.Controllers
                 case "recent_Booking":
                     data = data.OrderByDescending(b => b.BId).ToList();
                     break;
-                case "name_Asc":
-                    data = data.OrderBy(b => b.Co.CoName).ToList();
-                    break;
                 case "old_Booking":
                     data = data.OrderBy(b => b.BId).ToList();
                     break;
@@ -377,9 +374,9 @@ namespace BadmintonBooking.Controllers
                 data = filteredData
                     .Where(ts => string.IsNullOrEmpty(searchTerm) ||
                                  ts.Co.CoName.ToLower().Contains(searchTerm.ToLower()) ||
-                                 ts.TsDate.ToString().ToLower().Equals(searchTerm.ToLower()) ||
-                                 ts.TsStart.ToString().Equals(searchTerm.ToLower()) ||
-                                 ts.TsEnd.ToString().Equals(searchTerm.ToLower()) ||
+                                 ts.TsDate.ToString().ToLower().Contains(searchTerm.ToLower()) ||
+                                 ts.TsStart.ToString().Contains(searchTerm.ToLower()) ||
+                                 ts.TsEnd.ToString().Contains(searchTerm.ToLower()) ||
                                  ts.BIdNavigation.BBookingType.ToLower().Equals(searchTerm.ToLower()))
                     .ToList();
             }
