@@ -7,6 +7,7 @@
 
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
 <partial name="_Notification" />
 <style>
  * {
@@ -21,7 +22,6 @@
 
 body {
     min-height: 100vh;
-    background: url(images/html_table.jpg) center / cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -260,13 +260,7 @@ thead th.active,tbody td.active {
         margin-left: 5px;
     }
 
-        .search-icon img {
-            width: 20px;
-        }
 
-    .hidden-button {
-        display: none;
-    }
 </style>
 
 <div class="">
@@ -279,14 +273,18 @@ thead th.active,tbody td.active {
                         <h1>Customer's Orders</h1>
                         <div class="input-group">
                         <form method="get" action="@Url.Action("customer", "Home")">
-                        <span class="search-input">
-                            <input type="search" name="searchTerm" placeholder="Search Data...">
-                        </span>
-                        <span class="search-icon">
-                            <img src="~/pictures/search.png" alt="searchIcon">
-                        </span>
+                            <div style="display:inline">
+                            <div class="search-input">
+                                <input type="search" name="searchTerm" placeholder="Search Data...">
+                            </div>
+                            <div class="search-icon">
+                                <i class="fa-regular fa-magnifying-glass fa-lg"></i>
+                            </div>
 
-                        <button type="submit" class="hidden-button" display>Search</button>
+
+                            </div>
+                       
+                        <button type="submit" style="width:27px" display>GO</button>
 
                             </form>
                             
