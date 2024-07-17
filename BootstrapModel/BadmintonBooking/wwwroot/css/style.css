@@ -89,7 +89,7 @@ nav {
     nav.sticky {
         padding: 1px;
         background: #333;
-        opacity: 0.98;
+        opacity: 0.9;
     }
 
     nav .nav-container {
@@ -742,6 +742,7 @@ nav {
     .BookingType h2 {
         text-align: center;
         margin-bottom: 1rem;
+        z-index: 2;
         text-shadow: -0.5px -0.5px 1px #fff, -0.5px -0.5px 1px #fff, 0.5px 0.5px 1px #fff, 0.5px 0.5px 1px #fff;
     }
 
@@ -753,9 +754,10 @@ nav {
     height: 100%;
     background-size: cover;
     background-position: center;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(0.5px); /* Adjust opacity as desired */
-    transition: opacity 0.5s ease-in-out; /* Optional: Add transition effect */
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
+    z-index: -1;
+    transition: opacity 0.5s ease-in-out;
 }
 
 .court-list {
