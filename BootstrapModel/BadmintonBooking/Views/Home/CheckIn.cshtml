@@ -263,8 +263,8 @@ thead th.active,tbody td.active {
                         Sort By
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="/home/checkin?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=recent_Booking">Newest Booking</a>
-                        <a class="dropdown-item" href="/home/checkin?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=old_Booking">Old Booking</a>
+                        <a class="dropdown-item" href="/Home/CheckIn?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=recent_Booking">Newest Booking</a>
+                        <a class="dropdown-item" href="/Home/CheckIn?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=old_Booking">Old Booking</a>
                     </div>
                 </div>
             </div>
@@ -312,7 +312,7 @@ thead th.active,tbody td.active {
                             }
                             <td>@username</td>
                             <td>
-                                <a href="/home/detail?bookingid=@item.BId" class="btn">Detail</a>
+                                <a href="/Home/Detail?bookingid=@item.BId" class="btn">Detail</a>
                             </td>
                         </tr>
                     }
@@ -335,18 +335,18 @@ thead th.active,tbody td.active {
         }
 
         <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
-            <a class="page-link" href="/home/checkin?courtId=@ViewBag.CourtID&page=@PrevPage&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">Prev</a>
+            <a class="page-link" href="/Home/CheckIn?courtId=@ViewBag.CourtID&page=@PrevPage&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">Prev</a>
         </li>
 
         @for (int i = 1; i <= ViewBag.NoOfPages; i++)
         {
             <li class="page-item @(i == ViewBag.Page ? "active" : "")">
-                <a class="page-link" href="/home/checkin?courtId=@ViewBag.CourtID&page=@i&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">@i</a>
+                <a class="page-link" href="/Home/CheckIn?courtId=@ViewBag.CourtID&page=@i&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">@i</a>
             </li>
         }
 
         <li class="page-item @(ViewBag.Page == ViewBag.NoOfPages ? "disabled" : "")">
-            <a class="page-link" href="/home/checkin?courtId=@ViewBag.CourtID&page=@NextPage&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">Next</a>
+            <a class="page-link" href="/Home/CheckIn?courtId=@ViewBag.CourtID&page=@NextPage&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">Next</a>
         </li>
     </ul>
 }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 
@@ -34,9 +35,7 @@ namespace BadmintonBooking.Controllers
 
 
             // Get court list based on group
-            var data = _context.Courts
-                               
-                               .ToList();
+            var data = _context.Courts.Where(c=>c.UserId==userId).ToList();
             // Sort data
             ViewBag.SortOrder = sortOrder;
             switch (sortOrder)
@@ -158,53 +157,155 @@ namespace BadmintonBooking.Controllers
         }
 
         //----------------------------------------
+        //crud court
+        /*
         public IActionResult AddCourt()
         {
+            var addressList = _context.Courts.Where(c => c.CoStatus == true)
+       .Select(c => c.CoAddress)
+       .Distinct()
+       .ToList();
+            ViewBag.AddressList = new SelectList(addressList);
             return View();
         }
         [HttpPost]
-        public IActionResult AddCourt(Court model)
+        public IActionResult AddCourt(Court model, string CoAddressTextBox)
         {
-            try
+           
+            if (model.CoAddress == null)
             {
-                ModelState.Remove("UserId");
-                ModelState.Remove("User");
-                ModelState.Remove("ImagePath");
-                if (ModelState.IsValid)
-                {
-
-
-                    DemobadmintonContext context = new DemobadmintonContext();
-
-                    string uniqueFileName = UploadImage(model);
-                    string userid = _userManager.GetUserId(User);
-                    var data = new Court()
-                    {
-                        CoName = model.CoName,
-                        CoAddress = model.CoAddress,
-                        CoInfo = model.CoInfo,
-                        CoPrice = model.CoPrice,
-                        UserId = userid,
-                        CoStatus = true,
-                        CoPath = uniqueFileName,
-                    };
-                    context.Courts.Add(data);
-                    context.SaveChanges();
-                    TempData["message"] = "Record has been saved successfully";
-
-
-                    return RedirectToAction("Booking");
-
-                }
-                ModelState.AddModelError(string.Empty, "Please check all fields again");
-
+                ModelState.Remove("CoAddress");
             }
-            catch (Exception ex)
+            else
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ModelState.Remove("CoAddressTextBox");
             }
-            return View(model);
+            
+
+            DemobadmintonContext context = new DemobadmintonContext();
+
+            string uniqueFileName = UploadImage(model);
+            string userid = _userManager.GetUserId(User);
+            var data = new Court();
+
+            data.CoName = model.CoName;
+            if (model.CoAddress == null)
+            {
+                data.CoAddress = CoAddressTextBox;
+            }
+            else
+            {
+                data.CoAddress = model.CoAddress;
+            }
+
+            data.CoInfo = model.CoInfo;
+            data.CoPrice = model.CoPrice;
+            data.UserId = userid;
+            data.CoStatus = true;
+            data.CoPath = uniqueFileName;
+
+            context.Courts.Add(data);
+            context.SaveChanges();
+            TempData["message"] = "Record has been saved successfully";
+
+
+            return RedirectToAction("Show");
+
+        } */
+
+
+       
+        public IActionResult EditCourt(int id)
+        {
+            DemobadmintonContext context = new DemobadmintonContext();
+            var addressList = _context.Courts.Where(c => c.CoStatus == true)
+      .Select(c => c.CoAddress)
+      .Distinct()
+      .ToList();
+           
+            ViewBag.AddressList = new SelectList(addressList);
+
+            var data = context.Courts.FirstOrDefault(c => c.CoId == id);
+            if (data != null)
+            {
+                return View(data);
+            }
+            else
+            {
+                return RedirectToAction("Booking", "Manager");
+            }
+
+
+
+
+
         }
+        [HttpPost]
+        public IActionResult EditCourt(Court model)
+        {
+            DemobadmintonContext context = new DemobadmintonContext();
+            string userid = _userManager.GetUserId(User);
+            var data = context.Courts.FirstOrDefault(c => c.CoId == model.CoId);
+          
+            string uniqueFileName = string.Empty;
+            if (model.ImagePath != null)
+            {
+                if (data.CoPath != null)
+                {
+                    string filepath = Path.Combine(environment.WebRootPath, "Upload/Image", data.CoPath);
+                    if (System.IO.File.Exists(filepath))
+                    {
+                        System.IO.File.Delete(filepath);
+
+                    }
+                }
+                uniqueFileName = UploadImage(model);
+            }
+            data.CoId = model.CoId;
+            data.CoName = model.CoName;
+            data.CoAddress = model.CoAddress;
+            data.CoInfo = model.CoInfo;
+            data.CoPrice = model.CoPrice;
+            if (model.CoStatus == false)
+            {
+                data.CoStatus = false;
+            }
+            else
+            {
+                data.CoStatus = true;
+            }
+
+            data.UserId = userid;
+
+            if (model.ImagePath != null)
+            {
+                data.CoPath = uniqueFileName;
+            }
+            context.Courts.Update(data);
+            context.SaveChanges();
+            TempData["message"] = "Record has been updated successfully";
+         
+            return RedirectToAction("Booking", "Manager");
+        }
+     /*   public IActionResult DeleteCourt(int id)
+        {
+            DemobadmintonContext context = new DemobadmintonContext();
+            var data = context.Courts.FirstOrDefault(c => c.CoId == id);
+            if (data == null || id == 0)
+            {
+                return NotFound();
+            }
+            else
+            {
+                data.CoStatus = false;
+                context.Courts.Update(data);
+                context.SaveChanges();
+                TempData["message"] = "Record has been deleted successfully";
+            }
+            return RedirectToAction("Booking", "Manager");
+        }
+     */
+
 
         private string UploadImage(Court model)
         {

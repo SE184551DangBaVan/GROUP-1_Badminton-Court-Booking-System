@@ -1,0 +1,170 @@
+﻿@model BadmintonBooking.Models.Court
+
+@{
+    Layout = null;
+    var imagePath = "/Upload/Image/" + Model.CoPath;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <title>Edit Court</title>
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light gray background */
+            color: #333; /* Dark gray text */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Default font stack */
+        }
+
+        .container {
+            background-color: #fff; /* White container background */
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1); /* Light shadow for container */
+        }
+
+        h2 {
+            color: #007bff; /* Blue heading */
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem; /* Larger heading font size */
+            font-weight: bold; /* Bold heading */
+            text-transform: uppercase; /* Uppercase heading */
+        }
+
+        label.control-label {
+            font-size: 1.2rem; /* Larger font size for labels */
+            font-weight: bold; /* Bold labels */
+        }
+
+        .form-control {
+            border-color: #ccc; /* Light gray border for inputs */
+            font-size: 1rem; /* Regular font size for inputs */
+        }
+
+            .form-control:focus {
+                border-color: #007bff; /* Focus border color */
+                box-shadow: none; /* Remove default focus box-shadow */
+            }
+
+        .btn-primary {
+            background-color: #007bff; /* Blue primary button */
+            border-color: #007bff;
+            font-size: 1.2rem; /* Larger font size for buttons */
+            padding: 10px 20px; /* Increased padding */
+        }
+
+            .btn-primary:hover, .btn-primary:focus {
+                background-color: #0056b3; /* Darker blue on hover/focus */
+                border-color: #0056b3;
+            }
+
+        .btn-secondary {
+            background-color: #6c757d; /* Gray secondary button */
+            border-color: #6c757d;
+            font-size: 1.2rem; /* Larger font size for buttons */
+            padding: 10px 20px; /* Increased padding */
+        }
+
+            .btn-secondary:hover, .btn-secondary:focus {
+                background-color: #5a6268; /* Darker gray on hover/focus */
+                border-color: #5a6268;
+            }
+
+        .alert-danger {
+            color: #721c24; /* Dark red text for validation summary */
+            background-color: #f8d7da; /* Light red background for validation summary */
+            border-color: #f5c6cb; /* Light red border for validation summary */
+            font-size: 1.1rem; /* Font size for validation summary */
+            padding: 10px; /* Padding for validation summary */
+            margin-bottom: 20px; /* Bottom margin for separation */
+        }
+
+        .img-fluid {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Shadow for images */
+        }
+    </style>
+</head>
+<body>
+    <script src="~/js/updatecourtvalidate.js"></script>
+    <div class="container mt-5">
+        <h2>Edit Court</h2>
+        <hr />
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <form asp-action="EditCourt" asp-controller="Manager" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                    <input asp-for="CoId" type="hidden" />
+
+                    <div class="form-group">
+                        <label asp-for="CoName" class="control-label">Court Name</label>
+                        <input asp-for="CoName" class="form-control" id="CoName" />
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CoAddress, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.DropDownListFor(model => model.CoAddress, (SelectList)ViewBag.AddressList, "Select Address", new { @class = "form-control",/*id = "CoAddressDropdown"*/ required = "required" })
+                            @Html.ValidationMessageFor(model => model.CoAddress, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <label asp-for="CoInfo" class="control-label">Information</label>
+                        <input asp-for="CoInfo" class="form-control" id="CoInfo" />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="CoPrice" class="control-label">Price</label>
+                        <input asp-for="CoPrice" class="form-control" id="CoPrice" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Status</label><br />
+                        @if (Model.CoStatus)
+                        {
+                            <span class="readonly-text">Active</span>
+                        }
+                        else
+                        {
+                            <span class="readonly-text">Inactive</span>
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <img src="@imagePath" class="img-fluid mb-3" alt="Court Image" />
+
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="ImagePath" class="control-label">Image Path</label>
+                        <input type="file" class="form-control" asp-for="ImagePath" id="ChooseImg" />
+                        <span asp-validation-for="ImagePath" class="text-danger"></span>
+                    </div>
+                    <div class="form-group text-center">
+                        <img src="https://placehold.jp/150x150.png" class="img-thumbnail" style="width:200px; height:200px;" alt="Placeholder Image" id="PrevImg" />
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block" id="btnUpdateCourt">Update</button>
+                    </div>
+                </form>
+                <a asp-action="Booking" asp-controller="Manager" class="btn btn-secondary btn-block">Back to List</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="~/js/updatecourtvalidate.js"></script>
+    <script src="~/js/admincourtt.js"></script>
+</body>
+</html>

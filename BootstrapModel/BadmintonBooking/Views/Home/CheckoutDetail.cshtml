@@ -273,7 +273,7 @@ thead th.active,tbody td.active {
             <h1>Customer's Time slot detail</h1>
             <div class="search-form">
 
-                <form method="get" action="@Url.Action("checkoutdetail", "Home")">
+                <form method="get" action="@Url.Action("CheckoutDetail", "Home")">
                     <input type="text" name="searchTerm" placeholder="Search by keyword..." />
                     <input type="hidden" name="bookingId" value="@ViewBag.bookingId" />
                     <input type="hidden" name="courtId" value="@ViewBag.courtId" />
@@ -284,10 +284,10 @@ thead th.active,tbody td.active {
                         Sort By
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="/home/checkoutdetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&searchTerm=@ViewBag.SearchTerm&sortOrder=new">New</a>
-                        <a class="dropdown-item" href="/home/checkoutdetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&searchTerm=@ViewBag.SearchTerm&sortOrder=old">Old</a>
-                        <a class="dropdown-item" href="/home/checkoutdetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&searchTerm=@ViewBag.SearchTerm&sortOrder=today">Today</a>
-                        <a class="dropdown-item" href="/home/checkoutdetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&searchTerm=@ViewBag.SearchTerm&sortOrder=pending">Pending</a>
+                        <a class="dropdown-item" href="/Home/CheckoutDetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&searchTerm=@ViewBag.SearchTerm&sortOrder=new">New</a>
+                        <a class="dropdown-item" href="/Home/CheckoutDetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&searchTerm=@ViewBag.SearchTerm&sortOrder=old">Old</a>
+                        <a class="dropdown-item" href="/Home/CheckoutDetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&searchTerm=@ViewBag.SearchTerm&sortOrder=today">Today</a>
+                        <a class="dropdown-item" href="/Home/CheckoutDetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&searchTerm=@ViewBag.SearchTerm&sortOrder=pending">Pending</a>
                     </div>
                 </div>
             </div>
@@ -343,18 +343,18 @@ thead th.active,tbody td.active {
             }
 
             <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
-                <a class="page-link" href="/home/checkoutdetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&page=@PrevPage&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">Prev</a>
+                <a class="page-link" href="/Home/CheckoutDetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&page=@PrevPage&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">Prev</a>
             </li>
 
             @for (int i = 1; i <= ViewBag.NoOfPages; i++)
             {
                 <li class="page-item @(i == ViewBag.Page ? "active" : "")">
-                    <a class="page-link" href="/home/checkoutdetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&page=@i&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">@i</a>
+                    <a class="page-link" href="/Home/CheckoutDetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&page=@i&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">@i</a>
                 </li>
             }
 
             <li class="page-item @(ViewBag.Page == ViewBag.NoOfPages ? "disabled" : "")">
-                <a class="page-link" href="/home/checkoutdetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&page=@NextPage&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">Next</a>
+                <a class="page-link" href="/Home/CheckoutDetail?bookingId=@ViewBag.bookingId&courtId=@ViewBag.courtId&page=@NextPage&searchTerm=@ViewBag.SearchTerm&sortOrder=@ViewBag.SortOrder">Next</a>
             </li>
         </ul>
     }

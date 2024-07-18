@@ -312,7 +312,7 @@ thead th.active,tbody td.active {
                     <section class="table__header">
                         <h1>Customer's Orders</h1>
                         <div class="search-container">
-                            <form method="get" action="@Url.Action("customer", "Home")" style="display: flex; width: 100%; align-items: center; justify-content: space-around;">
+                            <form method="get" action="@Url.Action("Customer", "Home")" style="display: flex; width: 100%; align-items: center; justify-content: space-around;">
                                 <div class="input-group">
                                     <input type="search" name="searchTerm" placeholder="Search Data...">
                                     <div class="search-icon">
@@ -359,10 +359,10 @@ thead th.active,tbody td.active {
                                         <td>@court.CoInfo</td>
                                         <td><strong> @court.CoPrice </strong></td>
                                         <td>
-                                            <a href="@Url.Action("checkout", "Home", new { courtId = court.CoId })" class="btn btn-primary">Show all bookings</a>
+                                            <a href="@Url.Action("CheckOut", "Home", new { courtId = court.CoId })" class="btn btn-primary">Show all bookings</a>
                                         </td>
                                         <td>
-                                            <form method="post" action="@Url.Action("Rating", "Home")">
+                                            <form method="get" action="@Url.Action("Rating", "Home")">
                                                 <input type="hidden" name="courtId" value="@court.CoId" />
                                                 <button type="submit" class="btn btn-primary">Rate</button>
                                             </form>
@@ -387,18 +387,18 @@ thead th.active,tbody td.active {
                     }
 
                     <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
-                        <a class="page-link" href="/home/customer?page=@PrevPage&searchTerm=@ViewBag.SearchTerm">Prev</a>
+                        <a class="page-link" href="/Home/Customer?page=@PrevPage&searchTerm=@ViewBag.SearchTerm">Prev</a>
                     </li>
 
                     @for (int i = 1; i <= ViewBag.NoOfPages; i++)
                     {
                         <li class="page-item @(i == ViewBag.Page ? "active" : "")">
-                            <a class="page-link" href="/home/customer?page=@i&searchTerm=@ViewBag.SearchTerm">@i</a>
+                            <a class="page-link" href="/Home/Customer?page=@i&searchTerm=@ViewBag.SearchTerm">@i</a>
                         </li>
                     }
 
                     <li class="page-item @(ViewBag.Page == ViewBag.NoOfPages ? "disabled" : "")">
-                        <a class="page-link" href="/home/customer?page=@NextPage&searchTerm=@ViewBag.SearchTerm">Next</a>
+                        <a class="page-link" href="/Home/Customer?page=@NextPage&searchTerm=@ViewBag.SearchTerm">Next</a>
                     </li>
                 </ul>
             }

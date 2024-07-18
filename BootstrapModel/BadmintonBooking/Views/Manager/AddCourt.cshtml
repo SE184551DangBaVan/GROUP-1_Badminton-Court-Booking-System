@@ -13,6 +13,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
+    <script src="~/js/courtdropdown.js"></script>
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -30,9 +31,16 @@
                                 <span asp-validation-for="CoName" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="CoAddress" class="control-label"></label>
-                                <input asp-for="CoAddress" class="form-control" />
-                                <span asp-validation-for="CoAddress" class="text-danger"></span>
+                                @Html.LabelFor(model => model.CoAddress, htmlAttributes: new { @class = "control-label" })
+                                <div class="">
+                                    @Html.DropDownListFor(model => model.CoAddress, (SelectList)ViewBag.AddressList, "Select Address", new { @class = "form-control", id = "CoAddressDropdown", required = "required" })
+                                    <input type="text" name="CoAddressTextBox" class="form-control mt-2" id="CoAddressTextbox" style="display:none;" />
+                                    @Html.ValidationMessageFor(model => model.CoAddress, "", new { @class = "text-danger" })
+                                    <div class="form-check mt-2">
+                                        <input type="checkbox" class="form-check-input"  id="customAddressCheckbox" />
+                                        <label class="form-check-label" for="customAddressCheckbox">Enter a new address</label>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label asp-for="CoInfo" class="control-label"></label>
@@ -53,20 +61,21 @@
                                 <img src="https://placehold.jp/150x150.png" class="img-thumbnail" style="width:200px; height:200px;" alt="Placeholder Image" id="PrevImg" />
                             </div>
                             <div class="form-group">
-                                <input type="submit" value="Create" class="btn btn-primary btn-block" />
+                                <input type="submit" value="Create" class="btn btn-primary btn-block" id="btnCreateCourt" />
                             </div>
                         </form>
                     </div>
+                </div>
+                <div class="text-center mt-3">
+                    <a asp-action="Booking" asp-controller="Manager" class="btn btn-secondary">Back to List</a>
                 </div>
             </div>
         </div>
     </div>
 
-
-    @section scripts {
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <script src="~/js/admincourtt.js"></script>
-    }
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="~/js/courtdropdown.js"></script>
+    <script src="~/js/admincourtt.js"></script>
 </body>
 </html>

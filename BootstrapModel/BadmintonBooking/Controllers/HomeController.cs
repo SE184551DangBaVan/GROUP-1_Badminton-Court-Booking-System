@@ -638,17 +638,24 @@ namespace BadmintonBooking.Controllers
 
             return View(pagedData);
         }
-        [HttpPost]
+        [HttpGet]
         public IActionResult Rating(int courtId)
         {
-            // Retrieve court data including bookings
-            var data = _context.Courts.Include(c => c.Bookings)
+            //_httpContextAccessor.HttpContext.Session.Remove("CoId");
+            //if (courtId.HasValue)
+            //{
+            //    _httpContextAccessor.HttpContext.Session.SetString("CoId", courtId.ToString());
+            //}
+            //int coid = int.Parse(_httpContextAccessor.HttpContext.Session.GetString("CoId"));
+
+            string userId = _userManager.GetUserId(User);
+            var data = _context.Courts.Where(c => _context.Bookings.Any(b => b.UserId == userId && b.CoId == c.CoId)).Include(c => c.Bookings)
                                        .FirstOrDefault(c => c.CoId == courtId);
 
             // Check if court data is found
             if (data == null)
             {
-                TempData["error"] = "Court not found.";
+                TempData["error"] = "Court not found for rating";
                 return RedirectToAction("Customer", "Home");
             }
 

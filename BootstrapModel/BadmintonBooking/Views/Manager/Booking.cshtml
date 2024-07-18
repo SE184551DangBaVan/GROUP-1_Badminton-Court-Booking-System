@@ -8,7 +8,31 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_ManagerLayout.cshtml";
 }
+<style>
+    .status-active {
+        display: inline-flex;
+        align-items: center;
+        border-radius: 9999px;
+        padding: 0.5em 1em;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #fff;
+        background-color: #28a745; /* Green background */
+        border: 1px solid transparent;
+    }
 
+    .status-inactive {
+        display: inline-flex;
+        align-items: center;
+        border-radius: 9999px;
+        padding: 0.5em 1em;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #fff;
+        background-color: #dc3545; /* Red background */
+        border: 1px solid transparent;
+    }
+</style>
 <partial name="_Notification" />
 <body class="book1">
     <div class="container container1">
@@ -27,6 +51,13 @@
                     <a class="dropdown-item" href="/manager/booking?page=1&&sortOrder=price_asc">Price Ascending</a>
                     <a class="dropdown-item" href="/manager/booking?page=1&&sortOrder=price_desc">Price Descending </a>
                 </div>
+            </div>
+            <div>
+                <form asp-controller="Manager" asp-action="AddCourt" method="get">
+                    <button class="createCourtBtn">Create new court</button>
+                </form>
+
+
             </div>
 
 
@@ -47,7 +78,9 @@
                                         <h5 class="card-title">@court.CoName</h5>
                                             <p class="card-text"><i class="fa-solid fa-location-dot" style="color: red"></i> @court.CoAddress</p>
                                             <p class="card-text"><i class="fa-solid fa-money-bill" style="color: lightblue;"></i> @court.CoPrice</p>
-                                        <p class="card-text"><i class="fa-solid fa-circle-info" ></i>@court.CoInfo</p>
+                                            <p class="card-text"><i class="fa-solid fa-circle-info" ></i>@court.CoInfo</p>
+                                           
+
                                         @{
                                             using var context = new DemobadmintonContext();
                                             var ratingsListForCourt = context.Ratings.Where(r => r.CourtId == court.CoId).Select(r => r.Rating1).ToList();
@@ -63,6 +96,14 @@
                                             {
                                                 <p class="card-text text-warning"><i class="fa-solid fa-exclamation-circle"></i> No report submitted for today yet</p>
                                             }
+                                            @if (court.CoStatus)
+                                            {
+                                                <div class="status-active">Active</div>
+                                            }
+                                            else
+                                            {
+                                                <div class="status-inactive">Suspended</div>
+                                            }
                                         </div>
                                         
                                         <form asp-action="Date" asp-controller="Manager">
@@ -74,6 +115,9 @@
                                                 <a class="detailBtn btn-success" asp-action="QualityCheckHistory" asp asp-controller="Home" asp-route-CoID="@court.CoId">See Quality History</a>
                                             </div>
                                         </form>
+                                        <a class="btn btn-primary" style="height:50px" asp-action="EditCourt" asp-controller="Manager" asp-route-id="@court.CoId">Edit</a>
+                                       @*  <a class="btn btn-danger" style="height:50px" asp-action="DeleteCourt" onclick="return confirm('Are you sure you want to suspend this court?');" asp-controller="Manager" asp-route-id="@court.CoId">Suspend</a> *@
+
                                         
                                     </div>
                                 </div>
@@ -98,18 +142,18 @@
                         }
 
                         <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
-                            <a class="page-link" href="/manager/booking?page=@PrevPage&sortOrder=@ViewBag.SortOrder">Prev</a>
+                            <a class="page-link" href="/Manager/Booking?page=@PrevPage&sortOrder=@ViewBag.SortOrder">Prev</a>
                         </li>
 
                         @for (int i = 1; i <= ViewBag.NoOfPages; i++)
                         {
                             <li class="page-item @(i == ViewBag.Page ? "active" : "")">
-                                <a class="page-link" href="/manager/booking?page=@i&sortOrder=@ViewBag.SortOrder">@i</a>
+                                <a class="page-link" href="/Manager/Booking?page=@i&sortOrder=@ViewBag.SortOrder">@i</a>
                             </li>
                         }
 
                         <li class="page-item @(ViewBag.Page == ViewBag.NoOfPages ? "disabled" : "")">
-                            <a class="page-link" href="/manager/booking?page=@NextPage&sortOrder=@ViewBag.SortOrder">Next</a>
+                            <a class="page-link" href="/Manager/Booking?page=@NextPage&sortOrder=@ViewBag.SortOrder">Next</a>
                         </li>
                     </ul>
                 }

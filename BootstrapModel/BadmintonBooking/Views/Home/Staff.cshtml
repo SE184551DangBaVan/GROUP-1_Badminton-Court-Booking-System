@@ -250,7 +250,7 @@ thead th.active,tbody td.active {
     margin-left: 165px;" id="customers_table">
         <section class="table__header">
             <h1>Customer's Orders</h1>
-            <form method="get" action="@Url.Action("staff", "Home")">
+            <form method="get" action="@Url.Action("Staff", "Home")">
                 <div style="display:inline">
                     <div class="search-input">
                         <input type="search" name="searchTerm" placeholder="Search Data...">
@@ -331,18 +331,18 @@ thead th.active,tbody td.active {
         }
 
         <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
-            <a class="page-link" href="/home/staff?page=@PrevPage&searchTerm=@ViewBag.SearchTerm">Prev</a>
+            <a class="page-link" href="/Home/Staff?page=@PrevPage&searchTerm=@ViewBag.SearchTerm">Prev</a>
         </li>
 
         @for (int i = 1; i <= ViewBag.NoOfPages; i++)
         {
             <li class="page-item @(i == ViewBag.Page ? "active" : "")">
-                <a class="page-link" href="/home/staff?page=@i&searchTerm=@ViewBag.SearchTerm">@i</a>
+                <a class="page-link" href="/Home/Staff?page=@i&searchTerm=@ViewBag.SearchTerm">@i</a>
             </li>
         }
 
         <li class="page-item @(ViewBag.Page == ViewBag.NoOfPages ? "disabled" : "")">
-            <a class="page-link" href="/home/staff?page=@NextPage&searchTerm=@ViewBag.SearchTerm">Next</a>
+            <a class="page-link" href="/Home/Staff?page=@NextPage&searchTerm=@ViewBag.SearchTerm">Next</a>
         </li>
     </ul>
 }

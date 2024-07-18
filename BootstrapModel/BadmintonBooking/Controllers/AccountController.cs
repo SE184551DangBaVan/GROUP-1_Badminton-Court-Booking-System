@@ -262,7 +262,7 @@ namespace demobadminton.Controllers
                             else if (User.IsInRole("Staff"))
                             {
                                 TempData["message"] = "Login Successfully as Staff!";
-                                return RedirectToAction("staff","Home");
+                                return RedirectToAction("Staff","Home");
 
                             } else
                             {
