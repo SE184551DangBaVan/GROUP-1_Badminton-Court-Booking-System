@@ -149,7 +149,9 @@ nav {
         display: none;
     }
 
-#showDrop:checked ~ .drop-menu,
+#showDrop:checked ~ .drop-menu {
+    max-height: 130px;
+}
 #showMega:checked ~ .mega-box {
     max-height: 400px;
 }
@@ -232,7 +234,7 @@ nav {
 
         .account-actions .drop-menu li {
             outline: solid;
-            width: 60%;
+            width: 80%;
             border-radius: 3px;
             outline-color: #555555d2;
             color: darkgray;
@@ -411,6 +413,7 @@ nav {
     rgba(59, 54, 59, 0.2),
     rgba(0, 0, 0, 0.1)
     );
+    outline: 3px ridge white;
     backdrop-filter: blur(20px);
     border-radius: 10px;
 }

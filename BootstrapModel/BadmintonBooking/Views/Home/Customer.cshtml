@@ -58,21 +58,21 @@ main.table {
 }
 
 .table__header .input-group {
-    width: 75%;
-    height: 80%;
+    width: 40%;
+    height: 60%;
     background-color: #fff5;
-    padding: 0 .8rem;
+    padding: 0 .2rem;
     border-radius: 2rem;
 
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 
     transition: .2s;
 }
 
 .table__header .input-group:hover {
-    width: 80%;
+    width: 45%;
     background-color: #fff8;
     box-shadow: 0 .1rem .4rem #0002;
 }
@@ -83,7 +83,7 @@ main.table {
 }
 
 .table__header .input-group input {
-    width: 100%;
+    width: 60%;
     padding: 0 .5rem 0 .3rem;
     background-color: transparent;
     border: none;
@@ -213,9 +213,6 @@ tbody tr.hide td img {
     background-color: #6fcaea;
 }
 
-
-
-
 thead th span.icon-arrow {
     display: inline-block;
     width: 1.3rem;
@@ -251,46 +248,61 @@ thead th.active,tbody td.active {
     color: #6c00bd;
 }
 
+.search-container {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    justify-content: space-around;
+    align-items: center;
+}
 
+.input-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #fff5;
+    border-radius: 2rem;
+    padding: 0 0.8rem;
+    transition: all 0.2s ease;
+}
 
-    .search-container {
-        width: 320px;
-        display: flex;
-        align-content: center;
-        flex-direction: row;
-        justify-content: space-between;
-    }
+.input-group:hover {
+    background-color: #fff8;
+    box-shadow: 0 0.1rem 0.4rem #0002;
+}
 
-    .search-input {
-        flex: 1;
-    }
+.input-group input {
+    border: none;
+    outline: none;
+    padding: 0.5rem;
+    background-color: transparent;
+}
 
-        .search-input input {
-            width: 100%;
-        }
+.search-icon {
+    display: flex;
+    align-items: center;
+    padding-left: 0.5rem;
+}
 
-    .search-icon {
-        display: flex;
-        align-items: center;
-        margin-left: 5px;
-    }
+.search-GO {
+    border-style: none;
+    border-radius: 15px;
+    outline: 1px solid;
+    outline-color: black;
+    background: brown;
+    color: white;
+    padding: 0.2rem 1rem;
+    transition: 0.3s ease;
+    cursor: pointer;
+    margin-left: 10px;
+}
 
-    .search-GO {
-        border-style: none;
-        border-radius: 15px;
-        outline: 1px solid;
-        outline-color: black;
-        background: brown;
-        color: white;
-        padding: 4px 10px 4px 10px;
-        transition: 0.3s ease;
-    }
+.search-GO:hover {
+    background: brown;
+    text-shadow: 4px 2px 3px rgba(0, 0, 0, 1);
+    box-shadow: 2px 4px 6px rgba(128, 0, 0, 1);
+}
 
-        .search-GO:hover {
-        background: brown;
-        text-shadow: 4px 2px 3px rgba(0, 0, 0, 1);
-        box-shadow: 2px 4px 6px rgba(128, 0, 0, 1);
-    }
 
 </style>
 
@@ -300,24 +312,17 @@ thead th.active,tbody td.active {
                     <section class="table__header">
                         <h1>Customer's Orders</h1>
                         <div class="search-container">
-                        <form method="get" action="@Url.Action("customer", "Home")">
-                        <div class="input-group">
-                            <div class="searchElements">
-                                <div class="search-input">
+                            <form method="get" action="@Url.Action("customer", "Home")" style="display: flex; width: 100%; align-items: center; justify-content: space-around;">
+                                <div class="input-group">
                                     <input type="search" name="searchTerm" placeholder="Search Data...">
+                                    <div class="search-icon">
+                                        <i class="fa-regular fa-magnifying-glass fa-lg"></i>
+                                    </div>
                                 </div>
-                                <div class="search-icon">
-                                    <i class="fa-regular fa-magnifying-glass fa-lg"></i>
-                                </div>
+                                <button class="search-GO" type="submit">GO</button>
+                            </form>
+                        </div>
 
-                                
-                            </div>
-                        </div>
-                            <button class="search-GO" type="submit" >GO</button>
-                        </form>
-                        </div>
-                        
-                        
                     </section>
                     <section class="table__body">
                         <table>
