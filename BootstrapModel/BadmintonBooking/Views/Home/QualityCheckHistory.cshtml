@@ -7,6 +7,18 @@
 <head>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Righteous&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap">
+    <script>
+        function convertCondition(value) {
+            switch (value) {
+                case 1: return "Poor";
+                case 2: return "Fair";
+                case 3: return "Good";
+                case 4: return "Very Good";
+                case 5: return "Excellent";
+                default: return "N/A";
+            }
+        }
+    </script>
     <style>
         body {
             background: linear-gradient(45deg, rgba(0,212,255,1) 0%, rgba(11,3,45,1) 100%);
@@ -176,16 +188,25 @@
                     <p class="court-quality-name">Court Name: @Html.DisplayFor(modelItem => item.Co.CoName)</p>
                     <div class="event-container-within">
                         <p>Created At: @Html.DisplayFor(modelItem => item.CdCreatedAt)</p>
-                        <p>Court Surface Condition: @Html.DisplayFor(modelItem => item.CdSurfaceCondition)</p>
-                        <p>Court Lightning Condition: @Html.DisplayFor(modelItem => item.CdLightningCondition)</p>
-                        <p>Court Cleanliness Condition: @Html.DisplayFor(modelItem => item.CdCleanlinessCondition)</p>
-                        <p>Court Overall Condition: @Html.DisplayFor(modelItem => item.CdOverallCondition)</p>
+                        <p>Court Surface Condition: <span class="condition">@item.CdSurfaceCondition</span></p>
+                        <p>Court Lightning Condition: <span class="condition">@item.CdLightningCondition</span></p>
+                        <p>Court Cleanliness Condition: <span class="condition">@item.CdCleanlinessCondition</span></p>
+                        <p>Court Net Condition: <span class="condition">@item.CdNetCondition</span></p>
+                        <p>Court Overall Condition:<span class="condition">@item.CdOverallCondition</span></p>
                         <p>Additional notes: @(item.CdNotes ?? "N/A")</p>
                     </div>
                 </div>
             }
         }
     </div>
-
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const conditions = document.querySelectorAll('.condition');
+            conditions.forEach(condition => {
+                const value = parseInt(condition.innerText, 10);
+                condition.innerText = convertCondition(value);
+            });
+        });
+    </script>
 </div>
 </body>
