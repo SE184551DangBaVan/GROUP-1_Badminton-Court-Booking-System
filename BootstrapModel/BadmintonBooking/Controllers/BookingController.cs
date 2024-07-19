@@ -43,7 +43,7 @@ namespace BadmintonBooking.Controllers
         public async Task<IActionResult> GetBookSlots()
         {
             int court = int.Parse(_httpContextAccessor.HttpContext.Session.GetString("CoId"));
-            var booked = await _demobadmintonContext.TimeSlots.Where(x => x.CoId == court).ToListAsync();
+            var booked = await _demobadmintonContext.TimeSlots.Where(x => x.CoId == court && x.TsDate >= DateOnly.FromDateTime(DateTime.Today)).ToListAsync();
             return Ok(booked);
         }
 
