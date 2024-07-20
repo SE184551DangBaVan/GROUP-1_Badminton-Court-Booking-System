@@ -11,8 +11,8 @@ namespace demobadminton.ViewModels
         [Required(ErrorMessage = "Email is required.")]
         [DataType(DataType.Password)]
         public string Password { get; set; } = default!;
-        [Display(Name ="Remember me")]
-        public bool RememberMe { get; set; }
+        //[Display(Name ="Remember me")]
+        //public bool RememberMe { get; set; }
         //Google login
         public IEnumerable<AuthenticationScheme> Schemes { get; set; } = new List<AuthenticationScheme>();
     }

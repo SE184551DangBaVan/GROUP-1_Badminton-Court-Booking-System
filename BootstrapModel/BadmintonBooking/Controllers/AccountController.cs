@@ -247,7 +247,7 @@ namespace demobadminton.Controllers
                     }
                     else
                     {
-                        var result = await _signInManager.PasswordSignInAsync(_userManager.FindByEmailAsync(model.Email).Result, model.Password, model.RememberMe, lockoutOnFailure: false);
+                        var result = await _signInManager.PasswordSignInAsync(_userManager.FindByEmailAsync(model.Email).Result, model.Password, isPersistent:false, lockoutOnFailure: false);
                         if (result.Succeeded)
                         {
                             if (!string.IsNullOrEmpty(ReturnUrl) && Url.IsLocalUrl(ReturnUrl))
