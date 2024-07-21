@@ -37,6 +37,7 @@ namespace demobadminton.Controllers
         private readonly Repository.Interface.IEmailSender _emailSender;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IConfiguration configuration;
+        private readonly DemobadmintonContext _context;
         public AccountController(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
@@ -45,7 +46,8 @@ namespace demobadminton.Controllers
             Repository.Interface.IEmailSender emailSender,
             IWebHostEnvironment webHostEnvironment,
             IConfiguration configuration
-            )
+,
+            DemobadmintonContext context)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -55,7 +57,7 @@ namespace demobadminton.Controllers
             _emailSender = emailSender;
             _webHostEnvironment = webHostEnvironment;
             this.configuration = configuration;
-
+            _context = context;
         }
 
         [HttpGet]
@@ -247,6 +249,22 @@ namespace demobadminton.Controllers
                     }
                     else
                     {
+                        var userID = checkEmail.Id;
+                        var userStatus = _context.UserActiveStatuses.FirstOrDefault(x => x.Id == userID);
+                        if (userStatus == null)
+                        {
+                            _context.UserActiveStatuses.Add(new UserActiveStatus { Id = userID,IsActive = true });
+                            await _context.SaveChangesAsync();
+                        }
+                        else
+                        {
+                            if (!userStatus.IsActive)
+                            {
+                                ModelState.AddModelError(string.Empty, "This account is unavailable");
+                                TempData["error"] = "This account is unavailable";
+                                return View(model);
+                            }
+                        }
                         var result = await _signInManager.PasswordSignInAsync(_userManager.FindByEmailAsync(model.Email).Result, model.Password, isPersistent:false, lockoutOnFailure: false);
                         if (result.Succeeded)
                         {
@@ -703,8 +721,7 @@ namespace demobadminton.Controllers
             return View();
         }
 
-
-
+       
 
 
 

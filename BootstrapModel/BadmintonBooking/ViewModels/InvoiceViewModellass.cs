@@ -12,7 +12,7 @@
         public int? Quantity; 
         public decimal amountMinus2
         {
-            get { return amount -2; }
+            get { return amount; }
             set { amountMinus2 = value; }
         }
 
