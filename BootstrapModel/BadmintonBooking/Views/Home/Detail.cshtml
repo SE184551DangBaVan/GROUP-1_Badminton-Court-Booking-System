@@ -18,10 +18,16 @@
 
 
 body {
+    background-color: #242526;
+    background-position: center;
+    background-size: cover;
     min-height: 100vh;
+    scroll-behavior: smooth;
+    min-height: 120vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 main.table {
@@ -48,21 +54,21 @@ main.table {
 }
 
 .table__header .input-group {
-    width: 35%;
-    height: 100%;
+    width: 70%;
+    height: 60%;
     background-color: #fff5;
-    padding: 0 .8rem;
+    padding: 0 .2rem;
     border-radius: 2rem;
 
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 
     transition: .2s;
 }
 
 .table__header .input-group:hover {
-    width: 45%;
+    width: 75%;
     background-color: #fff8;
     box-shadow: 0 .1rem .4rem #0002;
 }
@@ -73,7 +79,7 @@ main.table {
 }
 
 .table__header .input-group input {
-    width: 100%;
+    width: 75%;
     padding: 0 .5rem 0 .3rem;
     background-color: transparent;
     border: none;
@@ -260,22 +266,90 @@ thead th.active,tbody td.active {
         border: 1px solid transparent;
     }
 
+.search-container {
+    display: flex;
+    width: 50%;
+    gap: 2px;
+    align-items: center;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #fff5;
+    border-radius: 2rem;
+    padding: 0 0.8rem;
+    transition: all 0.2s ease;
+}
+
+.input-group:hover {
+    background-color: #fff8;
+    box-shadow: 0 0.1rem 0.4rem #0002;
+}
+
+.input-group input {
+    border: none;
+    outline: none;
+    padding: 0.5rem;
+    background-color: transparent;
+}
+
+.search-icon {
+    display: flex;
+    align-items: center;
+    padding-left: 0.5rem;
+}
+
+.search-GO {
+    border-style: none;
+    border-radius: 15px;
+    outline: 1px solid;
+    outline-color: black;
+    background: brown;
+    color: white;
+    padding: 0.2rem 1rem;
+    transition: 0.3s ease;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.search-GO:hover {
+    background: brown;
+    text-shadow: 4px 2px 3px rgba(0, 0, 0, 1);
+    box-shadow: 2px 4px 6px rgba(128, 0, 0, 1);
+}
+
 
 </style>
-
+<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
 <body>
-    <main class="table"  style="margin-left:160px;margin-top:205px" id="customers_table">
+    <script src="~/js/script.js"></script>
+    <main class="table"  style="margin-top:400px" id="customers_table">
         <section class="table__header">
             <h1>Time slot detail</h1>
             <div class="search-form" style="display:flex">
 
                 <form method="get" action="@Url.Action("detail", "Home")">
-                    <input type="text" name="searchTerm" placeholder="Search by keyword..." />
-                    <input type="hidden" name="bookingId" value="@ViewBag.bookingId" />
-                    <button type="submit">Search</button>
+                    <div class="search-container" style="display: flex; width: 100%; align-items: center; justify-content: space-around;">
+                        <div class="input-group">
+                            <input type="text" name="searchTerm" placeholder="Search by keyword..." />
+                            <div class="search-icon">
+                                <i class="fa-regular fa-magnifying-glass fa-lg"></i>
+                            </div>
+                            <input type="hidden" name="bookingId" value="@ViewBag.bookingId" />
+                        </div>
+                        <button type="submit" class="search-GO">Search</button>
+                    </div>
                 </form>
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button style="margin-right: 60px;" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Sort By
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -318,7 +392,7 @@ thead th.active,tbody td.active {
                                     @(item.TsCheckedIn ? "Approved" : "Pending")
                                 </div>
                             </td>
-                            <td><a href="/home/Approve?tsid=@item.TsId&bookingId=@item.BId" class="btn btn-warning">Check in</a></td>
+                            <td><a href="/home/Approve?tsid=@item.TsId&bookingId=@item.BId" class="rate-btn-primary btn-warning">Check in</a></td>
                         </tr>
                        
                     }

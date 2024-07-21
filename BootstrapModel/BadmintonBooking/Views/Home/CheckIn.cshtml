@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - YourAppName</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
-
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
 
 <style>
  * {
@@ -25,10 +25,16 @@
 
 
 body {
+    background-color: #242526;
+    background-position: center;
+    background-size: cover;
     min-height: 100vh;
+    scroll-behavior: smooth;
+    min-height: 120vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 main.table {
@@ -55,21 +61,21 @@ main.table {
 }
 
 .table__header .input-group {
-    width: 35%;
-    height: 100%;
+    width: 70%;
+    height: 60%;
     background-color: #fff5;
-    padding: 0 .8rem;
+    padding: 0 .2rem;
     border-radius: 2rem;
 
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 
     transition: .2s;
 }
 
 .table__header .input-group:hover {
-    width: 45%;
+    width: 75%;
     background-color: #fff8;
     box-shadow: 0 .1rem .4rem #0002;
 }
@@ -80,7 +86,7 @@ main.table {
 }
 
 .table__header .input-group input {
-    width: 100%;
+    width: 75%;
     padding: 0 .5rem 0 .3rem;
     background-color: transparent;
     border: none;
@@ -244,29 +250,97 @@ thead th.active,tbody td.active {
 }
 
 
+.search-container {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #fff5;
+    border-radius: 2rem;
+    padding: 0 0.8rem;
+    transition: all 0.2s ease;
+}
+
+.input-group:hover {
+    background-color: #fff8;
+    box-shadow: 0 0.1rem 0.4rem #0002;
+}
+
+.input-group input {
+    border: none;
+    outline: none;
+    padding: 0.5rem;
+    background-color: transparent;
+}
+
+.search-icon {
+    display: flex;
+    align-items: center;
+    padding-left: 0.5rem;
+}
+
+.search-GO {
+    border-style: none;
+    border-radius: 15px;
+    outline: 1px solid;
+    outline-color: black;
+    background: brown;
+    color: white;
+    padding: 0.2rem 1rem;
+    transition: 0.3s ease;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.search-GO:hover {
+    background: brown;
+    text-shadow: 4px 2px 3px rgba(0, 0, 0, 1);
+    box-shadow: 2px 4px 6px rgba(128, 0, 0, 1);
+}
 
 </style>
 </head>
     <body>
-    <main class="table" style="margin-top:220px" id="customers_table">
+    <script src="~/js/script.js"></script>
+    <main class="table" style="margin-top:400px" id="customers_table">
         <section class="table__header">
             <h1>Customer's Orders</h1>
             <div class="search-form">
-
-                <form method="get" action="@Url.Action("Checkin", "Home")">
-                    <input type="text" name="searchTerm" placeholder="Search by keyword..." />
-                    <input type="hidden" name="CourtID" value="@ViewBag.CourtID" />
-                    <button type="submit">Search</button>
-                </form>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Sort By
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="/Home/CheckIn?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=recent_Booking">Newest Booking</a>
-                        <a class="dropdown-item" href="/Home/CheckIn?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=old_Booking">Old Booking</a>
+                
+                    <form method="get" action="@Url.Action("Checkin", "Home")">
+                    <div class="search-container" style="display: flex; width: 100%; align-items: center; justify-content: space-around;">
+                        <div class="input-group">
+                            <input type="text" name="searchTerm" placeholder="Search by keyword..." />
+                            <div class="search-icon">
+                                <i class="fa-regular fa-magnifying-glass fa-lg"></i>
+                            </div>
+                            <input type="hidden" name="CourtID" value="@ViewBag.CourtID" />
+                        </div>
+                        <button type="submit" class="search-GO">Search</button>
                     </div>
-                </div>
+                    </form>
+                    <div class="dropdown">
+                        <button style="margin-right: 60px;" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Sort By
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="/Home/CheckIn?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=recent_Booking">Newest Booking</a>
+                            <a class="dropdown-item" href="/Home/CheckIn?courtId=@ViewBag.CourtID&searchTerm=@ViewBag.SearchTerm&sortOrder=old_Booking">Old Booking</a>
+                        </div>
+                    </div>
+                
             </div>
           
         </section>
@@ -312,7 +386,7 @@ thead th.active,tbody td.active {
                             }
                             <td>@username</td>
                             <td>
-                                <a href="/Home/Detail?bookingid=@item.BId" class="btn">Detail</a>
+                                <a href="/Home/Detail?bookingid=@item.BId" class="rate-btn-primary">Detail</a>
                             </td>
                         </tr>
                     }

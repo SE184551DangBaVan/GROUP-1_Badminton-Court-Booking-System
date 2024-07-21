@@ -2295,6 +2295,8 @@ nav {
     transition: all 0.2s ease;
 }
 .rate-btn-primary:hover{
+    text-decoration: none;
+    color: #fff;
     background-color: #555;
     transition: all 0.3s ease;
 }
