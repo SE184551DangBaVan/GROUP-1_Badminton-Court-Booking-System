@@ -16,6 +16,20 @@
 <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
 
 <style>
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-menu {
+        margin-top: 0;
+        padding-top: 10px;
+    }
+
+    .main-image.shrink + .dropdown .dropdown-menu {
+        padding-top: 20px;
+    }
+
     .status-active {
         display: inline-flex;
         align-items: center;
@@ -35,7 +49,7 @@
             <img src="~/images/photo-1536598774668-2eeb8a1a5f99.png" class="main-image img-fluid" alt="Badminton Court Image">
 
             <div class="form-group" style="width:300px">
-                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="enter keyword" id="txtSearch">
+                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter keyword" id="txtSearch">
             </div>
             <!----<form method="get" action="@Url.Action("Book2", "Home")">
                 <input type="text" name="search" placeholder="Search by keyword..." />

@@ -211,6 +211,11 @@ nav {
     margin: 0px 5px 0 5px;
 }
 
+.mega-box .mega-links {
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+}
+
 .account-actions .drop-menu li a {
     width: 100%;
     display: block;
@@ -552,7 +557,68 @@ nav {
     .googleLogin button:hover #google::after{border-right: 20px solid brown;}
     .googleLogin button:hover span {color: white;}
 
-/*Content*/
+/*Hero section*/
+.return-to-top-button i{
+    visibility: hidden;
+    position: fixed;
+    opacity: 0.2;
+    bottom: 0;
+    right: 30px;
+    z-index: 999;
+    color: white;
+    outline: 2px solid lightcyan;
+    border-radius: 50%;
+    padding: 15px 15px;
+    background: #555555d2;
+    transition: background 0.3s ease, visibility 0.1s ease, bottom 0.3s ease;
+}
+.return-to-top-button div {
+    visibility: hidden;
+    position: fixed;
+    bottom: 85px;
+    background: #555;
+    border-radius: 8px;
+    padding: 0 10px 0 10px;
+    right: 5px;
+    z-index: 999;
+    color: white;
+    transition: visibility 0.1s ease, bottom 0.3s ease;
+}
+.return-to-top-button i.appear {
+    visibility: visible;
+    opacity: 0.55;
+    position: fixed;
+    bottom: 50px;
+    right: 30px;
+    z-index: 999;
+    color: white;
+    outline: 2px solid lightcyan;
+    border-radius: 50%;
+    padding: 15px 15px;
+    background: #555555d2;
+    transition: background 0.3s ease, visibility 0.4s ease, bottom 0.5s ease, transform 0.3s ease;
+}.return-to-top-button i.appear:hover{
+    color: #555;
+    opacity: 1;
+    outline: 2px solid darkgray;
+    border-radius: 50%;
+    transform: scale(110%);
+    background: #ddd;
+    transition: all 0.3s ease;
+}
+.return-to-top-button:has(.appear:hover) div:not(.appear:hover) {
+    visibility: visible;
+    position: fixed;
+    bottom: 98px;
+    background: #555;
+    border-radius: 8px;
+    padding: 0 10px 0 10px;
+    right: 5px;
+    z-index: 999;
+    color: white;
+    transition: visibility 0.2s ease, bottom 0.3s ease;
+}
+
 .Quote {
     height: 90vh;
     display: flex;
@@ -588,6 +654,51 @@ nav {
     font-weight: 5000;
 }
 
+
+.button-with-text .booking-button {
+    font-family: system-ui;
+    font-size: large;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0 0 0;
+}
+
+.button {
+    cursor: pointer;
+    border-radius: 8px;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.2s ease;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    transition: all 0.4s ease;
+}
+
+.button-with-text .button:hover {
+    color: #c0e7e5;
+    background: brown;
+    transition: all 0.4s ease;
+}
+
+.button-with-text .btn-text {
+    visibility: hidden;
+    font-size: small;
+    transform: translate(0, -10%);
+    transition: transform 0.3s ease, visibility 0.1s;
+}
+
+.button-with-text:has(.button:hover) .btn-text:not(.button:hover) {
+    visibility: visible;
+    transform: translate(0, 40%);
+    font-size: small;
+    transition: visibility 0.5s ease, transform 0.6s ease;
+}
+
+/*Welcome Container*/
 .heading {
     background: rgba(128, 128, 128, 0.6);
     backdrop-filter: blur(2px);
@@ -630,55 +741,16 @@ nav {
             margin-bottom: 1rem;
             transition: all 0.4s ease;
         }
+        .heading .welcome-text .headingfloat {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.4s ease;
+        }
 
         .heading .welcome-text p {
             font-size: 1.2rem;
             margin-bottom: 1rem;
         }
-
-    .heading .booking-button {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin: 20px 0;
-    }
-
-.button {
-    cursor: pointer;
-    border-radius: 8px;
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    background-color: rgba(255, 255, 255, 0.2);
-    color: #fff;
-    font-weight: bold;
-    text-decoration: none;
-    transition: 0.2s ease;
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    transition: all 0.4s ease;
-}
-
-.heading .button:hover {
-    color: #c0e7e5;
-    background: brown;
-
-    transition: all 0.4s ease;
-}
-
-.heading .btn-text {
-    opacity: 0.01;
-    font-size: small;
-    transform: translate(0, -40%);
-    transition: all 0.3s ease;
-}
-
-.heading .welcome-container:has(.button:hover) .btn-text:not(.button:hover) {
-    opacity: 1;
-    transform: translate(0, 40%);
-    font-size: small;
-    transition: opacity 0.6s ease, transform 0.8s ease;
-}
 
 .heading .additional-info {
     flex: 1;
@@ -692,7 +764,7 @@ nav {
     flex: 1;
     margin: 2.5px 50px;
     padding: 10px;
-    background: rgba(85, 85, 85, 0.6);
+    background: rgba(85, 85, 85, 0.8);
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
     text-align: center;
@@ -736,7 +808,7 @@ nav {
 /*BookingType*/
 .BookingType {
     width: 100%;
-    padding: 10rem 0 8rem;
+    padding: 8rem 0 6rem 0;
     backdrop-filter: blur(4px);
     overflow: hidden;
     position: relative;
@@ -790,6 +862,7 @@ nav {
 }
 
 .court-card {
+    transform: translateY(20%);
     background: #33333360;
     border-radius: 10px;
     width: 300px;
@@ -797,13 +870,12 @@ nav {
     margin: 50px 20px 60px 50px;
     box-shadow: 1px 0 2px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s, opacity 0.5s ease;
-    opacity: 0.9;
+    
 }
 
-    .court-card.center {
-        opacity: 1;
-        transform: scale(1.2);
-    }
+.court-card.float {
+    transform: translateY(0%);
+}
 
     .court-card.hovered {
         transform: scale(1.15) !important;
@@ -1044,6 +1116,7 @@ nav {
 }
 .flip-container .flip-back {
     display: flex;
+    flex-direction: column;
 }
 
 .flip-container .flip-back p {text-align: left; margin-left: 20px;}
@@ -1179,32 +1252,39 @@ nav {
 .flexibleExplain {
     font-weight: bold;
     font-size: 2rem;
+    text-decoration: underline;
     color: white;
-    text-shadow: -0.5px -0.5px 5px #fff, -0.5px -0.5px 5px #fff;
+    text-shadow: -0.1px -0.1px 10px #fff, -0.1px -0.1px 2px #fff;
 }
 
+.flip-container .first-card:hover .instruction-paragraph,
+.flip-container .seccond-card:hover .instruction-paragraph,
+.flip-container .third-card:hover .instruction-paragraph{margin: -20px 0 0 0; transition: margin 0.7s ease-in;}
+
 .instruction-paragraph {
-    margin: 40px;
+    margin: -68px 0 0 0;
     padding: 15px;
-    border: 2px solid #000;
-    border-radius: 10px;
-    max-width: 100%;
-    height: 60%;
+    border: none;
+    border-radius: 20px;
+    width: 100%;
+    height: 100%;
     text-align: left;
     word-wrap: break-word;
     overflow-wrap: break-word;
     background-image: linear-gradient(to right bottom, rgba(134, 142, 158, 0.5), rgba(154, 163, 181, 0.4), rgba(174, 184, 205, 0.3), rgba(195, 206, 230, 0.2), rgba(216, 228, 255, 0.1) );
-    backdrop-filter: blur(10px);
-    
+    backdrop-filter: blur(12px);
 }
 
     .instruction-paragraph .bookingType-explain {
         font-family: system-ui;
-        font-size: 1.2em;
+        font-size: 1rem;
         line-height: 2;
-        color: lightcyan;
+        color: whitesmoke;
         text-shadow: -0.5px -0.5px 5px #000, -0.5px -0.5px 5px #000, 0.5px 0.5px 5px #000, 0.5px 0.5px 5px #000;
     }
+.first-card .bookingType-explain .paragraph-highlights{text-decoration: wavy; color: cyan;}
+.seccond-card .bookingType-explain .paragraph-highlights{text-decoration: wavy; color: aquamarine;}
+.third-card .bookingType-explain .paragraph-highlights {text-decoration: wavy; color: #FBBC05;}
 /*About Us*/
 .about-section {
     padding: 200px;
@@ -1561,6 +1641,44 @@ nav {
     margin-bottom: 15px;
 } .form-group label{margin-bottom: 8px;}
 
+.form-group-p, .form-group-p2 {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.form-group-p label, .form-group-p2 label{margin-bottom: 8px; background: #333; color: white; padding: 3px 5px 0 5px; border-radius: 8px; transition: transform 0.3s ease;}
+.form-group-p input {outline: none;
+    padding: 6px 30px;
+    line-height: 30px;
+    width: 280px;
+    border-radius: 10px;
+    border: 2px solid #333;
+    background: #ddd;
+    color: #333;
+    transition: 0.2s ease;}
+.form-group-p2 input {outline: none;
+    padding: 6px 30px;
+    line-height: 30px;
+    width: 280px;
+    border-radius: 10px;
+    border: 2px solid #333;
+    background: transparent;
+    color: #333;
+    transition: 0.2s ease;}
+
+.form-group-p input:focus-within{
+    background: transparent;
+    color: white;
+    border: 2px solid #4285F4;    
+    width: 300px;
+    transition: 0.2s ease;}
+
+.form-group-p:focus-within .labels{
+    transform: translateX(20%) translateY(65%);
+    background: #4285F4;
+    color: #ccc;
+    transition: 0.2s ease;}
+
 .input-fields .form-control,
 .form-group .form-control {
     outline: none;
@@ -1592,6 +1710,10 @@ nav {
     color: #ccc;
     transition: 0.2s ease;
 }
+
+.profile-actions {margin: 20px 0 85px 0;}
+.profile-actions button{background: #333;} .profile-actions a{background: brown;}
+.profile-actions button:hover{background: #555555d2;} .profile-actions a:hover{background: rgb(140,42,42);}
 
 .input-fields label,
 .form-group label {
@@ -1945,7 +2067,8 @@ nav {
     background-image: linear-gradient(to left top, #9ebbc4, #95a6b0, #8b929b, #7e7f84, #6e6e6e);
     line-height: 20px;
     padding: 80px 20px;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
     .inv-body .invoice {

@@ -2,44 +2,42 @@
     $(window).scroll(function () {
         if (this.scrollY > 40) {
             $('nav').addClass("sticky");
-        } else {
-            $('nav').removeClass("sticky");
-        }
-
-        if (this.scrollY > 40) {
             $('.mega-box').addClass("sticky");
-        } else {
-            $('.mega-box').removeClass("sticky");
-        }
-
-        if (this.scrollY > 40) {
             $('.account-actions .drop-menu').addClass("sticky");
         } else {
+            $('nav').removeClass("sticky");
+            $('.mega-box').removeClass("sticky");
             $('.account-actions .drop-menu').removeClass("sticky");
         }
 
         if (this.scrollY > 150) {
             $('.Quote').addClass("flow");
+            $('.return-to-top-button i').addClass("appear");
         } else {
             $('.Quote').removeClass("flow");
+            $('.return-to-top-button i').removeClass("appear");
         }
 
-        if (this.scrollY > 200) {
-            $('.heading h2').addClass("float");
+        if (this.scrollY > 180) {
+            $('.heading h2').addClass("headingfloat");
         } else {
-            $('.heading h2').removeClass("float");
+            $('.heading h2').removeClass("headingfloat");
         }
 
-        if (this.scrollY > 220) {
-            $('.welc-images').addClass("flew");
+        if (this.scrollY > 1100) {
+            $('.court-card').each(function (index) {
+                $(this).css('transition-delay', index * 50 + 'ms').addClass("float");
+            });
         } else {
-            $('.welc-images').removeClass("flew");
+            $('.court-card').each(function () {
+                $(this).css('transition-delay', '0ms').removeClass("float");
+            });
         }
     })
 
     var typed = new Typed(".typing", {
-        strings: ["Greatest", "Nicest", "Cleanest", "Safest"],
-        typeSpeed: 100,
+        strings: ["Greatest", "Cleanest", "Prestigious", "Most Reliable"],
+        typeSpeed: 105,
         backSpeed: 80,
         loop: true
     });
@@ -63,16 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let idleTimeout;
     let direction = 1;
 
-    // Added for smooth sliding
     slide.style.transition = 'transform 0.5s ease-in-out';
-
-    function updateCardScaling() {
-        courtCards.forEach((card, index) => {
-            const distanceFromCenter = Math.abs(currentIndex - index);
-            const scale = Math.max(1.1 - (distanceFromCenter * 0.1), 0.6);
-            card.style.transform = `scale(${scale})`;
-        });
-    }
 
     function updateBackgroundImage() {
         const currentCard = courtCards[Math.round(currentIndex)];
@@ -89,7 +78,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             currentIndex += direction * 0.02;
             slide.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
-            updateCardScaling();
             updateBackgroundImage();
         }, 120); // Adjust scroll speed here
     }
@@ -101,7 +89,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function resetScrollPosition() {
         currentIndex = 0;
         slide.style.transform = `translateX(0px)`;
-        updateCardScaling();
     }
 
     function resetIdleTimeout() {
@@ -110,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!isUserInteracted) {
                 startAutoScroll();
             }
-        }, 5000); // Adjust idle time here
+        }, 3000); // Adjust idle time here
     }
 
     nextButton.addEventListener('click', function () {
@@ -119,12 +106,10 @@ document.addEventListener('DOMContentLoaded', function () {
         if (currentIndex < maxIndex + 2) {
             currentIndex++;
             slide.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
-            updateCardScaling();
             updateBackgroundImage();
         } else {
             currentIndex = maxIndex;
             slide.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
-            updateCardScaling();
             updateBackgroundImage();
         }
         setTimeout(function () {
@@ -139,12 +124,10 @@ document.addEventListener('DOMContentLoaded', function () {
         if (currentIndex > 0) {
             currentIndex--;
             slide.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
-            updateCardScaling();
             updateBackgroundImage();
         } else {
             currentIndex = 0;
             slide.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
-            updateCardScaling();
             updateBackgroundImage();
         }
         setTimeout(function () {
@@ -153,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 5000); // Adjust delay time here
     });
 
-    // Stop auto scrolling on hover over court-card elements
+    // Stop auto scrolling on hover
     courtCards.forEach(card => {
         card.addEventListener('mouseenter', function () {
             stopAutoScroll();
@@ -167,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Stop auto scrolling on hover over buttons and reset scroll position
+    // Stop auto scrolling on hover over buttons
     [prevButton, nextButton].forEach(button => {
         button.addEventListener('mouseenter', function () {
             stopAutoScroll();
@@ -190,7 +173,5 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Initial card scaling and background update
-    updateCardScaling();
     updateBackgroundImage();
 });
