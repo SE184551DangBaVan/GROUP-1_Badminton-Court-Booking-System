@@ -35,7 +35,7 @@ namespace BadmintonBooking.Controllers
 
 
             // Get court list based on group
-            var data = _context.Courts.Where(c=>c.UserId==userId).ToList();
+            var data = _context.Courts.Where(c=>c.UserId==userId&&c.CoStatus==true).ToList();
             // Sort data
             ViewBag.SortOrder = sortOrder;
             switch (sortOrder)
@@ -158,7 +158,7 @@ namespace BadmintonBooking.Controllers
 
         //----------------------------------------
         //crud court
-        /*
+        
         public IActionResult AddCourt()
         {
             var addressList = _context.Courts.Where(c => c.CoStatus == true)
@@ -209,9 +209,9 @@ namespace BadmintonBooking.Controllers
             TempData["message"] = "Record has been saved successfully";
 
 
-            return RedirectToAction("Show");
+            return RedirectToAction("Booking","Manager");
 
-        } */
+        } 
 
 
        
@@ -287,7 +287,7 @@ namespace BadmintonBooking.Controllers
          
             return RedirectToAction("Booking", "Manager");
         }
-     /*   public IActionResult DeleteCourt(int id)
+        public IActionResult DeleteCourt(int id)
         {
             DemobadmintonContext context = new DemobadmintonContext();
             var data = context.Courts.FirstOrDefault(c => c.CoId == id);
@@ -304,7 +304,7 @@ namespace BadmintonBooking.Controllers
             }
             return RedirectToAction("Booking", "Manager");
         }
-     */
+     
 
 
         private string UploadImage(Court model)
