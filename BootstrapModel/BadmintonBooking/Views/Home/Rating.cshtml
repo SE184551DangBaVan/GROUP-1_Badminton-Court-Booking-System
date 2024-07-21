@@ -18,9 +18,9 @@
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
     <style>
         .container {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
+            max-width: 800px;
+            margin: 200px auto 20px auto;
+            padding: 20px 60px;
             background-color: #ffffff;
             border: 1px solid #e1e1e1;
             border-radius: 8px;
@@ -54,41 +54,14 @@
             border-radius: 5px;
         }
 
-        .btn-primary {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-            .btn-primary:hover {
-                background-color: #0056b3;
-            }
-
-        .btn {
-            background-color: #e9ecef;
-            color: #495057;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-            .btn:hover {
-                background-color: #d1d1d1;
-            }
     </style>
 </head>
 <body>
+    <script src="~/js/script.js"></script>
     <div class="container">
         <div class="header">
             <h1>Rate Court - @Model.CoName</h1>
-            <h1>Court Id @Model.CoId</h1>
+            <h3 style="color: #555;">Court ID: @Model.CoId</h3>
         </div>
 
        
@@ -109,11 +82,11 @@
                 <label for="Rating">Rating (1-5)</label>
                 <select class="form-control" name="Rating1" id="Rating" required>
                     <option value="" disabled selected>Select Rating</option>
-                    <option value="5">5  </option>
-                    <option value="4">4  </option>
-                    <option value="3">3  </option>
-                    <option value="2">2  </option>
-                    <option value="1">1  </option>
+                    <option value="5">5 </option>
+                    <option value="4">4 </option>
+                    <option value="3">3 </option>
+                    <option value="2">2 </option>
+                    <option value="1">1 </option>
                 </select>
             </div>
 
@@ -121,17 +94,19 @@
                 <label for="Review">Review</label>
                 <textarea class="form-control" name="Review" rows="3" required></textarea>
             </div>
-
-            <button type="submit" class="btn btn-primary">Submit Rating</button>
+            <div class="rating-actions">
+                <a href="/home/customer" class="rate-backbtn">Back</a>
+                <button type="submit" class="rate-btn-primary">Submit Rating</button>
+            </div>
         </form>
 
-        <a href="/home/customer" class="btn">Back</a>
+        
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
+    
 </body>
 </html>

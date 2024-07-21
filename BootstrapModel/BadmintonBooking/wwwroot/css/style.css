@@ -171,6 +171,23 @@ nav {
         color: brown;
     }
 
+.account-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 350px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.username span {
+    display: inline-block;
+    max-width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .account-actions .desktop-item {
     display: none;
 }
@@ -377,13 +394,17 @@ nav {
 }
 
 .account-actions .profile-pic {
-    transform: scale(0.3);
-    margin-right: -50px;
-    margin-left: -20px;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
     .account-actions .profile-pic img {
-        outline: 6px solid;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        outline: 3px solid;
         outline-color: lightcyan;
         border-radius: 50%;
     }
@@ -408,7 +429,6 @@ nav {
     .navbar-nav .logout:hover {
         outline-color: brown;
         border-radius: 10px;
-        width: 50%;
     }
 
 .login-logout-card {
@@ -1427,7 +1447,7 @@ nav {
 }
 
     .main-image.shrink {
-        height: 400px;
+        height: 100px;
     }
 
 .aside-right {
@@ -1815,7 +1835,7 @@ nav {
 
 /*Profile*/
 .log-body {
-    margin-top: 200px;
+    margin: 220px 0 0 0;
     overflow: hidden;
 }
 
@@ -2123,7 +2143,7 @@ nav {
     .invoice .header .i_row .i_title h2 {
         font-size: 32px;
         line-height: 38px;
-        color: var(--secondary-clr);
+        color: var(--secondary);
     }
 
     .invoice .header .i_row .i_address .p_title span {
@@ -2141,11 +2161,11 @@ nav {
 
 .invoice .inbody .i_table .i_table_head .i_row {
     border: 2px solid;
-    border-color: var(--primary-clr) transparent var(--primary-clr) transparent;
+    border-color: #555 transparent #555 transparent;
 }
 
 .invoice .inbody .i_table .i_table_body .i_row:last-child {
-    border-bottom: 2px solid var(--primary-clr);
+    border-bottom: 2px solid darkblue;
 }
 
 .invoice .body .i_table .i_table_foot .grand_total_wrap {
@@ -2153,7 +2173,7 @@ nav {
 }
 
     .invoice .body .i_table .i_table_foot .grand_total_wrap .grand_total {
-        background: var(--secondary-clr);
+        background: var(--secondary);
         color: var(--white);
         padding: 10px 15px;
     }
@@ -2173,7 +2193,7 @@ nav {
     height: 175px;
     z-index: 1;
     position: absolute;
-    background: var(--secondary-clr);
+    background: rgba(0, 0, 0, 0.1);
 }
 
 .top_line {
@@ -2205,7 +2225,7 @@ nav {
     border-color: var(--white) transparent transparent var(--white);
 }
 
-
+/*Role Function*/
 .CreateRole {
     margin-top: 300px;
 }
@@ -2255,4 +2275,58 @@ nav {
 #week-range {
     flex: 1;
     text-align: center;
+}
+
+/*Rating*/
+.rating-actions{
+    display: flex;
+    justify-content: space-around;
+}
+
+.rate-btn-primary {
+    cursor: pointer;
+    border-radius: 8px;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: brown;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+.rate-btn-primary:hover{
+    background-color: #555;
+    transition: all 0.3s ease;
+}
+
+.rate-backbtn {
+    cursor: pointer;
+    border-radius: 8px;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #555;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+.rate-backbtn:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/*Footer container*/
+footer {
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    left: 0;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
 }

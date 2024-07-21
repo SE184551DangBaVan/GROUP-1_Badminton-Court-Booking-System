@@ -12,12 +12,57 @@
     <title>Create Court</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
 </head>
+<style>
+    body {
+        background: url(../images/desktop-wallpaper-badminton-shuttlecock-sport-equipment-shuttlecock.jpg) no-repeat fixed;
+        background-color: #242526;
+        background-position: center;
+        background-size: cover;
+        line-height: 1.6;
+        scroll-behavior: smooth;
+        min-height: 120vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .form-group {
+        width: 100%;
+        margin-bottom: 15px;
+    } .form-group label{margin-bottom: 8px; padding: 0 10px; border-radius: 20px;}
+
+    .form-group input {
+        outline: none;
+        padding: 6px 30px;
+        line-height: 30px;
+        width: 280px;
+        border-radius: 10px;
+        border: 2px solid #333;
+        background: #ddd;
+        color: #333;
+        transition: 0.2s ease;
+    }
+
+    .form-group input:focus-within {
+        background: transparent;
+        border: 2px solid #4285F4;
+        transition: 0.2s ease;
+    }
+
+    .form-group:focus-within label{
+        transform: translateX(20%) translateY(65%);
+        background: #4285F4;
+        color: #ccc;
+        transition: 0.2s ease;
+    }
+</style>
 <body>
     <script src="~/js/courtdropdown.js"></script>
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm" style="background: rgba(250,250,250,0.6); backdrop-filter: blur(10px);">
                     <div class="card-header bg-primary text-white">
                         <h4 class="card-title mb-0">Create Court</h4>
                     </div>
@@ -30,7 +75,7 @@
                                 <input asp-for="CoName" class="form-control" />
                                 <span asp-validation-for="CoName" class="text-danger"></span>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group-checkbox">
                                 @Html.LabelFor(model => model.CoAddress, htmlAttributes: new { @class = "control-label" })
                                 <div class="">
                                     @Html.DropDownListFor(model => model.CoAddress, (SelectList)ViewBag.AddressList, "Select Address", new { @class = "form-control", id = "CoAddressDropdown", required = "required" })
@@ -52,7 +97,7 @@
                                 <input asp-for="CoPrice" class="form-control" />
                                 <span asp-validation-for="CoPrice" class="text-danger"></span>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group-image">
                                 <label asp-for="ImagePath" class="control-label">Image Path</label>
                                 <input type="file" class="form-control" asp-for="ImagePath" id="ChooseImg" />
                                 <span asp-validation-for="ImagePath" class="text-danger"></span>
@@ -66,7 +111,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="text-center mt-3">
+                <div class="text-center mt-3" style="margin-bottom: 40px;">
                     <a asp-action="Show" asp-controller="Admin" class="btn btn-secondary">Back to List</a>
                 </div>
             </div>

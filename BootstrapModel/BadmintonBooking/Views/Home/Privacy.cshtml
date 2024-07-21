@@ -2,5 +2,181 @@
     ViewData["Title"] = "Privacy Policy";
 }
 
+<style>
+/* Privacy Policy */
+:root {
+    --background: #005;
+    --primary-clr: #88D5BF;
+    --secondary-clr: #5D6BF8;
+}
 
-<p class="">Use this page to detail your site's privacy policy.</p>
+.inv-body {
+    background-image: linear-gradient(to left top, #9ebbc4, #95a6b0, #8b929b, #7e7f84, #6e6e6e);
+    line-height: 20px;
+    padding: 80px 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.inv-body .privacy-policy {
+    width: 800px;
+    max-width: 100%;
+    height: auto;
+    background-image: linear-gradient(to right bottom, #ffffff, #d5d5da, #acaeb7, #838895, #5b6474);
+    padding: 50px 60px;
+    position: relative;
+    margin: 20px auto;
+}
+
+.inv-body .policy-section {
+    margin-bottom: 30px;
+}
+
+.inv-body .policy-section h3 {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.inv-body .policy-section p, 
+.inv-body .policy-section ul {
+    margin-bottom: 10px;
+}
+
+.inv-body .policy-section ul {
+    padding-left: 20px;
+}
+
+.inv-body .policy-section ul li {
+    list-style-type: disc;
+    margin-bottom: 5px;
+}
+
+.top_line,
+.bottom_line {
+    width: 25px;
+    height: 175px;
+    z-index: 1;
+    position: absolute;
+    background: var(--secondary-clr);
+}
+
+.top_line {
+    top: 0;
+    left: 0;
+}
+
+.bottom_line {
+    bottom: 0;
+    right: 0;
+}
+
+.top_line:before,
+.bottom_line:before {
+    content: "";
+    position: absolute;
+    border: 13px solid;
+}
+
+.top_line:before {
+    bottom: 0;
+    left: 0px;
+    border-color: transparent var(--white) var(--white) transparent;
+}
+
+.bottom_line:before {
+    top: 0;
+    left: 0px;
+    border-color: var(--white) transparent transparent var(--white);
+}
+</style>
+<body class="inv-body">
+    <script src="~/js/script.js"></script>
+    <section>
+        <div class="privacy-policy">
+            <div class="top_line"></div>
+            <div class="header">
+                <div class="i_row">
+                    <div class="i_logo">
+                        <p>Privacy Policy</p>
+                    </div>
+                    <div class="i_title">
+                        <h2>Privacy Policy</h2>
+                        <p class="p_title text_right">@Model.formattedDate</p>
+                    </div>
+                </div>
+            </div>
+            <div class="policy-body">
+                <div class="policy-section">
+                    <h3>1. Introduction</h3>
+                    <p>Welcome to [Badminton Booking Site Name] ("we," "our," or "us"). We are committed to protecting your privacy and ensuring that your personal information is handled in a safe and responsible manner. This Privacy Policy outlines how we collect, use, disclose, and safeguard your information when you visit our website [www.badmintonbookingsite.com] (the "Site") and use our services.</p>
+                </div>
+                <div class="policy-section">
+                    <h3>2. Information We Collect</h3>
+                    <p>We may collect the following types of information:</p>
+                    <ul>
+                        <li>Personal Identification Information: Name, email address, phone number, postal address, and other similar information.</li>
+                        <li>Booking Information: Details related to your court bookings, such as the date, time, and location of your bookings.</li>
+                        <li>Payment Information: Credit card details, billing address, and other payment-related information.</li>
+                        <li>Technical Information: IP address, browser type, operating system, and other similar technical data.</li>
+                    </ul>
+                </div>
+                <div class="policy-section">
+                    <h3>3. How We Use Your Information</h3>
+                    <p>We use the collected information for various purposes, including:</p>
+                    <ul>
+                        <li>To provide and maintain our services: To process your bookings, manage your account, and provide customer support.</li>
+                        <li>To improve our services: To understand how our services are being used, which helps us improve our website and services.</li>
+                        <li>To communicate with you: To send you updates, booking confirmations, and other important information.</li>
+                        <li>For marketing purposes: To send you promotional materials and offers, with your consent.</li>
+                        <li>To comply with legal obligations: To fulfill our legal and regulatory requirements.</li>
+                    </ul>
+                </div>
+                <div class="policy-section">
+                    <h3>4. How We Share Your Information</h3>
+                    <p>We do not sell, trade, or otherwise transfer your personal information to outside parties except as described below:</p>
+                    <ul>
+                        <li>Service Providers: We may share your information with third-party service providers who assist us in operating our website, conducting our business, or providing services to you.</li>
+                        <li>Legal Requirements: We may disclose your information if required to do so by law or in response to valid requests by public authorities.</li>
+                        <li>Business Transfers: In the event of a merger, acquisition, or sale of all or a portion of our assets, your information may be transferred as part of that transaction.</li>
+                    </ul>
+                </div>
+                <div class="policy-section">
+                    <h3>5. Data Security</h3>
+                    <p>We implement appropriate technical and organizational measures to protect your personal information from unauthorized access, use, or disclosure. However, please note that no method of transmission over the Internet or electronic storage is completely secure.</p>
+                </div>
+                <div class="policy-section">
+                    <h3>6. Your Rights</h3>
+                    <p>Depending on your location, you may have the following rights regarding your personal information:</p>
+                    <ul>
+                        <li>Access: The right to access your personal information that we hold.</li>
+                        <li>Correction: The right to correct or update your personal information.</li>
+                        <li>Deletion: The right to request the deletion of your personal information.</li>
+                        <li>Objection: The right to object to the processing of your personal information.</li>
+                        <li>Restriction: The right to request the restriction of processing of your personal information.</li>
+                        <li>Portability: The right to request a copy of your personal information in a structured, commonly used, and machine-readable format.</li>
+                    </ul>
+                    <p>To exercise any of these rights, please contact us using the contact information provided below.</p>
+                </div>
+                <div class="policy-section">
+                    <h3>7. Cookies and Tracking Technologies</h3>
+                    <p>We use cookies and similar tracking technologies to track the activity on our website and hold certain information. You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our website.</p>
+                </div>
+                <div class="policy-section">
+                    <h3>8. Changes to This Privacy Policy</h3>
+                    <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Effective Date" above. You are advised to review this Privacy Policy periodically for any changes.</p>
+                </div>
+                <div class="policy-section">
+                    <h3>9. Contact Us</h3>
+                    <p>If you have any questions or concerns about this Privacy Policy or our data practices, please contact us at:</p>
+                    <p>[Badminton Booking Site Name]<br>
+                    Email: [your-email@example.com]<br>
+                    Phone: [Your Phone Number]<br>
+                    Address: [Your Address]</p>
+                </div>
+            </div>
+            <div class="bottom_line"></div>
+        </div>
+    </section>
+</body>
+
