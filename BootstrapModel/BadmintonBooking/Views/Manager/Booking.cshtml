@@ -17,7 +17,7 @@
         font-size: 0.875rem;
         font-weight: 600;
         color: #fff;
-        background-color: #28a745; /* Green background */
+        background-color: #28a745; /* Active */
         border: 1px solid transparent;
     }
 
@@ -29,7 +29,7 @@
         font-size: 0.875rem;
         font-weight: 600;
         color: #fff;
-        background-color: #dc3545; /* Red background */
+        background-color: #dc3545; /* Inactive */
         border: 1px solid transparent;
     }
 </style>
@@ -39,7 +39,7 @@
         <div class="main-content">
             <h1 class="text-center">Badminton Court Information</h1>
             <div class="form-group" style="width:300px">
-                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter court name" id="txtSearch">
+                <input type="text" style="background: #ccc;" class="form-control mb-2 mr-sm-2" placeholder="Enter court name" id="txtSearch">
             </div>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -112,12 +112,13 @@
                                                 <input type="hidden" name="Types" value="Casual" />
                                                 <br /><button class="bookBtn">Book</button>
                                                 <a class="detailBtn btn-success" href="/home/CourtDetail?CourtId=@court.CoId">Detail</a>
-                                                <a class="detailBtn btn-success" asp-action="QualityCheckHistory" asp asp-controller="Home" asp-route-CoID="@court.CoId">See Quality History</a>
+                                                <a class="qualityHistoryBtn btn-success" asp-action="QualityCheckHistory" asp asp-controller="Home" asp-route-CoID="@court.CoId">See Quality History</a>
                                             </div>
                                         </form>
-                                        <a class="btn btn-primary" style="height:50px" asp-action="EditCourt" asp-controller="Manager" asp-route-id="@court.CoId">Edit</a>
-                                       <a class="btn btn-danger" style="height:50px" asp-action="DeleteCourt" onclick="return confirm('Are you sure you want to suspend this court?');" asp-controller="Manager" asp-route-id="@court.CoId">Suspend</a> 
-
+                                        <div class="manager-control-buttons">
+                                            <a class="manager-buttons-edit" asp-action="EditCourt" asp-controller="Manager" asp-route-id="@court.CoId">Edit</a>
+                                            <a class="manager-buttons-suspend" asp-action="DeleteCourt" onclick="return confirm('Are you sure you want to suspend this court?');" asp-controller="Manager" asp-route-id="@court.CoId">Suspend</a>
+                                        </div>
                                         
                                     </div>
                                 </div>

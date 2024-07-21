@@ -2315,6 +2315,61 @@ nav {
     color: black;
 }
 
+/*Manager Booking*/
+.manager-control-buttons{
+    display: flex;
+    gap: 5px;
+    text-decoration: none;
+}
+
+.createCourtBtn{
+    background: #555;
+    color: white;
+    margin: 20px 0 0 0;
+    outline: 2px solid #fff;
+    border-radius: 15px;
+    transition: all 0.2s ease;
+}
+.createCourtBtn:hover{
+    background: #ccc;
+    color: black;
+    outline: 2px solid black;
+    transition: all 0.3s ease;
+}
+
+.manager-control-buttons .manager-buttons-edit {
+    text-decoration: none; color: white; background-color: seagreen; padding: 0 0 0 15px; width: 60px; height: 30px; border-radius: 8px; transition: all 0.2s ease;
+}
+.manager-control-buttons .manager-buttons-edit:hover{
+    color: white; background-color: lightseagreen; transition: all 0.3s ease;
+}
+
+.manager-control-buttons .manager-buttons-suspend {
+    text-decoration: none; color: white; background-color: crimson; padding: 0 0 0 9px; width: 80px; height: 30px; border-radius: 8px; transition: all 0.2s ease;
+}
+.manager-control-buttons .manager-buttons-suspend:hover{
+    color: white; background-color: darkred; transition: all 0.3s ease;
+}
+
+.qualityHistoryBtn {
+    border-style: none;
+    outline: 1px solid;
+    outline-color: black;
+    background-color: darkslateblue;
+    padding: 3px 6px 3px 6px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.qualityHistoryBtn:hover {
+    text-decoration: none;
+    font-weight: 400;
+    background-color: darkmagenta;
+    color: lightcyan;
+    text-shadow: 1px 2px 3px rgba(0, 0, 0, 1);
+}
+
 /*Footer container*/
 footer {
     width: 100%;

@@ -73,18 +73,18 @@
             <img src="~/images/photo-1536598774668-2eeb8a1a5f99.png" class="main-image img-fluid" alt="Badminton Court Image">
 
             <div class="form-group" style="width:300px">
-                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter keyword" id="txtSearch">
+                <input type="text" style="background: #ccc;" class="form-control mb-2 mr-sm-2" placeholder="Enter keyword" id="txtSearch">
             </div>
             <!----<form method="get" action="@Url.Action("Book2", "Home")">
                 <input type="text" name="search" placeholder="Search by keyword..." />
                 <input type="hidden" name="address" value="@ViewBag.SearchAddress" />
                 <button type="submit">Search</button>
             </form>--->
-            <span class="dropdown">
+            <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                   Select Time
+                    Select Time
                 </button>
-                <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="/Home/Book2?address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder&selectedTime=">Reset</a>
                     <a class="dropdown-item" href="/Home/Book2?address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder&selectedTime=9:00">9AM</a>
                     <a class="dropdown-item" href="/Home/Book2?address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder&selectedTime=10:00">10AM</a>
@@ -98,26 +98,22 @@
                     <a class="dropdown-item" href="/Home/Book2?address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder&selectedTime=18:00">6PM</a>
                     <a class="dropdown-item" href="/Home/Book2?address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder&selectedTime=19:00">7PM</a>
                     <a class="dropdown-item" href="/Home/Book2?address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder&selectedTime=20:00">8PM</a>
-                </span>
-            </span>
-            <span class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Sort By
                 </button>
-                @{
-                    var selectime = ViewBag.SelectedTime;
-                }
-                <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                     <a class="dropdown-item" href="/Home/Book2?page=1&address=@ViewBag.SearchAddress&sortOrder=name_asc&selectedTime=@ViewBag.SelectedTime">Name Ascending</a>
                     <a class="dropdown-item" href="/Home/Book2?page=1&address=@ViewBag.SearchAddress&sortOrder=name_desc&selectedTime=@ViewBag.SelectedTime">Name Descending</a>
                     <a class="dropdown-item" href="/Home/Book2?page=1&address=@ViewBag.SearchAddress&sortOrder=price_asc&selectedTime=@ViewBag.SelectedTime">Price Ascending</a>
-                    <a class="dropdown-item" href="/Home/Book2?page=1&address=@ViewBag.SearchAddress&sortOrder=price_desc&selectedTime=@ViewBag.SelectedTime">Price Descending </a>
-                    <a class="dropdown-item" href="/Home/Book2?page=1&address=@ViewBag.SearchAddress&sortOrder=&selectedTime=@ViewBag.SelectedTime">Reset </a>
-                </span>
-            </span>
+                    <a class="dropdown-item" href="/Home/Book2?page=1&address=@ViewBag.SearchAddress&sortOrder=price_desc&selectedTime=@ViewBag.SelectedTime">Price Descending</a>
+                    <a class="dropdown-item" href="/Home/Book2?page=1&address=@ViewBag.SearchAddress&sortOrder=&selectedTime=@ViewBag.SelectedTime">Reset</a>
+                </div>
+            </div>
                 
-                
-
             <div class="court-item mt-4" id="courtList">
                 @if (Model != null && Model.Any())
                 {
@@ -234,6 +230,8 @@
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="~/js/script.js"></script>
