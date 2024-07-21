@@ -701,19 +701,75 @@ namespace BadmintonBooking.Controllers
         }
 
 
-        public IActionResult BookingHistory(string userID)
-        {
-            //if (string.IsNullOrEmpty(userID)) return (View ("Error"));
+        //public IActionResult BookingHistory(string userID)
+        //{
 
-            DemobadmintonContext context = new DemobadmintonContext();
-            var bookingHistory = context.Bookings.Where(b => b.UserId == userID)
-            .Include(b => b.Payments)
-            .Include(b => b.Co)
-            .ToList();
-            return View(bookingHistory);
+
+        //    DemobadmintonContext context = new DemobadmintonContext();
+        //    var bookingHistory = context.Bookings.Where(b => b.UserId == userID)
+        //    .Include(b => b.Payments)
+        //    .Include(b => b.Co)
+        //    .ToList();
+        //    return View(bookingHistory);
+        //}
+
+        public IActionResult BookingHistory(string userID, DateTime? startDate = null, DateTime? endDate = null)
+        {
+            var bookingHistory = _context.Bookings
+                .Where(b => b.UserId == userID)
+                .Include(b => b.Payments)
+                .Include(b => b.Co)
+                .AsQueryable();
+
+            if (startDate.HasValue)
+            {
+                bookingHistory = bookingHistory.Where(b => b.Payments.Any(p => p.PDateTime >= startDate.Value));
+            }
+
+            if (endDate.HasValue)
+            {
+                bookingHistory = bookingHistory.Where(b => b.Payments.Any(p => p.PDateTime <= endDate.Value));
+            }
+
+            var sortedBookingHistory = bookingHistory
+                .OrderByDescending(b => b.Payments.Max(p => p.PDateTime))
+                .ToList();
+
+            ViewBag.UserID = userID;
+            ViewBag.StartDate = startDate;
+            ViewBag.EndDate = endDate;
+
+            return View(sortedBookingHistory);
         }
 
-        public IActionResult UpComingEvent(string userID, string filter = null)
+
+        //public IActionResult UpComingEvent(string userID, string filter = null)
+        //{
+        //    DemobadmintonContext context = new DemobadmintonContext();
+        //    var futureTimeSlot = context.Bookings
+        //        .Where(b => b.UserId == userID)
+        //        .Include(b => b.Co)
+        //        .Include(b => b.TimeSlots)
+        //        .ToList();
+        //    var today = DateOnly.FromDateTime(DateTime.Today);
+        //    var validFutureTimeSlot = futureTimeSlot
+        //        .Where(b => b.TimeSlots.Any(ts =>
+        //            ts.TsCheckedIn == false &&
+        //            ts.TsDate > today))
+        //        .ToList();
+
+        //    if (!string.IsNullOrEmpty(filter))
+        //    {
+        //        validFutureTimeSlot = validFutureTimeSlot
+        //            .Where(b => b.BBookingType.Normalize().ToString() == filter.Normalize())
+        //            .ToList();
+        //    }
+        //    ViewBag.UserID = userID;
+        //    ViewBag.CurrentFilter = filter;
+        //    return View(validFutureTimeSlot);
+        //}
+
+        public IActionResult UpComingEvent(string userID, string filter = null, DateTime? startDate = null, DateTime? endDate = null)
         {
             DemobadmintonContext context = new DemobadmintonContext();
             var futureTimeSlot = context.Bookings
@@ -721,6 +777,7 @@ namespace BadmintonBooking.Controllers
                 .Include(b => b.Co)
                 .Include(b => b.TimeSlots)
                 .ToList();
+
             var today = DateOnly.FromDateTime(DateTime.Today);
             var validFutureTimeSlot = futureTimeSlot
                 .Where(b => b.TimeSlots.Any(ts =>
@@ -734,8 +791,30 @@ namespace BadmintonBooking.Controllers
                     .Where(b => b.BBookingType.Normalize().ToString() == filter.Normalize())
                     .ToList();
             }
+
+            // Apply date range filter
+            if (startDate.HasValue && endDate.HasValue)
+            {
+                var startDateOnly = DateOnly.FromDateTime(startDate.Value);
+                var endDateOnly = DateOnly.FromDateTime(endDate.Value);
+
+                validFutureTimeSlot = validFutureTimeSlot
+                    .Where(b => b.TimeSlots.Any(ts =>
+                        ts.TsDate >= startDateOnly && ts.TsDate <= endDateOnly))
+                    .ToList();
+            }
+
+            // Sort the timeslots
+            validFutureTimeSlot = validFutureTimeSlot
+                .OrderBy(b => b.TimeSlots.Min(ts => ts.TsDate))
+                .ThenBy(b => b.TimeSlots.Min(ts => ts.TsStart))
+                .ToList();
+
             ViewBag.UserID = userID;
             ViewBag.CurrentFilter = filter;
+            ViewBag.StartDate = startDate;
+            ViewBag.EndDate = endDate;
+
             return View(validFutureTimeSlot);
         }
         public async Task<IActionResult> CourtToCheckQuality()

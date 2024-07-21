@@ -156,7 +156,9 @@
             display: block;
             background-image: linear-gradient(to right bottom, #9ebbc4, #95a6b0, #8b929b, #7e7f84, #6e6e6e);
             padding: 5px 40px;
-            margin-top: -200px;
+            /* margin-top: -200px; */
+            top: 0; 
+            left: 0; 
             text-align: center;
             width: 100%;
         }
@@ -164,17 +166,77 @@
         .filter-btn {
             margin-right: 10px;
         }
+
+
+        .date-filter {
+            position: fixed;
+            top: 70px; /* Adjust based on the height of your filter buttons */
+            left: 0;
+            width: 100%;
+            background-image: linear-gradient(to right bottom, #9ebbc4, #95a6b0, #8b929b, #7e7f84, #6e6e6e);
+            padding: 10px;
+            text-align: center;
+            z-index: 99;
+        }
+
+            .date-filter form {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .date-filter label, .date-filter input, .date-filter button {
+                font-family: 'Lato', sans-serif;
+                font-size: 0.8rem;
+            }
+
+                .date-filter input[type="date"] {
+                    padding: 5px;
+                    border: 1px solid rgba(255, 255, 255, 0.125);
+                    border-radius: 4px;
+                    background-color: rgba(255, 255, 255, 0.1);
+                    color: white;
+                }
+
+            .date-filter button {
+                border: none;
+                padding: 8px 16px;
+                border-radius: 24px;
+                cursor: pointer;
+                background: rgba(0, 212, 255, 0.9);
+                color: rgba(255,255,255,0.95);
+                transition: all .3s ease;
+            }
+
+                .date-filter button:hover {
+                    transform: scale(1.05);
+                    background: rgba(255, 255, 255, 0.9);
+                    color: rgba(0, 212, 255, 0.9);
+                }
     </style>
 </head>
 <body>
-    <@* <video autoplay muted loop plays-inline class="background-video">
-        <source src="../promo-videos/y2mate.com_-_Yonex_Astrox_100_Badminton_Rackets_Promotional_Launch_Video_v720P.mp4" type="video/mp4">
-    </video> *@
     <div class="filter-buttons">
         <a asp-action="UpComingEvent" asp-route-userID="@ViewBag.userID" asp-route-filter="" class="btn @(ViewBag.CurrentFilter == null ? "fill" : "outline") filter-btn">All</a>
         <a asp-action="UpComingEvent" asp-route-userID="@ViewBag.userID" asp-route-filter="Fixed" class="btn @(ViewBag.CurrentFilter == "Fixed" ? "fill" : "outline") filter-btn">Fixed</a>
         <a asp-action="UpComingEvent" asp-route-userID="@ViewBag.userID" asp-route-filter="Flexible" class="btn @(ViewBag.CurrentFilter == "Flexible" ? "fill" : "outline") filter-btn">Flexible</a>
         <a asp-action="UpComingEvent" asp-route-userID="@ViewBag.userID" asp-route-filter="Casual" class="btn @(ViewBag.CurrentFilter == "Casual" ? "fill" : "outline") filter-btn">Casual</a>
+        <a asp-action="Index" asp-controller="Home" class="btn outline back-btn">Back to Home</a>
+    </div>
+    <div class="date-filter">
+        <form asp-action="UpComingEvent" method="get">
+            <input type="hidden" name="userID" value="@ViewBag.UserID" />
+            <input type="hidden" name="filter" value="@ViewBag.CurrentFilter" />
+
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" name="startDate" value="@(ViewBag.StartDate?.ToString("yyyy-MM-dd"))" />
+
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate" name="endDate" value="@(ViewBag.EndDate?.ToString("yyyy-MM-dd"))" />
+
+            <button type="submit" class="btn outline">Apply Date Filter</button>
+        </form>
     </div>
 
     @if (Model == null || !Model.Any())
@@ -207,4 +269,13 @@
             }
         </div>
     }
+    <script>
+        document.getElementById('startDate').addEventListener('change', function () {
+            document.getElementById('endDate').min = this.value;
+        });
+
+        document.getElementById('endDate').addEventListener('change', function () {
+            document.getElementById('startDate').max = this.value;
+        });
+    </script>
 </body>

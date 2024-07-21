@@ -148,11 +148,65 @@
         .card.show-timeslots .timeslots-section {
             right: 0;
         }
+
+        .date-filter {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(17, 25, 40, 0.25);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.125);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+        }
+
+            .date-filter form {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .date-filter label, .date-filter input {
+                font-family: 'Lato', sans-serif;
+                font-size: 0.9rem;
+                color: #fff;
+            }
+
+                .date-filter input[type="date"] {
+                    padding: 5px;
+                    border: 1px solid rgba(255, 255, 255, 0.125);
+                    border-radius: 4px;
+                    background-color: rgba(255, 255, 255, 0.1);
+                    color: white;
+                }
+
+            .date-filter .btn {
+                margin-top: 10px;
+            }
     </style>
     <title>Event Page</title>
 </head>
 <body>
     <h1>Booking History</h1>
+    <div class="filter-buttons">
+        <a asp-action="Index" asp-controller="Home" class="btn outline back-btn">Back to Home</a>
+    </div>
+    <div class="date-filter">
+        <form asp-action="BookingHistory" method="get">
+            <input type="hidden" name="userID" value="@ViewBag.UserID" />
+
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" name="startDate" value="@(ViewBag.StartDate?.ToString("yyyy-MM-dd"))" />
+
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate" name="endDate" value="@(ViewBag.EndDate?.ToString("yyyy-MM-dd"))" />
+
+            <button type="submit" class="btn fill">Apply Date Filter</button>
+        </form>
+    </div>
     <div class="container">
         @if (Model == null || !Model.Any())
         {
@@ -193,4 +247,13 @@
 </div> *@
 
 </div>
+<script>
+document.getElementById('startDate').addEventListener('change', function () {
+    document.getElementById('endDate').min = this.value;
+});
+
+document.getElementById('endDate').addEventListener('change', function () {
+    document.getElementById('startDate').max = this.value;
+});
+</script>
 </body>
