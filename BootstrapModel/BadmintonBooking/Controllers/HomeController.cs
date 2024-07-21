@@ -713,7 +713,33 @@ namespace BadmintonBooking.Controllers
             return View(bookingHistory);
         }
 
-        public IActionResult UpComingEvent(string userID, string filter = null)
+        //public IActionResult UpComingEvent(string userID, string filter = null)
+        //{
+        //    DemobadmintonContext context = new DemobadmintonContext();
+        //    var futureTimeSlot = context.Bookings
+        //        .Where(b => b.UserId == userID)
+        //        .Include(b => b.Co)
+        //        .Include(b => b.TimeSlots)
+        //        .ToList();
+        //    var today = DateOnly.FromDateTime(DateTime.Today);
+        //    var validFutureTimeSlot = futureTimeSlot
+        //        .Where(b => b.TimeSlots.Any(ts =>
+        //            ts.TsCheckedIn == false &&
+        //            ts.TsDate > today))
+        //        .ToList();
+
+        //    if (!string.IsNullOrEmpty(filter))
+        //    {
+        //        validFutureTimeSlot = validFutureTimeSlot
+        //            .Where(b => b.BBookingType.Normalize().ToString() == filter.Normalize())
+        //            .ToList();
+        //    }
+        //    ViewBag.UserID = userID;
+        //    ViewBag.CurrentFilter = filter;
+        //    return View(validFutureTimeSlot);
+        //}
+
+        public IActionResult UpComingEvent(string userID, string filter = null, DateTime? startDate = null, DateTime? endDate = null)
         {
             DemobadmintonContext context = new DemobadmintonContext();
             var futureTimeSlot = context.Bookings
@@ -721,6 +747,7 @@ namespace BadmintonBooking.Controllers
                 .Include(b => b.Co)
                 .Include(b => b.TimeSlots)
                 .ToList();
+
             var today = DateOnly.FromDateTime(DateTime.Today);
             var validFutureTimeSlot = futureTimeSlot
                 .Where(b => b.TimeSlots.Any(ts =>
@@ -734,8 +761,30 @@ namespace BadmintonBooking.Controllers
                     .Where(b => b.BBookingType.Normalize().ToString() == filter.Normalize())
                     .ToList();
             }
+
+            // Apply date range filter
+            if (startDate.HasValue && endDate.HasValue)
+            {
+                var startDateOnly = DateOnly.FromDateTime(startDate.Value);
+                var endDateOnly = DateOnly.FromDateTime(endDate.Value);
+
+                validFutureTimeSlot = validFutureTimeSlot
+                    .Where(b => b.TimeSlots.Any(ts =>
+                        ts.TsDate >= startDateOnly && ts.TsDate <= endDateOnly))
+                    .ToList();
+            }
+
+            // Sort the timeslots
+            validFutureTimeSlot = validFutureTimeSlot
+                .OrderBy(b => b.TimeSlots.Min(ts => ts.TsDate))
+                .ThenBy(b => b.TimeSlots.Min(ts => ts.TsStart))
+                .ToList();
+
             ViewBag.UserID = userID;
             ViewBag.CurrentFilter = filter;
+            ViewBag.StartDate = startDate;
+            ViewBag.EndDate = endDate;
+
             return View(validFutureTimeSlot);
         }
         public async Task<IActionResult> CourtToCheckQuality()
