@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using System.Globalization;
 
 namespace BadmintonBooking.Controllers
@@ -16,15 +17,16 @@ namespace BadmintonBooking.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly DemobadmintonContext _context;
         private readonly IWebHostEnvironment environment;
-        List<TimeSlot> _slots = new List<TimeSlot>();
+        private readonly IMemoryCache _cache;
 
-        public ManagerController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, IHttpContextAccessor httpContextAccessor, DemobadmintonContext context, IWebHostEnvironment environment)
+        public ManagerController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, IHttpContextAccessor httpContextAccessor, DemobadmintonContext context, IWebHostEnvironment environment, IMemoryCache cache)
         {
             _logger = logger;
             _userManager = userManager;
             _httpContextAccessor = httpContextAccessor;
             _context = context;
             this.environment = environment;
+            _cache = cache;
         }
         public IActionResult Booking(int page = 1, string sortOrder = "")
         {
@@ -35,7 +37,7 @@ namespace BadmintonBooking.Controllers
 
 
             // Get court list based on group
-            var data = _context.Courts.Where(c=>c.UserId==userId&&c.CoStatus==true).ToList();
+            var data = _context.Courts.Where(c => c.UserId == userId && c.CoStatus == true).ToList();
             // Sort data
             ViewBag.SortOrder = sortOrder;
             switch (sortOrder)
@@ -94,8 +96,7 @@ namespace BadmintonBooking.Controllers
         [HttpPost]
         public async Task<IActionResult> Cancel()
         {
-            _slots.Clear();
-            _httpContextAccessor.HttpContext.Session.Remove("Booking");
+            _cache.Remove("BookingSlots");
             return Ok(new { message = "Cancel successfully" });
         }
         [HttpPost]
@@ -112,9 +113,7 @@ namespace BadmintonBooking.Controllers
                 DateOnly date = DateOnly.ParseExact(bookingData.Date, "MMM d", CultureInfo.InvariantCulture);
                 bool booked = bookingData.Booked;
 
-
                 Console.WriteLine($"Parsed Booking Data - Time: {time}, Date: {date}, Booked: {booked}");
-
 
                 TimeSlot slot = new TimeSlot()
                 {
@@ -124,41 +123,51 @@ namespace BadmintonBooking.Controllers
                     TsStart = time,
                     TsEnd = time.AddHours(1),
                 };
-                _slots.Add(slot);
-                int quantity = _slots.Count;
+
+                var slots = _cache.GetOrCreate("BookingSlots", entry =>
+                {
+                    entry.SlidingExpiration = TimeSpan.FromMinutes(30);
+                    return new List<TimeSlot>();
+                });
+                slots.Add(slot);
+                _cache.Set("BookingSlots", slots);
+
+                int quantity = slots.Count;
                 return Ok(new { message = "Booking data received successfully." });
             }
-
             catch (Exception ex)
             {
                 Console.WriteLine($"Error processing booking: {ex.Message}");
                 return StatusCode(500, "Internal server error");
             }
         }
+
         [HttpPost]
         public async Task<IActionResult> Confirm(string Guest)
         {
+            var slots = _cache.Get<List<TimeSlot>>("BookingSlots") ?? new List<TimeSlot>();
+
             var booking = new Booking()
             {
                 BBookingType = "Casual",
                 BGuestName = Guest,
                 CoId = int.Parse(_httpContextAccessor.HttpContext.Session.GetString("CoId")),
-                UserId = _userManager.GetUserId(User)
+                UserId = _userManager.GetUserId(User),
+                TimeSlots = slots
             };
-            foreach (var item in _slots)
-            {
-                booking.TimeSlots.Add(item);
-            }
+
             await _context.Bookings.AddAsync(booking);
             await _context.SaveChangesAsync();
-            _slots.Clear();
+            _cache.Remove("BookingSlots");
+
             TempData["Message"] = "Booked successfully!";
             return RedirectToAction("Booking", "Manager");
         }
 
+
         //----------------------------------------
         //crud court
-        
+
         public IActionResult AddCourt()
         {
             var addressList = _context.Courts.Where(c => c.CoStatus == true)
@@ -171,7 +180,7 @@ namespace BadmintonBooking.Controllers
         [HttpPost]
         public IActionResult AddCourt(Court model, string CoAddressTextBox)
         {
-           
+
             if (model.CoAddress == null)
             {
                 ModelState.Remove("CoAddress");
@@ -180,7 +189,7 @@ namespace BadmintonBooking.Controllers
             {
                 ModelState.Remove("CoAddressTextBox");
             }
-            
+
 
             DemobadmintonContext context = new DemobadmintonContext();
 
@@ -209,12 +218,12 @@ namespace BadmintonBooking.Controllers
             TempData["message"] = "Record has been saved successfully";
 
 
-            return RedirectToAction("Booking","Manager");
+            return RedirectToAction("Booking", "Manager");
 
-        } 
+        }
 
 
-       
+
         public IActionResult EditCourt(int id)
         {
             DemobadmintonContext context = new DemobadmintonContext();
@@ -222,7 +231,7 @@ namespace BadmintonBooking.Controllers
       .Select(c => c.CoAddress)
       .Distinct()
       .ToList();
-           
+
             ViewBag.AddressList = new SelectList(addressList);
 
             var data = context.Courts.FirstOrDefault(c => c.CoId == id);
@@ -246,7 +255,7 @@ namespace BadmintonBooking.Controllers
             DemobadmintonContext context = new DemobadmintonContext();
             string userid = _userManager.GetUserId(User);
             var data = context.Courts.FirstOrDefault(c => c.CoId == model.CoId);
-          
+
             string uniqueFileName = string.Empty;
             if (model.ImagePath != null)
             {
@@ -284,7 +293,7 @@ namespace BadmintonBooking.Controllers
             context.Courts.Update(data);
             context.SaveChanges();
             TempData["message"] = "Record has been updated successfully";
-         
+
             return RedirectToAction("Booking", "Manager");
         }
         public IActionResult DeleteCourt(int id)
@@ -304,7 +313,7 @@ namespace BadmintonBooking.Controllers
             }
             return RedirectToAction("Booking", "Manager");
         }
-     
+
 
 
         private string UploadImage(Court model)
