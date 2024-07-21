@@ -217,7 +217,7 @@ namespace BadmintonBooking.Controllers
                     return StatusCode(500, "Failed to save booking to database.");
                 }
 
-                return RedirectToAction("PaymentSuccess", "Paypal");
+                return RedirectToAction("Invoice", "Paypal");
             }
             catch (Exception ex)
             {

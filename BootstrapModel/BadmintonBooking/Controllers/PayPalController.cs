@@ -162,10 +162,6 @@ namespace BadmintonBooking.Controllers
             }
         }
 
-        public IActionResult PaymentSuccess()
-        {
-            return View();
-        }
         public IActionResult Invoice(int bid = -1)
         {
             InvoiceViewModel invoiceViewModel = null;
