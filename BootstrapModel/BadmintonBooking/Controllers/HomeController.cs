@@ -701,17 +701,47 @@ namespace BadmintonBooking.Controllers
         }
 
 
-        public IActionResult BookingHistory(string userID)
-        {
-            //if (string.IsNullOrEmpty(userID)) return (View ("Error"));
+        //public IActionResult BookingHistory(string userID)
+        //{
 
-            DemobadmintonContext context = new DemobadmintonContext();
-            var bookingHistory = context.Bookings.Where(b => b.UserId == userID)
-            .Include(b => b.Payments)
-            .Include(b => b.Co)
-            .ToList();
-            return View(bookingHistory);
+
+        //    DemobadmintonContext context = new DemobadmintonContext();
+        //    var bookingHistory = context.Bookings.Where(b => b.UserId == userID)
+        //    .Include(b => b.Payments)
+        //    .Include(b => b.Co)
+        //    .ToList();
+        //    return View(bookingHistory);
+        //}
+
+        public IActionResult BookingHistory(string userID, DateTime? startDate = null, DateTime? endDate = null)
+        {
+            var bookingHistory = _context.Bookings
+                .Where(b => b.UserId == userID)
+                .Include(b => b.Payments)
+                .Include(b => b.Co)
+                .AsQueryable();
+
+            if (startDate.HasValue)
+            {
+                bookingHistory = bookingHistory.Where(b => b.Payments.Any(p => p.PDateTime >= startDate.Value));
+            }
+
+            if (endDate.HasValue)
+            {
+                bookingHistory = bookingHistory.Where(b => b.Payments.Any(p => p.PDateTime <= endDate.Value));
+            }
+
+            var sortedBookingHistory = bookingHistory
+                .OrderByDescending(b => b.Payments.Max(p => p.PDateTime))
+                .ToList();
+
+            ViewBag.UserID = userID;
+            ViewBag.StartDate = startDate;
+            ViewBag.EndDate = endDate;
+
+            return View(sortedBookingHistory);
         }
+
 
         //public IActionResult UpComingEvent(string userID, string filter = null)
         //{
