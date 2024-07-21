@@ -90,7 +90,7 @@ namespace BadmintonBooking.Controllers
 
             // Get court list based on group
             var data = _context.Courts.Include(c => c.TimeSlots).Include(c => c.Bookings)
-                               .Where(c => string.IsNullOrEmpty(address) || c.CoAddress == address)
+                               .Where(c => (string.IsNullOrEmpty(address) || c.CoAddress == address) && c.CoStatus==true)
                                .ToList();
             //Search
             if (selectedTime.HasValue)

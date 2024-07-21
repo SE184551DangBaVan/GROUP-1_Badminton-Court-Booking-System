@@ -99,6 +99,7 @@
             <div class="col-md-8 offset-md-2">
                 <form asp-action="EditCourt" asp-controller="Manager" method="post" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                    <input type="hidden" asp-for="CoStatus" />
 
                     <input asp-for="CoId" type="hidden" />
 
