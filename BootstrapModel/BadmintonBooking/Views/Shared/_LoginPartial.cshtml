@@ -14,8 +14,9 @@
             <input type="checkbox" id="showDrop">
             <label for="showDrop" class="mobile-item"><i class="fa-solid fa-angle-down"></i></label>
             <ul class="drop-menu">
-                <li><a asp-area="" asp-controller="Home" asp-action="Profile">Profile</a></li>
-                <li><a asp-controller ="admin" asp-action="show">Admin</a>
+                <li><a asp-area="" asp-controller="Home" asp-action="Profile"><i class="fa-solid fa-user" style="color: powderblue"></i>Profile</a></li>
+                <li>
+                    <a asp-controller="admin" asp-action="show"><i class="fa-solid fa-wrench" style="color: teal;"></i>Admin</a>
 
         </li>
              <!---- <li><a href="#">Dashboard</a></li>--->  
@@ -50,7 +51,7 @@
             <input type="checkbox" id="showDrop">
             <label for="showDrop" class="mobile-item"><i class="fa-solid fa-angle-down"></i></label>
             <ul class="drop-menu">
-                <li><a asp-area="" asp-controller="Home" asp-action="Profile">Profile</a></li>
+                <li><a asp-area="" asp-controller="Home" asp-action="Profile"><i class="fa-solid fa-user" style="color: powderblue"></i>Profile</a></li>
                 <li><a asp-controller="home" asp-action="staff">Staff</a></li>
                 <!--- <li><a href="#">Dashboard</a></li> -->
                               <li class="logout nav-item">
@@ -84,8 +85,8 @@
             <input type="checkbox" id="showDrop">
             <label for="showDrop" class="mobile-item"><i class="fa-solid fa-angle-down"></i></label>
             <ul class="drop-menu">
-                <li><a asp-area="" asp-controller="Home" asp-action="Profile">Profile</a></li>
-                <li><a asp-controller="Manager" asp-action="Booking">Manager</a></li>
+                <li><a asp-area="" asp-controller="Home" asp-action="Profile"><i class="fa-solid fa-user" style="color: powderblue"></i>Profile</a></li>
+                <li><a asp-controller="Manager" asp-action="Booking"><i class="fa-regular fa-clipboard" style="color: teal"></i>Manager</a></li>
                 <!--- <li><a href="#">Dashboard</a></li> -->
                 <li class="logout nav-item">
                     <a class="nav-link text-light" asp-controller="Account" asp-action="Logout"><i class="fa-solid fa-right-from-bracket"></i>LogOut</a>
