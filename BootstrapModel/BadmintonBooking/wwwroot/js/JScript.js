@@ -294,6 +294,15 @@
                     time: formatTo12Hour(slot.tsStart),
                     date: formatToDate(slot.tsDate)
                 }));
+
+                bookedSlots.forEach(slot => {
+                    const cell = findCellByTimeAndDate(slot.time, slot.date);
+                    if (cell) {
+                        cell.classList.remove("bookable", "booked");
+                        cell.textContent = "";
+                    }
+                });
+
                 updateTotalPrice();
             })
             .catch(error => console.error('Error:', error));
