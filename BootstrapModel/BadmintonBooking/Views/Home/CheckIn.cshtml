@@ -369,15 +369,16 @@ thead th.active,tbody td.active {
                             <td> @item.BBookingType</td>
                          <td>  @if (item.TimeSlots != null && item.TimeSlots.Count > 0)
                             {
-                                int checkedInCount = 0;
-                                @foreach (var timeslot in item.TimeSlots)
-                                {
-                                    if (timeslot.TsCheckedIn)
-                                    {
-                                        checkedInCount++;
-                                    }
-                                }
-                                <p> <b>@checkedInCount/@item.TimeSlots.Count()</b></p>
+                                    // Get today's date
+                                    var today = DateOnly.FromDateTime(DateTime.Now);
+
+                                    // Filter time slots for today
+                                    var timeSlotsToday = item.TimeSlots.Where(ts => ts.TsDate == today).ToList();
+
+                                    // Count the checked-in time slots
+                                    int checkedInCount = timeSlotsToday.Count(ts => ts.TsCheckedIn);
+
+                                    <p> <b>@checkedInCount/@timeSlotsToday.Count()</b></p>
                             }
                             </td>
                             @{

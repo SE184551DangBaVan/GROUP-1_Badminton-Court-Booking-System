@@ -392,7 +392,7 @@ thead th.active,tbody td.active {
                                     @(item.TsCheckedIn ? "Approved" : "Pending")
                                 </div>
                             </td>
-                            <td><a href="/home/Approve?tsid=@item.TsId&bookingId=@item.BId" class="rate-btn-primary btn-warning">Check in</a></td>
+                            <td><a href="/home/Approve?tsid=@item.TsId&bookingId=@item.BId" onclick="return confirm('Are you sure you want to check in this court?');" class="rate-btn-primary btn-warning">Check in</a></td>
                         </tr>
                        
                     }

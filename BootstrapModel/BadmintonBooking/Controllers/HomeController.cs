@@ -266,10 +266,11 @@ namespace BadmintonBooking.Controllers
         {
             int NoOfRecordPerPage = 6;
             searchTerm = searchTerm?.ToLower();
-
+            DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
+            //TimeOnly currentTime = TimeOnly.FromDateTime(DateTime.Now);
             // First part: filter by courtId
             var courtFilteredData = _context.Bookings
-                .Where(b => b.CoId == courtId)
+                .Where(b => b.CoId == courtId && b.TimeSlots.Any(ts => ts.TsDate == currentDate))
                 .Include(b => b.TimeSlots)
                 .Include(b => b.Co)
                 .ToList();
@@ -341,12 +342,14 @@ namespace BadmintonBooking.Controllers
             int NoOfRecordPerPage = 5;
             searchTerm = searchTerm?.ToLower().Trim();
 
+            DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
+            //TimeOnly currentTime = TimeOnly.FromDateTime(DateTime.Now);
             // Filter by bookingId
             var filteredData = _context.TimeSlots
                 .Include(ts => ts.Co)
                 .Include(ts => ts.BIdNavigation)
-                .Where(ts => ts.BId == bookingId)
-                .ToList();
+                .Where(ts => ts.BId == bookingId && ts.TsDate == currentDate).ToList();
+            /*&& ts.TsStart >= currentTime*/
 
             // Apply search filter
             /*   var data = filteredData
@@ -422,7 +425,14 @@ namespace BadmintonBooking.Controllers
         [Authorize(Roles = "Staff")]
         public IActionResult Approve(int tsid, int bookingId)
         {
+            // DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
+            TimeOnly currentTime = TimeOnly.FromDateTime(DateTime.Now);
             var updated = _context.TimeSlots.FirstOrDefault(ts => ts.TsId == tsid);
+            if (currentTime < updated.TsStart)
+            {
+                TempData["error"] = "You can not check in right now!";
+                return RedirectToAction("Detail", new { bookingId = bookingId });
+            }
             updated.TsCheckedIn = true;
             _context.TimeSlots.Update(updated);
             _context.SaveChanges();
