@@ -486,6 +486,7 @@ nav {
     border-style: none;
     outline: 1px solid;
     outline-color: black;
+    color: white;
     background: brown;
     padding: 4px 6px 4px 6px;
     transition: 0.3s ease;

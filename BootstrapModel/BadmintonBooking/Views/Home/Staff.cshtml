@@ -366,7 +366,7 @@ thead th.active,tbody td.active {
                                 <a href="@Url.Action("CheckIn", "Home", new { courtId = item.CoId })" class="action-link">See more booking</a>
                             </td>
                             <td>
-                                <a asp-action="CourtQualityCheck" asp-controller="Home" asp-route-CoId="@item.CoId">Report quality</a>
+                                <a asp-action="CourtQualityCheck" asp-controller="Home" asp-route-CoId="@item.CoId" class="rate-btn-primary">Report quality</a>
                             </td>
 
                         </tr>
