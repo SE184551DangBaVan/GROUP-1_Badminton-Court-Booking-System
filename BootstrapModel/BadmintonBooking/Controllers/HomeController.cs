@@ -419,6 +419,7 @@ namespace BadmintonBooking.Controllers
             ViewBag.bookingId = bookingId;
             return View(pagedData);
         }
+        [Authorize(Roles = "Staff")]
         public IActionResult Approve(int tsid, int bookingId)
         {
             var updated = _context.TimeSlots.FirstOrDefault(ts => ts.TsId == tsid);
@@ -768,7 +769,7 @@ namespace BadmintonBooking.Controllers
         //    ViewBag.CurrentFilter = filter;
         //    return View(validFutureTimeSlot);
         //}
-
+        [Authorize]
         public IActionResult UpComingEvent(string userID, string filter = null, DateTime? startDate = null, DateTime? endDate = null)
         {
             DemobadmintonContext context = new DemobadmintonContext();
@@ -822,6 +823,7 @@ namespace BadmintonBooking.Controllers
             var court = await _context.Courts.ToListAsync();
             return View(court);
         }
+        [Authorize(Roles = "Staff")]
         [HttpGet]
         public IActionResult CourtQualityCheck(int? CoId)
         {
@@ -832,6 +834,7 @@ namespace BadmintonBooking.Controllers
             }
             return View();
         }
+        [Authorize(Roles = "Staff")]
         [HttpPost]
         public IActionResult CourtQualityCheck(CourtQualityViewModel model)
         {
@@ -858,7 +861,7 @@ namespace BadmintonBooking.Controllers
             return View()
 ;
         }
-
+        [Authorize(Roles = "Manager")]
         public IActionResult QualityCheckHistory(int CoID)
         {
             var qcHistory = _context.CourtConditions.Where(c => c.CoId == CoID).Include(c =>c.Co).ToList();

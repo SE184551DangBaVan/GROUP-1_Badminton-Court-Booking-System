@@ -172,6 +172,9 @@
 </head>
 <body>
     <h1>Court Quality History</h1>
+    <div class="filter-buttons">
+        <a asp-action="Booking" asp-controller="Manager" class="btn outline back-btn">Back to Home</a>
+    </div>
     <div class="container">
         @if (Model == null || !Model.Any())
         {

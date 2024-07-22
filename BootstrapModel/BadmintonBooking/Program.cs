@@ -24,6 +24,8 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 
 });
+builder.Services.Configure<SecurityStampValidatorOptions>(o =>
+    o.ValidationInterval = TimeSpan.FromMinutes(0));
 //For google authentication
 builder.Services.AddAuthentication()
     .AddGoogle(options =>

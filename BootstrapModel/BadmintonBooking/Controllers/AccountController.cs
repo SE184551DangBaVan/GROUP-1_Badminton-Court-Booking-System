@@ -251,6 +251,9 @@ namespace demobadminton.Controllers
                     {
                         var userID = checkEmail.Id;
                         var userStatus = _context.UserActiveStatuses.FirstOrDefault(x => x.Id == userID);
+                        await _userManager.UpdateSecurityStampAsync(checkEmail);
+                        await _signInManager.SignOutAsync();
+                        await _signInManager.SignInAsync(checkEmail, isPersistent: false);
                         if (userStatus == null)
                         {
                             _context.UserActiveStatuses.Add(new UserActiveStatus { Id = userID,IsActive = true });
@@ -272,10 +275,15 @@ namespace demobadminton.Controllers
                             {
                                 return Redirect(ReturnUrl);
                             }
-                            else if (User.IsInRole("Admin"))
+                            else if (User.IsInRole("admin"))
                             {
                                 TempData["message"] = "Login Successfully as Admin!";
                                 return RedirectToAction("Show", "Admin");
+                            }
+                            else if (User.IsInRole("Manager"))
+                            {
+                                TempData["message"] = "Login Successfully as Admin!";
+                                return RedirectToAction("Booking", "Manager");
                             }
                             else if (User.IsInRole("Staff"))
                             {
@@ -302,6 +310,8 @@ namespace demobadminton.Controllers
             }
         public async Task<IActionResult> Logout()
         {
+            var user = await _userManager.GetUserAsync(User);
+            await _userManager.UpdateSecurityStampAsync(user);
             await _signInManager.SignOutAsync();
 			TempData["message"] = "Logout Successfully!";
 			return RedirectToAction("Login", "Account");

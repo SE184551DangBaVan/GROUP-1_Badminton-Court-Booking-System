@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace BadmintonBooking.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
         private readonly IWebHostEnvironment environment;
@@ -291,7 +291,8 @@ namespace BadmintonBooking.Controllers
             var data = _UserManager.Users.ToList();
 
             //var users = _context.Users.ToList();
-            //var userStatuses = _context.UserActiveStatuses.ToList();
+            var falseUserStatus = _context.UserActiveStatuses.Where(x => x.IsActive == false).Select(x => x.Id).ToList();
+            data.RemoveAll(x => falseUserStatus.Contains(x.Id));
 
             //// Assuming you are passing both the users and their statuses to the view
             //var model = users.Select(u => new
