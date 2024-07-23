@@ -247,6 +247,16 @@ namespace BadmintonBooking.Controllers
         {
             DemobadmintonContext context = new DemobadmintonContext();
             var data = context.Courts.FirstOrDefault(c => c.CoId == id);
+            DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
+            bool hasCurrentBooking = context.Bookings
+                .Any(b => b.CoId == id && context.TimeSlots
+                    .Any(ts => ts.BId == b.BId && ts.TsDate >= currentDate));
+
+            if (hasCurrentBooking)
+            {
+                TempData["error"] = "Court cannot be deleted as it has bookings for today and future.";
+                return RedirectToAction("Show", "Admin");
+            }
             if (data == null || id == 0)
             {
                 return NotFound();

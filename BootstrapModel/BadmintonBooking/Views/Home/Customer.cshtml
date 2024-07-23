@@ -335,7 +335,7 @@ thead th.active,tbody td.active {
                                     <th> Location  </th>
                                     <th> Information  </th>
                                     <th> Price  </th>
-                                    <th>Actions</th>
+                                   
                                     <th>Rate</th>
                                 </tr>
                             </thead>
@@ -359,10 +359,10 @@ thead th.active,tbody td.active {
                                         <td>@court.CoAddress</td>
                                         <td>@court.CoInfo</td>
                                         <td><strong> @court.CoPrice </strong></td>
-                                        <td>
-                                            <a href="@Url.Action("CheckOut", "Home", new { courtId = court.CoId })" class="btn btn-primary">Show all bookings</a>
-                                        </td>
-                                        <td>
+                            @* <td>
+                        <a href="@Url.Action("CheckOut", "Home", new { courtId = court.CoId })" class="btn btn-primary">Show all bookings</a>
+                        </td>*@
+                            <td>
                                             <form method="get" action="@Url.Action("Rating", "Home")">
                                                 <input type="hidden" name="courtId" value="@court.CoId" />
                                                 <button type="submit" class="btn btn-primary">Rate</button>
