@@ -497,9 +497,11 @@ namespace BadmintonBooking.Controllers
             int NoOfRecordPerPage = 6;
 
             string userId = _userManager.GetUserId(User);
+            DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
+
             // First part: filter by courtId
             var courtFilteredData = _context.Bookings
-                .Where(b => b.CoId == courtId && b.UserId == userId)
+                .Where(b => b.CoId == courtId && b.UserId == userId && b.TimeSlots.Any(ts => ts.TsDate >= currentDate))
                 .Include(b => b.TimeSlots)
                 .Include(b => b.Co)
                 .ToList();
