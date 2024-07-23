@@ -51,10 +51,17 @@
     }
 
     .booking-still-active{
-        margin-left: -200px;
+        margin-bottom: 200px;
+        width: 180px;
+    }
+
+    .booking-still-active label {
+        width: 280px;
+        margin-left: -100px;
     }
 
     .status-active {
+        margin: 0 10px;
         display: inline-flex;
         align-items: center;
         border-radius: 9999px;
@@ -62,7 +69,7 @@
         font-size: 0.875rem;
         font-weight: 600;
         color: #fff;
-        background-color:goldenrod; 
+        background-color: orange; 
         border: 1px solid transparent;
     }
 </style>
@@ -122,7 +129,7 @@
                         <div class="card mb-3">
                             <div class="row g-0">
                                 <div class="col-md-4">
-                                    <img src="/Upload/Image/@court.CoPath" class="img-fluid" alt="@court.CoName">
+                                    <img style="outline: 3px solid #008C7B;" src="/Upload/Image/@court.CoPath" class="img-fluid" alt="@court.CoName">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
@@ -153,7 +160,7 @@
                                         }
                                         </div>
                                         
-                                        <form asp-action="Date" asp-controller="Home">
+                                        <form asp-action="Date" asp-controller="Home" style="display: flex; flex-direction: column;">
                                             <input type="hidden" name="CoId" value="@court.CoId" />
                                             @if(CoId == court.CoId && hours != null)
                                             {
@@ -168,7 +175,7 @@
                                             {
                                                 @if (!User.IsInRole("Manager"))
                                                 {
-                                                    <select name="Types">
+                                                    <select name="Types" style="width: 180px;">
                                                         <option value="Casual">Casual</option>
                                                         <option value="Fixed">Fixed</option>
                                                         <option value="Flexible">Flexible</option>

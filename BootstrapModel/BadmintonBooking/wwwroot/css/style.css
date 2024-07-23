@@ -75,7 +75,7 @@ body {
 
 
 /* Nav bar */
-nav {
+.navBar {
     position: fixed;
     top: 0;
     left: 0;
@@ -86,13 +86,13 @@ nav {
     text-shadow: 3px 3px 2px rgba(0, 0, 0, 1);
 }
 
-    nav.sticky {
+    .navBar.sticky {
         padding: 1px;
         background: #333;
         opacity: 0.99;
     }
 
-    nav .nav-container {
+    .navBar .nav-container {
         position: relative;
         display: flex;
         justify-content: space-between;
@@ -101,21 +101,21 @@ nav {
         height: 100px;
     }
 
-    nav .logo {
+    .navBar .logo {
         font-size: 2.5rem;
         font-weight: 600;
         color: #fff;
         display: flex;
     }
 
-        nav .logo span {
-            font-size: 2.5rem;
-            font-weight: 600;
-            color: brown;
-            margin-top: 40px;
-        }
+    .navBar .logo span {
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: brown;
+        margin-top: 40px;
+    }
 
-    nav .nav-direct {
+    .navBar .nav-direct {
         margin: 5px 0 0 0;
         padding: 0 100px 0 0;
         list-style: none;
@@ -127,25 +127,25 @@ nav {
         transition: all 0.3s ease;
     }
 
-        nav .nav-direct li {
+        .navBar .nav-direct li {
             margin: 10px 0 0 0;
             height: 30px;
             width: 100px;
         }
 
-        nav .nav-direct a {
+        .navBar .nav-direct a {
             font-size: 1.2rem;
             color: #fff;
             text-decoration: none;
             transition: 0.4s ease;
         }
 
-            nav .nav-direct a:hover {
-                font-size: 1.3rem;
-                color: brown;
-            }
+        .navBar .nav-direct a:hover {
+            font-size: 1.3rem;
+            color: brown;
+        }
 
-    nav input {
+    .navBar input {
         display: none;
     }
 
@@ -441,6 +441,7 @@ nav {
     outline: 3px ridge white;
     backdrop-filter: blur(20px);
     border-radius: 10px;
+    margin-bottom: 80px;
 }
 
 .login-logout-card .card-header .nav-item1{ border-bottom: none;}
@@ -899,7 +900,7 @@ nav {
 }
 
     .court-card.hovered {
-        transform: scale(1.15) !important;
+        transform: scale(1.02) !important;
         opacity: 1 !important;
         transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     }
@@ -1385,7 +1386,7 @@ nav {
 
 .team-section {
     padding: 20px 20px;
-    margin: 20px;
+    margin: 2px;
     font-weight: bold;
     font-style: oblique;
     border-radius: 38% 62% 47% 53% / 48% 62% 38% 52%;
@@ -1395,7 +1396,7 @@ nav {
 }
 
     .team-section:hover {
-        transform: scale(1.02);
+        border-radius: 72% 28% 73% 27% / 32% 67% 33% 68%;
         transition: all 0.3s ease;
     }
 
@@ -1528,6 +1529,12 @@ nav {
 .court-item .card .card-body .selectedCourtInfo{
     width: 80%;
 }
+.court-item .card .card-body .selectedCourtInfo p:nth-child(2){
+    margin-top: 40px;
+}
+.court-item .card .card-body .selectedCourtInfo p{
+    margin: 5px 0 15px 30px;
+}
 
 .card .card-body select {
     margin: 200px 0 40px 0;
@@ -1548,7 +1555,7 @@ nav {
 .card .card-body .selectedCourtActions {
     display: flex;
     justify-content: space-between;
-    width: 150%;
+    width: 150px;
 }
 
 .card .card-body .selectedCourtActions .detailBtn {
@@ -2386,5 +2393,5 @@ footer {
     justify-content: center;
     align-items: center;
     width: 100%;
-    padding: 1rem;
+    padding: 0.2rem;
 }

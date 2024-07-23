@@ -1,16 +1,16 @@
 ﻿$(document).ready(function () {
-    $(window).scroll(function () {
-        if (this.scrollY > 40) {
-            $('nav').addClass("sticky");
+    function applyScrollClasses(scrollY) {
+        if (scrollY > 40) {
+            $('.navBar').addClass("sticky");
             $('.mega-box').addClass("sticky");
             $('.account-actions .drop-menu').addClass("sticky");
         } else {
-            $('nav').removeClass("sticky");
+            $('.navBar').removeClass("sticky");
             $('.mega-box').removeClass("sticky");
             $('.account-actions .drop-menu').removeClass("sticky");
         }
 
-        if (this.scrollY > 150) {
+        if (scrollY > 150) {
             $('.Quote').addClass("flow");
             $('.return-to-top-button i').addClass("appear");
         } else {
@@ -18,13 +18,13 @@
             $('.return-to-top-button i').removeClass("appear");
         }
 
-        if (this.scrollY > 180) {
+        if (scrollY > 180) {
             $('.heading h2').addClass("headingfloat");
         } else {
             $('.heading h2').removeClass("headingfloat");
         }
 
-        if (this.scrollY > 1100) {
+        if (scrollY > 1100) {
             $('.court-card').each(function (index) {
                 $(this).css('transition-delay', index * 50 + 'ms').addClass("float");
             });
@@ -33,18 +33,40 @@
                 $(this).css('transition-delay', '0ms').removeClass("float");
             });
         }
-    })
+    }
+    
+    function handleScroll() {
+        const scrollY = $(window).scrollTop();
+        applyScrollClasses(scrollY);
+    }
 
+    // Apply classes on initial load
+    handleScroll();
+
+    $(window).scroll(function () {
+        handleScroll();
+    });
+    
+    $(window).on('load', function () {
+        $(window).scrollTop($(window).scrollTop() + 10);
+    });
+
+    window.onpopstate = function () {
+        handleScroll();
+    };
+    $(window).on('popstate', function () {
+        handleScroll();
+    });
+    
     var typed = new Typed(".typing", {
         strings: ["Greatest", "Cleanest", "Prestigious", "Most Reliable"],
         typeSpeed: 105,
         backSpeed: 80,
         loop: true
     });
-
-
-
 });
+
+
 
 document.addEventListener('DOMContentLoaded', function () {
     const slide = document.getElementById('slide');
