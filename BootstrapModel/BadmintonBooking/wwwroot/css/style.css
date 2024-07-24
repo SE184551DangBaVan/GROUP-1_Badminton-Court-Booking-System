@@ -2267,7 +2267,6 @@ body {
 }
 
 .password-forgot {
-    position: absolute;
     width: 100.5%;
     background-image: linear-gradient(to right bottom, #8c313a, #7f426b, #5d5984, #476881, #567074);
     padding: 300px;
