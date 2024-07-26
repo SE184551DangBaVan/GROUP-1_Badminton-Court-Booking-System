@@ -117,7 +117,8 @@
                                         </form>
                                         <div class="manager-control-buttons">
                                             <a class="manager-buttons-edit" asp-action="EditCourt" asp-controller="Manager" asp-route-id="@court.CoId">Edit</a>
-                                            <a class="manager-buttons-suspend" asp-action="DeleteCourt" onclick="return confirm('Are you sure you want to suspend this court?');" asp-controller="Manager" asp-route-id="@court.CoId">Suspend</a>
+                                            <a class="manager-buttons-suspend" asp-action="DeleteCourt" onclick="return confirm('Are you sure you want to suspend this court?');" asp-controller="Manager" asp-route-id="@court.CoId" asp-route-page="@ViewBag.Page" asp-route-sortOrder="@ViewBag.SortOrder">Suspend</a>
+                                            @* <a class="manager-buttons-suspend " asp-action="Activate" onclick="return confirm('Are you sure you want to activate this court?');" asp-controller="Manager" asp-route-id="@court.CoId">Activate</a> *@
                                         </div>
                                         
                                     </div>

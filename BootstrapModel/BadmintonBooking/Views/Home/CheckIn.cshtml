@@ -373,7 +373,7 @@ thead th.active,tbody td.active {
                                     var today = DateOnly.FromDateTime(DateTime.Now);
 
                                     // Filter time slots for today
-                                    var timeSlotsToday = item.TimeSlots.Where(ts => ts.TsDate == today).ToList();
+                                    var timeSlotsToday = item.TimeSlots.Where(ts => ts.TsDate >= today).ToList();
 
                                     // Count the checked-in time slots
                                     int checkedInCount = timeSlotsToday.Count(ts => ts.TsCheckedIn);
