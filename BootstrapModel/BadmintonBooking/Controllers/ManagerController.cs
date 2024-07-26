@@ -1,4 +1,5 @@
 ﻿using BadmintonBooking.Models;
+using BadmintonBooking.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using System.Globalization;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BadmintonBooking.Controllers
 {
@@ -345,6 +347,96 @@ namespace BadmintonBooking.Controllers
 
             }
             return uniqueFileName;
+        }
+
+        public IActionResult Dashboard(int page=1,DateTime? startDate = null,DateTime? endDate=null,string txtSearch="")
+        {
+            ViewBag.startDate = startDate;
+            ViewBag.endDate = endDate;
+            IQueryable<dynamic> resultsQuery;
+            int NoOfRecordPerPage = 6;
+
+            if (startDate.HasValue&&endDate.HasValue)
+            {
+                // If startDate has a value, filter payments based on PDateTime
+                var startDateOnly = DateOnly.FromDateTime(startDate.Value);
+                var endDateOnly = DateOnly.FromDateTime(endDate.Value);
+
+                resultsQuery = _context.Courts
+                    .Select(c => new
+                    {
+                        CoId = c.CoId,
+                        CoName = c.CoName,
+                        TotalAmount = _context.Bookings
+                            .Where(b => b.CoId == c.CoId)
+                            .SelectMany(b => _context.Payments
+                                .Where(p => p.BId == b.BId &&
+                                           ( DateOnly.FromDateTime(p.PDateTime) >= startDateOnly&&DateOnly.FromDateTime(p.PDateTime)<=endDateOnly)))
+                            .Sum(p => (decimal?)p.PAmount) ?? 0,
+                        PeopleBooked = _context.Bookings
+                    .Where(b => b.CoId == c.CoId &&
+                                _context.Payments.Any(p => p.BId == b.BId &&
+                                                           DateOnly.FromDateTime(p.PDateTime) >= startDateOnly &&
+                                                           DateOnly.FromDateTime(p.PDateTime) <= endDateOnly))
+                    .Select(b => b.UserId)
+                    .Distinct()
+                    .Count()
+                    })
+                    .OrderBy(c => c.CoId);
+            }
+            else
+            {
+                
+                // No date filter
+                resultsQuery = _context.Courts
+                    .Select(c => new
+                    {
+                        CoId = c.CoId,
+                        CoName = c.CoName,
+                        TotalAmount = _context.Bookings
+                            .Where(b => b.CoId == c.CoId)
+                            .SelectMany(b => _context.Payments
+                                .Where(p => p.BId == b.BId))
+                            .Sum(p => (decimal?)p.PAmount) ?? 0,
+                        PeopleBooked = _context.Bookings
+                    .Where(b => b.CoId == c.CoId &&
+                                _context.Payments.Any(p => p.BId == b.BId ))
+                    .Select(b => b.UserId)
+                    .Distinct()
+                    .Count()
+
+                    })
+                    .OrderBy(c => c.CoId);
+            }
+
+            // Execute the query and get results
+            var results = resultsQuery.ToList();
+
+            var totalIncome = results.Sum(r => (decimal)r.TotalAmount);
+            ViewBag.TotalIncome = totalIncome;
+
+            // Map the results to the view model
+            var viewModel = results.Select(r => new CourtDashboardViewModel
+            {
+                CoId = r.CoId,
+                CoName = r.CoName,
+                TotalAmount = r.TotalAmount,
+                PeopleBooked = r.PeopleBooked
+            });
+            // Calculate total pages
+            int totalRecords = viewModel.Count();
+            int NoOfPages = (int)Math.Ceiling((double)totalRecords / NoOfRecordPerPage);
+            if (NoOfPages == 0) NoOfPages = 1;
+
+            // Pagination logic
+            int NoOfRecordToSkip = (page - 1) * NoOfRecordPerPage;
+            var pagedData = viewModel.Skip(NoOfRecordToSkip).Take(NoOfRecordPerPage).ToList();
+
+            //ViewBag properties
+            ViewBag.Page = page;
+            ViewBag.NoOfPages = NoOfPages;
+            ViewBag.TotalRecords = totalRecords;
+            return View(pagedData);
         }
     }
 }

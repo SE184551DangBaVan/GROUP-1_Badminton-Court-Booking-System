@@ -1,0 +1,353 @@
+﻿@model IEnumerable<BadmintonBooking.ViewModels.CourtDashboardViewModel>
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_ManagerLayout.cshtml";
+    
+
+}
+<link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+        min-height: 100vh;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    li {
+        list-style: none;
+    }
+
+    h1, h2 {
+        color: #444;
+    }
+
+    h3 {
+        color: #999;
+    }
+
+    .btn {
+        background: #f05462;
+        color: white;
+        padding: 5px 10px;
+        text-align: center;
+    }
+
+        .btn:hover {
+            color: #f05462;
+            background: white;
+            padding: 3px 8px;
+            border: 2px solid #f05462;
+        }
+
+    .title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 10px;
+        border-bottom: 2px solid #999;
+    }
+
+    table {
+        width: 100%;
+        padding: 10px;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        background: #f1f1f1;
+    }
+
+    .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 10vh;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+        .header .nav {
+            width: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header .search {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+            .header .search input[type=text] {
+                border: none;
+                background: #f1f1f1;
+                padding: 10px;
+                width: 80%;
+                border-radius: 4px;
+            }
+
+            .header .search button {
+                width: 40px;
+                height: 40px;
+                border: none;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #f05462;
+                color: white;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+                .header .search button img {
+                    width: 20px;
+                    height: 20px;
+                }
+
+        .header .user {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+    .content {
+        margin-top: 10vh;
+        padding: 20px;
+    }
+
+    .cards {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .card {
+        width: calc(25% - 20px);
+        height: 150px;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-radius: 4px;
+    }
+
+    .content-2 {
+        margin-top: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .recent-payments {
+        flex: 1;
+        background: white;
+        padding: 20px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-radius: 4px;
+    }
+
+</style>
+
+
+
+<body>
+    
+    <div class="container">
+        <div class="header">
+            @* <div class="nav">
+                <div class="search">
+                    <input type="text" name="txtSearch" id="txtSearch" placeholder="Search..">
+                    <button type="submit"><div><i class="fa-regular fa-magnifying-glass"></i></div></button>
+                </div>
+            </div> *@
+        </div>
+        <div class="content">
+            <div class="cards">
+                  @* <div class="card">
+                    <div class="box">
+                        <h1>2194</h1>
+                        <h3>Students</h3>
+                    </div>
+                    <div class="icon-case">
+                        <img src="students.png" alt="">
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="box">
+                        <h1>53</h1>
+                        <h3>Teachers</h3>
+                    </div>
+                    <div class="icon-case">
+                        <img src="teachers.png" alt="">
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="box">
+                        <h1>5</h1>
+                        <h3>Schools</h3>
+                    </div>
+                    <div class="icon-case">
+                        <img src="schools.png" alt="">
+                    </div>
+                </div>  *@
+                <div class="card">
+                    <div class="box">
+                        <h5>@ViewBag.TotalIncome.ToString("C")</h5>
+                        <h3>Total Income</h3>
+                    </div>
+                    <div class="icon-case">
+                        <img src="income.png" alt="">
+                    </div>
+                </div> 
+                <div class="date-filter">
+                    <form id="dateFilterForm" onsubmit="return validateDates()" asp-action="Dashboard" asp-controller="Manager" method="get">
+                        
+
+                        <label for="startDate">Start Date:</label>
+                        <input type="date" id="startDate" name="startDate" value="@ViewBag.startDate" required />
+                        <label for="endDate">End Date:</label>
+                        <input type="date" id="endDate" name="endDate" value="@ViewBag.endDate" required />
+
+
+                        <button type="submit" class="btn outline">Apply Date Filter</button>
+                    </form>
+                    @if(ViewBag.startDate!=null&& ViewBag.endDate!=null)
+                    {
+                        <p><b>From @ViewBag.startDate?.ToString("d")        To            @ViewBag.endDate?.ToString("d")</b></p>
+                    }
+                    
+                </div>
+            </div>
+            @if(ViewBag.startDate==null&&ViewBag.endDate==null)
+            {
+                <div><h3><b>All time income</b></h3></div>
+            }
+           
+            <div class="content-2" id="courtList">
+                <div class="recent-payments">
+                  
+                    
+                        <tbody>
+                            @if (Model != null && Model.Any())
+                            {
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Court Id</th>
+                                            <th>Court Name</th>
+                                            <th>Total Amount</th>
+                                            <th>Booked User Count</th>
+                                           @*  <th>Option</th> *@
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>@item.CoId</td>
+                                                <td>@item.CoName</td>
+                                            @if (item.TotalAmount>0)
+                                            {
+                                                <td>@item.TotalAmount.ToString("C")</td>
+                                            }else
+                                            {
+                                                <td>No data</td>
+                                            }
+                                            <td>@item.PeopleBooked</td>
+
+                                                @* <td><a href="#" class="btn">View</a></td> *@
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                            else
+                            {
+                                <div class="no-data">
+                                    <h3>No data available</h3>
+                                </div>
+                            }
+                        </tbody>
+                </div>
+                
+            </div>
+        </div>
+        @if (ViewBag.NoOfPages >= 1 || ViewBag.TotalRecords <= 5)
+        {
+            <ul class="pagination justify-content-center mt-4">
+                @{
+                    int PrevPage = ViewBag.Page - 1;
+                    if (PrevPage <= 0) PrevPage = 1;
+                    int NextPage = ViewBag.Page + 1;
+                    if (NextPage > ViewBag.NoOfPages) NextPage = ViewBag.NoOfPages;
+                }
+
+                <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
+                    <a class="page-link" href="/Manager/Dashboard?page=@PrevPage&startDate=@ViewBag.startDate&endDate=@ViewBag.endDate">Prev</a>
+                </li>
+
+                @for (int i = 1; i <= ViewBag.NoOfPages; i++)
+                {
+                    <li class="page-item @(i == ViewBag.Page ? "active" : "")">
+                        <a class="page-link" href="/Manager/Dashboard?page=@i&startDate=@ViewBag.startDate&endDate=@ViewBag.endDate">@i</a>
+                    </li>
+                }
+
+                <li class="page-item @(ViewBag.Page == ViewBag.NoOfPages ? "disabled" : "")">
+                    <a class="page-link" href="/Manager/Dashboard?page=@NextPage&startDate=@ViewBag.startDate&endDate=@ViewBag.endDate">Next</a>
+                </li>
+            </ul>
+        }
+        </div>
+    </div>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="~/js/script.js"></script>
+    @*   <script>
+        $(document).ready(function () {
+            $('#txtSearch').on('keyup', function () {
+                var searchValue = $(this).val().toLowerCase();
+                $('tbody tr').filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(searchValue) > -1)
+                });
+            });
+        });
+    </script> *@
+    <script>
+        function validateDates() {
+            var startDate = new Date(document.getElementById('startDate').value);
+            var endDate = new Date(document.getElementById('endDate').value);
+
+            if (endDate < startDate) {
+                alert("End Date must be greater than or equal to Start Date.");
+                return false; 
+            }
+
+            return true; 
+        }
+    </script>
+</body>
