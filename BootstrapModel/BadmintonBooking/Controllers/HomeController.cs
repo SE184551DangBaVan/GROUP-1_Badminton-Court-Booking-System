@@ -270,7 +270,7 @@ namespace BadmintonBooking.Controllers
             //TimeOnly currentTime = TimeOnly.FromDateTime(DateTime.Now);
             // First part: filter by courtId
             var courtFilteredData = _context.Bookings
-                .Where(b => b.CoId == courtId && b.TimeSlots.Any(ts => ts.TsDate == currentDate))
+                .Where(b => b.CoId == courtId && b.TimeSlots.Any(ts => ts.TsDate >= currentDate))
                 .Include(b => b.TimeSlots)
                 .Include(b => b.Co)
                 .ToList();
@@ -337,9 +337,9 @@ namespace BadmintonBooking.Controllers
 
             return View(pagedData);
         }
-        public IActionResult Detail(int bookingId, int page = 1, string sortOrder = "", string searchTerm = "")
+        public IActionResult Detail(int bookingId, int page = 1, string searchTerm = "", string sortOrder = "")
         {
-            int NoOfRecordPerPage = 5;
+            int NoOfRecordPerPage = 7;
             searchTerm = searchTerm?.ToLower().Trim();
 
             DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
@@ -348,7 +348,7 @@ namespace BadmintonBooking.Controllers
             var filteredData = _context.TimeSlots
                 .Include(ts => ts.Co)
                 .Include(ts => ts.BIdNavigation)
-                .Where(ts => ts.BId == bookingId && ts.TsDate == currentDate).ToList();
+                .Where(ts => ts.BId == bookingId && ts.TsDate >= currentDate).ToList();
             /*&& ts.TsStart >= currentTime*/
 
             // Apply search filter
@@ -423,21 +423,27 @@ namespace BadmintonBooking.Controllers
             return View(pagedData);
         }
         [Authorize(Roles = "Staff")]
-        public IActionResult Approve(int tsid, int bookingId)
+        public IActionResult Approve(int tsid, int bookingId,int page, string searchTerm = "",string sortOrder="")
         {
-            // DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
+            DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
             TimeOnly currentTime = TimeOnly.FromDateTime(DateTime.Now);
             var updated = _context.TimeSlots.FirstOrDefault(ts => ts.TsId == tsid);
-            if (currentTime < updated.TsStart)
+            if (currentDate<updated.TsDate)
             {
-                TempData["error"] = "You can not check in right now!";
-                return RedirectToAction("Detail", new { bookingId = bookingId });
+                TempData["error"] = "You can not check in for future date!";
+                return RedirectToAction("Detail", new { bookingId = bookingId,page=page, searchTerm = searchTerm,sortOrder = sortOrder });
+            }
+
+            if (currentTime < updated.TsStart && currentDate==updated.TsDate)
+            {
+                TempData["error"] = "You can not check in at this time!";
+                return RedirectToAction("Detail", new { bookingId = bookingId, page = page, searchTerm = searchTerm, sortOrder = sortOrder });
             }
             updated.TsCheckedIn = true;
             _context.TimeSlots.Update(updated);
             _context.SaveChanges();
             TempData["message"] = "Checked in successfully!";
-            return RedirectToAction("Detail", new { bookingId = bookingId });
+            return RedirectToAction("Detail", new { bookingId = bookingId ,page = page, searchTerm = searchTerm, sortOrder = sortOrder });
 
 
         }

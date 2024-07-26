@@ -354,8 +354,8 @@ thead th.active,tbody td.active {
                         DemobadmintonContext context = new DemobadmintonContext();
                         DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
                         //TimeOnly currentTime = TimeOnly.FromDateTime(DateTime.Now);
-                        int checkIn = context.TimeSlots.Where(ts => ts.CoId == item.CoId && ts.TsCheckedIn == true && ts.TsDate == currentDate).Count();
-                        int total = context.TimeSlots.Where(ts => ts.CoId == item.CoId && ts.TsDate == currentDate).Count();
+                        int checkIn = context.TimeSlots.Where(ts => ts.CoId == item.CoId && ts.TsCheckedIn == true && ts.TsDate >= currentDate).Count();
+                        int total = context.TimeSlots.Where(ts => ts.CoId == item.CoId && ts.TsDate >= currentDate).Count();
 
                         <tr>
                             <td>@Html.DisplayFor(modelItem => item.CoId)</td>

@@ -243,7 +243,7 @@ namespace BadmintonBooking.Controllers
             }*/
             return RedirectToAction("Show", "Admin");
         }
-        public IActionResult DeleteCourt(int id)
+        public IActionResult DeleteCourt(int id,int page,string sortOrder)
         {
             DemobadmintonContext context = new DemobadmintonContext();
             var data = context.Courts.FirstOrDefault(c => c.CoId == id);
@@ -254,8 +254,8 @@ namespace BadmintonBooking.Controllers
 
             if (hasCurrentBooking)
             {
-                TempData["error"] = "Court cannot be deleted as it has bookings for today and future.";
-                return RedirectToAction("Show", "Admin");
+                TempData["error"] = "Court cannot be deleted as it has bookings for today or future.";
+                return RedirectToAction("Show", new { page = page, sortOrder = sortOrder });
             }
             if (data == null || id == 0)
             {
@@ -270,7 +270,23 @@ namespace BadmintonBooking.Controllers
             }
             return RedirectToAction("Show", "Admin");
         }
-
+        public IActionResult Activate(int id)
+        {
+            DemobadmintonContext context = new DemobadmintonContext();
+            var data = context.Courts.FirstOrDefault(c => c.CoId == id);
+            if (data == null || id == 0)
+            {
+                return NotFound();
+            }
+            else
+            {
+                data.CoStatus = true;
+                context.Courts.Update(data);
+                context.SaveChanges();
+                TempData["message"] = "Record has been activated successfully";
+            }
+            return RedirectToAction("Show", "Admin");
+        }
 
 
 

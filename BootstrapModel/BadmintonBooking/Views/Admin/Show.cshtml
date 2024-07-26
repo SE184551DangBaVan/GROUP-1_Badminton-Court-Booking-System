@@ -143,10 +143,10 @@
                                         Sort By
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="/admin/show?page=1&sortOrder=name_asc">Name Ascending</a>
-                                        <a class="dropdown-item" href="/admin/show?page=1&sortOrder=name_desc">Name Descending</a>
-                                        <a class="dropdown-item" href="/admin/show?page=1&sortOrder=price_asc">Price Ascending</a>
-                                        <a class="dropdown-item" href="/admin/show?page=1&sortOrder=price_desc">Price Descending</a>
+                                        <a class="dropdown-item" href="/Admin/Show?page=1&sortOrder=name_asc">Name Ascending</a>
+                                        <a class="dropdown-item" href="/Admin/Show?page=1&sortOrder=name_desc">Name Descending</a>
+                                        <a class="dropdown-item" href="/Admin/Show?page=1&sortOrder=price_asc">Price Ascending</a>
+                                        <a class="dropdown-item" href="/Admin/Show?page=1&sortOrder=price_desc">Price Descending</a>
                                     </div>
                                 </div>
                             </div>
@@ -201,7 +201,8 @@
                                         <td>
                                             <a class="btn btn-primary" asp-action="EditCourt" asp-controller="Admin" asp-route-id="@c.CoId">Edit</a>
                                             <!----<a class="btn btn-warning" asp-action="DetailCourt" asp-controller="Admin" asp-route-id="@c.CoId">Detail</a>--->
-                                            <a class="btn btn-danger" asp-action="DeleteCourt" onclick="return confirm('Are you sure you want to suspend this court?');" asp-controller="Admin" asp-route-id="@c.CoId">Suspend</a>
+                                            <a class="btn btn-danger" asp-action="DeleteCourt" onclick="return confirm('Are you sure you want to suspend this court?');" asp-controller="Admin" asp-route-id="@c.CoId" asp-route-page="@ViewBag.Page" asp-route-sortOrder="@ViewBag.SortOrder">Suspend</a>
+                                            <a class="btn btn-warning " asp-action="Activate" onclick="return confirm('Are you sure you want to activate this court?');" asp-controller="Admin" asp-route-id="@c.CoId">Activate</a>
                                         </td>
                                     </tr>
                                 }
@@ -228,20 +229,20 @@
                                     }
                                     <ul class="pagination justify-content-center">
                                         <li class="page-item">
-                                            <a class="page-link" href="/admin/show?page=@PrevPage&sortOrder=@ViewBag.SortOrder">Prev</a>
+                                            <a class="page-link" href="/Admin/Show?page=@PrevPage&sortOrder=@ViewBag.SortOrder">Prev</a>
                                         </li>
                                         @for (int i = 0; i < ViewBag.NoOfPages; i++)
                                         {
                                             if (i + 1 == ViewBag.Page)
                                             {
                                                 <li class="page-item active">
-                                                    <a class="page-link" href="/admin/show?page=@(i+1)&sortOrder=@ViewBag.SortOrder">@(i + 1)</a>
+                                                    <a class="page-link" href="/Admin/Show?page=@(i+1)&sortOrder=@ViewBag.SortOrder">@(i + 1)</a>
                                                 </li>
                                             }
                                             else
                                             {
                                                 <li class="page-item">
-                                                    <a class="page-link" href="/admin/show?page=@(i+1)&sortOrder=@ViewBag.SortOrder">@(i + 1)</a>
+                                                    <a class="page-link" href="/Admin/Show?page=@(i+1)&sortOrder=@ViewBag.SortOrder">@(i + 1)</a>
                                                 </li>
                                             }
                                         }
