@@ -171,23 +171,6 @@ body {
         color: brown;
     }
 
-.account-actions {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 350px;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-.username span {
-    display: inline-block;
-    max-width: 250px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
 .account-actions .desktop-item {
     display: none;
 }
@@ -348,18 +331,23 @@ body {
     justify-content: center;
     height: 70px;
     margin-right: 5px;
+    width: 350px;
 }
 
-    .navbar-nav .account-actions {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding-right: 5px;
-        outline: 2px solid;
-        outline-color: #555;
-        border-radius: 10px;
-        height: 95%;
-    }
+.navbar-nav .account-actions {
+    display: flex;
+    padding: 0;
+    gap: 20px;
+    align-items: center;
+    outline: 2px solid;
+    outline-color: #555;
+    border-radius: 10px;
+    height: 95%;
+    max-width: 350px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 
 .account-actions-preLogin {
     display: flex;
@@ -397,7 +385,6 @@ body {
     width: 40px;
     height: 40px;
     margin-right: 10px;
-    margin-left: 10px;
 }
 
     .account-actions .profile-pic img {
@@ -1520,6 +1507,26 @@ body {
                 transition: all 0.5s ease;
             }
 
+.book1 .court-item .suspensionShow {
+    visibility: hidden;
+    position: absolute;
+    transform: translateY(100%);
+    z-index: 2;
+    text-align: center;
+    padding-top: 35px;
+    font-size: large;
+    color: white;
+    font-weight: bold;
+    top: 120px;
+    height: 100px;
+    background-image: linear-gradient(to right bottom, #a84646, #954a5f, #7b526a, #635667, #575757);
+    transition: visibility 0.2s ease, transform 0.3s ease;
+}
+.book1.suspended .suspensionShow {
+    transform: translateY(0%);
+    visibility: visible;
+    transition: visibility 0.2s ease, transform 0.3s ease;
+}
 .court-item .card .card-body {
     color: white;
     display: flex;

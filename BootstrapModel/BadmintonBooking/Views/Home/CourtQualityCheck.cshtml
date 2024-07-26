@@ -1,7 +1,7 @@
 ﻿@model BadmintonBooking.ViewModels.CourtQualityViewModel;
 @inject IHttpContextAccessor HttpContextAccessor
 @{
-      // Layout = null;
+    Layout = null;
     string CoId = HttpContextAccessor.HttpContext.Session.GetString("CoId");
 }
 
@@ -19,7 +19,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
 </head>
-<body>
+<body class="QualityControlForm">
+    <script src="~/js/script.js"></script>
     <main>
         <header>
             <h1 id="title">Court Quality Check</h1>
@@ -57,7 +58,8 @@
                     </label>
                 </div>
             </div> *@
-            <div class="form-group">
+            
+            <div class="qualative-form-group">
                 <label asp-for="CdSurfaceCondition" class="control-label"></label>
                 <div class="radio-group">
                     <input type="radio" asp-for="CdSurfaceCondition" id="surface-1" value="1"><label for="surface-1">Poor</label>
@@ -76,7 +78,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="qualative-form-group">
                 <label asp-for="CdLightningCondition" class="control-label"></label>
                 <div class="radio-group">
                     <input type="radio" asp-for="CdLightningCondition" id="Lightning-1" value="1"><label for="Lightning-1">Poor</label>
@@ -95,7 +97,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="qualative-form-group">
                 <label asp-for="CdNetCondition" class="control-label"></label>
                 <div class="radio-group">
                     <input type="radio" asp-for="CdNetCondition" id="net-1" value="1"><label for="net-1">Poor</label>
@@ -114,7 +116,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="qualative-form-group">
                 <label asp-for="CdCleanlinessCondtion" class="control-label"></label>
                 <div class="radio-group">
                     <input type="radio" asp-for="CdCleanlinessCondtion" id="cleanliness-1" value="1"><label for="cleanliness-1">Poor</label>
@@ -170,14 +172,14 @@
                 </div>
             </div> *@
 
-            <div class="form-group">
-                <label asp-for="CdNotes"></label>
+            <div class="qualative-form-group">
+                <label class="additionalNote" asp-for="CdNotes"></label>
                 <textarea asp-for="CdNotes" id="CdNotes" placeholder="Extra things to take note of"></textarea>
             </div>
             <input type="hidden" asp-for="CdOverallCondition" id="CdOverallCondition" />
 
             <div class="form-group">
-                <button id="submit" type="submit">Submit</button>
+                <button id="submit" type="submit" style="border-radius: 8px;">Submit</button>
             </div>
         </form>
     </main>

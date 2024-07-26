@@ -1,13 +1,13 @@
 ﻿body {
     margin: 20vh 0 40px 0;
+    background: url(../images/desktop-wallpaper-badminton-shuttlecock-sport-equipment-shuttlecock.jpg) no-repeat fixed;
     padding: 0;
     border: none;
     outline: none;
-    /* background-color: #eee; */
+    background-color: #eee;
     background-color: #e35267;
     box-shadow: none;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
- 
 }
 
 main {
@@ -59,12 +59,12 @@ textarea {
     display: block;
 }
 
-.form-group {
+.qualative-form-group {
     padding: 8px 0;
     margin-bottom: 2px;
 }
 
-    .form-group > label {
+    .qualative-form-group > label {
         margin-bottom: 8px;
         color: #191516;
         display: block;
@@ -72,6 +72,13 @@ textarea {
 
 [type="checkbox"] + label > span, [type="radio"] + label {
     font-size: 16px;
+    background: #555;
+    padding: 5px;
+    border-radius: 8px;
+    width: 100px;
+    text-align: center;
+    color: white;
+    transition: background-color 0.3s ease, width 0.5s ease;
 }
 
 [type="checkbox"], [type="radio"] {
@@ -94,6 +101,31 @@ textarea {
     flex-direction: row;
     margin-bottom: 10px;
     position: relative;
+}
+
+[type="radio"]:checked + label {
+    background-color: brown;
+    width: 200px;
+    transition: background-color 0.3s ease, width 0.5s ease;
+}
+
+.control-label {
+    font-weight: bold;
+    transition: transform 0.3s ease, color 0.5s ease;
+}
+
+.qualative-form-group .additionalNote {
+    font-weight: bold;
+    border-radius: 12px;
+    max-width: 200px;
+    text-align: center;
+    transition: transform 0.3s ease, color 0.5s ease, background 0.3s ease;
+}
+
+.qualative-form-group:focus-within .control-label {
+    color: red;
+    transform: translateX(25%);
+    transition: transform 0.3s ease, color 0.5s ease;
 }
 
 [type="radio"] + label {
@@ -189,6 +221,7 @@ textarea {
     resize: none;
     padding: 4px;
     font-size: 16px;
+    transition: outline 0.2s ease, background 0.3s ease, color 0.2s ease;
 }
 
 button {
@@ -214,9 +247,9 @@ button {
     content: '';
     position: absolute;
     border-radius: 50%;
-    background-color: #eee;
+    background-color: #ccc;
     left: -27px;
-    top: -1px;
+    top: 5px;
     width: 20px;
     height: 20px;
     transition: all 0.4s;
@@ -224,7 +257,21 @@ button {
 
 /* fill circle with inset shadow when it is selected*/
 [type="radio"]:checked + label::before {
-    box-shadow: inset 0 0 0 6px #191516;
+    box-shadow: inset 0 0 0 6px brown;
+}
+
+.qualative-form-group:focus-within .additionalNote {
+    color: white;
+    background: #0094ff;
+    transform: translate(70%, 45%);
+    transition: transform 0.3s ease, color 0.5s ease, background 0.3s ease;
+}
+
+.qualative-form-group:focus-within textarea {
+    outline: 2px solid #0094ff;
+    background: #555;
+    color: white;
+    transition: outline 0.2s ease, background 0.3s ease, color 0.2s ease;
 }
 
 @media (max-width: 460px) {

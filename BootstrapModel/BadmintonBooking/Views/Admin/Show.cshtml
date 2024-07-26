@@ -94,6 +94,30 @@
             border: 1px solid transparent;
         }
 
+        .pagination .page-item.active .page-link {
+            background: #ccc;
+            border: 2px solid brown;
+            color: brown;
+        }
+
+        .pagination .page-item.disabled .page-link {
+            background: #242526;
+            border: 1px solid lightgray;
+            color: lightgray;
+        }
+
+        .pagination .page-item .page-link {
+            background: #242526;
+            border: 1px solid white;
+            color: white;
+            transition: transform 0.2s ease;
+        }
+
+            .pagination .page-item.active .page-link:hover,
+            .pagination .page-item .page-link:not(.page-item.disabled):hover {
+                transform: scale(1.05);
+                transition: transform 0.3s ease;
+            }
     </style>
 </head>
 <body>
@@ -105,7 +129,7 @@
                 <div class="col-12">
                     <div class="header-btn mb-3">
                        
-                        <h1 class="text-center">Badminton Court</h1>
+                        <h1 class="text-center" style="text-shadow: -0.5px -0.5px 3px #fff, -0.5px -0.5px 3px #fff, 0.5px 0.5px 3px #fff, 0.5px 0.5px 3px #fff;">Badminton Court</h1>
                     </div>
 
                     <div class="row justify-content-center mb-3">
