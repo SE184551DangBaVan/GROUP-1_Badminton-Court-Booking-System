@@ -4,6 +4,7 @@
 @inject UserManager<IdentityUser> UserManager
 @inject IHttpContextAccessor _httpContextAccessor
 
+
 <ul class="navbar-nav">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
@@ -158,3 +159,7 @@
 
    
 </ul>
+<script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.9/signalr.min.js" ></script>
+<script src="~/js/signalr.js"></script>
+</script>

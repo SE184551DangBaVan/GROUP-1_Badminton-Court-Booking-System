@@ -9,6 +9,7 @@ using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
 using BadmintonBooking.Models;
+using BadmintonBooking.SignalR;
 using BadmintonBooking.ViewModels;
 using demobadminton.Repository.Interface;
 using demobadminton.Repository.Service;
@@ -20,6 +21,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
@@ -310,11 +312,20 @@ namespace demobadminton.Controllers
             }
         public async Task<IActionResult> Logout()
         {
-            var user = await _userManager.GetUserAsync(User);
-            await _userManager.UpdateSecurityStampAsync(user);
+            //         var user = await _userManager.GetUserAsync(User);
+            //         await _userManager.UpdateSecurityStampAsync(user);
+            //         await _signInManager.SignOutAsync();
+            //TempData["message"] = "Logout Successfully!";
+            //return RedirectToAction("Login", "Account");
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            // Notify all tabs for this user
+            var hubContext = HttpContext.RequestServices.GetRequiredService<IHubContext<SessionHub>>();
+            await hubContext.Clients.User(userId).SendAsync("ReceiveLogoutNotification");
+
             await _signInManager.SignOutAsync();
-			TempData["message"] = "Logout Successfully!";
-			return RedirectToAction("Login", "Account");
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login", "Account");
         }
     /*    public string GetEmailBody(string username,string? title,string? callbackUrl,string?EmailTemplateName)
         {

@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using demobadminton.Repository.Service;
 using demobadminton.Repository.Interface;
 using BadmintonBooking.Models;
+using BadmintonBooking.SignalR;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("BadmintonBookingIdentityContextConnection") ?? throw new InvalidOperationException("Connection string 'BadmintonBookingIdentityContextConnection' not found.");
 
@@ -41,6 +42,7 @@ builder.Services.AddAuthentication()
 
     });
 
+
 //For paypal
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDistributedMemoryCache();
@@ -50,6 +52,7 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+builder.Services.AddSignalR();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -90,5 +93,6 @@ app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapHub<SessionHub>("/sessionHub");
 
 app.Run();
