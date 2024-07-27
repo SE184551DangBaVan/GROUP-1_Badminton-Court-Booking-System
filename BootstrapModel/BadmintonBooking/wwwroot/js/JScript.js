@@ -138,9 +138,8 @@
         });
     }
 
-    function clickBooking(event) {
+    async function clickBooking(event) {
         const cell = event.target;
-        console.log("Cell clicked:", cell);
 
         if (cell.classList.contains("bookable") && !cell.classList.contains("booked")) {
             const [time, day] = getTimeAndDayFromCell(cell);
@@ -156,9 +155,20 @@
             cell.classList.remove("bookable");
             cell.textContent = "Booked";
 
-            // Update schedule data
-            scheduleData.push({ date: day, time: time, booked: true });
-            sendBookingData({ time, date: day, booked: true });
+            try {
+                const success = await sendBookingData({ time, date: day, booked: true });
+                if (success) {
+                    scheduleData.push({ date: day, time: time, booked: true });
+                } else {
+                    alert("It has already been booked!");
+                    cell.classList.remove("booked", "booked");
+                    cell.textContent = "";
+                }
+            } catch (error) {
+                console.error("Booking error:", error);
+                alert("An error occurred while booking. Please try again.");
+                return;
+            }
             updateTotalPrice();
         }
     }
@@ -185,7 +195,7 @@
 
 
     function sendBookingData(slot) {
-        fetch('/Booking/CreateBooking', {
+        return fetch('/Booking/CreateBooking', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -195,18 +205,26 @@
             .then(response => {
                 if (response.status === 401) {
                     window.location.href = '/Account/Login';
+                    return false;
                 } else if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 return response.json();
             })
             .then(data => {
-                console.log('Success:', data);
+                if (data.success === false) {
+                    return false;
+                } else {
+                    console.log('Success:', data);
+                    return true;
+                }
             })
             .catch((error) => {
                 console.error('Error:', error);
+                return false; // Return false on error
             });
     }
+
 
     function cancelAllBookings() {
         const bookedCells = document.querySelectorAll(".booked");

@@ -59,11 +59,11 @@ namespace BadmintonBooking.Controllers
         public async Task<IActionResult> CreateBooking([FromBody] BookingData bookingData)
         {
             string userId = _UserManager.GetUserId(User);
-            // Check if user ID is found
             if (userId == null)
             {
                 return Unauthorized(new { message = "User is not authenticated. Redirecting to login." });
             }
+
             try
             {
                 if (bookingData == null)
@@ -75,9 +75,13 @@ namespace BadmintonBooking.Controllers
                 DateOnly date = DateOnly.ParseExact(bookingData.Date, "MMM d", CultureInfo.InvariantCulture);
                 bool booked = bookingData.Booked;
 
+                var existing = _demobadmintonContext.TimeSlots.Where(x => x.TsStart == time && x.TsDate == date);
+                if (existing.Any())
+                {
+                    return Ok(new { success = false });
+                }
 
                 Console.WriteLine($"Parsed Booking Data - Time: {time}, Date: {date}, Booked: {booked}");
-
 
                 TimeSlot slot = new TimeSlot()
                 {
@@ -89,9 +93,9 @@ namespace BadmintonBooking.Controllers
                 };
                 _slots.Add(slot);
                 int quantity = _slots.Count;
-                return Ok(new { message = "Booking data received successfully." });
-            }
 
+                return Ok(new { success = true });
+            }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error processing booking: {ex.Message}");
