@@ -40,7 +40,7 @@
         </table>
         <form method="post" asp-action="Confirm" asp-controller="Manager">
             <label>Enter guest name:</label>
-            <input name="Guest" type="text" />
+            <input name="Guest" type="text" required/>
             <div class="price">Total Price: $<span id="total-price">0</span></div>
             <input type="hidden" name="totalPrice" id="price-input" value="0" />
             <div class="date-container1">

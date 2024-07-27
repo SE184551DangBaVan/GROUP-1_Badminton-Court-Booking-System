@@ -11517,3 +11517,5 @@ C:\swp391\swp391 5\GROUP-1_Badminton-Court-Booking-System\BootstrapModel\Badmint
 C:\swp391\swp391 5\GROUP-1_Badminton-Court-Booking-System\BootstrapModel\BadmintonBooking\obj\Debug\net8.0\BadmintonBooking.genruntimeconfig.cache
 C:\swp391\swp391 5\GROUP-1_Badminton-Court-Booking-System\BootstrapModel\BadmintonBooking\obj\Debug\net8.0\ref\BadmintonBooking.dll
 C:\swp391\swp391 5\GROUP-1_Badminton-Court-Booking-System\BootstrapModel\BadmintonBooking\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll
+C:\Users\Windows\source\repos\GROUP-1_Badminton-Court-Booking-System\BootstrapModel\BadmintonBooking\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.Google.dll
+C:\Users\Windows\source\repos\GROUP-1_Badminton-Court-Booking-System\BootstrapModel\BadmintonBooking\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll

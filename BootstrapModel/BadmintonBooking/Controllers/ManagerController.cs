@@ -11,7 +11,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BadmintonBooking.Controllers
 {
-    [Authorize(Roles ="Manager")]
+    [Authorize(Roles = "Manager")]
     public class ManagerController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -117,7 +117,11 @@ namespace BadmintonBooking.Controllers
                 DateOnly date = DateOnly.ParseExact(bookingData.Date, "MMM d", CultureInfo.InvariantCulture);
                 bool booked = bookingData.Booked;
 
-                Console.WriteLine($"Parsed Booking Data - Time: {time}, Date: {date}, Booked: {booked}");
+                var existing = _context.TimeSlots.Where(x => x.TsStart == time && x.TsDate == date);
+                if (existing.Any())
+                {
+                    return Ok(new { success = false });
+                }
 
                 TimeSlot slot = new TimeSlot()
                 {
@@ -137,7 +141,7 @@ namespace BadmintonBooking.Controllers
                 _cache.Set("BookingSlots", slots);
 
                 int quantity = slots.Count;
-                return Ok(new { message = "Booking data received successfully." });
+                return Ok(new { success = true });
             }
             catch (Exception ex)
             {
@@ -365,7 +369,7 @@ namespace BadmintonBooking.Controllers
             return uniqueFileName;
         }
 
-        public IActionResult Dashboard(int page=1,DateTime? startDate = null,DateTime? endDate=null,string txtSearch="")
+        public IActionResult Dashboard(int page = 1, DateTime? startDate = null, DateTime? endDate = null, string txtSearch = "")
         {
             string userID = _userManager.GetUserId(User);
             ViewBag.startDate = startDate;
@@ -373,7 +377,7 @@ namespace BadmintonBooking.Controllers
             IQueryable<dynamic> resultsQuery;
             int NoOfRecordPerPage = 6;
 
-            if (startDate.HasValue&&endDate.HasValue)
+            if (startDate.HasValue && endDate.HasValue)
             {
                 // If startDate has a value, filter payments based on PDateTime
                 var startDateOnly = DateOnly.FromDateTime(startDate.Value);
@@ -387,8 +391,8 @@ namespace BadmintonBooking.Controllers
                         TotalAmount = _context.Bookings
                             .Where(b => b.CoId == c.CoId)
                             .SelectMany(b => _context.Payments
-                                .Where(p => p.BId == b.BId && c.UserId== userID&&
-                                           ( DateOnly.FromDateTime(p.PDateTime) >= startDateOnly&&DateOnly.FromDateTime(p.PDateTime)<=endDateOnly)))
+                                .Where(p => p.BId == b.BId && c.UserId == userID &&
+                                           (DateOnly.FromDateTime(p.PDateTime) >= startDateOnly && DateOnly.FromDateTime(p.PDateTime) <= endDateOnly)))
                             .Sum(p => (decimal?)p.PAmount) ?? 0,
                         PeopleBooked = _context.Bookings
                     .Where(b => b.CoId == c.CoId &&
@@ -403,7 +407,7 @@ namespace BadmintonBooking.Controllers
             }
             else
             {
-                
+
                 // No date filter
                 resultsQuery = _context.Courts
                     .Select(c => new
@@ -413,11 +417,11 @@ namespace BadmintonBooking.Controllers
                         TotalAmount = _context.Bookings
                             .Where(b => b.CoId == c.CoId)
                             .SelectMany(b => _context.Payments
-                                .Where(p => p.BId == b.BId && c.UserId == userID ))
+                                .Where(p => p.BId == b.BId && c.UserId == userID))
                             .Sum(p => (decimal?)p.PAmount) ?? 0,
                         PeopleBooked = _context.Bookings
                     .Where(b => b.CoId == c.CoId &&
-                                _context.Payments.Any(p => p.BId == b.BId ))
+                                _context.Payments.Any(p => p.BId == b.BId))
                     .Select(b => b.UserId)
                     .Distinct()
                     .Count()
