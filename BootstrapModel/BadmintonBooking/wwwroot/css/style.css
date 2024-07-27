@@ -351,7 +351,8 @@ body {
 
 .account-actions-preLogin {
     display: flex;
-    justify-content: space-between;
+    gap: 0px;
+    justify-content: right;
     align-items: center;
     padding-right: 5px;
     border-radius: 10px;
