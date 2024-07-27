@@ -197,19 +197,3 @@ document.addEventListener('DOMContentLoaded', function () {
 
     updateBackgroundImage();
 });
-
-document.addEventListener('DOMContentLoaded', function () {
-    var suspendButtons = document.querySelectorAll('.manager-buttons-suspend');
-
-    suspendButtons.forEach(function (button) {
-        button.addEventListener('click', function (event) {
-            var confirmation = confirm('Are you sure you want to suspend this court?');
-            if (confirmation) {
-                var card = button.closest('.card');
-                card.classList.toggle('suspended');
-            } else {
-                event.preventDefault();
-            }
-        });
-    });
-});

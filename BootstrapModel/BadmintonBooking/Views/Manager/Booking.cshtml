@@ -104,9 +104,10 @@
                                             }
                                             else
                                             {
-                                                <div id="suspensionShow" class="suspensionShow">Suspended</div>
-                                                <div class="status-inactive">Suspended</div>
-                                                <a class="btn btn-primary " asp-action="Activate" onclick="return confirm('Are you sure you want to activate this court?');" asp-controller="Manager" asp-route-id="@court.CoId">Activate</a>
+                                                <div class="suspensionCover"></div>
+                                                <div id="suspensionShow" class="suspensionShow">Suspended<a class="btnActivate btn-primary" asp-action="Activate" onclick="return confirm('Are you sure you want to activate this court?');" asp-controller="Manager" asp-route-id="@court.CoId">Activate</a></div>
+                                                <div class="status-inactive">Inactive</div>
+                                                
                                             }
                                           
                                         </div>

@@ -461,6 +461,26 @@ body {
     box-shadow: 2px 4px 6px rgba(128, 0, 0, 1);
 }
 
+.btnActivate {
+    text-decoration: none;
+    border-style: none;
+    outline: 1px solid;
+    outline-color: black;
+    border-radius: 8px;
+    color: white;
+    background-color: brown;
+    padding: 4px 6px 4px 6px;
+    transition: all 0.2s ease;
+}
+
+    .btnActivate:hover {
+        text-decoration: none;
+        background-color: green;
+        text-shadow: 4px 2px 3px rgba(0, 0, 0, 1);
+        box-shadow: 2px 4px 6px rgba(128, 0, 0, 1);
+        transition: all 0.3s ease;
+    }
+
 .forg-btn:hover {
     outline: solid;
     outline-color: brown;
@@ -1508,10 +1528,23 @@ body {
                 transition: all 0.5s ease;
             }
 
-.book1 .court-item .suspensionShow {
-    visibility: hidden;
+.book1 .court-item .selectedCourtInfo .suspensionCover {
     position: absolute;
-    transform: translateY(100%);
+    background-color: rgba(255,255,255,0.1);
+    backdrop-filter: blur(1px);
+    transform: translate(-34.6%, -84%);
+    border-radius: 12px;
+    height: 100%;
+    width: 1240px;
+}.book1 .court-item .selectedCourtInfo .suspensionCover:hover{border-radius: 15px;}
+
+.book1 .court-item .selectedCourtInfo .suspensionShow {
+    visibility: visible;
+    position: absolute;
+    transform: translateX(-34.5%);
+    width: 1245px;
+    display: flex;
+    flex-direction: column;
     z-index: 2;
     text-align: center;
     padding-top: 35px;
@@ -1523,11 +1556,21 @@ body {
     background-image: linear-gradient(to right bottom, #a84646, #954a5f, #7b526a, #635667, #575757);
     transition: visibility 0.2s ease, transform 0.3s ease;
 }
-.book1.suspended .suspensionShow {
-    transform: translateY(0%);
-    visibility: visible;
-    transition: visibility 0.2s ease, transform 0.3s ease;
+
+.book1 .court-item .selectedCourtInfo .suspensionShow a {
+    width: 10%;
+    visibility: hidden;
+    transform: translate(450%,150%);
+    position: absolute;
+    transition: visibility 0.3s ease, transform 0.4s ease;
 }
+
+.main-content .court-item:hover .suspensionShow a {
+    visibility: visible;
+    transform: translate(450%,0%);
+    transition: visibility 0.1s ease, transform 0.3s ease;
+}
+
 .court-item .card .card-body {
     color: white;
     display: flex;
