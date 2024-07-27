@@ -270,7 +270,7 @@ namespace BadmintonBooking.Controllers
             //TimeOnly currentTime = TimeOnly.FromDateTime(DateTime.Now);
             // First part: filter by courtId
             var courtFilteredData = _context.Bookings
-                .Where(b => b.CoId == courtId && b.TimeSlots.Any(ts => ts.TsDate >= currentDate))
+                .Where(b => b.CoId == courtId && b.TimeSlots.Any(ts => ts.TsDate == currentDate))
                 .Include(b => b.TimeSlots)
                 .Include(b => b.Co)
                 .ToList();
@@ -348,7 +348,7 @@ namespace BadmintonBooking.Controllers
             var filteredData = _context.TimeSlots
                 .Include(ts => ts.Co)
                 .Include(ts => ts.BIdNavigation)
-                .Where(ts => ts.BId == bookingId && ts.TsDate >= currentDate).ToList();
+                .Where(ts => ts.BId == bookingId && ts.TsDate == currentDate).ToList();
             /*&& ts.TsStart >= currentTime*/
 
             // Apply search filter
@@ -675,7 +675,7 @@ namespace BadmintonBooking.Controllers
             if (data == null)
             {
                 TempData["error"] = "Court not found for rating";
-                return RedirectToAction("Customer", "Home");
+                return RedirectToAction("BookingHistory");
             }
 
             return View(data);
@@ -696,7 +696,7 @@ namespace BadmintonBooking.Controllers
             _context.Ratings.Add(ratingCourt);
             _context.SaveChanges();
             TempData["message"] = "Your review has been submitted";
-            return RedirectToAction("customer");
+            return RedirectToAction("BookingHistory");
         }
         public IActionResult CourtDetail(int CourtId, int page = 1)
         {
@@ -731,9 +731,10 @@ namespace BadmintonBooking.Controllers
         //    .ToList();
         //    return View(bookingHistory);
         //}
-
-        public IActionResult BookingHistory(string userID, DateTime? startDate = null, DateTime? endDate = null)
+        [Authorize]
+        public IActionResult BookingHistory(DateTime? startDate = null, DateTime? endDate = null)
         {
+            string userID = _userManager.GetUserId(User);
             var bookingHistory = _context.Bookings
                 .Where(b => b.UserId == userID)
                 .Include(b => b.Payments)
@@ -788,8 +789,9 @@ namespace BadmintonBooking.Controllers
         //    return View(validFutureTimeSlot);
         //}
         [Authorize]
-        public IActionResult UpComingEvent(string userID, string filter = null, DateTime? startDate = null, DateTime? endDate = null)
+        public IActionResult UpComingEvent( string filter = null, DateTime? startDate = null, DateTime? endDate = null)
         {
+            string userID = _userManager.GetUserId(User);
             DemobadmintonContext context = new DemobadmintonContext();
             var futureTimeSlot = context.Bookings
                 .Where(b => b.UserId == userID)

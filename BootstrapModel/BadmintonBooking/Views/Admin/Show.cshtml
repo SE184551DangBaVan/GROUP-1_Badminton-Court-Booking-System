@@ -201,8 +201,16 @@
                                         <td>
                                             <a class="btn btn-primary" asp-action="EditCourt" asp-controller="Admin" asp-route-id="@c.CoId">Edit</a>
                                             <!----<a class="btn btn-warning" asp-action="DetailCourt" asp-controller="Admin" asp-route-id="@c.CoId">Detail</a>--->
-                                            <a class="btn btn-danger" asp-action="DeleteCourt" onclick="return confirm('Are you sure you want to suspend this court?');" asp-controller="Admin" asp-route-id="@c.CoId" asp-route-page="@ViewBag.Page" asp-route-sortOrder="@ViewBag.SortOrder">Suspend</a>
-                                            <a class="btn btn-warning " asp-action="Activate" onclick="return confirm('Are you sure you want to activate this court?');" asp-controller="Admin" asp-route-id="@c.CoId">Activate</a>
+                                            @if (c.CoStatus)
+                                            {
+                                                <a class="btn btn-danger" asp-action="DeleteCourt" onclick="return confirm('Are you sure you want to suspend this court?');" asp-controller="Admin" asp-route-id="@c.CoId" asp-route-page="@ViewBag.Page" asp-route-sortOrder="@ViewBag.SortOrder">Suspend</a>
+                                            }
+                                            @* <a class="btn btn-danger" asp-action="DeleteCourt" onclick="return confirm('Are you sure you want to suspend this court?');" asp-controller="Admin" asp-route-id="@c.CoId" asp-route-page="@ViewBag.Page" asp-route-sortOrder="@ViewBag.SortOrder">Suspend</a> *@
+                                            @if (!c.CoStatus)
+                                            {
+                                                <a class="btn btn-warning " asp-action="Activate" onclick="return confirm('Are you sure you want to activate this court?');" asp-controller="Admin" asp-route-id="@c.CoId">Activate</a>
+                                            }
+                                           
                                         </td>
                                     </tr>
                                 }

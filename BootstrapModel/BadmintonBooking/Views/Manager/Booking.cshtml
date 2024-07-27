@@ -47,10 +47,10 @@
                     Sort By
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="/manager/booking?page=1&sortOrder=name_asc">Name Ascending</a>
-                    <a class="dropdown-item" href="/manager/booking?page=1&&sortOrder=name_desc">Name Descending</a>
-                    <a class="dropdown-item" href="/manager/booking?page=1&&sortOrder=price_asc">Price Ascending</a>
-                    <a class="dropdown-item" href="/manager/booking?page=1&&sortOrder=price_desc">Price Descending </a>
+                    <a class="dropdown-item" href="/Manager/Booking?page=1&sortOrder=name_asc">Name Ascending</a>
+                    <a class="dropdown-item" href="/Manager/Booking?page=1&&sortOrder=name_desc">Name Descending</a>
+                    <a class="dropdown-item" href="/Manager/Booking?page=1&&sortOrder=price_asc">Price Ascending</a>
+                    <a class="dropdown-item" href="/Manager/Booking?page=1&&sortOrder=price_desc">Price Descending </a>
                 </div>
             </div>
             <div>
@@ -105,23 +105,29 @@
                                             else
                                             {
                                                 <div class="status-inactive">Suspended</div>
+                                                <a class="btn btn-primary " asp-action="Activate" onclick="return confirm('Are you sure you want to activate this court?');" asp-controller="Manager" asp-route-id="@court.CoId">Activate</a>
                                             }
+                                          
                                         </div>
-                                        
-                                        <form asp-action="Date" asp-controller="Manager">
-                                            <div class="selectedCourtActions2nd">
-                                                <input type="hidden" name="CoId" value="@court.CoId" />
-                                                <input type="hidden" name="Types" value="Casual" />
-                                                <br /><button class="bookBtn">Book</button>
-                                                <a class="detailBtn btn-success" href="/home/CourtDetail?CourtId=@court.CoId">Detail</a>
-                                                <a class="qualityHistoryBtn btn-success" asp-action="QualityCheckHistory" asp asp-controller="Home" asp-route-CoID="@court.CoId">See Quality History</a>
+                                        @if (court.CoStatus)
+                                        {
+                                            <form asp-action="Date" asp-controller="Manager">
+                                                <div class="selectedCourtActions2nd">
+                                                    <input type="hidden" name="CoId" value="@court.CoId" />
+                                                    <input type="hidden" name="Types" value="Casual" />
+                                                    <br /><button class="bookBtn">Book</button>
+                                                    <a class="detailBtn btn-success" href="/home/CourtDetail?CourtId=@court.CoId">Detail</a>
+                                                    <a class="qualityHistoryBtn btn-success" asp-action="QualityCheckHistory" asp asp-controller="Home" asp-route-CoID="@court.CoId">See Quality History</a>
+                                                </div>
+                                            </form>
+                                            <div class="manager-control-buttons">
+
+                                                <a class="manager-buttons-edit" asp-action="EditCourt" asp-controller="Manager" asp-route-id="@court.CoId">Edit</a>
+                                                <a class="manager-buttons-suspend" asp-action="DeleteCourt" onclick="return confirm('Are you sure you want to suspend this court?');" asp-controller="Manager" asp-route-id="@court.CoId" asp-route-page="@ViewBag.Page" asp-route-sortOrder="@ViewBag.SortOrder">Suspend</a>
+
                                             </div>
-                                        </form>
-                                        <div class="manager-control-buttons">
-                                            <a class="manager-buttons-edit" asp-action="EditCourt" asp-controller="Manager" asp-route-id="@court.CoId">Edit</a>
-                                            <a class="manager-buttons-suspend" asp-action="DeleteCourt" onclick="return confirm('Are you sure you want to suspend this court?');" asp-controller="Manager" asp-route-id="@court.CoId" asp-route-page="@ViewBag.Page" asp-route-sortOrder="@ViewBag.SortOrder">Suspend</a>
-                                            @* <a class="manager-buttons-suspend " asp-action="Activate" onclick="return confirm('Are you sure you want to activate this court?');" asp-controller="Manager" asp-route-id="@court.CoId">Activate</a> *@
-                                        </div>
+                                        }
+                                       
                                         
                                     </div>
                                 </div>

@@ -181,7 +181,7 @@ namespace BadmintonBooking.Controllers
         public IActionResult EditCourt(Court model)
         {
             DemobadmintonContext context = new DemobadmintonContext();
-            string userid = _UserManager.GetUserId(User);
+           
             var data = context.Courts.FirstOrDefault(c => c.CoId == model.CoId);
            /* try
             {
@@ -219,7 +219,7 @@ namespace BadmintonBooking.Controllers
                 data.CoStatus = true;
             }
                    
-                    data.UserId = userid;
+                    data.UserId = model.UserId;
 
                     if (model.ImagePath != null)
                     {

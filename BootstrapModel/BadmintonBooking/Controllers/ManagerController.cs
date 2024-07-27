@@ -39,7 +39,7 @@ namespace BadmintonBooking.Controllers
 
 
             // Get court list based on group
-            var data = _context.Courts.Where(c => c.UserId == userId && c.CoStatus == true).ToList();
+            var data = _context.Courts.Where(c => c.UserId == userId).ToList();
 
             // Sort data
 
@@ -367,6 +367,7 @@ namespace BadmintonBooking.Controllers
 
         public IActionResult Dashboard(int page=1,DateTime? startDate = null,DateTime? endDate=null,string txtSearch="")
         {
+            string userID = _userManager.GetUserId(User);
             ViewBag.startDate = startDate;
             ViewBag.endDate = endDate;
             IQueryable<dynamic> resultsQuery;
@@ -386,7 +387,7 @@ namespace BadmintonBooking.Controllers
                         TotalAmount = _context.Bookings
                             .Where(b => b.CoId == c.CoId)
                             .SelectMany(b => _context.Payments
-                                .Where(p => p.BId == b.BId &&
+                                .Where(p => p.BId == b.BId && c.UserId== userID&&
                                            ( DateOnly.FromDateTime(p.PDateTime) >= startDateOnly&&DateOnly.FromDateTime(p.PDateTime)<=endDateOnly)))
                             .Sum(p => (decimal?)p.PAmount) ?? 0,
                         PeopleBooked = _context.Bookings
@@ -412,7 +413,7 @@ namespace BadmintonBooking.Controllers
                         TotalAmount = _context.Bookings
                             .Where(b => b.CoId == c.CoId)
                             .SelectMany(b => _context.Payments
-                                .Where(p => p.BId == b.BId))
+                                .Where(p => p.BId == b.BId && c.UserId == userID ))
                             .Sum(p => (decimal?)p.PAmount) ?? 0,
                         PeopleBooked = _context.Bookings
                     .Where(b => b.CoId == c.CoId &&
