@@ -15,15 +15,22 @@
         <div class="card-body">
             @for (int i = 0; i < Model.Count; i++)
             {
-                <div class="form-check m-1">
+                @* <div class="form-check m-1">
                     <input type="hidden" asp-for="@Model[i].RoleId" />
                     <input type="hidden" asp-for="@Model[i].RoleName" />
 
-                    <input asp-for="@Model[i].IsSelected" class="form-check-input" />
+                    <input asp-for="@Model[i].IsSelected" name="SelectedRole" class="form-check-input" />
                     <label class="form-check-label" asp-for="@Model[i].IsSelected">
                         @Model[i].RoleName
                     </label>
-                </div>
+                </div> *@
+                    <div class="form-check m-1">
+                        <input type="radio" name="SelectedRole" value="@Model[i].RoleId" id="role_@Model[i].RoleId"
+                               class="form-check-input" @(Model[i].IsSelected ? "checked" : "") />
+                        <label class="form-check-label" for="role_@Model[i].RoleId">
+                            @Model[i].RoleName
+                        </label>
+                    </div>
             }
             <div asp-validation-summary="All" class="text-danger"></div>
         </div>
