@@ -153,8 +153,8 @@
                             <tr class="text-center bg-success text-light">
                                 <th>Username</th>
                                 <th>Email</th>
-                                <th>Roles</th>
-                                <th>Roles</th>
+                                <th>Role</th>
+                                <th>Status</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -170,29 +170,43 @@
                                         <td>
 
 
-                                            <div class="dropdown">
-                                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownRoles_@user.Id" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <div @* class="dropdown" *@>
+                                                @* <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownRoles_@user.Id" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     Roles
                                                 </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownRoles_@user.Id">
+                                                <div class="dropdown-menu" aria-labelledby="dropdownRoles_@user.Id"> *@
                                                     @{
+                                                        // var roles = await UserManager.GetRolesAsync(user);
+                                                        // if (roles.Any())
+                                                        // {
+                                                        //     foreach (var role in roles)
+                                                        //     {
+                                                        //         <a class="dropdown-item" href="#">@role</a>
+                                                        //     }
+                                                        // }
+                                                        // else
+                                                        // {
+                                                        //     <a class="dropdown-item" href="#">No roles assigned</a>
+                                                        
+                                                        // }
                                                         var roles = await UserManager.GetRolesAsync(user);
                                                         if (roles.Any())
                                                         {
-                                                            foreach (var role in roles)
-                                                            {
-                                                                <a class="dropdown-item" href="#">@role</a>
-                                                            }
+                                                            @string.Join(", ", roles)
                                                         }
                                                         else
                                                         {
-                                                            <a class="dropdown-item" href="#">No roles assigned</a>
-                                                        }
+                                                        <span>No roles assigned</span>
                                                     }
-                                                </div>
+                                                }
+                                                @* </div> *@
                                             </div>
                                         </td>
-                                        <td>@_context.UserActiveStatuses.SingleOrDefault(s => s.Id == @user.Id)?.IsActive</td>
+                                        @{
+                                            var userStatus = @_context.UserActiveStatuses.SingleOrDefault(s => s.Id == @user.Id)?.IsActive  ?? false;
+                                            var ActiveOrSuspened = userStatus ? "Active" : "Suspended"; 
+                                        }
+                                        <td>@ActiveOrSuspened</td>
                                         @* <td>
                                             <div class="dropdown">
                                                 <button class="btn actionsKey dropdown-toggle" type="button" id="dropdownActions_@user.Id" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
