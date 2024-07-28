@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @model IEnumerable<IdentityUser>
 @inject UserManager<IdentityUser> UserManager
+@inject DemobadmintonContext _context;
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -152,7 +153,8 @@
                             <tr class="text-center bg-success text-light">
                                 <th>Username</th>
                                 <th>Email</th>
-                                <th>Roles</th>
+                                <th>Role</th>
+                                <th>Status</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -168,29 +170,44 @@
                                         <td>
 
 
-                                            <div class="dropdown">
-                                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownRoles_@user.Id" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <div @* class="dropdown" *@>
+                                                @* <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownRoles_@user.Id" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     Roles
                                                 </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownRoles_@user.Id">
+                                                <div class="dropdown-menu" aria-labelledby="dropdownRoles_@user.Id"> *@
                                                     @{
+                                                        // var roles = await UserManager.GetRolesAsync(user);
+                                                        // if (roles.Any())
+                                                        // {
+                                                        //     foreach (var role in roles)
+                                                        //     {
+                                                        //         <a class="dropdown-item" href="#">@role</a>
+                                                        //     }
+                                                        // }
+                                                        // else
+                                                        // {
+                                                        //     <a class="dropdown-item" href="#">No roles assigned</a>
+                                                        
+                                                        // }
                                                         var roles = await UserManager.GetRolesAsync(user);
                                                         if (roles.Any())
                                                         {
-                                                            foreach (var role in roles)
-                                                            {
-                                                                <a class="dropdown-item" href="#">@role</a>
-                                                            }
+                                                            @string.Join(", ", roles)
                                                         }
                                                         else
                                                         {
-                                                            <a class="dropdown-item" href="#">No roles assigned</a>
-                                                        }
+                                                        <span>No roles assigned</span>
                                                     }
-                                                </div>
+                                                }
+                                                @* </div> *@
                                             </div>
                                         </td>
-                                        <td>
+                                        @{
+                                            var userStatus = @_context.UserActiveStatuses.SingleOrDefault(s => s.Id == @user.Id)?.IsActive  ?? false;
+                                            var ActiveOrSuspened = userStatus ? "Active" : "Suspended"; 
+                                        }
+                                        <td>@ActiveOrSuspened</td>
+                                        @* <td>
                                             <div class="dropdown">
                                                 <button class="btn actionsKey dropdown-toggle" type="button" id="dropdownActions_@user.Id" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     Actions
@@ -208,7 +225,44 @@
                                                 </form>
                                                 <button class="btn btn-secondary btn-sm cancel-delete" data-userid="@user.Id">No</button>
                                             </div>
+                                        </td> *@
+                                        <td>
+                                            <div class="dropdown">
+                                                <button class="btn actionsKey dropdown-toggle" type="button" id="dropdownActions_@user.Id" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Actions
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownActions_@user.Id">
+                                                    <a class="dropdown-item" asp-action="EditUser" asp-controller="Admin" asp-route-UserId="@user.Id">Edit</a>
+                                                    @{
+                                                        var isActive = _context.UserActiveStatuses.SingleOrDefault(s => s.Id == @user.Id)?.IsActive ?? false;
+                                                    }
+                                                    @if (isActive)
+                                                    {
+                                                        <a class="dropdown-item suspend-activate-user suspend-user" href="#" data-userid="@user.Id" data-action="SuspendUser">Suspend</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="dropdown-item suspend-activate-user activate-user" href="#" data-userid="@user.Id" data-action="ActivateUser">Activate</a>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div id="confirmSuspend_@user.Id" class="mt-2" style="display:none;">
+                                                <span>Are you sure you want to suspend this user?</span>
+                                                <form asp-action="SuspendUser" asp-route-UserId="@user.Id" method="post" class="d-inline">
+                                                    <button type="submit" class="btn btn-danger btn-sm">Yes</button>
+                                                </form>
+                                                <button class="btn btn-secondary btn-sm cancel-suspend" data-userid="@user.Id">No</button>
+                                            </div>
+
+                                            <div id="confirmActivate_@user.Id" class="mt-2" style="display:none;">
+                                                <span>Are you sure you want to activate this user?</span>
+                                                <form asp-action="ActivateUser" asp-route-UserId="@user.Id" method="post" class="d-inline">
+                                                    <button type="submit" class="btn btn-success btn-sm">Yes</button>
+                                                </form>
+                                                <button class="btn btn-secondary btn-sm cancel-activate" data-userid="@user.Id">No</button>
+                                            </div>
                                         </td>
+
                                     </tr>
                                 }
                             }
@@ -338,5 +392,74 @@
             }
         });
     </script>
+    <script>
+        $(document).ready(function () {
+            $('#showCreateRoleForm').click(function () {
+                $('#createRoleForm').show();
+                $(this).hide();
+            });
+
+            $('#cancelCreateRole').click(function () {
+                $('#createRoleForm').hide();
+                $('#showCreateRoleForm').show();
+                $('.text-danger, .text-success').remove();
+            });
+
+            $('form[asp-action="CreateRole"]').submit(function () {
+                $('.text-danger, .text-success').remove();
+            });
+
+            // If there's an error or success message, show the form
+            if ($('.text-danger, .text-success').length > 0) {
+                $('#createRoleForm').show();
+                $('#showCreateRoleForm').hide();
+            }
+
+            // Suspend user functionality
+            $('.suspend-user').click(function (e) {
+                e.preventDefault();
+                var userId = $(this).data('userid');
+                $('#dropdownActions_' + userId).hide();
+                $('#confirmSuspend_' + userId).show();
+            });
+
+            $('.cancel-suspend').click(function () {
+                var userId = $(this).data('userid');
+                $('#confirmSuspend_' + userId).hide();
+                $('#dropdownActions_' + userId).show();
+            });
+
+            // Activate user functionality
+            $('.activate-user').click(function (e) {
+                e.preventDefault();
+                var userId = $(this).data('userid');
+                $('#dropdownActions_' + userId).hide();
+                $('#confirmActivate_' + userId).show();
+            });
+
+            $('.cancel-activate').click(function () {
+                var userId = $(this).data('userid');
+                $('#confirmActivate_' + userId).hide();
+                $('#dropdownActions_' + userId).show();
+            });
+
+            // Delete user functionality
+            $('.delete-user').click(function (e) {
+                e.preventDefault();
+                var userId = $(this).data('userid');
+                $('#dropdownActions_' + userId).hide();
+                $('#confirmDelete_' + userId).show();
+            });
+
+            $('.cancel-delete').click(function () {
+                var userId = $(this).data('userid');
+                $('#confirmDelete_' + userId).hide();
+                $('#dropdownActions_' + userId).show();
+            });
+        });
+
+</script>
+
+
 </body>
 </html>

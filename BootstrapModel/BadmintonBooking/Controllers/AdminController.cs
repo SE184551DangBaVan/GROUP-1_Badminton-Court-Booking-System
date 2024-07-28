@@ -317,8 +317,9 @@ namespace BadmintonBooking.Controllers
             var data = _UserManager.Users.ToList();
 
             //var users = _context.Users.ToList();
-            var falseUserStatus = _context.UserActiveStatuses.Where(x => x.IsActive == false).Select(x => x.Id).ToList();
-            data.RemoveAll(x => falseUserStatus.Contains(x.Id));
+
+            //var falseUserStatus = _context.UserActiveStatuses.Where(x => x.IsActive == false).Select(x => x.Id).ToList();
+            //data.RemoveAll(x => falseUserStatus.Contains(x.Id));
 
             //// Assuming you are passing both the users and their statuses to the view
             //var model = users.Select(u => new
@@ -472,57 +473,91 @@ namespace BadmintonBooking.Controllers
             return View(model);
         }
 
+        //[HttpPost]
+        //public async Task<IActionResult> ManageUserRoles(List<UserRolesViewModel> model, string UserId)
+        //{
+        //    var user = await _UserManager.FindByIdAsync(UserId);
+
+        //    if (user == null)
+        //    {
+        //        ViewBag.ErrorMessage = $"User with Id = {UserId} cannot be found";
+        //        return View("NotFound");
+        //    }
+
+        //    //fetch the list of roles the specified user belongs to
+        //    var roles = await _UserManager.GetRolesAsync(user);
+
+        //    //Then remove all the assigned roles for this user
+        //    var result = await _UserManager.RemoveFromRolesAsync(user, roles);
+
+        //    if (!result.Succeeded)
+        //    {
+        //        ModelState.AddModelError("", "Cannot remove user existing roles");
+        //        return View(model);
+        //    }
+
+        //    List<string> RolesToBeAssigned = model.Where(x => x.IsSelected).Select(y => y.RoleName).ToList();
+
+        //    //If At least 1 Role is assigned, Any Method will return true
+        //    if (RolesToBeAssigned.Any())
+        //    {
+        //        //add a user to multiple roles simultaneously
+
+        //        result = await _UserManager.AddToRolesAsync(user, RolesToBeAssigned);
+        //        if (!result.Succeeded)
+        //        {
+        //            ModelState.AddModelError("", "Cannot Add Selected Roles to User");
+        //            return View(model);
+        //        }
+        //    }
+
+        //    return RedirectToAction("EditUser", new { UserId = UserId });
+        //}
+
+
         [HttpPost]
-        public async Task<IActionResult> ManageUserRoles(List<UserRolesViewModel> model, string UserId)
+        public async Task<IActionResult> ManageUserRoles(string SelectedRole, string UserId)
         {
             var user = await _UserManager.FindByIdAsync(UserId);
-
             if (user == null)
             {
                 ViewBag.ErrorMessage = $"User with Id = {UserId} cannot be found";
                 return View("NotFound");
             }
 
-            //fetch the list of roles the specified user belongs to
             var roles = await _UserManager.GetRolesAsync(user);
-
-            //Then remove all the assigned roles for this user
             var result = await _UserManager.RemoveFromRolesAsync(user, roles);
-
             if (!result.Succeeded)
             {
                 ModelState.AddModelError("", "Cannot remove user existing roles");
-                return View(model);
+                return View(await ManageUserRoles(UserId));
             }
 
-            List<string> RolesToBeAssigned = model.Where(x => x.IsSelected).Select(y => y.RoleName).ToList();
-
-            //If At least 1 Role is assigned, Any Method will return true
-            if (RolesToBeAssigned.Any())
+            if (!string.IsNullOrEmpty(SelectedRole))
             {
-                //add a user to multiple roles simultaneously
-
-                result = await _UserManager.AddToRolesAsync(user, RolesToBeAssigned);
-                if (!result.Succeeded)
+                var role = await _roleManager.FindByIdAsync(SelectedRole);
+                if (role != null)
                 {
-                    ModelState.AddModelError("", "Cannot Add Selected Roles to User");
-                    return View(model);
+                    result = await _UserManager.AddToRoleAsync(user, role.Name);
+                    if (!result.Succeeded)
+                    {
+                        ModelState.AddModelError("", "Cannot add selected role to user");
+                        return View(await ManageUserRoles(UserId));
+                    }
                 }
             }
-
             return RedirectToAction("EditUser", new { UserId = UserId });
         }
-
         [HttpPost]
-        public async Task<IActionResult> DeleteUser(string UserId)
+        public async Task<IActionResult> SuspendUser(string userId)
         {
             //First Fetch the User you want to Delete
-            var user = await _UserManager.FindByIdAsync(UserId);
+            var user = await _UserManager.FindByIdAsync(userId);
 
             if (user == null)
             {
                 // Handle the case where the user wasn't found
-                ViewBag.ErrorMessage = $"User with Id = {UserId} cannot be found";
+                ViewBag.ErrorMessage = $"User with Id = {userId} cannot be found";
                 return View("NotFound");
             }
             else
@@ -553,12 +588,12 @@ namespace BadmintonBooking.Controllers
 
 
                 // Update user status to inactive
-                var userStatus = _context.UserActiveStatuses.SingleOrDefault(u => u.Id == UserId);
+                var userStatus = _context.UserActiveStatuses.SingleOrDefault(u => u.Id == userId);
                 if (userStatus == null)
                 {
                     userStatus = new UserActiveStatus
                     {
-                        Id = UserId,
+                        Id = userId,
                         IsActive = false
                     };
                     _context.UserActiveStatuses.Add(userStatus);
@@ -576,6 +611,45 @@ namespace BadmintonBooking.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> ActivateUser(string userId)
+        {
+            //First Fetch the User you want to Delete
+            var user = await _UserManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                // Handle the case where the user wasn't found
+                ViewBag.ErrorMessage = $"User with Id = {userId} cannot be found";
+                return View("NotFound");
+            }
+            else
+            {
+               
+
+                // Update user status to active
+                var userStatus = _context.UserActiveStatuses.SingleOrDefault(u => u.Id == userId);
+                if (userStatus == null)
+                {
+                    userStatus = new UserActiveStatus
+                    {
+                        Id = userId,
+                        IsActive = true
+                    };
+                    _context.UserActiveStatuses.Add(userStatus);
+                }
+                else
+                {
+                    userStatus.IsActive = true;
+                    _context.UserActiveStatuses.Update(userStatus);
+                }
+
+                await _context.SaveChangesAsync();
+
+                TempData["success"] = "User status updated successfully";
+                return RedirectToAction("CustomerInfo");
+            }
+        }
         [HttpPost]
         public async Task<IActionResult> CreateRole(string roleName)
         {
