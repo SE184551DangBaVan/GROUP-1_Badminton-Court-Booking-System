@@ -12,13 +12,48 @@
     <title>Create Court</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
 </head>
+<style>
+body {
+    height: 100vh;
+    background: url(../images/desktop-wallpaper-badminton-shuttlecock-sport-equipment-shuttlecock.jpg) no-repeat fixed;
+    background-color: #242526;
+    background-position: center;
+    background-size: cover;
+    line-height: 1.6;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+.backBtn {
+    position: fixed;
+    left: 50px;
+    top: 20px;
+}
+.backBtn a {transition: background 0.4s ease;}
+.backBtn:hover a {
+    background: brown;
+    transition: background 0.3s ease;
+}
+.createBtn {
+    background: #666;
+    color: white;
+    font-weight: bold;
+    transition: background 0.4s ease;}
+.createBtn:hover {
+    background: brown; color: white;
+    transition: background 0.3s ease;
+}
+</style>
 <body>
     <script src="~/js/courtdropdown.js"></script>
     <div class="container mt-5">
+        <div class="backBtn">
+            <a asp-action="Booking" asp-controller="Manager" class="btn btn-secondary">Back to List</a>
+        </div>
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card shadow-sm">
-                    <div class="card-header bg-primary text-white">
+                    <div class="card-header text-white" style="background: #333;">
                         <h4 class="card-title mb-0">Create Court</h4>
                     </div>
                     <div class="card-body">
@@ -61,14 +96,12 @@
                                 <img src="https://placehold.jp/150x150.png" class="img-thumbnail" style="width:200px; height:200px;" alt="Placeholder Image" id="PrevImg" />
                             </div>
                             <div class="form-group">
-                                <input type="submit" value="Create" class="btn btn-primary btn-block" id="btnCreateCourt" />
+                                <input type="submit" value="Create" class="btn btn-block createBtn" id="btnCreateCourt" />
                             </div>
                         </form>
                     </div>
                 </div>
-                <div class="text-center mt-3">
-                    <a asp-action="Booking" asp-controller="Manager" class="btn btn-secondary">Back to List</a>
-                </div>
+                
             </div>
         </div>
     </div>
