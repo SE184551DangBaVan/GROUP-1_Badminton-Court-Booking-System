@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @model IEnumerable<IdentityUser>
 @inject UserManager<IdentityUser> UserManager
+@inject DemobadmintonContext _context;
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -153,6 +154,7 @@
                                 <th>Username</th>
                                 <th>Email</th>
                                 <th>Roles</th>
+                                <th>Roles</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -190,6 +192,7 @@
                                                 </div>
                                             </div>
                                         </td>
+                                        <td>@_context.UserActiveStatuses.SingleOrDefault(s => s.Id == @user.Id)?.IsActive</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button class="btn actionsKey dropdown-toggle" type="button" id="dropdownActions_@user.Id" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
