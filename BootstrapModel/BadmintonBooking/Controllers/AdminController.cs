@@ -549,15 +549,15 @@ namespace BadmintonBooking.Controllers
             return RedirectToAction("EditUser", new { UserId = UserId });
         }
         [HttpPost]
-        public async Task<IActionResult> DeleteUser(string UserId)
+        public async Task<IActionResult> SuspendUser(string userId)
         {
             //First Fetch the User you want to Delete
-            var user = await _UserManager.FindByIdAsync(UserId);
+            var user = await _UserManager.FindByIdAsync(userId);
 
             if (user == null)
             {
                 // Handle the case where the user wasn't found
-                ViewBag.ErrorMessage = $"User with Id = {UserId} cannot be found";
+                ViewBag.ErrorMessage = $"User with Id = {userId} cannot be found";
                 return View("NotFound");
             }
             else
@@ -588,12 +588,12 @@ namespace BadmintonBooking.Controllers
 
 
                 // Update user status to inactive
-                var userStatus = _context.UserActiveStatuses.SingleOrDefault(u => u.Id == UserId);
+                var userStatus = _context.UserActiveStatuses.SingleOrDefault(u => u.Id == userId);
                 if (userStatus == null)
                 {
                     userStatus = new UserActiveStatus
                     {
-                        Id = UserId,
+                        Id = userId,
                         IsActive = false
                     };
                     _context.UserActiveStatuses.Add(userStatus);
@@ -611,6 +611,45 @@ namespace BadmintonBooking.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> ActivateUser(string userId)
+        {
+            //First Fetch the User you want to Delete
+            var user = await _UserManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                // Handle the case where the user wasn't found
+                ViewBag.ErrorMessage = $"User with Id = {userId} cannot be found";
+                return View("NotFound");
+            }
+            else
+            {
+               
+
+                // Update user status to active
+                var userStatus = _context.UserActiveStatuses.SingleOrDefault(u => u.Id == userId);
+                if (userStatus == null)
+                {
+                    userStatus = new UserActiveStatus
+                    {
+                        Id = userId,
+                        IsActive = true
+                    };
+                    _context.UserActiveStatuses.Add(userStatus);
+                }
+                else
+                {
+                    userStatus.IsActive = true;
+                    _context.UserActiveStatuses.Update(userStatus);
+                }
+
+                await _context.SaveChangesAsync();
+
+                TempData["success"] = "User status updated successfully";
+                return RedirectToAction("CustomerInfo");
+            }
+        }
         [HttpPost]
         public async Task<IActionResult> CreateRole(string roleName)
         {
