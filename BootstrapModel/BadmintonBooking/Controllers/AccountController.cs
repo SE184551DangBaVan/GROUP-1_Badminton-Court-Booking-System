@@ -277,14 +277,14 @@ namespace demobadminton.Controllers
                             {
                                 return Redirect(ReturnUrl);
                             }
-                            else if (User.IsInRole("admin"))
+                            else if (User.IsInRole("Admin"))
                             {
                                 TempData["message"] = "Login Successfully as Admin!";
                                 return RedirectToAction("Show", "Admin");
                             }
                             else if (User.IsInRole("Manager"))
                             {
-                                TempData["message"] = "Login Successfully as Admin!";
+                                TempData["message"] = "Login Successfully as Manager!";
                                 return RedirectToAction("Booking", "Manager");
                             }
                             else if (User.IsInRole("Staff"))

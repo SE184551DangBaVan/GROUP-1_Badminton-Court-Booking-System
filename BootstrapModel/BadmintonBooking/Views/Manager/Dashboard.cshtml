@@ -6,6 +6,8 @@
 
 }
 <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
 <style>
     * {
         margin: 0;
@@ -223,6 +225,7 @@
                     </div>
                 </div> 
                 <div class="date-filter">
+                    <div class="d-flex">
                     <form id="dateFilterForm" onsubmit="return validateDates()" asp-action="Dashboard" asp-controller="Manager" method="get">
                         
 
@@ -234,6 +237,19 @@
 
                         <button type="submit" class="btn outline">Apply Date Filter</button>
                     </form>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Sort By
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="/Manager/Dashboard?page=1&startDate=@ViewBag.startDate&endDate=@ViewBag.endDate&sortOrder=income_asc">Income Ascending</a>
+                                <a class="dropdown-item" href="/Manager/Dashboard?page=1&startDate=@ViewBag.startDate&endDate=@ViewBag.endDate&sortOrder=income_desc">Income Descending</a>
+                                <a class="dropdown-item" href="/Manager/Dashboard?page=1&startDate=@ViewBag.startDate&endDate=@ViewBag.endDate&sortOrder=">Default</a>
+                        </div>
+                    </div>
+
+                    </div>
+                    @* <a class="" href="/Manager/Dashboard?page=1">All Time Income</a> *@
                     @if(ViewBag.startDate!=null&& ViewBag.endDate!=null)
                     {
                         <p><b>From @ViewBag.startDate?.ToString("d")        To            @ViewBag.endDate?.ToString("d")</b></p>
@@ -256,7 +272,7 @@
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>Court Id</th>
+                                            <th>No</th>
                                             <th>Court Name</th>
                                             <th>Total Amount</th>
                                             <th>Booked User Count</th>
@@ -306,18 +322,18 @@
                 }
 
                 <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
-                    <a class="page-link" href="/Manager/Dashboard?page=@PrevPage&startDate=@ViewBag.startDate&endDate=@ViewBag.endDate">Prev</a>
+                    <a class="page-link" href="/Manager/Dashboard?page=@PrevPage&startDate=@ViewBag.startDate&endDate=@ViewBag.endDate&sortOrder=@ViewBag.sortOrder">Prev</a>
                 </li>
 
                 @for (int i = 1; i <= ViewBag.NoOfPages; i++)
                 {
                     <li class="page-item @(i == ViewBag.Page ? "active" : "")">
-                        <a class="page-link" href="/Manager/Dashboard?page=@i&startDate=@ViewBag.startDate&endDate=@ViewBag.endDate">@i</a>
+                        <a class="page-link" href="/Manager/Dashboard?page=@i&startDate=@ViewBag.startDate&endDate=@ViewBag.endDate&sortOrder=@ViewBag.sortOrder">@i</a>
                     </li>
                 }
 
                 <li class="page-item @(ViewBag.Page == ViewBag.NoOfPages ? "disabled" : "")">
-                    <a class="page-link" href="/Manager/Dashboard?page=@NextPage&startDate=@ViewBag.startDate&endDate=@ViewBag.endDate">Next</a>
+                    <a class="page-link" href="/Manager/Dashboard?page=@NextPage&startDate=@ViewBag.startDate&endDate=@ViewBag.endDate&sortOrder=@ViewBag.sortOrder">Next</a>
                 </li>
             </ul>
         }

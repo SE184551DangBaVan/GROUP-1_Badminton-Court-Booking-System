@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace BadmintonBooking.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly IWebHostEnvironment environment;

@@ -369,11 +369,12 @@ namespace BadmintonBooking.Controllers
             return uniqueFileName;
         }
 
-        public IActionResult Dashboard(int page = 1, DateTime? startDate = null, DateTime? endDate = null, string txtSearch = "")
+        public IActionResult Dashboard(int page = 1, DateTime? startDate = null, DateTime? endDate = null,string sortOrder="")
         {
             string userID = _userManager.GetUserId(User);
             ViewBag.startDate = startDate;
             ViewBag.endDate = endDate;
+            ViewBag.sortOrder = sortOrder;
             IQueryable<dynamic> resultsQuery;
             int NoOfRecordPerPage = 6;
 
@@ -429,9 +430,23 @@ namespace BadmintonBooking.Controllers
                     })
                     .OrderBy(c => c.CoId);
             }
-
+            
             // Execute the query and get results
             var results = resultsQuery.ToList();
+            // Apply sorting in-memory
+            switch (sortOrder)
+            {
+                case "income_asc":
+                    results = results.OrderBy(c => (decimal)c.TotalAmount).ToList();
+                    break;
+                case "income_desc":
+                    results = results.OrderByDescending(c => (decimal)c.TotalAmount).ToList();
+                    break;
+                default:
+                    results = results.OrderBy(c => c.CoId).ToList();
+                    break;
+            }
+
 
             var totalIncome = results.Sum(r => (decimal)r.TotalAmount);
             ViewBag.TotalIncome = totalIncome;

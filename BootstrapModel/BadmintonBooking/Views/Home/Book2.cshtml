@@ -187,7 +187,13 @@
                                                 }
                                             }
                                             <div class="selectedCourtActions">
-                                            <br/><button class="bookBtn">Book</button>
+                                                @if (!(User.IsInRole("Manager")||User.IsInRole("Admin")||User.IsInRole("Staff")))
+                                                {
+                                                    <br />
+
+                                                    <button class="bookBtn">Book</button>
+                                                }
+                                                
                                                 <a class="detailBtn btn-success" href="/Home/CourtDetail?CourtId=@court.CoId">Detail</a>
                                             </div>
                                         </form>
