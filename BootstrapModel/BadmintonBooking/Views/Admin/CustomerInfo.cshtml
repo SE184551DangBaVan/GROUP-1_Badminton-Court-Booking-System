@@ -127,7 +127,18 @@
                         <div class="mb-3">
                             <button id="showCreateRoleForm" class="btn createNewBtn">Create New Role</button>
                         </div>
-
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Sort by Role
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                <a class="dropdown-item" href="@Url.Action("CustomerInfo", "Admin", new { page = 1, sortOrder = "Admin" })">Admin</a>
+                                <a class="dropdown-item" href="@Url.Action("CustomerInfo", "Admin", new { page = 1, sortOrder = "Manager" })">Manager</a>
+                                <a class="dropdown-item" href="@Url.Action("CustomerInfo", "Admin", new { page = 1, sortOrder = "Staff" })">Staff</a>
+                                <a class="dropdown-item" href="@Url.Action("CustomerInfo", "Admin", new { page = 1, sortOrder = "Customer" })">Customer</a>
+                                <a class="dropdown-item" href="@Url.Action("CustomerInfo", "Admin", new { page = 1, sortOrder = "" })">All</a>
+                            </div>
+                        </div>
 
                         <div id="createRoleForm" style="display: none;" class="mb-3">
                             <form asp-action="CreateRole" asp-controller="Admin" method="post" class="form-inline">
@@ -290,18 +301,18 @@
             }
 
             <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
-                <a class="page-link" href="/admin/CustomerInfo?page=@PrevPage">Prev</a>
+                <a class="page-link" href="/Admin/CustomerInfo?page=@PrevPage&sortOrder=@ViewBag.sortOrder">Prev</a>
             </li>
 
             @for (int i = 1; i <= ViewBag.NoOfPages; i++)
             {
                 <li class="page-item @(i == ViewBag.Page ? "active" : "")">
-                    <a class="page-link" href="/admin/CustomerInfo?page=@i">@i</a>
+                    <a class="page-link" href="/Admin/CustomerInfo?page=@i&sortOrder=@ViewBag.sortOrder">@i</a>
                 </li>
             }
 
             <li class="page-item @(ViewBag.Page == ViewBag.NoOfPages ? "disabled" : "")">
-                <a class="page-link" href="/admin/CustomerInfo?page=@NextPage">Next</a>
+                <a class="page-link" href="/Admin/CustomerInfo?page=@NextPage&sortOrder=@ViewBag.sortOrder">Next</a>
             </li>
         </ul>
     }
