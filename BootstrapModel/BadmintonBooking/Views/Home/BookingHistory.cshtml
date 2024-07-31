@@ -5,6 +5,8 @@
 }
 <partial name="_Notification" />
 <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Righteous&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
@@ -197,7 +199,7 @@
     </div>
     <div class="date-filter">
         <form asp-action="BookingHistory" method="get">
-            <input type="hidden" name="userID" value="@ViewBag.UserID" />
+            @* <input type="hidden" name="userID" value="@ViewBag.UserID" /> *@
 
             <label for="startDate">Start Date:</label>
             <input type="date" id="startDate" name="startDate" value="@(ViewBag.StartDate?.ToString("yyyy-MM-dd"))" />
@@ -234,6 +236,32 @@
             }
         }
     </div>
+    @if (ViewBag.NoOfPages >= 1 || ViewBag.TotalRecords <= 5)
+    {
+        <ul class="pagination justify-content-center mt-4">
+            @{
+                int PrevPage = ViewBag.Page - 1;
+                if (PrevPage <= 0) PrevPage = 1;
+                int NextPage = ViewBag.Page + 1;
+                if (NextPage > ViewBag.NoOfPages) NextPage = ViewBag.NoOfPages;
+            }
+
+            <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
+                <a class="page-link" href="/Home/BookingHistory?page=@PrevPage&startDate=@ViewBag.StartDate&endDate=@ViewBag.EndDate">Prev</a>
+            </li>
+
+            @for (int i = 1; i <= ViewBag.NoOfPages; i++)
+            {
+                <li class="page-item @(i == ViewBag.Page ? "active" : "")">
+                    <a class="page-link" href="/Home/BookingHistory?page=@i&startDate=@ViewBag.StartDate&endDate=@ViewBag.EndDate">@i</a>
+                </li>
+            }
+
+            <li class="page-item @(ViewBag.Page == ViewBag.NoOfPages ? "disabled" : "")">
+                <a class="page-link" href="/Home/BookingHistory?page=@NextPage&startDate=@ViewBag.StartDate&endDate=@ViewBag.EndDate">Next</a>
+            </li>
+        </ul>
+    }
 <@* div class="container">
     <div class="wrapper">
         <div class="banner-image"> </div>

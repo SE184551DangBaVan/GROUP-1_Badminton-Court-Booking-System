@@ -50,32 +50,17 @@
                             </div>
                             <div class="row">
                                 <header>Headlines</header>
-                                <ul class="mega-links">
-                                        @if (SignInManager.IsSignedIn(User))
+                                    <ul class="mega-links">
+                                        @if (SignInManager.IsSignedIn(User) && !User.IsInRole("Admin") && !User.IsInRole("Staff") && !User.IsInRole("Manager"))
                                         {
                                             <li><a asp-controller="Home" asp-action="BookingHistory"><i class="fa-solid fa-clock-rotate-left"></i>Booking History</a></li>
                                             <li><a asp-controller="Home" asp-action="UpComingEvent"><i class="fa-regular fa-calendar-days"></i>UpComing Event</a></li>
                                         }
-                                </ul>
+                                    </ul>
                             </div>
                         </div>
                     </div>
                 </li>
-                @if (SignInManager.IsSignedIn(User) &&  User.IsInRole("Admin"))
-                {
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            Manage
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" asp-controller="Administration"
-                               asp-action="ListUsers">Users</a>
-                            <a class="dropdown-item" asp-controller="Administration"
-                               asp-action="ListRoles">Roles</a>
-                        </ul>
-                    </li>
-                }
             </ul>
             <partial name="_LoginPartial" />
         </div>

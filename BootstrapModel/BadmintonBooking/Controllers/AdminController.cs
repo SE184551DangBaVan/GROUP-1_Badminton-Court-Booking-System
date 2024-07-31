@@ -310,7 +310,7 @@ namespace BadmintonBooking.Controllers
             }
             return uniqueFileName;
         }
-        public IActionResult CustomerInfo(int page = 1)
+        public IActionResult CustomerInfo(int page = 1,string sortOrder="")
         {
             int NoOfRecordPerPage = 5;
             DemobadmintonContext context = new DemobadmintonContext();
@@ -327,6 +327,29 @@ namespace BadmintonBooking.Controllers
             //    User = u,
             //    UserActiveStatus = userStatuses.FirstOrDefault(s => s.Id == u.Id)
             //}).ToList();
+            switch (sortOrder)
+            {
+                case "Admin":
+                    data = data.Where(u => _UserManager.IsInRoleAsync(u, "Admin").Result).ToList();
+                    break;
+                case "Manager":
+                    data = data.Where(u => _UserManager.IsInRoleAsync(u, "Manager").Result).ToList();
+                    break;
+                case "Staff":
+                    data = data.Where(u => _UserManager.IsInRoleAsync(u, "Staff").Result).ToList();
+                    break;
+                case "Customer":
+                    data = data.Where(u =>
+                        !_UserManager.IsInRoleAsync(u, "Admin").Result &&
+                        !_UserManager.IsInRoleAsync(u, "Manager").Result &&
+                        !_UserManager.IsInRoleAsync(u, "Staff").Result
+                    ).ToList();
+                    break;
+                default:
+                    data = _UserManager.Users.ToList();
+                    break;
+
+            }
 
             //pagination
             int totalRecords = data.Count;
@@ -338,6 +361,7 @@ namespace BadmintonBooking.Controllers
             var pagedData = data.Skip(NoOfRecordToSkip).Take(NoOfRecordPerPage).ToList();
 
             //ViewBag properties
+            ViewBag.sortOrder = sortOrder;
             ViewBag.Page = page;
             ViewBag.NoOfPages = NoOfPages;
             ViewBag.TotalRecords = totalRecords;
@@ -689,27 +713,28 @@ namespace BadmintonBooking.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateNewUser(RegisterVM model, List<string> selectedRoles)
+        public async Task<IActionResult> CreateNewUser(RegisterVM model, string selectedRole)
         {
             if (ModelState.IsValid)
             {
                 var user = new IdentityUser { UserName = model.UserName, Email = model.Email, EmailConfirmed = true };
                 var result = await _UserManager.CreateAsync(user, model.Password);
-
+                var roleToAdd = await _roleManager.FindByNameAsync(selectedRole);
                 if (result.Succeeded)
                 {
-                    if (selectedRoles != null && selectedRoles.Any())
+                    if (roleToAdd != null)
                     {
-                        var roleResult = await _UserManager.AddToRolesAsync(user, selectedRoles);
+                        var roleResult = await _UserManager.AddToRoleAsync(user, selectedRole);
                         if (!roleResult.Succeeded)
                         {
                             ModelState.AddModelError("", "Error assigning roles to the user.");
                             return View(model);
                         }
+                        var NewlyCreatedUserId = _UserManager.FindByEmailAsync(user.Email).Result.Id;
+                        _context.UserActiveStatuses.Add(new UserActiveStatus { Id = NewlyCreatedUserId, IsActive = true });
+                        _context.SaveChanges();
                     }
 
-                    // Optionally, you can sign in the user immediately
-                    // await _signInManager.SignInAsync(user, isPersistent: false);
 
                     return RedirectToAction("CustomerInfo");
                 }

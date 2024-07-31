@@ -732,8 +732,10 @@ namespace BadmintonBooking.Controllers
         //    return View(bookingHistory);
         //}
         [Authorize]
-        public IActionResult BookingHistory(DateTime? startDate = null, DateTime? endDate = null)
+        public IActionResult BookingHistory(int page=1,DateTime? startDate = null, DateTime? endDate = null)
         {
+            int NoOfRecordPerPage = 2;
+
             string userID = _userManager.GetUserId(User);
             var bookingHistory = _context.Bookings
                 .Where(b => b.UserId == userID)
@@ -754,12 +756,24 @@ namespace BadmintonBooking.Controllers
             var sortedBookingHistory = bookingHistory
                 .OrderByDescending(b => b.Payments.Max(p => p.PDateTime))
                 .ToList();
+            int totalRecords = sortedBookingHistory.Count;
+            int NoOfPages = (int)Math.Ceiling((double)totalRecords / NoOfRecordPerPage);
+            if (NoOfPages == 0) NoOfPages = 1;
+            // Pagination logic
+            int NoOfRecordToSkip = (page - 1) * NoOfRecordPerPage;
+            var pagedData = sortedBookingHistory.Skip(NoOfRecordToSkip).Take(NoOfRecordPerPage).ToList();
 
-            ViewBag.UserID = userID;
+
+            //ViewBag.UserID = userID;
             ViewBag.StartDate = startDate;
             ViewBag.EndDate = endDate;
+            ViewBag.Page = page;
+            ViewBag.NoOfPages = NoOfPages;
+            ViewBag.TotalRecords = totalRecords;
 
-            return View(sortedBookingHistory);
+
+            //return View(sortedBookingHistory);
+            return View(pagedData);
         }
 
 
