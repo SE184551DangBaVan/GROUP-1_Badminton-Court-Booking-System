@@ -43,6 +43,43 @@ body {
     background: brown; color: white;
     transition: background 0.3s ease;
 }
+.form-group {
+    width: 100%;
+    margin-bottom: 15px;
+} .form-group label{margin-bottom: 8px;}
+.form-group .form-control {
+    outline: none;
+    padding: 8px 30px;
+    line-height: 30px;
+    border-radius: 10px;
+    border: 2px solid #333;
+    background: transparent;
+    color: #333;
+    transition: 0.2s ease;
+}
+.form-group:nth-child(5) input{padding-bottom: 40px;}
+.form-control::placeholder{color: rgba(0, 0, 0, 1); opacity: 0.5; transition: 0.2s ease; }
+.form-group input:focus-within:not(.form-check) {
+    background: transparent;
+    border: 2px solid #4285F4;
+    transition: 0.2s ease;
+}
+.form-group:focus-within label:not(.form-check-label),
+.form-group:valid label:not(.form-check-label) {
+    transform: translateX(20%) translateY(65%);
+    background: #4285F4;
+    color: #ccc;
+    transition: 0.2s ease;
+}
+.form-group label:not(.form-check-label) {
+    color: white;
+    border-radius: 8px;
+    padding: 0 5px;
+    background: #333;
+    font-weight: 600;
+    transform: translateX(10%) translateY(70%);
+    transition: 0.3s ease;
+}
 </style>
 <body>
     <script src="~/js/courtdropdown.js"></script>
@@ -69,7 +106,7 @@ body {
                                 @Html.LabelFor(model => model.CoAddress, htmlAttributes: new { @class = "control-label" })
                                 <div class="">
                                     @Html.DropDownListFor(model => model.CoAddress, (SelectList)ViewBag.AddressList, "Select Address", new { @class = "form-control", id = "CoAddressDropdown", required = "required" })
-                                    <input type="text" name="CoAddressTextBox" class="form-control mt-2" id="CoAddressTextbox" style="display:none;" />
+                                    <input type="text" name="CoAddressTextBox" class="form-control" id="CoAddressTextbox" style="display:none;" />
                                     @Html.ValidationMessageFor(model => model.CoAddress, "", new { @class = "text-danger" })
                                     <div class="form-check mt-2">
                                         <input type="checkbox" class="form-check-input"  id="customAddressCheckbox" />
