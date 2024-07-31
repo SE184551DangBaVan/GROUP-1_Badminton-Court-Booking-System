@@ -50,13 +50,13 @@
                             </div>
                             <div class="row">
                                 <header>Headlines</header>
-                                <ul class="mega-links">
-                                        @if (SignInManager.IsSignedIn(User))
+                                    <ul class="mega-links">
+                                        @if (SignInManager.IsSignedIn(User) && !User.IsInRole("Admin") && !User.IsInRole("Staff") && !User.IsInRole("Manager"))
                                         {
                                             <li><a asp-controller="Home" asp-action="BookingHistory"><i class="fa-solid fa-clock-rotate-left"></i>Booking History</a></li>
                                             <li><a asp-controller="Home" asp-action="UpComingEvent"><i class="fa-regular fa-calendar-days"></i>UpComing Event</a></li>
                                         }
-                                </ul>
+                                    </ul>
                             </div>
                         </div>
                     </div>
