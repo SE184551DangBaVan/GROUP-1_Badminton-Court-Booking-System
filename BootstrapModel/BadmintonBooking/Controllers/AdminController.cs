@@ -713,27 +713,28 @@ namespace BadmintonBooking.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateNewUser(RegisterVM model, List<string> selectedRoles)
+        public async Task<IActionResult> CreateNewUser(RegisterVM model, string selectedRole)
         {
             if (ModelState.IsValid)
             {
                 var user = new IdentityUser { UserName = model.UserName, Email = model.Email, EmailConfirmed = true };
                 var result = await _UserManager.CreateAsync(user, model.Password);
-
+                var roleToAdd = await _roleManager.FindByNameAsync(selectedRole);
                 if (result.Succeeded)
                 {
-                    if (selectedRoles != null && selectedRoles.Any())
+                    if (roleToAdd != null)
                     {
-                        var roleResult = await _UserManager.AddToRolesAsync(user, selectedRoles);
+                        var roleResult = await _UserManager.AddToRoleAsync(user, selectedRole);
                         if (!roleResult.Succeeded)
                         {
                             ModelState.AddModelError("", "Error assigning roles to the user.");
                             return View(model);
                         }
+                        var NewlyCreatedUserId = _UserManager.FindByEmailAsync(user.Email).Result.Id;
+                        _context.UserActiveStatuses.Add(new UserActiveStatus { Id = NewlyCreatedUserId, IsActive = true });
+                        _context.SaveChanges();
                     }
 
-                    // Optionally, you can sign in the user immediately
-                    // await _signInManager.SignInAsync(user, isPersistent: false);
 
                     return RedirectToAction("CustomerInfo");
                 }
