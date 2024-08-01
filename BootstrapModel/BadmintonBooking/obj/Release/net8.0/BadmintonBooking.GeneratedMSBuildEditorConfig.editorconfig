@@ -202,6 +202,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxBY2Nlc3NEZW5pZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Account/ChangeCurrentPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxDaGFuZ2VDdXJyZW50UGFzc3dvcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Account/ForgetPassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxGb3JnZXRQYXNzd29yZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -216,6 +220,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Account/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Account/ResendEmailConfirmation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZXNlbmRFbWFpbENvbmZpcm1hdGlvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Account/ResetPassword.cshtml]
@@ -254,12 +262,36 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRkQ291cnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Admin/CreateNewUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ3JlYXRlTmV3VXNlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Admin/CustomerInfo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ3VzdG9tZXJJbmZvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Admin/DetailCourt.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRGV0YWlsQ291cnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Admin/EditCourt.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRWRpdENvdXJ0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Admin/EditUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRWRpdFVzZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Admin/EditUsersInRole.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRWRpdFVzZXJzSW5Sb2xlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Admin/ManageUserRoles.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTWFuYWdlVXNlclJvbGVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Admin/OverView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cT3ZlclZpZXcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Admin/Show.cshtml]
@@ -278,20 +310,48 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxCb29rMi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Home/BookingHistory.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxCb29raW5nSGlzdG9yeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Home/CheckIn.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDaGVja0luLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Home/CheckOut.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDaGVja091dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Home/CheckoutDetail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDaGVja291dERldGFpbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Home/CourtDetail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDb3VydERldGFpbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Home/CourtQualityCheck.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDb3VydFF1YWxpdHlDaGVjay5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Home/CourtToCheckQuality.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDb3VydFRvQ2hlY2tRdWFsaXR5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Home/Customer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDdXN0b21lci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Home/Date.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Home/Detail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEZXRhaWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Home/Invoice.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbnZvaWNlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Home/Payment.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQYXltZW50LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Home/Privacy.cshtml]
@@ -302,12 +362,60 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcm9maWxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Home/QualityCheckHistory.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxRdWFsaXR5Q2hlY2tIaXN0b3J5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Home/Rating.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxSYXRpbmcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Home/Staff.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTdGFmZi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Home/UpComingEvent.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxVcENvbWluZ0V2ZW50LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Manager/AddCourt.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlclxBZGRDb3VydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Manager/Booking.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlclxCb29raW5nLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Manager/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlclxEYXNoYm9hcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Manager/Date.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlclxEYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Manager/EditCourt.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlclxFZGl0Q291cnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/PayPal/Invoice.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5UGFsXEludm9pY2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/PayPal/PaymentFailed.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5UGFsXFBheW1lbnRGYWlsZWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/PayPal/PaymentSuccess.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5UGFsXFBheW1lbnRTdWNjZXNzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Shared/_AdminLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Shared/_BlankLayout.cshtml]
@@ -320,6 +428,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Shared/_ManagerLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9NYW5hZ2VyTGF5b3V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Shared/_Notification.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Ob3RpZmljYXRpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Windows/source/repos/GROUP-1_Badminton-Court-Booking-System/BootstrapModel/BadmintonBooking/Views/Shared/_ValidationScriptsPartial.cshtml]
