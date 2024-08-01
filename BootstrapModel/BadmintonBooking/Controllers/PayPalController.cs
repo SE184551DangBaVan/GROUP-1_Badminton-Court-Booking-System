@@ -191,7 +191,13 @@ namespace BadmintonBooking.Controllers
                     ViewData["formattedDate"] = formattedDate;
                     ViewData["formattedTime"] = formattedTime;
                 }
-                var booking = _context.Bookings.Include(b => b.TimeSlots).FirstOrDefault(b => b.BId == bId.Value);
+                var userId = _userManager.GetUserId(User);
+                var booking = _context.Bookings.Include(b => b.TimeSlots).FirstOrDefault(b => b.BId == bId.Value && b.UserId == userId);
+                if (booking == null)
+                {
+                    TempData["error"] = "Invoice not found";
+                    return RedirectToAction("BookingHistory", "Home");
+                }
                 string typeOfBooking = booking.BBookingType;
                 string courtName = _context.Courts.FirstOrDefault(c => c.CoId == booking.CoId).CoName;
                 int? quantity;

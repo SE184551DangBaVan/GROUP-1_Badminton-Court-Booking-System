@@ -215,9 +215,9 @@ namespace demobadminton.Controllers
                 
                 }
         [HttpPost]
-        public async Task<IActionResult> Login(LoginVM model, string? ReturnUrl)
+        public async Task<IActionResult> Login(LoginVM model/*, string? ReturnUrl*/)
         {
-            
+
             try
             {
                 if (ModelState.IsValid)
@@ -244,7 +244,8 @@ namespace demobadminton.Controllers
 
                     }
                     bool confirmStatus = await _userManager.IsEmailConfirmedAsync(checkEmail);
-                    if (!confirmStatus) {
+                    if (!confirmStatus)
+                    {
                         ModelState.AddModelError("", "Email not confirmed");
                         TempData["error"] = "Email not confirmed";
                         return View(model);
@@ -258,7 +259,7 @@ namespace demobadminton.Controllers
                         await _signInManager.SignInAsync(checkEmail, isPersistent: false);
                         if (userStatus == null)
                         {
-                            _context.UserActiveStatuses.Add(new UserActiveStatus { Id = userID,IsActive = true });
+                            _context.UserActiveStatuses.Add(new UserActiveStatus { Id = userID, IsActive = true });
                             await _context.SaveChangesAsync();
                         }
                         else
@@ -270,14 +271,15 @@ namespace demobadminton.Controllers
                                 return View(model);
                             }
                         }
-                        var result = await _signInManager.PasswordSignInAsync(_userManager.FindByEmailAsync(model.Email).Result, model.Password, isPersistent:false, lockoutOnFailure: false);
+                        var result = await _signInManager.PasswordSignInAsync(_userManager.FindByEmailAsync(model.Email).Result, model.Password, isPersistent: false, lockoutOnFailure: false);
                         if (result.Succeeded)
                         {
-                            if (!string.IsNullOrEmpty(ReturnUrl) && Url.IsLocalUrl(ReturnUrl))
-                            {
-                                return Redirect(ReturnUrl);
-                            }
-                            else if (User.IsInRole("Admin"))
+                            //if (!string.IsNullOrEmpty(ReturnUrl) && Url.IsLocalUrl(ReturnUrl))
+                            //{
+                            //    return Redirect(ReturnUrl);
+                            //}
+                            //else
+                            if (User.IsInRole("Admin"))
                             {
                                 TempData["message"] = "Login Successfully as Admin!";
                                 return RedirectToAction("Show", "Admin");
@@ -290,9 +292,10 @@ namespace demobadminton.Controllers
                             else if (User.IsInRole("Staff"))
                             {
                                 TempData["message"] = "Login Successfully as Staff!";
-                                return RedirectToAction("Staff","Home");
+                                return RedirectToAction("Staff", "Home");
 
-                            } else
+                            }
+                            else
                             {
                                 TempData["message"] = "Login Successfully!";
                                 return RedirectToAction("Index", "Home");
@@ -304,12 +307,12 @@ namespace demobadminton.Controllers
 
                 }
             }
-            catch(Exception )
+            catch (Exception)
             {
                 throw;
             }
             return View(model);
-            }
+        }
         public async Task<IActionResult> Logout()
         {
             //         var user = await _userManager.GetUserAsync(User);
