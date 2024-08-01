@@ -117,8 +117,8 @@ namespace BadmintonBooking.Controllers
                 TimeOnly time = TimeOnly.ParseExact(bookingData.Time, "h:mm tt", CultureInfo.InvariantCulture);
                 DateOnly date = DateOnly.ParseExact(bookingData.Date, "MMM d", CultureInfo.InvariantCulture);
                 bool booked = bookingData.Booked;
-
-                var existing = _context.TimeSlots.Where(x => x.TsStart == time && x.TsDate == date);
+                int court = int.Parse(_httpContextAccessor.HttpContext.Session.GetString("CoId"));
+                var existing = _context.TimeSlots.Where(x => x.TsStart == time && x.TsDate == date && x.CoId == court);
                 if (existing.Any())
                 {
                     return Ok(new { success = false });

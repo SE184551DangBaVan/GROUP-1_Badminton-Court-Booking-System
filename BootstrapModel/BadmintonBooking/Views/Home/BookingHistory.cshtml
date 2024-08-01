@@ -231,6 +231,7 @@
                     <div class="button-wrapper">
                         <a class="btn fill" asp-action="Invoice" asp-controller="PayPal" asp-route-bid="@item.BId">See Invoice</a>
                         <a class="btn fill" asp-action="Rating" asp-controller="Home" asp-route-courtId="@item.CoId">Rate</a>
+                        <a class="btn fill" style="background-color:red" onclick="return confirmCancel()" asp-action="Cancel" asp-controller="Home" asp-route-bid="@item.BId">Cancel</a>
                     </div>
                 </div>
             }
@@ -262,20 +263,20 @@
             </li>
         </ul>
     }
-<@* div class="container">
-    <div class="wrapper">
+    <@* div class="container">
+        <div class="wrapper">
         <div class="banner-image"> </div>
         <h1> Toyota Supra</h1>
         <p>
-            Lorem ipsum dolor sit amet, <br />
-            consectetur adipiscing elit.
+        Lorem ipsum dolor sit amet, <br />
+        consectetur adipiscing elit.
         </p>
-    </div>
-    <div class="button-wrapper">
+        </div>
+        <div class="button-wrapper">
         <button class="btn outline">DETAILS</button>
         <button class="btn fill">BUY NOW</button>
-    </div>
-</div> *@
+        </div>
+        </div> *@
 
 </div>
 <script>
@@ -286,5 +287,8 @@ document.getElementById('startDate').addEventListener('change', function () {
 document.getElementById('endDate').addEventListener('change', function () {
     document.getElementById('startDate').max = this.value;
 });
+function confirmCancel() {
+    return confirm('Are you sure you want to cancel this booking?');
+}
 </script>
 </body>

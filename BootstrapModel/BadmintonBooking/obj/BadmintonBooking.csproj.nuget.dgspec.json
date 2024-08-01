@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\theap\\Downloads\\swp391\\5\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj": {}
+    "C:\\Users\\Windows\\source\\repos\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj": {}
   },
   "projects": {
-    "C:\\Users\\theap\\Downloads\\swp391\\5\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj": {
+    "C:\\Users\\Windows\\source\\repos\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\theap\\Downloads\\swp391\\5\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj",
+        "projectUniqueName": "C:\\Users\\Windows\\source\\repos\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj",
         "projectName": "BadmintonBooking",
-        "projectPath": "C:\\Users\\theap\\Downloads\\swp391\\5\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj",
-        "packagesPath": "C:\\Users\\theap\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\theap\\Downloads\\swp391\\5\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\obj\\",
+        "projectPath": "C:\\Users\\Windows\\source\\repos\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\BadmintonBooking.csproj",
+        "packagesPath": "C:\\Users\\Windows\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Windows\\source\\repos\\GROUP-1_Badminton-Court-Booking-System\\BootstrapModel\\BadmintonBooking\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\theap\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Windows\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

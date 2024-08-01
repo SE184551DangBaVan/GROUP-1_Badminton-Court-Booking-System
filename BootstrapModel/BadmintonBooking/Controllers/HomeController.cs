@@ -81,7 +81,7 @@ namespace BadmintonBooking.Controllers
             return View(data);
         }
 
-        public IActionResult Book2(int page = 1, string address = "", string sortOrder = "", TimeOnly? selectedTime = null)
+        public async Task<IActionResult> Book2(int page = 1, string address = "", string sortOrder = "", TimeOnly? selectedTime = null)
         {
             int NoOfRecordPerPage = 5;
 
@@ -89,9 +89,9 @@ namespace BadmintonBooking.Controllers
             ViewBag.SelectedTime = selectedTime;
 
             // Get court list based on group
-            var data = _context.Courts.Include(c => c.TimeSlots).Include(c => c.Bookings)
-                               .Where(c => (string.IsNullOrEmpty(address) || c.CoAddress == address) && c.CoStatus==true)
-                               .ToList();
+            var data = await _context.Courts.Include(c => c.TimeSlots).Include(c => c.Bookings)
+                               .Where(c => (string.IsNullOrEmpty(address) || c.CoAddress == address) && c.CoStatus == true)
+                               .ToListAsync();
             //Search
             if (selectedTime.HasValue)
             {
@@ -147,14 +147,14 @@ namespace BadmintonBooking.Controllers
             {
                 var time = _context.Payments.FirstOrDefault(c => c.BId == booking.BId).PDateTime.AddDays(30);
                 int remain = (time - DateTime.Now).Days;
-                if(remain > 0)
+                if (remain > 0)
                 {
                     ViewData["Hours"] = booking.BTotalHours;
                     ViewData["CoId"] = booking.CoId;
                     ViewData["BookingId"] = booking.BId;
                     ViewData["Remain"] = remain;
                     ViewData["Message"] = "Your flexible booking are not yet over!";
-                }               
+                }
             }
             return View(pagedData);
         }
@@ -210,7 +210,7 @@ namespace BadmintonBooking.Controllers
         //staff section
         [Authorize]
         [Authorize(Roles = "Staff")]
-        public IActionResult Staff(int page=1, string searchTerm = "")
+        public IActionResult Staff(int page = 1, string searchTerm = "")
         {
             int NoOfRecordPerPage = 7;
 
@@ -239,7 +239,7 @@ namespace BadmintonBooking.Controllers
                     .Where(c =>
                         string.IsNullOrEmpty(searchTerm) ||
                         c.CoName.ToLower().Contains(searchTerm.ToLower()) ||
-                        c.CoInfo.ToLower().Contains(searchTerm.ToLower())||
+                        c.CoInfo.ToLower().Contains(searchTerm.ToLower()) ||
                         c.CoAddress.ToLower().Contains(searchTerm.ToLower()))
                     .ToList();
             }
@@ -256,8 +256,8 @@ namespace BadmintonBooking.Controllers
             ViewBag.Page = page;
             ViewBag.NoOfPages = NoOfPages;
             ViewBag.TotalRecords = totalRecords;
-           //ViewBag.SortOrder = sortOrder;
-           ViewBag.SearchTerm = searchTerm;
+            //ViewBag.SortOrder = sortOrder;
+            ViewBag.SearchTerm = searchTerm;
             return View(pagedData);
         }
         [Authorize]
@@ -423,18 +423,18 @@ namespace BadmintonBooking.Controllers
             return View(pagedData);
         }
         [Authorize(Roles = "Staff")]
-        public IActionResult Approve(int tsid, int bookingId,int page, string searchTerm = "",string sortOrder="")
+        public IActionResult Approve(int tsid, int bookingId, int page, string searchTerm = "", string sortOrder = "")
         {
             DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
             TimeOnly currentTime = TimeOnly.FromDateTime(DateTime.Now);
             var updated = _context.TimeSlots.FirstOrDefault(ts => ts.TsId == tsid);
-            if (currentDate<updated.TsDate)
+            if (currentDate < updated.TsDate)
             {
                 TempData["error"] = "You can not check in for future date!";
-                return RedirectToAction("Detail", new { bookingId = bookingId,page=page, searchTerm = searchTerm,sortOrder = sortOrder });
+                return RedirectToAction("Detail", new { bookingId = bookingId, page = page, searchTerm = searchTerm, sortOrder = sortOrder });
             }
 
-            if (currentTime < updated.TsStart && currentDate==updated.TsDate)
+            if (currentTime < updated.TsStart && currentDate == updated.TsDate)
             {
                 TempData["error"] = "You can not check in at this time!";
                 return RedirectToAction("Detail", new { bookingId = bookingId, page = page, searchTerm = searchTerm, sortOrder = sortOrder });
@@ -443,7 +443,7 @@ namespace BadmintonBooking.Controllers
             _context.TimeSlots.Update(updated);
             _context.SaveChanges();
             TempData["message"] = "Checked in successfully!";
-            return RedirectToAction("Detail", new { bookingId = bookingId ,page = page, searchTerm = searchTerm, sortOrder = sortOrder });
+            return RedirectToAction("Detail", new { bookingId = bookingId, page = page, searchTerm = searchTerm, sortOrder = sortOrder });
 
 
         }
@@ -466,7 +466,7 @@ namespace BadmintonBooking.Controllers
             {
                 // Search by CoId
                 data = filteredCourts
-                    .Where(c => c.CoId == searchId||c.CoPrice==searchId)
+                    .Where(c => c.CoId == searchId || c.CoPrice == searchId)
                     .ToList();
             }
             else
@@ -610,8 +610,8 @@ namespace BadmintonBooking.Controllers
                         string.IsNullOrEmpty(txtsearchTerm) ||
                         ts.Co.CoName.ToLower().Contains(txtsearchTerm) ||
                         ts.Co.CoAddress.ToLower().Contains(txtsearchTerm) ||
-                        ts.TsDate.ToString().Contains(txtsearchTerm)||
-                        ts.TsStart.ToString().Contains(txtsearchTerm)||
+                        ts.TsDate.ToString().Contains(txtsearchTerm) ||
+                        ts.TsStart.ToString().Contains(txtsearchTerm) ||
                         ts.TsEnd.ToString().Contains(txtsearchTerm))
                     .ToList();
             }
@@ -691,7 +691,7 @@ namespace BadmintonBooking.Controllers
                 UserId = rating.UserId,
                 Review = rating.Review,
                 Rating1 = rating.Rating1,
-               CreatedAt = DateTime.Now,
+                CreatedAt = DateTime.Now,
             };
             _context.Ratings.Add(ratingCourt);
             _context.SaveChanges();
@@ -732,7 +732,7 @@ namespace BadmintonBooking.Controllers
         //    return View(bookingHistory);
         //}
         [Authorize]
-        public IActionResult BookingHistory(int page=1,DateTime? startDate = null, DateTime? endDate = null)
+        public IActionResult BookingHistory(int page = 1, DateTime? startDate = null, DateTime? endDate = null)
         {
             int NoOfRecordPerPage = 2;
 
@@ -803,7 +803,7 @@ namespace BadmintonBooking.Controllers
         //    return View(validFutureTimeSlot);
         //}
         [Authorize]
-        public IActionResult UpComingEvent( string filter = null, DateTime? startDate = null, DateTime? endDate = null)
+        public IActionResult UpComingEvent(string filter = null, DateTime? startDate = null, DateTime? endDate = null)
         {
             string userID = _userManager.GetUserId(User);
             DemobadmintonContext context = new DemobadmintonContext();
@@ -852,6 +852,36 @@ namespace BadmintonBooking.Controllers
 
             return View(validFutureTimeSlot);
         }
+        public IActionResult Cancel(int bid)
+        {
+            var userId = _userManager.GetUserId(User);
+            var booking = _context.Bookings
+                .Include(x => x.TimeSlots)
+                .Include(x => x.Payments)
+                .FirstOrDefault(x => x.BId == bid && x.UserId == userId);
+            if (booking == null)
+            {
+                TempData["error"] = "Booking not found";
+                return RedirectToAction("BookingHistory");
+            }
+
+
+            foreach (var item in booking.TimeSlots)
+            {
+                if (item.TsDate < DateOnly.FromDateTime(DateTime.Today))
+                {
+                    TempData["error"] = "Cannot cancel, there are slots in the past";
+                    return RedirectToAction("BookingHistory");
+                }
+            }
+            _context.Payments.RemoveRange(booking.Payments);
+            _context.TimeSlots.RemoveRange(booking.TimeSlots);
+            _context.Bookings.Remove(booking);
+            _context.SaveChanges();
+            TempData["Message"] = "Cancel successfully";
+            return RedirectToAction("BookingHistory");
+        }
+
         public async Task<IActionResult> CourtToCheckQuality()
         {
             var court = await _context.Courts.ToListAsync();
@@ -872,11 +902,11 @@ namespace BadmintonBooking.Controllers
         [HttpPost]
         public IActionResult CourtQualityCheck(CourtQualityViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 int CourtId = int.Parse(HttpContext.Session.GetString("CoId"));
-                CourtCondition courtCondition = new CourtCondition() 
-                { 
+                CourtCondition courtCondition = new CourtCondition()
+                {
                     CdCleanlinessCondition = model.CdCleanlinessCondtion,
                     CdLightningCondition = model.CdLightningCondition,
                     CdNetCondition = model.CdNetCondition,
@@ -888,8 +918,8 @@ namespace BadmintonBooking.Controllers
                 };
                 _context.CourtConditions.Add(courtCondition);
                 _context.SaveChanges();
-                if(User.IsInRole("Staff")) return RedirectToAction("Staff", "Home");
-                if(User.IsInRole("Manager")) return RedirectToAction("Booking", "Manager");
+                if (User.IsInRole("Staff")) return RedirectToAction("Staff", "Home");
+                if (User.IsInRole("Manager")) return RedirectToAction("Booking", "Manager");
                 return RedirectToAction("CourtToCheckQuality", "Home");
             }
             return View()
@@ -898,7 +928,7 @@ namespace BadmintonBooking.Controllers
         [Authorize(Roles = "Manager")]
         public IActionResult QualityCheckHistory(int CoID)
         {
-            var qcHistory = _context.CourtConditions.Where(c => c.CoId == CoID).Include(c =>c.Co).ToList();
+            var qcHistory = _context.CourtConditions.Where(c => c.CoId == CoID).Include(c => c.Co).ToList();
             return View(qcHistory);
         }
     }
