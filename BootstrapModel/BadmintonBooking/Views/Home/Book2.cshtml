@@ -221,18 +221,18 @@
                         }
 
                         <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
-                            <a class="page-link" href="/Home/Book2?page=@PrevPage&address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder&selectTime=@ViewBag.SelectedTime">Prev</a>
+                            <a class="page-link" href="/Home/Book2?page=@PrevPage&address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder&selectedTime=@ViewBag.SelectedTime">Prev</a>
                         </li>
 
                         @for (int i = 1; i <= ViewBag.NoOfPages; i++)
                         {
                             <li class="page-item @(i == ViewBag.Page ? "active" : "")">
-                                <a class="page-link" href="/Home/Book2?page=@i&address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder&selectTime=@ViewBag.SelectedTime">@i</a>
+                                <a class="page-link" href="/Home/Book2?page=@i&address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder&selectedTime=@ViewBag.SelectedTime">@i</a>
                             </li>
                         }
 
                         <li class="page-item @(ViewBag.Page == ViewBag.NoOfPages ? "disabled" : "")">
-                            <a class="page-link" href="/Home/Book2?page=@NextPage&address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder&selectTime=@ViewBag.SelectedTime">Next</a>
+                            <a class="page-link" href="/Home/Book2?page=@NextPage&address=@ViewBag.SearchAddress&sortOrder=@ViewBag.SortOrder&selectedTime=@ViewBag.SelectedTime">Next</a>
                         </li>
                     </ul>
                 }

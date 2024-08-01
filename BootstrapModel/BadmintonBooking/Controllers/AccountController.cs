@@ -325,6 +325,7 @@ namespace demobadminton.Controllers
 
             await _signInManager.SignOutAsync();
             HttpContext.Session.Clear();
+            TempData["message"] = "Logout Successfully!";
             return RedirectToAction("Login", "Account");
         }
     /*    public string GetEmailBody(string username,string? title,string? callbackUrl,string?EmailTemplateName)
