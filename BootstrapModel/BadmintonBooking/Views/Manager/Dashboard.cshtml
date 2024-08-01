@@ -3,17 +3,17 @@
     ViewData["Title"] = "Dashboard";
     Layout = "~/Views/Shared/_ManagerLayout.cshtml";
     
-
 }
 <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
     * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: 'Poppins', sans-serif;
+        font-family: 'Oswald', sans-serif;
     }
 
     body {
@@ -28,7 +28,7 @@
         list-style: none;
     }
 
-    h1, h2 {
+    h1, h2, h4 {
         color: #444;
     }
 
@@ -41,14 +41,16 @@
         color: white;
         padding: 5px 10px;
         text-align: center;
+        transition: background 0.2s ease, color 0.2s ease, outline 0.2s ease;
     }
 
-        .btn:hover {
-            color: #f05462;
-            background: white;
-            padding: 3px 8px;
-            border: 2px solid #f05462;
-        }
+    .btn:hover {
+        color: #333;
+        background: #ddd;
+        text-shadow: none;
+        outline: 1px solid #f05462;
+        transition: background 0.3s ease, color 0.3s ease, outline 0.3s ease;
+    }
 
     .title {
         display: flex;
@@ -64,7 +66,7 @@
     }
 
     th, td {
-        text-align: left;
+        text-align: center;
         padding: 8px;
     }
 
@@ -72,7 +74,8 @@
         width: 100%;
         max-width: 1200px;
         margin: 0 auto;
-        background: #f1f1f1;
+        background: rgba(255,255,255,0.8);
+        backdrop-filter: blur(5px);
     }
 
     .header {
@@ -92,47 +95,55 @@
         .header .nav {
             width: 90%;
             display: flex;
-            align-items: center;
-            justify-content: space-between;
+            justify-content: right;
         }
 
         .header .search {
-            flex: 1;
+            width: 50%;
             display: flex;
-            align-items: center;
+            justify-content: right;
+            gap: 10px;
         }
 
-            .header .search input[type=text] {
-                border: none;
-                background: #f1f1f1;
-                padding: 10px;
-                width: 80%;
-                border-radius: 4px;
-            }
-
-            .header .search button {
-                width: 40px;
-                height: 40px;
-                border: none;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background: #f05462;
-                color: white;
-                border-radius: 4px;
-                cursor: pointer;
-            }
-
-                .header .search button img {
-                    width: 20px;
-                    height: 20px;
-                }
-
-        .header .user {
-            flex: 1;
-            display: flex;
-            justify-content: flex-end;
+        .header .search input[type=text] {
+            border: none;
+            background: #f1f1f1;
+            padding: 10px;
+            width: 80%;
+            border-radius: 4px;
         }
+
+    .header .search button {
+        width: 40px;
+        height: 40px;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f05462;
+        color: white;
+        border-radius: 4px;
+        transition: background 0.2s ease, color 0.2s ease, border-radius 0.2s ease, outline 0.2s ease;
+    }
+    .header .search button:hover {
+        background: brown;
+        outline: 2px solid black;
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s ease, color 0.3s ease, border-radius 0.3s ease;
+    }
+
+    .header .search button img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .header .user {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+    }
 
     .content {
         margin-top: 10vh;
@@ -141,19 +152,92 @@
 
     .cards {
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: row;
         gap: 20px;
+        justify-content: space-around;
+        margin-bottom: 20px;
     }
 
     .card {
-        width: calc(25% - 20px);
+        width: calc(25%);
         height: 150px;
         background: white;
         display: flex;
+        flex-direction: row;
         align-items: center;
-        justify-content: space-around;
+        justify-content: center;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         border-radius: 4px;
+    }
+
+    .card .box {
+        width: 65%;
+    }
+
+    .card .icon-case {
+        position: relative;
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+    }
+
+    .card .icon-case svg {
+        width: 100%;
+        height: 100%;
+    }
+
+    .card .icon-case svg circle {
+        transform: translate(8%,10%);
+        fill: none;
+        stroke: brown;
+        stroke-width: 14;
+        stroke-linecap: round;
+        stroke-dasharray: 200;
+        stroke-dashoffset: -30;
+    }
+
+    .card .icon-case .value {
+        color: brown;
+        position: absolute;
+        top: 0; left: 0;
+        height: 100%; width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .content .graph {
+        width: 800px;
+        height: 400px;
+        padding: 10px;
+        background: #ddd;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    canvas {
+        width: 95% !important;
+        height: 85% !important;
+    }
+
+
+    .date-filter {
+        display: flex;
+        justify-content: right;
+    }
+
+    .date-filter .d-flex {
+        display: flex;
+        gap: 10px;
+    } 
+
+    #dateFilterForm input[type="date"]{
+        display: inline-block;
+        background: #555;
+        color: white;
+        border-radius: 6px;
+        padding: 0 0 0 10px;
+        margin: 0 10px 0 0;
     }
 
     .content-2 {
@@ -191,62 +275,76 @@
                   @* <div class="card">
                     <div class="box">
                         <h1>2194</h1>
-                        <h3>Students</h3>
+                        <h3>Fixed</h3>
                     </div>
                     <div class="icon-case">
-                        <img src="students.png" alt="">
+                        <svg>
+                            <circle cx="38" cy="38" r="36"></circle>
+                        </svg>
                     </div>
                 </div>
                 <div class="card">
                     <div class="box">
                         <h1>53</h1>
-                        <h3>Teachers</h3>
+                        <h3>Flexible</h3>
                     </div>
                     <div class="icon-case">
-                        <img src="teachers.png" alt="">
+                        <svg>
+                            <circle cx="38" cy="38" r="36"></circle>
+                        </svg>
                     </div>
                 </div>
                 <div class="card">
                     <div class="box">
                         <h1>5</h1>
-                        <h3>Schools</h3>
+                        <h3>Casual</h3>
                     </div>
                     <div class="icon-case">
-                        <img src="schools.png" alt="">
+                        <svg>
+                            <circle cx="38" cy="38" r="36"></circle>
+                        </svg>
                     </div>
                 </div>  *@
                 <div class="card">
                     <div class="box">
-                        <h5>@ViewBag.TotalIncome.ToString("C")</h5>
-                        <h3>Total Income</h3>
+                        <h5><i class="fa-solid fa-chart-pie" style="color: #932C2C; text-align: center; margin: 5px;"></i>@ViewBag.TotalIncome.ToString("C")</h5>
+                        <h4>Total Income</h4>
                     </div>
                     <div class="icon-case">
-                        <img src="income.png" alt="">
+                        <svg>
+                            <circle cx="38" cy="38" r="36"></circle>
+                        </svg>
+                        <div class="value" id="incomePercentage">100%</div>
                     </div>
-                </div> 
+                </div>
+                <div class="graph">
+                    <h4>Graph</h4>
+                    <canvas id="incomeChart"></canvas>
+                </div>
+            </div>
                 <div class="date-filter">
                     <div class="d-flex">
-                    <form id="dateFilterForm" onsubmit="return validateDates()" asp-action="Dashboard" asp-controller="Manager" method="get">
+                        <form id="dateFilterForm" onsubmit="return validateDates()" asp-action="Dashboard" asp-controller="Manager" method="get">
                         
 
-                        <label for="startDate">Start Date:</label>
-                        <input type="date" id="startDate" name="startDate" value="@ViewBag.startDate" required />
-                        <label for="endDate">End Date:</label>
-                        <input type="date" id="endDate" name="endDate" value="@ViewBag.endDate" required />
+                            <label for="startDate">Start Date:</label>
+                            <input type="date" id="startDate" name="startDate" value="@ViewBag.startDate" required />
+                            <label for="endDate">End Date:</label>
+                            <input type="date" id="endDate" name="endDate" value="@ViewBag.endDate" required />
 
 
-                        <button type="submit" class="btn outline">Apply Date Filter</button>
-                    </form>
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Sort By
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="/Manager/Dashboard?page=1&startDate=@ViewBag.startDate&endDate=@ViewBag.endDate&sortOrder=income_asc">Income Ascending</a>
-                                <a class="dropdown-item" href="/Manager/Dashboard?page=1&startDate=@ViewBag.startDate&endDate=@ViewBag.endDate&sortOrder=income_desc">Income Descending</a>
-                                <a class="dropdown-item" href="/Manager/Dashboard?page=1&startDate=@ViewBag.startDate&endDate=@ViewBag.endDate&sortOrder=">Default</a>
+                            <button type="submit" class="btn outline">Apply Date Filter</button>
+                        </form>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Sort By
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="/Manager/Dashboard?page=1&startDate=@ViewBag.startDate&endDate=@ViewBag.endDate&sortOrder=income_asc">Income Ascending</a>
+                                    <a class="dropdown-item" href="/Manager/Dashboard?page=1&startDate=@ViewBag.startDate&endDate=@ViewBag.endDate&sortOrder=income_desc">Income Descending</a>
+                                    <a class="dropdown-item" href="/Manager/Dashboard?page=1&startDate=@ViewBag.startDate&endDate=@ViewBag.endDate&sortOrder=">Default</a>
+                            </div>
                         </div>
-                    </div>
 
                     </div>
                     @* <a class="" href="/Manager/Dashboard?page=1">All Time Income</a> *@
@@ -256,7 +354,7 @@
                     }
                     
                 </div>
-            </div>
+            
             @if(ViewBag.startDate==null&&ViewBag.endDate==null)
             {
                 <div><h3><b>All time income</b></h3></div>
@@ -272,10 +370,10 @@
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>No</th>
+                                            <th>No.</th>
                                             <th>Court Name</th>
+                                            <th>Users Booked</th>
                                             <th>Total Amount</th>
-                                            <th>Booked User Count</th>
                                            @*  <th>Option</th> *@
                                         </tr>
                                     </thead>
@@ -285,16 +383,17 @@
                                             <tr>
                                                 <td>@item.CoId</td>
                                                 <td>@item.CoName</td>
-                                            @if (item.TotalAmount>0)
-                                            {
-                                                <td>@item.TotalAmount.ToString("C")</td>
-                                            }else
-                                            {
-                                                <td>No data</td>
-                                            }
-                                            <td>@item.PeopleBooked</td>
+                                                <td>@item.PeopleBooked</td>
 
-                                                @* <td><a href="#" class="btn">View</a></td> *@
+                                                    @* <td><a href="#" class="btn">View</a></td> *@
+                                            
+                                                @if (item.TotalAmount>0)
+                                                {
+                                                    <td>@item.TotalAmount.ToString("C")</td>
+                                                }else
+                                                {
+                                                    <td>No data</td>
+                                                }
                                             </tr>
                                         }
                                     </tbody>
@@ -339,8 +438,9 @@
         }
         </div>
     </div>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="~/js/script.js"></script>
        <script>
         $(document).ready(function () {
@@ -364,5 +464,59 @@
 
             return true; 
         }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const totalIncomeElement = document.querySelector('#incomePercentage');
+            const totalIncome = @ViewBag.TotalIncome;
+            const goal = 100000000; // Goal amount
+            const percentage = (totalIncome / goal) * 100;
+
+            // Update value
+            totalIncomeElement.textContent = percentage.toFixed(2) + '%';
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Sample data for demonstration purposes
+            const monthlyIncome = [100000000, 200000000, 15000000, 250000000, 300000000, 500000000, 400000000, 60000000];
+            const monthlyQuota = 500000000;
+            const labels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+            const ctx = document.getElementById('incomeChart').getContext('2d');
+            const incomeChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Total Income',
+                            data: monthlyIncome,
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Monthly Quota',
+                            data: new Array(12).fill(monthlyQuota),
+                            type: 'line',
+                            fill: false,
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 2,
+                            pointRadius: 0
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
     </script>
 </body>

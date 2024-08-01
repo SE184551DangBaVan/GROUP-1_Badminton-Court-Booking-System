@@ -48,13 +48,11 @@
         .navigation {
             width: 60px;
             transition: all 0.3s ease;
-
             background-color: #343a40;
             height: 100vh;
             position: fixed;
             top: 0;
             left: 0;
-            
             overflow-x: hidden;
             overflow-y: auto;
             transition: width 0.4s ease, backdrop-filter 0.4s ease;
@@ -86,7 +84,7 @@
             width: 250px;
             transition: all 0.3s ease;
         }
-
+        .navigation.maximizes .nav-item {visibility: visible; transition: visibility 0.2s ease;}
         .navigation .nav {
             flex-direction: column;
             height: 100%;
@@ -95,16 +93,20 @@
         }
 
         .navigation .nav-item {
-            visibility: visible;
+            visibility: hidden;
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: left;
         }
+        .navigation .nav-item:last-child {
+            position: absolute;
+            bottom: 2rem;
+            width: 100%;
+        }
 
         .navigation .nav-link {
             visibility: hidden;
-
             width: 100%;
             display: flex;
             align-items: center;
@@ -119,7 +121,13 @@
             .navigation .nav-link:hover {
                 background-color: #495057;
             }
-
+            .navigation .nav-item.active:before {
+                content: "";
+                width: 6px;
+                height: 100%;
+                background:lightgray; color: lightgray; transition: width 0.3s ease;
+            }
+            .navigation .nav-item.active {background-color: #495057;}
             .navigation .nav-link.maximizes {
                 visibility: visible;
                 transition: visibility 0.3s ease;
@@ -129,7 +137,7 @@
             margin: 0;
             font-size: 2em;
             visibility: hidden;
-            transition: visibility 0.3s ease;
+            transition: visibility 0.3s ease, font-size 0.3s ease;
         }
 
         .navigation.maximizes .icon {
@@ -141,12 +149,13 @@
 
         .navigation .title {
             opacity: 0;
-            font-size: 1.1em;
-            transition: opacity 0.4s ease;
+            font-size: 1em;
+            transition: opacity 0.4s ease, font-size 0.3s ease;
         }
 
         .navigation.maximizes .title {
             opacity: 1;
+            font-size: 1.1em;
             transition: opacity 0.4s ease;
         }
 
@@ -186,6 +195,15 @@
                     link.classList.toggle('maximizes');
                 });
             });
+
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', function () {
+                    document.querySelectorAll('.nav-item').forEach(nav => {
+                        nav.classList.remove('active');
+                    });
+                    item.classList.add('active');
+                });
+            });
         });
     </script>
 </head>
@@ -194,15 +212,15 @@
     <div class="navigation-bg"></div>
     <div class="navigation">
         <ul class="nav flex-column bg-dark text-white">
-            <li class="nav-item">
-                <a class="nav-link text-white" asp-controller="home" asp-action="index">
+            <li class="nav-item @(ViewContext.RouteData.Values["controller"].ToString() == "Home" && ViewContext.RouteData.Values["action"].ToString() == "Index" ? "active" : "")">
+                <a class="nav-link text-white" asp-controller="Home" asp-action="Index">
                     <span class="icon">
                         <ion-icon name="grid-outline"></ion-icon>
                     </span>
                     <span class="title">Home Screen</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item @(ViewContext.RouteData.Values["controller"].ToString() == "Manager" && ViewContext.RouteData.Values["action"].ToString() == "Dashboard" ? "active" : "")">
                 <a class="nav-link text-white" asp-controller="Manager" asp-action="Dashboard">
                     <span class="icon">
                         <ion-icon name="document-text-outline"></ion-icon>
@@ -210,7 +228,7 @@
                     <span class="title">Dashboard</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item @(ViewContext.RouteData.Values["controller"].ToString() == "Manager" && ViewContext.RouteData.Values["action"].ToString() == "Booking" ? "active" : "")">
                 <a class="nav-link text-white" asp-controller="Manager" asp-action="Booking">
                     <span class="icon">
                         <ion-icon name="newspaper-outline"></ion-icon>
@@ -218,16 +236,15 @@
                     <span class="title">Booking</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item @(ViewContext.RouteData.Values["controller"].ToString() == "Manager" && ViewContext.RouteData.Values["action"].ToString() == "AddCourt" ? "active" : "")">
                 <a class="nav-link text-white" asp-controller="Manager" asp-action="AddCourt">
                     <span class="icon">
-                        @* <ion-icon name="add-circle-outline"></ion-icon> *@
                         <ion-icon name="home-outline"></ion-icon>
                     </span>
                     <span class="title">Court Management</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item @(ViewContext.RouteData.Values["controller"].ToString() == "Account" && ViewContext.RouteData.Values["action"].ToString() == "Logout" ? "active" : "")">
                 <a class="nav-link text-white" asp-controller="Account" asp-action="Logout">
                     <span class="icon">
                         <ion-icon name="log-out-outline"></ion-icon>
