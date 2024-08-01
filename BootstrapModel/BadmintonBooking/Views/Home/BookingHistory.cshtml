@@ -27,38 +27,72 @@
             min-height: 100vh;
         }
 
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #242526;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3A3B3C;
+            border-radius: 20px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+            transition: all 0.3s ease;
+        }
+
         .container {
             width: 100%;
             max-width: 1200px;
+            height: 1000px;
             padding: 20px;
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
-            justify-content: center;
+            justify-content: space-evenly;
             border-radius: 12px;
+            background-image: linear-gradient(to right bottom, #333333, #525252, #737373, #969696, #bbbbbb);
             border: 1px solid rgba(255, 255, 255, 0.125);
+            overflow-x: hidden;
+            overflow-y: scroll;
+            scroll-behavior: smooth;
+        }
+
+        .filter-buttons {
+            position: absolute;
+            top: 50px;
+            left: 20px;
+        }
+        .filter-buttons a {
+            background: #333;
+            color: white;
+            border-radius: 8px;
         }
 
         .event-container {
             backdrop-filter: blur(16px) saturate(180%);
             -webkit-backdrop-filter: blur(16px) saturate(180%);
-            background-color: rgba(17, 25, 40, 0.25);
+            background-color: rgba(51, 51, 51, 0.8);
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.125);
             padding: 20px;
             margin-bottom: 20px;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
             text-align: center;
-            width: 40%;
-            height: 60%;
+            width: 50%;
+            height: 40%;
         }
 
         .banner-image {
-            width: 100%;
-            max-width: 600px;
-            height: 300px;
+            width: 60%;
+            max-width: 800px;
+            height: 200px;
             border-radius: 12px;
             border: 1px solid rgba(255,255,255, 0.255);
             overflow: hidden;
@@ -71,6 +105,12 @@
                 object-fit: cover;
                 object-position: center;
             }
+
+        .event-container .courtInfo {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }.event-container .courtInfo p { margin-left: 10px; text-align: left;}
 
         h1 {
             font-family: 'Righteous', sans-serif;
@@ -154,10 +194,10 @@
 
         .date-filter {
             width: 100%;
-            max-width: 600px;
+            max-width: 800px;
             margin: 20px auto;
             padding: 20px;
-            background-color: rgba(17, 25, 40, 0.25);
+            background-color: rgba(51, 51, 51, 0.8);
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.125);
             backdrop-filter: blur(16px) saturate(180%);
@@ -166,7 +206,7 @@
 
             .date-filter form {
                 display: flex;
-                flex-wrap: wrap;
+                flex-direction: row;
                 justify-content: center;
                 align-items: center;
                 gap: 10px;
@@ -176,10 +216,12 @@
                 font-family: 'Lato', sans-serif;
                 font-size: 0.9rem;
                 color: #fff;
+                text-align: center;
             }
 
                 .date-filter input[type="date"] {
                     padding: 5px;
+                    margin: 0 20px 0 0;
                     border: 1px solid rgba(255, 255, 255, 0.125);
                     border-radius: 4px;
                     background-color: rgba(255, 255, 255, 0.1);
@@ -213,7 +255,7 @@
     <div class="container">
         @if (Model == null || !Model.Any())
         {
-            <h1><i class="fa-regular fa-face-sad-tear"></i>You haven't booked any to show any history</h1>
+            <h1><i class="fa-regular fa-face-sad-tear"></i>You haven't booked any to show it's' history</h1>
         }
         else
         {
@@ -223,14 +265,16 @@
                     <div class="banner-image">
                         <img src="/Upload/Image/@item.Co.CoPath" class="img-fluid" alt="@item.Co.CoName">
                     </div>
-                    <p>Court Name: @Html.DisplayFor(modelItem => item.Co.CoName)</p>
-                    <p>Address: @Html.DisplayFor(modelItem => item.Co.CoAddress)</p>
-                    <p>Type of Booking: @Html.DisplayFor(modelItem => item.BBookingType)</p>
-                    <p>Date of Booking: @Html.DisplayFor(modelItem => item.Payments.FirstOrDefault().PDateTime)</p>
+                    <div class="courtInfo">
+                        <p>Court Name: @Html.DisplayFor(modelItem => item.Co.CoName)</p>
+                        <p>Address: @Html.DisplayFor(modelItem => item.Co.CoAddress)</p>
+                        <p>Type of Booking: @Html.DisplayFor(modelItem => item.BBookingType)</p>
+                        <p>Date of Booking: @Html.DisplayFor(modelItem => item.Payments.FirstOrDefault().PDateTime)</p>
 
-                    <div class="button-wrapper">
-                        <a class="btn fill" asp-action="Invoice" asp-controller="PayPal" asp-route-bid="@item.BId">See Invoice</a>
-                        <a class="btn fill" asp-action="Rating" asp-controller="Home" asp-route-courtId="@item.CoId">Rate</a>
+                        <div class="button-wrapper">
+                            <a class="btn fill" asp-action="Invoice" asp-controller="PayPal" asp-route-bid="@item.BId">See Invoice</a>
+                            <a class="btn fill" asp-action="Rating" asp-controller="Home" asp-route-courtId="@item.CoId">Rate</a>
+                        </div>
                     </div>
                 </div>
             }
@@ -262,7 +306,7 @@
             </li>
         </ul>
     }
-<@* div class="container">
+@*<div class="container">
     <div class="wrapper">
         <div class="banner-image"> </div>
         <h1> Toyota Supra</h1>

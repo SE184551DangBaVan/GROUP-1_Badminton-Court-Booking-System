@@ -262,6 +262,7 @@ img {
 
 .ratings {
     max-height: 500px;
+    margin-bottom: 60px;
     overflow-y: scroll;
     overflow-x: hidden;
 }
@@ -274,7 +275,8 @@ img {
     }
 
         .ratings .reviewers .reviewers-blocks {
-            outline: 2px solid;
+            outline: 2px solid #555;
+            background: rgba(51,51,51,0.8);
             border-radius: 4px;
             margin: 0 5px 2px 5px;
         }
@@ -285,12 +287,12 @@ img {
             }
 
             .ratings .reviewers .reviewers-blocks p:nth-child(2) {
-                color: #ffd800;
+                color: #ccc;
                 font-weight: 400;
             }
 
             .ratings .reviewers .reviewers-blocks p:nth-child(3) {
-                color: #ddd;
+                color: #ffd800;
                 font-weight: 400;
             }
 
@@ -333,6 +335,29 @@ img {
     font-weight: bold;
     color: #0ff;
     text-decoration: underline 2px;
+}
+
+.card .rateBtn {
+    width: 10%;
+    position: absolute;
+    text-align: center;
+    text-decoration: none;
+    border-style: none;
+    outline: 1px solid;
+    outline-color: black;
+    background: brown;
+    padding: 3px 6px 3px 6px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: 0.3s ease;
+    bottom: 10px;
+    left: 220px;
+}
+
+.card .rateBtn:hover {
+    background: #555;
+    color: white;
+    text-shadow: 1px 2px 3px rgba(0, 0, 0, 1);
 }
 
 /* Animation for the star */

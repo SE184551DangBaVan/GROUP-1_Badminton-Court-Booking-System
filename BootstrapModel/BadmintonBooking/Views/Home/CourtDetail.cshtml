@@ -123,15 +123,15 @@
 
                         var username = context.AspNetUsers.FirstOrDefault(a => a.Id == item.UserId);
                         <div class="reviewers-blocks">
-                            <!--<p>@item.CourtId</p>-->
+                            @*@ <p>@item.CourtId</p> *@
 
                             <p>@username.UserName</p>
                             <p>@item.CreatedAt</p>
-                            <p><i class="fa-solid fa-star animated-star" style="color: #FFD43B;"></i> @item.Rating1 </p>
+                            <p>@item.Rating1<i class="fa-solid fa-star animated-star" style="color: #FFD43B;"></i></p>
                             <p>@item.Review</p>
 
 
-                            <hr />
+                            <hr/>
                         </div>
                     }
                 </div>
@@ -145,6 +145,7 @@
                     </div>
                 </div>
             </div>
+            <a class="rateBtn btn-success" href="/home/Rating?CourtId=@court.CoId">Rate</a>
         </div>
 
 
