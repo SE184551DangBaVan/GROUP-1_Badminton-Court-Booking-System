@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using Newtonsoft.Json;
 using System.Globalization;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -378,6 +379,7 @@ namespace BadmintonBooking.Controllers
             IQueryable<dynamic> resultsQuery;
             int NoOfRecordPerPage = 6;
 
+
             if (startDate.HasValue && endDate.HasValue)
             {
                 // If startDate has a value, filter payments based on PDateTime
@@ -430,6 +432,7 @@ namespace BadmintonBooking.Controllers
                     })
                     .OrderBy(c => c.CoId);
             }
+
             
             // Execute the query and get results
             var results = resultsQuery.ToList();
@@ -450,14 +453,17 @@ namespace BadmintonBooking.Controllers
 
             var totalIncome = results.Sum(r => (decimal)r.TotalAmount);
             ViewBag.TotalIncome = totalIncome;
-
+            var monthlyRevenue = GetMonthlyRevenue();
+            //ViewBag.test = monthlyRevenue;
+            ViewBag.MonthlyRevenue = JsonConvert.SerializeObject(monthlyRevenue);
             // Map the results to the view model
             var viewModel = results.Select(r => new CourtDashboardViewModel
             {
                 CoId = r.CoId,
                 CoName = r.CoName,
                 TotalAmount = r.TotalAmount,
-                PeopleBooked = r.PeopleBooked
+                PeopleBooked = r.PeopleBooked,
+                //MonthlyRevenue = monthlyRevenue.ContainsKey(r.CoId) ? monthlyRevenue[r.CoId] : new Dictionary<string, decimal>()
             });
             // Calculate total pages
             int totalRecords = viewModel.Count();
@@ -473,6 +479,39 @@ namespace BadmintonBooking.Controllers
             ViewBag.NoOfPages = NoOfPages;
             ViewBag.TotalRecords = totalRecords;
             return View(pagedData);
+        }
+        private IDictionary<int, Dictionary<string, decimal>> GetMonthlyRevenue()
+        {
+            string userID = _userManager.GetUserId(User);
+            var currentYear = DateTime.Now.Year;
+
+            // Fetch all required data into memory
+            var courts = _context.Courts.ToList();
+            var bookings = _context.Bookings.ToList();
+            var payments = _context.Payments
+                .Where(p => p.PDateTime.Year == currentYear)
+                .ToList();
+
+            // Process the data in memory
+            var courtRevenues = courts.ToDictionary(c => c.CoId, c =>
+            {
+                var relevantPayments = payments
+                    .Where(p => bookings
+                        .Any(b => b.BId == p.BId && b.CoId == c.CoId) &&
+                        p.PDateTime.Year == currentYear &&
+                        c.UserId == userID)
+                    .GroupBy(p => p.PDateTime.Month)
+                    .Select(g => new
+                    {
+                        MonthYear = $"{g.Key:D2}-{currentYear}", // Format as MM-YYYY
+                        SumAmount = g.Sum(p => p.PAmount)
+                    })
+                    .ToDictionary(x => x.MonthYear, x => x.SumAmount);
+
+                return relevantPayments;
+            });
+
+            return courtRevenues;
         }
     }
 }

@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Dashboard";
     Layout = "~/Views/Shared/_ManagerLayout.cshtml";
-    
+    // var monthlyRevenue = ViewBag.test as IDictionary<int, Dictionary<string, decimal>>;
 }
 <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
@@ -346,6 +346,7 @@
                             </div>
                         </div>
 
+
                     </div>
                     @* <a class="" href="/Manager/Dashboard?page=1">All Time Income</a> *@
                     @if(ViewBag.startDate!=null&& ViewBag.endDate!=null)
@@ -405,6 +406,31 @@
                                     <h3>No data available</h3>
                                 </div>
                             }
+                       @*  @foreach (var court in monthlyRevenue)
+                        {
+                            <tr>
+                                <td>@court.Key</td>
+                                <td>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Tháng</th>
+                                                <th>Số Tiền</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var revenue in court.Value)
+                                            {
+                                                <tr>
+                                                    <td>@revenue.Key</td>
+                                                    <td>@revenue.Value</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        } *@
                         </tbody>
                 </div>
                 
@@ -479,11 +505,29 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Sample data for demonstration purposes
-            const monthlyIncome = [100000000, 200000000, 15000000, 250000000, 300000000, 500000000, 400000000, 60000000];
-            const monthlyQuota = 500000000;
+            // Parse monthlyRevenue data from ViewBag
+            const monthlyRevenue = JSON.parse('@Html.Raw(ViewBag.MonthlyRevenue)');
+
+            // Initialize monthlyIncome array
+            const monthlyIncome = new Array(12).fill(0); // Initialize with zeroes for each month
+
+            // Iterate over monthlyRevenue to populate monthlyIncome
+            for (const [courtId, revenue] of Object.entries(monthlyRevenue)) {
+                for (const [monthYear, amount] of Object.entries(revenue)) {
+                    // Extract month from the MonthYear string
+                    const month = parseInt(monthYear.split('-')[0], 10);
+                    // Add the amount to the corresponding month (adjust for zero-based index)
+                    monthlyIncome[month - 1] += amount;
+                }
+            }
+
+            // Constants
+            const monthlyQuota = 10000000;
             const labels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
+            
+
+            // Initialize the chart
             const ctx = document.getElementById('incomeChart').getContext('2d');
             const incomeChart = new Chart(ctx, {
                 type: 'bar',
@@ -519,4 +563,5 @@
             });
         });
     </script>
+
 </body>
