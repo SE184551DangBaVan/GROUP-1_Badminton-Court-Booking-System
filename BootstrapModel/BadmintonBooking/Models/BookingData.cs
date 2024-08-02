@@ -6,6 +6,5 @@ namespace BadmintonBooking.Models
     {
         public string Time { get; set; }
         public string Date { get; set; }
-        public bool Booked { get; set; }
     }
 }

@@ -73,7 +73,6 @@ namespace BadmintonBooking.Controllers
 
                 TimeOnly time = TimeOnly.ParseExact(bookingData.Time, "h:mm tt", CultureInfo.InvariantCulture);
                 DateOnly date = DateOnly.ParseExact(bookingData.Date, "MMM d", CultureInfo.InvariantCulture);
-                bool booked = bookingData.Booked;
                 int court = int.Parse(_httpContextAccessor.HttpContext.Session.GetString("CoId"));
                 var existing = _demobadmintonContext.TimeSlots.Where(x => x.TsStart == time && x.TsDate == date && x.CoId == court);
                 if (existing.Any())
@@ -81,7 +80,7 @@ namespace BadmintonBooking.Controllers
                     return Ok(new { success = false });
                 }
 
-                Console.WriteLine($"Parsed Booking Data - Time: {time}, Date: {date}, Booked: {booked}");
+                Console.WriteLine($"Parsed Booking Data - Time: {time}, Date: {date}");
 
                 TimeSlot slot = new TimeSlot()
                 {
@@ -105,13 +104,25 @@ namespace BadmintonBooking.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateBooking(int totalWeeks, int totalHours, int totalPrice)
         {
+            int CourtId = int.Parse(_httpContextAccessor.HttpContext.Session.GetString("CoId"));
+            foreach (var item in _slots)
+            {
+                Console.WriteLine($"Parsed Booking Data - Time: {item.TsStart}, Date: {item.TsDate}");
+                var exist = await _demobadmintonContext.TimeSlots.FirstOrDefaultAsync(x => x.TsStart == item.TsStart && x.TsDate == item.TsDate && x.CoId == CourtId);
+                if (exist != null)
+                {
+                    TempData["error"] = "One of the slots is booked!";
+                    _slots.Clear();
+                    return RedirectToAction("Date","Home");
+                }
+            }
             int quantity = _slots.Count;
             string types = _httpContextAccessor.HttpContext.Session.GetString("Types");
             Booking booking = new Booking()
             {
                 UserId = _UserManager.GetUserId(User),
                 BBookingType = types,
-                CoId = int.Parse(_httpContextAccessor.HttpContext.Session.GetString("CoId")),
+                CoId = CourtId,
                 BTotalHours = totalHours,
                 BGuestName = _UserManager.GetUserName(User)
             };

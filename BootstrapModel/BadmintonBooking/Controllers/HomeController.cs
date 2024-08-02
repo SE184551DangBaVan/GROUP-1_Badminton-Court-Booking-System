@@ -28,9 +28,9 @@ namespace BadmintonBooking.Controllers
             _context = context;
         }
 
-        public IActionResult Index(string txtSearch)
+        public async Task<IActionResult> Index(string txtSearch)
         {
-            var courtlist = _context.Courts.Where(c => c.CoStatus == true).ToList();
+            var courtlist = await _context.Courts.Where(c => c.CoStatus == true).ToListAsync();
 
 
             return View(courtlist);
@@ -868,7 +868,7 @@ namespace BadmintonBooking.Controllers
 
             foreach (var item in booking.TimeSlots)
             {
-                if (item.TsDate < DateOnly.FromDateTime(DateTime.Today))
+                if (item.TsDate < DateOnly.FromDateTime(DateTime.Today) || item.TsCheckedIn == true)
                 {
                     TempData["error"] = "Cannot cancel, there are slots in the past";
                     return RedirectToAction("BookingHistory");

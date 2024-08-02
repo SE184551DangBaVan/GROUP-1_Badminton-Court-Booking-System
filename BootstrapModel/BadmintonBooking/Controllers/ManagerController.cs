@@ -116,7 +116,6 @@ namespace BadmintonBooking.Controllers
 
                 TimeOnly time = TimeOnly.ParseExact(bookingData.Time, "h:mm tt", CultureInfo.InvariantCulture);
                 DateOnly date = DateOnly.ParseExact(bookingData.Date, "MMM d", CultureInfo.InvariantCulture);
-                bool booked = bookingData.Booked;
                 int court = int.Parse(_httpContextAccessor.HttpContext.Session.GetString("CoId"));
                 var existing = _context.TimeSlots.Where(x => x.TsStart == time && x.TsDate == date && x.CoId == court);
                 if (existing.Any())
@@ -155,12 +154,22 @@ namespace BadmintonBooking.Controllers
         public async Task<IActionResult> Confirm(string Guest)
         {
             var slots = _cache.Get<List<TimeSlot>>("BookingSlots") ?? new List<TimeSlot>();
-
+            int CourtId = int.Parse(_httpContextAccessor.HttpContext.Session.GetString("CoId"));
+            foreach (var item in slots)
+            {
+                var exist = await _context.TimeSlots.FirstOrDefaultAsync(x => x.TsStart == item.TsStart && x.TsDate == item.TsDate && x.CoId == CourtId);
+                if (exist != null)
+                {
+                    TempData["error"] = "One of the slots is booked!";
+                    _cache.Remove("BookingSlots");
+                    return RedirectToAction("Date");
+                }
+            }
             var booking = new Booking()
             {
                 BBookingType = "Casual",
                 BGuestName = Guest,
-                CoId = int.Parse(_httpContextAccessor.HttpContext.Session.GetString("CoId")),
+                CoId = CourtId,
                 UserId = _userManager.GetUserId(User),
                 TimeSlots = slots
             };
