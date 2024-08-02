@@ -1,7 +1,19 @@
 ﻿@{
     ViewData["Title"] = "Payment Failed";
 }
-
-<h2>Payment Failed</h2>
-<p>We encountered an issue with your payment. Please try again later.</p>
-<a href="@Url.Action("Index", "Home")">Return to Home</a>
+<style>
+    .paymentFailed {
+        height: 100vh;
+        background-color: #242526;
+        background-position: center;
+        background-size: cover;
+        line-height: 1.6;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+    }
+</style>
+<div class="paymentFailed">
+    <h2 style="margin-top: 100px; color: white;">Payment Failed</h2>
+    <p style="color: white;">We encountered an issue with your payment. Please try again later.</p>
+    <a style="text-decoration: none; background: brown; color: white;" href="@Url.Action("Index", "Home")">Return to Home</a>
+</div>

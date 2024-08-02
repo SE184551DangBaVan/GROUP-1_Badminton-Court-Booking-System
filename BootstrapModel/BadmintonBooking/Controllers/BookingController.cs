@@ -32,10 +32,11 @@ namespace BadmintonBooking.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetPrice()
+        public async Task<IActionResult> GetPrice()
         {
             int court = int.Parse(_httpContextAccessor.HttpContext.Session.GetString("CoId"));
-            var price = _demobadmintonContext.Courts.FirstOrDefault(x => x.CoId == court).CoPrice;
+            var slot = await _demobadmintonContext.Courts.FirstOrDefaultAsync(x => x.CoId == court);
+            var price = slot.CoPrice;
             return Ok(price);
         }
 

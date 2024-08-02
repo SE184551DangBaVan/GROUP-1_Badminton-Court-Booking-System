@@ -162,7 +162,7 @@ namespace BadmintonBooking.Controllers
                 {
                     TempData["error"] = "One of the slots is booked!";
                     _cache.Remove("BookingSlots");
-                    return RedirectToAction("Date");
+                    return RedirectToAction("Booking");
                 }
             }
             var booking = new Booking()
