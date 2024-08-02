@@ -14,12 +14,12 @@
         <div class="calendar-headr">
             @if (types != "Fixed")
             {
-                <button class="navi-button" id="prev-week">&lt;</button>
+                <button class="navi-button" id="prev-week"><i class="fa-solid fa-angle-left"></i></button>
             }
             <h1 id="week-range"></h1>
             @if (types != "Fixed")
             {
-                <button class="navi-button" id="next-week">&gt;</button>
+                <button class="navi-button" id="next-week"><i class="fa-solid fa-angle-right"></i></button>
             }
         </div>
         <table id="schedule">
@@ -39,7 +39,7 @@
                 @for (var i = 9; i <= 20; i++)
                 {
                     <tr>
-                        <td>@((i > 12 ? i - 12 : i) + ":00 " + (i >= 12 ? "PM" : "AM"))</td>
+                        <td class="bookTime">@((i > 12 ? i - 12 : i) + ":00 " + (i >= 12 ? "PM" : "AM"))</td>
                         @for (var j = 0; j < 7; j++)
                         {
                             <td></td>

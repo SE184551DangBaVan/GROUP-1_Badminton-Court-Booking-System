@@ -170,4 +170,12 @@
         </section>
     </div>
 
+    <script>
+        window.addEventListener('scroll', function () {
+            const parallax = document.querySelector('body');
+            let offset = window.pageYOffset;
+            parallax.style.backgroundPositionY = offset * -0.1 + 'px';
+        });
+    </script>
+
 </body>

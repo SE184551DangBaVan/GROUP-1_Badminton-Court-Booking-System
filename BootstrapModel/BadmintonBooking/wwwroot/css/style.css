@@ -846,10 +846,11 @@ body {
 }
 
     .BookingType h2 {
+        color: #333;
         text-align: center;
         margin-bottom: 1rem;
         z-index: 2;
-        text-shadow: -0.5px -0.5px 1px #fff, -0.5px -0.5px 1px #fff, 0.5px 0.5px 1px #fff, 0.5px 0.5px 1px #fff;
+        text-shadow: -0.5px -0.5px 1px #ddd, -0.5px -0.5px 1px #333, 0.5px 0.5px 1px #fff, 0.5px 0.5px 1px #333;
     }
 
 .background-overlay {
@@ -1943,6 +1944,8 @@ body {
     width: 50%;
     margin: 150px auto;
     background: #ccc;
+    border-radius: 8px;
+    border: 5px solid #ccc;
 }
 
 .headr {
@@ -1952,11 +1955,26 @@ body {
     background-color: #efefef;
 }
 
+.calendar-headr .navi-button i {
+    font-size: 1rem;
+}
+
 .navi-button {
     cursor: pointer;
-    padding: 10px;
+    padding: 0 10px 45px 10px;
+    margin: 10px;
     font-size: 1.5em;
+    border: none;
+    height: 30px;
+    background-color: #616161;
+    color: white;
+    width: 70px;
+    text-align: center;
+    border-radius: 12px;
+    transition: background-color 0.4s ease;
 }
+
+.navi-button:hover {background-color: #393838; transition: background-color 0.3s ease;}
 
 #schedule {
     width: 100%;
@@ -1964,20 +1982,30 @@ body {
 }
 
     #schedule th, #schedule td {
-        border: 2px solid #333;
+        width: 95px;
         padding: 10px;
         text-align: center;
     }
+    #schedule th {border: 1px solid #333;}
+    #schedule .bookTime {border: 1px solid #333;}
 
-.bookable {
-    cursor: pointer;
-    background-color: #1dffba;
+#schedule td:not(.bookTime){
+    outline: 1px solid #333;
 }
-
+.bookable {
+    width: 95px;
+    cursor: pointer;
+    background-color: #A9FBFF;
+    transition: background-color 0.3s ease, border-radius 0.3s ease;
+}
+.bookable:hover {background-color: #8CD8DC; transition: background-color 0.3s ease;}
 .booked {
-    background-color: red;
+    width: 95px;
+    background-color: #890000;
     color: white;
     cursor: default;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, border-radius 0.3s ease;
 }
 
 #cancel-all {
@@ -1988,23 +2016,17 @@ body {
     margin: 20px 20px;
     font-size: 1em;
     cursor: pointer;
-    background-image: linear-gradient(to right bottom, #e91f1f, #f40053, #e7008d, #b600cb, #0041ff);
+    background-image: linear-gradient(to right bottom, #a20000, #961e19, #882d2a, #773938, #634242);
     color: #fff;
     border: none;
-    transition: all 0.4s ease;
+    transition: transform 0.4s ease;
 }
 
     #cancel-all:hover {
-        display: block;
-        margin: 20px auto;
-        padding: 10px 25px;
-        border-radius: 5px;
-        margin: 20px 20px;
-        font-size: 1em;
+        transform: scale(1.1);
         cursor: pointer;
-        background-image: linear-gradient(to right bottom, #0041ff, #b600cb, #e7008d, #f40053, #e91f1f);
-        color: #fff;
-        border: none;
+        background-image: linear-gradient(to left top, #a20000, #961e19, #882d2a, #773938, #634242);
+        transition: all 0.3s ease;
     }
 
 #payment {
@@ -2018,19 +2040,15 @@ body {
     background-image: linear-gradient(to right bottom, #7700e9, #574efb, #3b71ff, #3b8eff, #59a6ff);
     color: #fff;
     border: none;
-    transition: all 0.4s ease;
+    transition: transform 0.4s ease, background-color 0.4s ease;
 }
 
     #payment:hover {
+        transform: scale(1.1);
         display: block;
-        margin: 20px 20px;
-        padding: 10px 45px;
-        border-radius: 5px;
-        font-size: 1em;
         cursor: pointer;
         background-image: linear-gradient(to right bottom, #59a6ff, #3b8eff, #3b71ff, #574efb, #7700e9);
-        color: #fff;
-        border: none;
+        transition: transform 0.3s ease, background-color 0.3s ease;
     }
 
 .date-container1 {
