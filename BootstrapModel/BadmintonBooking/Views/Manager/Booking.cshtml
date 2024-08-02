@@ -87,13 +87,15 @@
                                             using var context = new DemobadmintonContext();
                                             var ratingsListForCourt = context.Ratings.Where(r => r.CourtId == court.CoId).Select(r => r.Rating1).ToList();
                                             var ratingAvg = ratingsListForCourt.Average();
+                                                string roundedRatingAvg = ratingAvg.HasValue
+                                                ? Math.Round(ratingAvg.Value, 2).ToString("F2") : "0";
 
                                                 var today = DateTime.Today;
                                                 var todayReport = context.CourtConditions
                                                 .Where(cc => cc.CoId == court.CoId && cc.CdCreatedAt.Date == today)
                                                 .FirstOrDefault();
                                         }
-                                            <p class="card-text"><i class="fa-solid fa-star fa-spin" style="color: #FFD43B;"></i>@ratingAvg (@ratingsListForCourt.Count())</p>
+                                            <p class="card-text"><i class="fa-solid fa-star fa-spin" style="color: #FFD43B;"></i>@roundedRatingAvg (@ratingsListForCourt.Count())</p>
                                             @if (todayReport == null)
                                             {
                                                 <p class="card-text text-warning"><i class="fa-solid fa-exclamation-circle"></i> No report submitted for today yet</p>
